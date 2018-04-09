@@ -1,0 +1,70 @@
+import React from 'react';
+import Flux from '@4geeksacademy/react-flux-dash';
+import {
+  Container,
+  Col,
+  Row,
+  Button,
+  Form,
+  FormGroup,
+  Card,
+  CardBody,
+  CardTitle,
+  Input
+} from 'reactstrap';
+
+export class Login extends Flux.View {
+
+  constructor() {
+    super();
+    this.state = {
+      email: '',
+      password: ''
+    };
+  }
+
+  render() {
+    return (<Container>
+      <Row>
+        <Col md={{
+            size: 4,
+            offset: 2
+          }}>
+          <h2 className="text-left">Ambitioni dedisse scripsisse iudicaretur.</h2>
+          <p className="text-left">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
+        </Col>
+        <Col md={{
+            size: 4
+          }}>
+          <Card>
+            <CardBody>
+              <CardTitle tag="h1" className="text-center">Login</CardTitle>
+              <Form onSubmit={(evt) => this.login(evt)}>
+                <FormGroup>
+                  <Input type="email" name="email" id="email" placeholder="Email" value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})}/>
+                </FormGroup>
+                <FormGroup>
+                  <Input type="password" name="password" id="password" placeholder="Password" value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})}/>
+                </FormGroup>
+                <FormGroup>
+                  <Button color="primary" type="submit" size="lg" block>Login</Button>
+                </FormGroup>
+                <FormGroup>
+                  <a href="#">
+                    <p className="text-center">Recover Password</p>
+                  </a>
+                </FormGroup>
+              </Form>
+            </CardBody>
+          </Card>
+        </Col>
+      </Row>
+    </Container>);
+  }
+
+  login(evt) {
+    console.log("Login", evt);
+    evt.preventDefault();
+    this.props.history.push('/pages');
+  }
+}
