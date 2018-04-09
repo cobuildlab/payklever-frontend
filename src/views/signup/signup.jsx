@@ -1,6 +1,9 @@
 import React from 'react';
 import Flux from '@4geeksacademy/react-flux-dash';
 import {
+  I18n
+} from 'react-i18next';
+import {
   Container,
   Col,
   Row,
@@ -27,7 +30,7 @@ export class Signup extends Flux.View {
   }
 
   render() {
-    return (<Container>
+    return (<I18n>{(t, { i18n }) => (<Container>
       <Row>
         <Col md={{
             size: 4,
@@ -41,29 +44,29 @@ export class Signup extends Flux.View {
           }}>
           <Card>
             <CardBody>
-              <CardTitle tag="h1" className="text-center">Sign Up</CardTitle>
-              <Form onSubmit={(evt) => this.signup(evt)}>
+              <CardTitle tag="h1" className="text-center">{ t('SIGNUP.signup') }</CardTitle>
+              <Form onSubmit={(evt) => this.signup(evt)} noValidate>
                 <FormGroup>
-                  <Input type="text" name="name" id="name" placeholder="Name" value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})}/>
+                  <Input type="text" name="name" id="name" placeholder={ t('SIGNUP.name') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})}/>
                 </FormGroup>
                 <FormGroup>
-                  <Input type="email" name="email" id="email" placeholder="Email" value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})}/>
+                  <Input type="email" name="email" id="email" placeholder={ t('SIGNUP.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})}/>
                 </FormGroup>
                 <FormGroup>
-                  <Input type="password" name="password" id="password" placeholder="Password" value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})}/>
+                  <Input type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})}/>
                 </FormGroup>
                 <FormGroup>
-                  <Input type="password" name="repeatPassword" id="repeatPassword" placeholder="Repeat Password" value={this.state.repeatPassword} onChange={(evt) => this.setState({repeatPassword: evt.target.value})}/>
+                  <Input type="password" name="repeatPassword" id="repeatPassword" placeholder={ t('SIGNUP.repeatPassword') } value={this.state.repeatPassword} onChange={(evt) => this.setState({repeatPassword: evt.target.value})}/>
                 </FormGroup>
                 <FormGroup check>
                   <Label check>
                     <Input type="checkbox"/>{' '}
-                    <a href="#">Privacy Policy</a>
+                    <a href="#">{ t('SIGNUP.privacyPolicy') }</a>
                   </Label>
                 </FormGroup>
                 <FormGroup>
                   <Button color="primary" type="submit" size="lg" block>
-                    Sign Up
+                    { t('SIGNUP.signup') }
                   </Button>
                 </FormGroup>
               </Form>
@@ -71,7 +74,7 @@ export class Signup extends Flux.View {
           </Card>
         </Col>
       </Row>
-    </Container>);
+    </Container>)}</I18n>)
   }
 
   signup(evt) {

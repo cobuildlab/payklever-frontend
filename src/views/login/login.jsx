@@ -1,5 +1,6 @@
 import React from 'react';
 import Flux from '@4geeksacademy/react-flux-dash';
+import { I18n } from 'react-i18next';
 import {
   Container,
   Col,
@@ -24,7 +25,8 @@ export class Login extends Flux.View {
   }
 
   render() {
-    return (<Container>
+    return (
+      <I18n>{(t, { i18n }) => (<Container>
       <Row>
         <Col md={{
             size: 4,
@@ -38,20 +40,20 @@ export class Login extends Flux.View {
           }}>
           <Card>
             <CardBody>
-              <CardTitle tag="h1" className="text-center">Login</CardTitle>
-              <Form onSubmit={(evt) => this.login(evt)}>
+              <CardTitle tag="h1" className="text-center">{ t('LOGIN.login') }</CardTitle>
+              <Form onSubmit={(evt) => this.login(evt)} noValidate>
                 <FormGroup>
-                  <Input type="email" name="email" id="email" placeholder="Email" value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})}/>
+                  <Input type="email" name="email" id="email" placeholder={ t('LOGIN.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})}/>
                 </FormGroup>
                 <FormGroup>
-                  <Input type="password" name="password" id="password" placeholder="Password" value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})}/>
+                  <Input type="password" name="password" id="password" placeholder={ t('LOGIN.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})}/>
                 </FormGroup>
                 <FormGroup>
-                  <Button color="primary" type="submit" size="lg" block>Login</Button>
+                  <Button color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
                 </FormGroup>
                 <FormGroup>
                   <a href="#">
-                    <p className="text-center">Recover Password</p>
+                    <p className="text-center">{ t('LOGIN.recoverPassword') }</p>
                   </a>
                 </FormGroup>
               </Form>
@@ -59,7 +61,7 @@ export class Login extends Flux.View {
           </Card>
         </Col>
       </Row>
-    </Container>);
+    </Container> )}</I18n>)
   }
 
   login(evt) {

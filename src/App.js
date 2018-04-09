@@ -1,5 +1,6 @@
 import React from 'react';
 import Flux from '@4geeksacademy/react-flux-dash';
+import i18next from './i18n/i18n';
 import {
   BrowserRouter as Router,
   Route,
