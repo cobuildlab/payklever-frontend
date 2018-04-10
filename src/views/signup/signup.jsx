@@ -17,7 +17,7 @@ import {
   Label
 } from 'reactstrap';
 
-export class Signup extends Flux.View {
+class Signup extends Flux.View {
 
   constructor() {
     super();
@@ -83,3 +83,5 @@ export class Signup extends Flux.View {
     this.props.history.push('/login');
   }
 }
+
+export default Signup;

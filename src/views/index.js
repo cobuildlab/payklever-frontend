@@ -1,4 +1,4 @@
-export { Login } from './login/login';
-export { Signup } from './signup/signup';
-export { Base } from './base/base';
-export { CamPaignManager } from './campaign-manager/campaign-manager';
+export { default as Login } from './login/login';
+export { default as Signup } from './signup/signup';
+export { default as Base } from './base/base';
+export { default as CampaignManager } from './campaign-manager/campaign-manager';

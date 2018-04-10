@@ -1,7 +1,7 @@
 import React from 'react';
 import Flux from '@4geeksacademy/react-flux-dash';
 
-export class CamPaignManager extends Flux.View {
+class CampaignManager extends Flux.View {
   render() {
     return (
       <div>
@@ -10,3 +10,5 @@ export class CamPaignManager extends Flux.View {
     );
   }
 }
+
+export default CampaignManager;

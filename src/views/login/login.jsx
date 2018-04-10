@@ -14,7 +14,7 @@ import {
   Input
 } from 'reactstrap';
 
-export class Login extends Flux.View {
+class Login extends Flux.View {
 
   constructor() {
     super();
@@ -70,3 +70,5 @@ export class Login extends Flux.View {
     this.props.history.push('/pages');
   }
 }
+
+export default Login;
