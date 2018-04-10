@@ -1,6 +1,9 @@
 import React from 'react';
 import Flux from '@4geeksacademy/react-flux-dash';
-import { I18n } from 'react-i18next';
+import {
+  I18n
+} from 'react-i18next';
+import loginActions from './login.actions';
 import {
   Container,
   Col,
@@ -20,7 +23,7 @@ class Login extends Flux.View {
     super();
     this.state = {
       email: '',
-      password: ''
+      password: '',
     };
   }
 
@@ -67,7 +70,10 @@ class Login extends Flux.View {
   login(evt) {
     console.log("Login", evt);
     evt.preventDefault();
-    this.props.history.push('/pages');
+    loginActions.login({
+      email: this.state.email,
+      password: this.state.password
+    });
   }
 }
 

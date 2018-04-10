@@ -4,7 +4,6 @@ import {
   AuthStore
 } from './stores/index';
 import {
-  Route,
   Redirect,
 } from 'react-router-dom';
 import './App.css';
@@ -19,13 +18,21 @@ import {
   AdminRoute,
   ClientRoute,
 } from './views/index';
+import appActions from './App.actions';
 
 class App extends Flux.View {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      user: AuthStore.getUser(),
+      user: this.getCachedUser(),
     };
+
+    this.bindStore(AuthStore, 'USER_ADDED', function() {
+      this.state.user = AuthStore.getUser();
+      props.history.push('/client');
+    });
+
+    if (this.state.user.token) appActions.setCachedUser(this.state.user);
   }
 
   render() {
@@ -41,6 +48,12 @@ class App extends Flux.View {
         <ClientRoute path="/client" component={ClientPages}/>
       </div>
     );
+  }
+
+  getCachedUser() {
+    return (typeof localStorage.getItem('user') === 'string') ?
+      JSON.parse(localStorage.getItem('user')) :
+      {};
   }
 }
 

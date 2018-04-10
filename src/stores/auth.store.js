@@ -4,17 +4,13 @@ class AuthStore extends Flux.Store {
   constructor() {
     super();
     this.state = {
-      user: {
-        name: 'Jose Villalobos',
-        token: 'fawifawfoiahw',
-        isAdmin: true,
-      },
+      user: {},
     }
   }
 
   _setUser(user) {
     this.setStoreState({
-      user: user
+      user: user,
     }).emit('USER_ADDED');
   }
 

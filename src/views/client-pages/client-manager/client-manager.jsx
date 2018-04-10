@@ -5,7 +5,7 @@ class ClientManager extends Flux.View {
   render() {
     return (
       <div>
-        CamPaignManager View
+        ClientManager View
       </div>
     );
   }

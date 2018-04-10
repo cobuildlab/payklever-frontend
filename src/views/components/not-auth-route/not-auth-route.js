@@ -10,7 +10,7 @@ const NotAuthRoute = ({ component: Component, ...rest }) => (
     (AuthStore.isAuthenticated() === false)
     ? <Component {...props} /> :
     <Redirect to={{
-        pathname: '/pages',
+        pathname: '/client',
         state: { from: props.location }
       }} />
   )} />
