@@ -23,16 +23,12 @@ import appActions from './App.actions';
 class App extends Flux.View {
   constructor(props) {
     super(props);
-    this.state = {
-      user: this.getCachedUser(),
-    };
 
     this.bindStore(AuthStore, 'USER_ADDED', function() {
-      this.state.user = AuthStore.getUser();
       props.history.push('/client');
     });
 
-    if (this.state.user.token) appActions.setCachedUser(this.state.user);
+    this.getCachedUser();
   }
 
   render() {
@@ -51,9 +47,10 @@ class App extends Flux.View {
   }
 
   getCachedUser() {
-    return (typeof localStorage.getItem('user') === 'string') ?
-      JSON.parse(localStorage.getItem('user')) :
-      {};
+    const cachedUser = (typeof localStorage.getItem('user') === 'string') ?
+      JSON.parse(localStorage.getItem('user')) : {};
+
+    if (cachedUser.token) appActions.setCachedUser(cachedUser);
   }
 }
 
