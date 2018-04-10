@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from "react-router-dom";
-import Base from './base';
+import ClientManager from './client-manager';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Router><Base match={{isExact: false}}/></Router>, div);
+  ReactDOM.render(<ClientManager />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

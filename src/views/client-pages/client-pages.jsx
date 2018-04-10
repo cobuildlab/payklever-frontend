@@ -6,25 +6,25 @@ import {
   NavbarBrand
 } from 'reactstrap';
 import {
-  CampaignManager
-} from '../index';
+  ClientManager
+} from './index';
 
-class Base extends Flux.View {
+class ClientPages extends Flux.View {
   render() {
     if (this.props.match.isExact) {
-      return <Redirect to="/pages/campaign-manager" />
+      return <Redirect to="/client/client-manager" />
     }
 
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand>Payklever</NavbarBrand>
+          <NavbarBrand>Payklever Client</NavbarBrand>
         </Navbar>
 
-        <Route exact path="/pages/campaign-manager" component={CampaignManager}/>
+        <Route exact path="/client/client-manager" component={ClientManager}/>
       </div>
     );
   }
 }
 
-export default Base;
+export default ClientPages;
