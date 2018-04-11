@@ -1,5 +1,50 @@
+html {
+  height: 100%;
+  margin: 0;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+}
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0 !important;
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #787979;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0);
+}
+.btn-primary {
+    color: #fff;
+    background-color: #75c044;
+    border-color: #75c044;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #75c044;
+    border-color: #75c044;
+    opacity: 0.8;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #75c044;
+    border-color: #75c044;
+}
+.btn-primary.focus, .btn-primary:focus {
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0);
 }

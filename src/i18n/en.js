@@ -1,6 +1,6 @@
 export default {
   LOGIN: {
-    login: 'Login',
+    login: 'Log In',
     email: 'Email',
     password: 'Password',
     recoverPassword: 'Recover Password',
