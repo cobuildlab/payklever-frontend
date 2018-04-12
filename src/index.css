@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 html {
   height: 100%;
   margin: 0;
@@ -5,7 +6,9 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
 }
 .card {
     position: relative;
@@ -32,12 +35,14 @@ body {
     color: #fff;
     background-color: #75c044;
     border-color: #75c044;
+    transition: all .3s ease 0s;
 }
 .btn-primary:hover {
     color: #fff;
     background-color: #75c044;
     border-color: #75c044;
     opacity: 0.8;
+    transition: all .3s ease 0s;
 }
 .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
     color: #fff;
