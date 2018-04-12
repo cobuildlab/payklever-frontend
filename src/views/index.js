@@ -1,5 +1,5 @@
-export { default as Login } from './login/login';
-export { default as Signup } from './signup/signup';
-export { default as AdminPages } from './admin-pages/admin-pages';
-export { default as ClientPages } from './client-pages/client-pages';
+export { Login } from './login';
+export { Signup } from './signup';
+export { AdminPages } from './admin-pages';
+export { ClientPages } from './client-pages';
 export * from './components';
