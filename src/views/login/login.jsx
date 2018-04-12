@@ -5,7 +5,10 @@ import {
 } from 'react-i18next';
 import loginActions from './login.actions';
 import './login.css';
-import Logo from '../../assets/img/logoWhite.png'
+import {
+  WhiteLogo,
+  PaykleverBg,
+} from '../../assets';
 
 import {
   Container,
@@ -30,12 +33,26 @@ class Login extends Flux.View {
     };
   }
 
+  componentDidMount() {
+    document.body.style.backgroundImage = `url(${PaykleverBg})`;
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundSize = 'cover';
+  }
+
+  componentWillUnmount() {
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundRepeat = '';
+    document.body.style.backgroundPosition = '';
+    document.body.style.backgroundSize = '';
+  }
+
   render() {
     return (
       <I18n>{(t, { i18n }) => (<Container>
       <Row>
         <Col className="contentLogo text-center"  md={{size: 12,}}>
-          <img src={Logo} width="400" alt="payklever"/>
+          <img src={WhiteLogo} width="400" alt="payklever"/>
         </Col>
         <Col md={{
             size: 4,

@@ -16,6 +16,10 @@ import {
   Input,
   Label
 } from 'reactstrap';
+import {
+  WhiteLogo,
+  PaykleverBg,
+} from '../../assets';
 
 class Signup extends Flux.View {
 
@@ -29,9 +33,26 @@ class Signup extends Flux.View {
     };
   }
 
+  componentDidMount() {
+    document.body.style.backgroundImage = `url(${PaykleverBg})`;
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundSize = 'cover';
+  }
+
+  componentWillUnmount() {
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundRepeat = '';
+    document.body.style.backgroundPosition = '';
+    document.body.style.backgroundSize = '';
+  }
+
   render() {
     return (<I18n>{(t, { i18n }) => (<Container>
       <Row>
+        <Col className="text-center"  md={{size: 12,}}>
+          <img src={WhiteLogo} width="400" alt="payklever"/>
+        </Col>
         <Col md={{
             size: 4,
             offset: 2
