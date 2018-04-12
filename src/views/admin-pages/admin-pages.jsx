@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 import {
   CampaignManager
-} from './index';
+} from './';
 
 class AdminPages extends Flux.View {
   render() {

@@ -1,1 +1,2 @@
-export { default as CampaignManager } from './campaign-manager/campaign-manager';
+export { default as AdminPages } from './admin-pages';
+export { CampaignManager } from './campaign-manager';
