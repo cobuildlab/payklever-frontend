@@ -1,1 +1,2 @@
-export { default as ClientManager } from './client-manager/client-manager';
+export { default as ClientPages } from './client-pages';
+export { ClientManager } from './client-manager';

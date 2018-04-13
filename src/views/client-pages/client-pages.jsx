@@ -7,7 +7,7 @@ import {
 } from 'reactstrap';
 import {
   ClientManager
-} from './index';
+} from './';
 
 class ClientPages extends Flux.View {
   render() {

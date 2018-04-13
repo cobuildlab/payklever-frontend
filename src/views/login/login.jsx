@@ -79,7 +79,7 @@ class Login extends Flux.View {
                   <Button color="primary" className="mt-4" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
                 </FormGroup>
                 <FormGroup>
-                  <a href="#">
+                  <a className="recover">
                     <p className="text-center">{ t('LOGIN.recoverPassword') }</p>
                   </a>
                 </FormGroup>

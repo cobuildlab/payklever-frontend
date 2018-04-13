@@ -1,24 +1,22 @@
 import React from 'react';
 import Flux from '@4geeksacademy/react-flux-dash';
+import appActions from './App.actions';
+import './App.css';
 import {
   AuthStore
-} from './stores/index';
+} from './stores';
 import {
   Redirect,
 } from 'react-router-dom';
-import './App.css';
 import {
   Login,
   Signup,
   AdminPages,
   ClientPages,
-} from './views/index';
-import {
   NotAuthRoute,
   AdminRoute,
   ClientRoute,
-} from './views/index';
-import appActions from './App.actions';
+} from './views';
 
 class App extends Flux.View {
   constructor(props) {

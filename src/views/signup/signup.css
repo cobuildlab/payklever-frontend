@@ -1,5 +1,5 @@
 .contentLogo{
-  margin-top: 200px;
+  margin-top: 100px;
   margin-bottom: 150px;
 }
 .title{
@@ -44,10 +44,11 @@
 .logo{
   width: 400px;
 }
-.recover{
+.terminos{
   color: #787979;
   cursor: pointer;
   transition: all .3s ease 0s;
+  margin-bottom: 20px;
 }
 .recover:hover{
   color: #787979;

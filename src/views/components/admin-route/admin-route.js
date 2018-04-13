@@ -3,7 +3,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import { AuthStore } from '../../../stores/index';
+import { AuthStore } from '../../../stores';
 
 const AdminRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
