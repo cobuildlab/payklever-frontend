@@ -51,7 +51,7 @@ class Login extends Flux.View {
     return (
       <I18n>{(t, { i18n }) => (<Container>
       <Row>
-        <Col className="contentLogo text-center"  md={{size: 12,}}>
+        <Col className="Login-contentLogo text-center"  md={{size: 12,}}>
           <img src={WhiteLogo} width="400" alt="payklever"/>
         </Col>
         <Col md={{
