@@ -20,6 +20,7 @@ import {
   AvFeedback,
 } from 'availity-reactstrap-validation';
 import signupActions from './signup.actions';
+import { SignupForm } from './signup.classes';
 
 
 class Signup extends Flux.View {
@@ -102,20 +103,10 @@ class Signup extends Flux.View {
 
     signupActions.signup(signupForm)
       .then((res) => {
-        console.log('done', res);
         this.props.history.push('/login');
       })
       .catch((err) => console.log('err', err));
   }
 }
-
-const SignupForm = class {
-  constructor(firstname, lastname, email, password) {
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.email = email;
-    this.password = password;
-  }
-};
 
 export default Signup;

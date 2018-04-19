@@ -5,8 +5,6 @@ class LoginActions extends Flux.Action {
   login(loginForm) {
     return postData('/accounts/login', loginForm)
     .then((res) => {
-      localStorage.setItem('user', JSON.stringify(res.user));
-      localStorage.setItem('token', JSON.stringify(res.token));
       this.dispatch('AuthStore.setUser', res);
     })
     .catch((err) => {

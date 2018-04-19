@@ -1,15 +1,32 @@
+import i18next from '../i18n/i18n';
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 export function postData(url, data) {
-  return fetch(`${API_URL}${url}`, {
-      body: JSON.stringify(data),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-    })
-    .then(checkStatus);
+  return new Promise((resolve, reject) => {
+    checkConnection();
+
+    return fetch(`${API_URL}${url}`, {
+        body: JSON.stringify(data),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+      })
+      .then(checkStatus)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err));
+  });
+}
+
+/*
+check if there's internet connection
+ */
+function checkConnection() {
+  if (!navigator.onLine) {
+    throw new Error(i18next.t('FETCH.noInternet'));
+  };
 }
 
 /*

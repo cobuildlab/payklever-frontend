@@ -10,6 +10,9 @@ class AuthStore extends Flux.Store {
   }
 
   _setUser(data) {
+    localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('token', JSON.stringify(data.token));
+
     this.setStoreState({
       user: data.user,
       token: data.token,
@@ -25,6 +28,15 @@ class AuthStore extends Flux.Store {
 
   getUser() {
     return this.state.user;
+  }
+
+  getCachedUser() {
+    return {
+      user: (typeof localStorage.getItem('user') === 'string') ?
+        JSON.parse(localStorage.getItem('user')) : {},
+      token: (typeof localStorage.getItem('token') === 'string') ?
+        JSON.parse(localStorage.getItem('token')) : '',
+    };
   }
 
   getToken() {

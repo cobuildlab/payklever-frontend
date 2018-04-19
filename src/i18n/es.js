@@ -21,5 +21,8 @@ export default {
     invalidPassword: 'Caracteres: min: 8, max: 12',
     passwordNotMatch: 'Las Contraseñas no coinciden',
     acceptPrivacy: 'Debes aceptar las Políticas de Privacidad',
-  }
+  },
+  FETCH: {
+    noInternet: 'Verifica tu conexión a internet e intentalo de nuevo',
+  },
 }
