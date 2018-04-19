@@ -1,16 +1,17 @@
 import Flux from '@4geeksacademy/react-flux-dash';
+import { postData } from '../../fetch';
 
 class LoginActions extends Flux.Action {
   login(loginForm) {
-    //: TODO fetch login API to get user data
-    const user = {
-        email: loginForm.email,
-        token: 'fawifawfoiahw',
-        isAdmin: (loginForm.email === 'admin'),
-    };
-
-    localStorage.setItem('user', JSON.stringify(user));
-    this.dispatch('AuthStore.setUser', user);
+    return postData('/accounts/login', loginForm)
+    .then((res) => {
+      localStorage.setItem('user', JSON.stringify(res.user));
+      localStorage.setItem('token', JSON.stringify(res.token));
+      this.dispatch('AuthStore.setUser', res);
+    })
+    .catch((err) => {
+      console.log('loginError', err);
+    })
   }
 }
 
