@@ -9,13 +9,16 @@ import {
   Col,
   Row,
   Button,
-  Form,
-  FormGroup,
   Card,
   CardBody,
   CardTitle,
-  Input
 } from 'reactstrap';
+import {
+  AvForm,
+  AvGroup,
+  AvInput,
+  AvFeedback,
+} from 'availity-reactstrap-validation';
 
 class Login extends Flux.View {
 
@@ -44,22 +47,24 @@ class Login extends Flux.View {
           <Card>
             <CardBody>
               <CardTitle tag="h1" className="text-center">{ t('LOGIN.login') }</CardTitle>
-              <Form onSubmit={(evt) => this.login(evt)} noValidate>
-                <FormGroup>
-                  <Input type="email" name="email" id="email" placeholder={ t('LOGIN.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})}/>
-                </FormGroup>
-                <FormGroup>
-                  <Input type="password" name="password" id="password" placeholder={ t('LOGIN.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})}/>
-                </FormGroup>
-                <FormGroup>
+              <AvForm onValidSubmit={(evt) => this.login(evt)} noValidate>
+                <AvGroup>
+                  <AvInput type="email" name="email" id="email" placeholder={ t('LOGIN.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} required/>
+                  <AvFeedback>{ t('LOGIN.invalidEmail') }</AvFeedback>
+                </AvGroup>
+                <AvGroup>
+                  <AvInput type="password" name="password" id="password" placeholder={ t('LOGIN.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} required/>
+                  <AvFeedback>{ t('LOGIN.passwordRequired') }</AvFeedback>
+                </AvGroup>
+                <AvGroup>
                   <Button color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
-                </FormGroup>
-                <FormGroup>
+                </AvGroup>
+                <AvGroup>
                   <a href="#">
                     <p className="text-center">{ t('LOGIN.recoverPassword') }</p>
                   </a>
-                </FormGroup>
-              </Form>
+                </AvGroup>
+              </AvForm>
             </CardBody>
           </Card>
         </Col>
@@ -68,8 +73,6 @@ class Login extends Flux.View {
   }
 
   login(evt) {
-    console.log("Login", evt);
-    evt.preventDefault();
     loginActions.login({
       email: this.state.email,
       password: this.state.password

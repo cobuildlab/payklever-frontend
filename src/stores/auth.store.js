@@ -5,21 +5,46 @@ class AuthStore extends Flux.Store {
     super();
     this.state = {
       user: {},
+      token: '',
     }
   }
 
-  _setUser(user) {
+  _setUser(data) {
+    localStorage.setItem('user', JSON.stringify(data.user));
+    localStorage.setItem('token', JSON.stringify(data.token));
+
     this.setStoreState({
-      user: user,
+      user: data.user,
+      token: data.token,
     }).emit('USER_ADDED');
+  }
+
+  _removeUser(data) {
+    this.setStoreState({
+      user: {},
+      token: '',
+    }).emit('USER_REMOVED');
   }
 
   getUser() {
     return this.state.user;
   }
 
+  getCachedUser() {
+    return {
+      user: (typeof localStorage.getItem('user') === 'string') ?
+        JSON.parse(localStorage.getItem('user')) : {},
+      token: (typeof localStorage.getItem('token') === 'string') ?
+        JSON.parse(localStorage.getItem('token')) : '',
+    };
+  }
+
+  getToken() {
+    return this.state.token;
+  }
+
   isAuthenticated() {
-    return (typeof this.state.user.token === 'string');
+    return (this.state.token.length > 0);
   }
 
   isAdmin() {

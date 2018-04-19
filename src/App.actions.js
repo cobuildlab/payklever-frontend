@@ -1,8 +1,8 @@
 import Flux from '@4geeksacademy/react-flux-dash';
 
 class AppActions extends Flux.Action {
-  setCachedUser(user) {
-    this.dispatch('AuthStore.setUser', user);
+  setCachedUser(data) {
+    this.dispatch('AuthStore.setUser', data);
   }
 }
 

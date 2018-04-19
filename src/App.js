@@ -45,8 +45,7 @@ class App extends Flux.View {
   }
 
   getCachedUser() {
-    const cachedUser = (typeof localStorage.getItem('user') === 'string') ?
-      JSON.parse(localStorage.getItem('user')) : {};
+    const cachedUser = AuthStore.getCachedUser();
 
     if (cachedUser.token) appActions.setCachedUser(cachedUser);
   }
