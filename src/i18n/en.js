@@ -22,6 +22,18 @@ export default {
     passwordNotMatch: 'Passwords do not match',
     acceptPrivacy: 'You must accept Privacy Policy',
   },
+  PROFILE: {
+    profile: 'Profile',
+    editProfile: 'Edit Profile',
+    paymentMethods: 'Payment Methods',
+    accounts: 'Accounts',
+  },
+  ACCOUNTS: {
+    addAccount: 'Add Account'
+  },
+  PAYMENT_METHODS: {
+    addPayment: 'Add Payment Method',
+  },
   FETCH: {
     noInternet: 'Check your internet connection and try again',
   },

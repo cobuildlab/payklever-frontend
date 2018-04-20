@@ -6,7 +6,8 @@ import {
   NavbarBrand
 } from 'reactstrap';
 import {
-  ClientManager
+  ClientManager,
+  Profile,
 } from './';
 
 class ClientPages extends Flux.View {
@@ -22,6 +23,7 @@ class ClientPages extends Flux.View {
         </Navbar>
 
         <Route exact path="/client/client-manager" component={ClientManager}/>
+        <Route path="/client/profile" component={Profile}/>
       </div>
     );
   }

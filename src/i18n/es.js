@@ -22,6 +22,18 @@ export default {
     passwordNotMatch: 'Las Contraseñas no coinciden',
     acceptPrivacy: 'Debes aceptar las Políticas de Privacidad',
   },
+  PROFILE: {
+    profile: 'Perfil',
+    editProfile: 'Editar Perfil',
+    paymentMethods: 'Métodos de Pago',
+    accounts: 'Cuentas',
+  },
+  ACCOUNTS: {
+    addAccount: 'Agregar Cuenta'
+  },
+  PAYMENT_METHODS: {
+    addPayment: 'Agregar Método de Pago',
+  },
   FETCH: {
     noInternet: 'Verifica tu conexión a internet e intentalo de nuevo',
   },

@@ -5,6 +5,9 @@ import {
 } from 'react-i18next';
 import loginActions from './login.actions';
 import {
+  AuthStore
+} from '../../stores';
+import {
   Container,
   Col,
   Row,
@@ -22,12 +25,17 @@ import {
 
 class Login extends Flux.View {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
       email: '',
       password: '',
     };
+
+    this.bindStore(AuthStore, 'USER_ADDED', function() {
+      props.history.push('/client');
+    });
   }
 
   render() {

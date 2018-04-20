@@ -21,11 +21,6 @@ import {
 class App extends Flux.View {
   constructor(props) {
     super(props);
-
-    this.bindStore(AuthStore, 'USER_ADDED', function() {
-      props.history.push('/client');
-    });
-
     this.getCachedUser();
   }
 

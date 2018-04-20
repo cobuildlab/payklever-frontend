@@ -3,7 +3,7 @@ import { postData } from '../../fetch';
 
 class SignupActions extends Flux.Action {
   signup(signupForm) {
-    return postData('/accounts/register', signupForm);
+    return postData('/auth/register', signupForm);
   }
 }
 
