@@ -56,7 +56,6 @@ class Login extends Flux.View {
         </Col>
         <Col md={{
             size: 4,
-            offset: 2,
             padding: 0,
           }}>
           <h2 className="text-left title">Ambitioni dedisse scripsisse iudicaretur.</h2>
