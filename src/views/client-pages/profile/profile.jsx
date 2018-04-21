@@ -53,7 +53,7 @@ class Profile extends Flux.View {
                <div>
                  <div>
                    Name and Surname:
-                   { ` ${this.state.user.firstname} ${this.state.user.lastname}` }
+                   { ` ${this.state.user.firstName} ${this.state.user.lastName}` }
                  </div>
                  <div>
                    Email:

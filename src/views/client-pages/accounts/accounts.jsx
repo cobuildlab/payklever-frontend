@@ -20,7 +20,6 @@ class Accounts extends Flux.View {
     super(props);
 
     this.state = {
-      isOpen: false,
       accounts: [{
         id: 1,
         name: 'Account1',
@@ -72,7 +71,7 @@ class Accounts extends Flux.View {
          )}
          </div>)}
 
-        <Button className="d-block mx-auto mt-4" color="primary" size="sm">
+        <Button className="d-block mx-auto mt-4" color="primary">
         { t('ACCOUNTS.addAccount') }
         </Button>
 

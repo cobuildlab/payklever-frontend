@@ -28,8 +28,8 @@ class Signup extends Flux.View {
   constructor() {
     super();
     this.state = {
-      firstname: '',
-      lastname: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       repeatPassword: ''
@@ -54,19 +54,19 @@ class Signup extends Flux.View {
               <CardTitle tag="h1" className="text-center">{ t('SIGNUP.signup') }</CardTitle>
               <AvForm onValidSubmit={(evt) => this.signup(evt)} noValidate>
                 <AvGroup>
-                  <AvInput type="text" name="firstname" id="firstname" placeholder={ t('SIGNUP.firstname') } value={this.state.firstname} onChange={(evt) => this.setState({firstname: evt.target.value})} minLength="3" maxLength="40" required/>
-                  <AvFeedback>{ t('SIGNUP.invalidFirstname') }</AvFeedback>
+                  <AvInput type="text" name="firstName" id="firstName" placeholder={ t('SIGNUP.firstName') } value={this.state.firstName} onChange={(evt) => this.setState({firstName: evt.target.value})} pattern="^[a-zA-Z]*$" minLength="3" maxLength="40" required/>
+                  <AvFeedback>{ t('SIGNUP.invalidFirstName') }</AvFeedback>
                 </AvGroup>
                 <AvGroup>
-                  <AvInput type="text" name="lastname" id="lastname" placeholder={ t('SIGNUP.lastname') } value={this.state.lastname} onChange={(evt) => this.setState({lastname: evt.target.value})} minLength="3" maxLength="40" required/>
-                  <AvFeedback>{ t('SIGNUP.invalidLastname') }</AvFeedback>
+                  <AvInput type="text" name="lastName" id="lastName" placeholder={ t('SIGNUP.lastName') } value={this.state.lastName} onChange={(evt) => this.setState({lastName: evt.target.value})} pattern="^[a-zA-Z]*$" minLength="3" maxLength="40" required/>
+                  <AvFeedback>{ t('SIGNUP.invalidLastName') }</AvFeedback>
                 </AvGroup>
                 <AvGroup>
                   <AvInput type="email" name="email" id="email" placeholder={ t('SIGNUP.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} required/>
                   <AvFeedback>{ t('SIGNUP.invalidEmail') }</AvFeedback>
                 </AvGroup>
                 <AvGroup>
-                  <AvInput type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} minLength="8" maxLength="12" required/>
+                  <AvInput type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} minLength="8" maxLength="20" required/>
                   <AvFeedback>{ t('SIGNUP.invalidPassword') }</AvFeedback>
                 </AvGroup>
                 <AvGroup>
@@ -95,8 +95,8 @@ class Signup extends Flux.View {
 
   signup(evt, values) {
     const signupForm = new SignupForm(
-      this.state.firstname,
-      this.state.lastname,
+      this.state.firstName,
+      this.state.lastName,
       this.state.email,
       this.state.password,
     );

@@ -1,7 +1,7 @@
 export class SignupForm {
-  constructor(firstname, lastname, email, password) {
-    this.firstname = firstname;
-    this.lastname = lastname;
+  constructor(firstName, lastName, email, password) {
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.email = email;
     this.password = password;
   }

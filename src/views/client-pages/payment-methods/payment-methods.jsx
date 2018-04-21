@@ -20,16 +20,15 @@ class Accounts extends Flux.View {
     super(props);
 
     this.state = {
-      isOpen: false,
       paymentMethods: [{
         id: 1,
-        firstname: 'Jose',
-        lastname: 'Villalobos',
+        firstName: 'Jose',
+        lastName: 'Villalobos',
         card: '****'
       }, {
         id: 2,
-        firstname: 'Agustin',
-        lastname: 'Vargas',
+        firstName: 'Agustin',
+        lastName: 'Vargas',
         card: '****'
       }]
     };
@@ -46,10 +45,10 @@ class Accounts extends Flux.View {
            <Col md={{ size: 6, }}>
                <div>
                  <div>
-                   {paymentMethod.firstname}
+                   {paymentMethod.firstName}
                  </div>
                  <div>
-                   {paymentMethod.lastname}
+                   {paymentMethod.lastName}
                  </div>
                  <div>
                    {paymentMethod.card}
@@ -72,7 +71,7 @@ class Accounts extends Flux.View {
          )}
          </div>)}
 
-         <Button className="d-block mx-auto mt-4" color="primary" size="sm">
+         <Button className="d-block mx-auto mt-4" color="primary">
          { t('PAYMENT_METHODS.addPayment') }
          </Button>
 

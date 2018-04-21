@@ -7,6 +7,8 @@ import {
 } from 'reactstrap';
 import {
   ClientManager,
+  CreateAccount,
+  CreatePayment,
   Profile,
 } from './';
 
@@ -23,6 +25,8 @@ class ClientPages extends Flux.View {
         </Navbar>
 
         <Route exact path="/client/client-manager" component={ClientManager}/>
+        <Route exact path="/client/create-account" component={CreateAccount}/>
+        <Route exact path="/client/create-payment" component={CreatePayment}/>
         <Route path="/client/profile" component={Profile}/>
       </div>
     );
