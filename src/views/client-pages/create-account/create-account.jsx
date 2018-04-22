@@ -27,7 +27,7 @@ class CreateAccount extends Flux.View {
     this.state = {
       name: '',
       location: '',
-      paymentMethod: '',
+      paymediaId: '',
       paymentMethods: [{
         id: 1,
         firstName: 'Jose',
@@ -64,11 +64,11 @@ class CreateAccount extends Flux.View {
               <AvFeedback>{ t('CREATE_ACCOUNT.InvalidLocation') }</AvFeedback>
             </AvGroup>
             <AvGroup>
-              <Label for="paymentMethod">
+              <Label for="paymediaId">
                 { t('CREATE_ACCOUNT.paymentMethod') }
               </Label>
-              <AvInput onChange={(evt) => this.setState({paymentMethod: evt.target.value})} value={this.state.paymentMethod} type="select" name="paymentMethod" label={ t('CREATE_ACCOUNT.paymentMethod') } required>
-                {!this.state.paymentMethod && <option value="" disabled>
+              <AvInput onChange={(evt) => this.setState({paymediaId: evt.target.value})} value={this.state.paymediaId} type="select" name="paymediaId" label={ t('CREATE_ACCOUNT.paymentMethod') } required>
+                {!this.state.paymediaId && <option value="" disabled>
                   { t('CREATE_ACCOUNT.selectPaymentMethod') }
                 </option>}
                 {this.state.paymentMethods.map((paymentMethod) =>
@@ -93,10 +93,8 @@ class CreateAccount extends Flux.View {
 
   createAccount(evt) {
     const createAccountForm = new CreateAccountForm(
-      this.state.firstName,
-      this.state.lastName,
-      this.state.email,
-      this.state.password,
+      this.state.name,
+      this.state.paymediaId,
     );
 
     createAccountActions.createAccount(createAccountForm)

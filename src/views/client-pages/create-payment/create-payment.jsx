@@ -28,11 +28,11 @@ class CreatePayment extends Flux.View {
       firstName: '',
       lastName: '',
       cardNumber: '',
-      expirationDateMonth: '',
-      expirationDateYear: '',
+      expireMonth: '',
+      expireYear: '',
       securityCode: '',
       country: '',
-      postalCode: '',
+      zipCode: '',
     }
   }
 
@@ -68,15 +68,15 @@ class CreatePayment extends Flux.View {
               </Col>
               <Col md={6} lg={2}>
                 <AvGroup>
-                  <Label for="expirationDateMonth">{ t('CREATE_PAYMENT.expirationDate') }</Label>
-                  <AvInput type="text" name="expirationDateMonth" id="expirationDateMonth" placeholder={ t('CREATE_PAYMENT.expirationDateMonth') } value={this.state.expirationDateMonth} onChange={(evt) => this.setState({expirationDateMonth: evt.target.value})}  minLength="2" maxLength="2" min="1" max="12" validate={{number: true}} required/>
+                  <Label for="expireMonth">{ t('CREATE_PAYMENT.expirationDate') }</Label>
+                  <AvInput type="text" name="expireMonth" id="expireMonth" placeholder={ t('CREATE_PAYMENT.expireMonth') } value={this.state.expireMonth} onChange={(evt) => this.setState({expireMonth: evt.target.value})}  minLength="2" maxLength="2" min="1" max="12" validate={{number: true}} required/>
                   <AvFeedback>{ t('CREATE_PAYMENT.invalidExpirationDateMonth') }</AvFeedback>
                 </AvGroup>
               </Col>
               <Col md={6} lg={2}>
                 <AvGroup>
-                <Label style={{color: 'transparent'}} for="expirationDateYear">{'_'}</Label>
-                <AvInput type="text" name="expirationDateYear" id="expirationDateYear" placeholder={ t('CREATE_PAYMENT.expirationDateYear') } value={this.state.expirationDateYear} onChange={(evt) => this.setState({expirationDateYear: evt.target.value})}  minLength="2" maxLength="2" validate={{number: true}} required/>
+                <Label style={{color: 'transparent'}} for="expireYear">{'_'}</Label>
+                <AvInput type="text" name="expireYear" id="expireYear" placeholder={ t('CREATE_PAYMENT.expireYear') } value={this.state.expireYear} onChange={(evt) => this.setState({expireYear: evt.target.value})}  minLength="2" maxLength="2" validate={{number: true}} required/>
                 <AvFeedback>{ t('CREATE_PAYMENT.invalidExpirationDateYear') }</AvFeedback>
               </AvGroup>
             </Col>
@@ -89,18 +89,18 @@ class CreatePayment extends Flux.View {
             </Col>
           </Row>
           <Row>
-            <Col md={6}>
+            {/* <Col md={6}>
               <AvGroup>
                 <Label for="country">{ t('CREATE_PAYMENT.country') }</Label>
                 <AvInput type="text" name="country" id="country" placeholder={ t('CREATE_PAYMENT.country') } value={this.state.country} onChange={(evt) => this.setState({country: evt.target.value})}
                   pattern="^[a-zA-Z]*$" minLength="3" maxLength="20" required/>
                 <AvFeedback>{ t('CREATE_PAYMENT.invalidCountry') }</AvFeedback>
               </AvGroup>
-            </Col>
+            </Col> */}
             <Col md={6}>
               <AvGroup>
-                <Label for="postalCode">{ t('CREATE_PAYMENT.postalCode') }</Label>
-                <AvInput type="text" name="postalCode" id="postalCode" placeholder={ t('CREATE_PAYMENT.postalCode') } value={this.state.postalCode} onChange={(evt) => this.setState({postalCode: evt.target.value})} minLength="4" maxLength="5" validate={{number: true}} required/>
+                <Label for="zipCode">{ t('CREATE_PAYMENT.zipCode') }</Label>
+                <AvInput type="text" name="zipCode" id="zipCode" placeholder={ t('CREATE_PAYMENT.zipCode') } value={this.state.zipCode} onChange={(evt) => this.setState({zipCode: evt.target.value})} minLength="4" maxLength="5" validate={{number: true}} required/>
                 <AvFeedback>{ t('CREATE_PAYMENT.invalidPostalCode') }</AvFeedback>
               </AvGroup>
             </Col>
@@ -120,11 +120,10 @@ class CreatePayment extends Flux.View {
       this.state.firstName,
       this.state.lastName,
       this.state.cardNumber,
-      this.state.expirationDateMonth,
-      this.state.expirationDateYear,
+      this.state.expireMonth,
+      this.state.expireYear,
       this.state.securityCode,
-      this.state.country,
-      this.state.postalCode,
+      this.state.zipCode,
     );
 
     CreatePaymentActions.createPayment(createPaymentForm)

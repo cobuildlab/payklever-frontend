@@ -1,7 +1,6 @@
 export class CreateAccountForm {
-  constructor(name, location, paymentMethod) {
+  constructor(name, paymediaId) {
     this.name = name;
-    this.location = location;
-    this.paymentMethod = paymentMethod;
+    this.paymediaId = paymediaId;
   }
 }

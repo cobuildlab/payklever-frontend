@@ -4,7 +4,7 @@ import { CreatePaymentForm } from './create-payment.classes';
 
 class CreatePaymentActions extends Flux.Action {
   createPayment(createPaymentForm: CreatePaymentForm) {
-    return postData('/payment-methods/', createPaymentForm);
+    return postData('/pay-media/', createPaymentForm, true);
   }
 }
 

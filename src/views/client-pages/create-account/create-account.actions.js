@@ -4,7 +4,7 @@ import { CreateAccountForm } from './create-account.classes';
 
 class CreateAccountActions extends Flux.Action {
   createAccount(createAccountForm: CreateAccountForm) {
-    return postData('/account/', createAccountForm);
+    return postData('/account/', createAccountForm, true);
   }
 }
 

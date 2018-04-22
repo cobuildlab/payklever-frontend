@@ -1,12 +1,11 @@
 export class CreatePaymentForm {
-  constructor(firstName, lastName, cardNumber, expirationDateMonth, expirationDateYear, securityCode, country, postalCode) {
+  constructor(firstName, lastName, cardNumber, expireMonth, expireYear, securityCode, zipCode) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.cardNumber = cardNumber;
-    this.expirationDateMonth = expirationDateMonth;
-    this.expirationDateYear = expirationDateYear;
+    this.expireMonth = expireMonth;
+    this.expireYear = expireYear;
     this.securityCode = securityCode;
-    this.country = country;
-    this.postalCode = postalCode;
+    this.zipCode = zipCode;
   }
 }
