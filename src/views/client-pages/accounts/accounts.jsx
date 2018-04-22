@@ -10,70 +10,61 @@ import {
 } from 'react-i18next';
 import {
   Container,
-  Col,
-  Row,
+  Table,
   Button,
 } from 'reactstrap';
+import {
+  Link
+} from "react-router-dom";
+import AccountsActions from './accounts.actions';
 
 class Accounts extends Flux.View {
   constructor(props) {
     super(props);
 
     this.state = {
-      accounts: [{
-        id: 1,
-        name: 'Account1',
-        location: 'location1',
-        paymentMethod: '****'
-      }, {
-        id: 2,
-        name: 'Account2',
-        location: 'location2',
-        paymentMethod: '****'
-      }]
+      accounts: [],
     };
+  }
+
+  componentDidMount() {
+    AccountsActions.getAccounts()
+      .then((accounts) => {
+        this.setState({
+          accounts,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (
         <Container className="mt-4">
-         { this.state.accounts.map((account, index, array) => <div key={account.id}>
-          <Row>
-           <Col md={{ size: 3, }}>
-             {/* TODO: profile img */}
-           </Col>
-           <Col md={{ size: 6, }}>
-               <div>
-                 <div>
-                   {account.name}
-                 </div>
-                 <div>
-                   {account.location}
-                 </div>
-                 <div>
-                   {account.paymentMethod}
-                 </div>
-               </div>
-           </Col>
-           <Col md={{ size: 3, }}>
-             <Button color="danger" size="sm">
-               <FontAwesomeIcon icon={faTimes}/>
-             </Button>
-              {' '}
-             <Button color="primary" size="sm">
-              <FontAwesomeIcon icon={faEdit}/>
-             </Button>
-           </Col>
-         </Row>
+          <Table>
+             <tbody>
+              { this.state.accounts.map((account) =>
+              <tr key={account.id}>
+                <td>{account.name}</td>
+                <td>
+                  <Button color="danger" size="sm">
+                    <FontAwesomeIcon icon={faTimes}/>
+                  </Button>
+                   {' '}
+                  <Button color="primary" size="sm">
+                   <FontAwesomeIcon icon={faEdit}/>
+                  </Button>
+                </td>
+              </tr> )}
+            </tbody>
+          </Table>
 
-         {(array.length - 1 !== index) && (
-           <hr />
-         )}
-         </div>)}
-
-        <Button className="d-block mx-auto mt-4" color="primary">
-        { t('ACCOUNTS.addAccount') }
-        </Button>
+          <Link to="/client/create-account">
+            <Button className="d-block mx-auto mt-4" color="primary">
+            { t('ACCOUNTS.addAccount') }
+            </Button>
+          </Link>
 
        </Container>
     )}</I18n>);

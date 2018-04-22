@@ -10,70 +10,63 @@ import {
 } from 'react-i18next';
 import {
   Container,
-  Col,
-  Row,
+  Table,
   Button,
 } from 'reactstrap';
+import { Link } from "react-router-dom";
+import PaymentMethodsActions from './payment-methods.actions';
 
 class Accounts extends Flux.View {
   constructor(props) {
     super(props);
 
     this.state = {
-      paymentMethods: [{
-        id: 1,
-        firstName: 'Jose',
-        lastName: 'Villalobos',
-        card: '****'
-      }, {
-        id: 2,
-        firstName: 'Agustin',
-        lastName: 'Vargas',
-        card: '****'
-      }]
+      paymentMethods: []
     };
+  }
+
+  componentDidMount() {
+    PaymentMethodsActions.getPaymentMethods()
+      .then((paymentMethods) => {
+        this.setState({
+          paymentMethods,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (
         <Container className="mt-4">
-         { this.state.paymentMethods.map((paymentMethod, index, array) => <div key={paymentMethod.id}>
-          <Row>
-           <Col md={{ size: 3, }}>
-             {/* TODO: profile img */}
-           </Col>
-           <Col md={{ size: 6, }}>
-               <div>
-                 <div>
-                   {paymentMethod.firstName}
-                 </div>
-                 <div>
-                   {paymentMethod.lastName}
-                 </div>
-                 <div>
-                   {paymentMethod.card}
-                 </div>
-               </div>
-           </Col>
-           <Col md={{ size: 3, }}>
-             <Button color="danger" size="sm">
-               <FontAwesomeIcon icon={faTimes}/>
-             </Button>
-              {' '}
-             <Button color="primary" size="sm">
-              <FontAwesomeIcon icon={faEdit}/>
-             </Button>
-           </Col>
-         </Row>
+        <Table>
+           <tbody>
+            { this.state.paymentMethods.map((paymentMethod, index) => <tr key={paymentMethod.id}>
+              <td>
+                {paymentMethod.firstName} {' '} {paymentMethod.lastName}
+              </td>
+              <td>
+                {paymentMethod.card}
+              </td>
+              <td>
+                <Button color="danger" size="sm">
+                  <FontAwesomeIcon icon={faTimes}/>
+                </Button>
+                 {' '}
+                <Button color="primary" size="sm">
+                 <FontAwesomeIcon icon={faEdit}/>
+                </Button>
+              </td>
+            </tr> )}
+          </tbody>
+        </Table>
 
-         {(array.length - 1 !== index) && (
-           <hr />
-         )}
-         </div>)}
-
-         <Button className="d-block mx-auto mt-4" color="primary">
-         { t('PAYMENT_METHODS.addPayment') }
-         </Button>
+        <Link to="/client/create-payment">
+          <Button className="d-block mx-auto mt-4" color="primary">
+          { t('PAYMENT_METHODS.addPayment') }
+          </Button>
+        </Link>
 
        </Container>
     )}</I18n>);

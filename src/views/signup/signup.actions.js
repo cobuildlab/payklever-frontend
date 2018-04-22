@@ -4,7 +4,7 @@ import { SignupForm } from './signup.classes';
 
 class SignupActions extends Flux.Action {
   signup(signupForm: SignupForm) {
-    return postData('/auth/register', signupForm);
+    return postData('/auth/register', signupForm, false);
   }
 }
 
