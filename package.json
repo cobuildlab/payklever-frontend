@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@4geeksacademy/react-flux-dash": "1.1.9",
-    "@fortawesome/fontawesome": "^1.1.5",
-    "@fortawesome/fontawesome-free-solid": "^5.0.10",
+    "@4geeksacademy/react-flux-dash": "^2.0.0",
+    "@fortawesome/fontawesome": "1.1.5",
+    "@fortawesome/fontawesome-free-solid": "5.0.10",
     "@fortawesome/react-fontawesome": "0.0.18",
     "availity-reactstrap-validation": "2.0.2",
     "bootstrap": "4.0.0",
