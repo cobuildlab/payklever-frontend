@@ -25,6 +25,8 @@ export default {
   PROFILE: {
     profile: 'Perfil',
     editProfile: 'Editar Perfil',
+    nameAndSurname: 'Nombre y Apellido',
+    email: 'Correo',
     paymentMethods: 'Métodos de Pago',
     accounts: 'Cuentas',
   },

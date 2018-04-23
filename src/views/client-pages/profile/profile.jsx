@@ -52,14 +52,14 @@ class Profile extends Flux.View {
            <Col md={{ size: 6, }}>
              {this.state.user && (
                <div>
-                 <div>
-                   Name and Surname:
+                 {this.state.user.firstName && (<div>
+                   { t('PROFILE.nameAndSurname') } { ': ' }
                    { ` ${this.state.user.firstName} ${this.state.user.lastName}` }
-                 </div>
-                 <div>
-                   Email:
-                   { this.state.user.email }
-                 </div>
+                 </div>)}
+                 {this.state.user.email && (<div>
+                   { t('PROFILE.email') }
+                   {this.state.user.email}
+                 </div>)}
                </div>
              )}
            </Col>
