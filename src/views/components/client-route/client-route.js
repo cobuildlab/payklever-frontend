@@ -3,14 +3,14 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import { AuthStore } from '../../../stores';
+import { authStore } from '../../../stores';
 
 const ClientRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    (AuthStore.isClient() === true && AuthStore.isAuthenticated() === true)
+    (authStore.isClient() === true && authStore.isAuthenticated() === true)
     ? <Component {...props} /> :
-    ((AuthStore.isClient() === true && AuthStore.isAuthenticated() === false) ||
-    (AuthStore.isClient() === false && AuthStore.isAuthenticated() === false) )
+    ((authStore.isClient() === true && authStore.isAuthenticated() === false) ||
+    (authStore.isClient() === false && authStore.isAuthenticated() === false) )
     ? <Redirect to={{
         pathname: '/login',
         state: { from: props.location }

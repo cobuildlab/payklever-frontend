@@ -2,7 +2,7 @@ import React from 'react';
 import Flux from '@4geeksacademy/react-flux-dash';
 import { SubNav } from '../../components';
 import {
-  AuthStore,
+  authStore,
 } from '../../../stores';
 import { Accounts, PaymentMethods } from '../';
 import {
@@ -28,7 +28,7 @@ class Profile extends Flux.View {
 
     this.state = {
       isOpen: false,
-      user: AuthStore.getUser(),
+      user: authStore.getUser(),
     };
 
     this.toggle = this.toggle.bind(this);

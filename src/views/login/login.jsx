@@ -9,10 +9,7 @@ import {
   WhiteLogo,
   PaykleverBg,
 } from '../../assets';
-
-import {
-  AuthStore
-} from '../../stores';
+import { authStore } from '../../stores';
 import {
   Container,
   Col,
@@ -39,7 +36,7 @@ class Login extends Flux.View {
       password: '',
     };
 
-    this.bindStore(AuthStore, 'USER_ADDED', function() {
+    this.bindStore(authStore, 'USER_ADDED', function() {
       props.history.push('/client');
     });
   }

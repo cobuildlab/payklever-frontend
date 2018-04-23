@@ -3,7 +3,7 @@ import Flux from '@4geeksacademy/react-flux-dash';
 import appActions from './App.actions';
 import './App.css';
 import {
-  AuthStore
+  authStore
 } from './stores';
 import {
   Redirect,
@@ -23,7 +23,7 @@ class App extends Flux.View {
     super(props);
     this.getCachedUser();
 
-    this.bindStore(AuthStore, 'USER_REMOVED', function() {
+    this.bindStore(authStore, 'USER_REMOVED', function() {
       props.history.push('/login');
     });
   }
@@ -44,7 +44,7 @@ class App extends Flux.View {
   }
 
   getCachedUser() {
-    const cachedUser = AuthStore.getCachedUser();
+    const cachedUser = authStore.getCachedUser();
 
     if (cachedUser.token) appActions.setCachedUser(cachedUser);
   }

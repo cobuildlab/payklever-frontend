@@ -1,5 +1,5 @@
 import i18next from '../i18n/i18n';
-import { AuthStore } from '../stores';
+import { authStore } from '../stores';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -18,7 +18,7 @@ export function postData(url, data, isAuth) {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': (isAuth) ? `Token ${AuthStore.getToken()}`: '',
+          'Authorization': (isAuth) ? `Token ${authStore.getToken()}`: '',
         },
         method: 'POST',
       })
@@ -42,7 +42,7 @@ export function getData(url, isAuth) {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': (isAuth) ? `Token ${AuthStore.getToken()}`: '',
+          'Authorization': (isAuth) ? `Token ${authStore.getToken()}`: '',
         },
         method: 'GET',
       })
