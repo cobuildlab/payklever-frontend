@@ -3,6 +3,7 @@ import Flux from '@4geeksacademy/react-flux-dash';
 import {
   I18n
 } from 'react-i18next';
+import './signup.css';
 import {
   Container,
   Col,
@@ -14,6 +15,10 @@ import {
   Label
 } from 'reactstrap';
 import {
+  WhiteLogo,
+  PaykleverBg,
+} from '../../assets';
+import {
   AvForm,
   AvGroup,
   AvInput,
@@ -21,7 +26,6 @@ import {
 } from 'availity-reactstrap-validation';
 import signupActions from './signup.actions';
 import { SignupForm } from './signup.classes';
-
 
 class Signup extends Flux.View {
 
@@ -36,18 +40,35 @@ class Signup extends Flux.View {
     };
   }
 
+  componentDidMount() {
+    document.body.style.backgroundImage = `url(${PaykleverBg})`;
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundSize = 'cover';
+  }
+
+  componentWillUnmount() {
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundRepeat = '';
+    document.body.style.backgroundPosition = '';
+    document.body.style.backgroundSize = '';
+  }
+
   render() {
     return (<I18n>{(t, { i18n }) => (<Container>
       <Row>
+        <Col className="text-center contentLogo"  md={{size: 12,}}>
+          <img src={WhiteLogo} width="400" alt="payklever"/>
+        </Col>
         <Col md={{
             size: 4,
             offset: 2
           }}>
-          <h2 className="text-left">Ambitioni dedisse scripsisse iudicaretur.</h2>
-          <p className="text-left">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
+          <h2 className="text-left title">Ambitioni dedisse scripsisse iudicaretur.</h2>
+        <p className="text-left subTitle">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
         </Col>
         <Col md={{
-            size: 4
+            size: 5
           }}>
           <Card>
             <CardBody>
@@ -75,7 +96,7 @@ class Signup extends Flux.View {
                 </AvGroup>
                 <AvGroup check>
                   <Label check>
-                    <AvInput type="checkbox" name="checkbox" required/>
+                    <AvInput className="terminos" type="checkbox" name="checkbox" required/>
                     {' '} <a href="#">{ t('SIGNUP.privacyPolicy') }</a>
                     <AvFeedback>{ t('SIGNUP.acceptPrivacy') }</AvFeedback>
                   </Label>
