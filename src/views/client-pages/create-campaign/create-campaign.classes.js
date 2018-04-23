@@ -1,6 +1,7 @@
 export class CreateCampaignForm {
-  constructor(name, title) {
+  constructor(name, messageTitle, messageDescription) {
     this.name = name;
-    this.title = title;
+    this.messageTitle = messageTitle;
+    this.messageDescription = messageDescription;
   }
 }

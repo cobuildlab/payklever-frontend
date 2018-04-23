@@ -30,8 +30,8 @@ class CreateCampaign extends Flux.View {
 
     this.state = {
       name: '',
-      title: '',
-      description: '',
+      messageTitle: '',
+      messageDescription: '',
       gender: '',
       genderlist: [{
           id: 1,
@@ -81,14 +81,18 @@ class CreateCampaign extends Flux.View {
       <Container className="mt-4">
       <AvForm onValidSubmit={(evt) => this.createCampaign(evt)} noValidate>
         <AvGroup>
-          <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_CAMPAIGN.name') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})} pattern="^[a-zA-Z]*$" minLength="6" maxLength="40" required/>
+          <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_CAMPAIGN.name') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})}  minLength="6" maxLength="40" required/>
           <AvFeedback>{ t('CREATE_CAMPAIGN.invalidName') }</AvFeedback>
         </AvGroup>
         <AvGroup>
-          <AvInput type="text" name="title" id="title" placeholder={ t('CREATE_CAMPAIGN.title') } value={this.state.title} onChange={(evt) => this.setState({title: evt.target.value})} pattern="^[a-zA-Z]*$" minLength="4" maxLength="8" required/>
-          <AvFeedback>{ t('CREATE_CAMPAIGN.invalidTitle') }</AvFeedback>
+          <AvInput type="text" name="messageTitle" id="messageTitle" placeholder={ t('CREATE_CAMPAIGN.messageTitle') } value={this.state.messageTitle} onChange={(evt) => this.setState({messageTitle: evt.target.value})} required/>
+          <AvFeedback>{ t('CREATE_CAMPAIGN.invalidMessageTitle') }</AvFeedback>
         </AvGroup>
-        <AvRadioGroup inline name="gender" label={ t('CREATE_CAMPAIGN.gender') } errorMessage={ t('CREATE_CAMPAIGN.invalidGender') } required>
+        <AvGroup>
+          <AvInput type="text" name="messageDescription" id="messageDescription" placeholder={ t('CREATE_CAMPAIGN.messageDescription') } value={this.state.messageDescription} onChange={(evt) => this.setState({messageDescription: evt.target.value})} required/>
+          <AvFeedback>{ t('CREATE_CAMPAIGN.invalidMessageDescription') }</AvFeedback>
+        </AvGroup>
+        <AvRadioGroup inline name="gender" label={ t('CREATE_CAMPAIGN.gender') } errorMessage={ t('CREATE_CAMPAIGN.invalidGender') }>
             {this.state.genderlist.map((gender) => <AvRadio key={gender.id} label={gender.gender} value={gender.gender} />)}
         </AvRadioGroup>
         <AvGroup>
@@ -104,7 +108,8 @@ class CreateCampaign extends Flux.View {
   createCampaign(evt) {
     const createCampaignForm = new CreateCampaignForm(
       this.state.name,
-      this.state.title,
+      this.state.messageTitle,
+      this.state.messageDescription,
     );
 
     CreateCampaignActions.createCampaign(createCampaignForm)

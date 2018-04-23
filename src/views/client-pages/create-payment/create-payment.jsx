@@ -46,14 +46,14 @@ class CreatePayment extends Flux.View {
               <Col md={6}>
                 <AvGroup>
                   <Label for="firstName">{ t('CREATE_PAYMENT.firstName') }</Label>
-                  <AvInput type="text" name="firstName" id="firstName" placeholder={ t('CREATE_PAYMENT.firstName') } value={this.state.firstName} onChange={(evt) => this.setState({firstName: evt.target.value})} pattern="^[a-zA-Z]*$" minLength="3" maxLength="20" required/>
+                  <AvInput type="text" name="firstName" id="firstName" placeholder={ t('CREATE_PAYMENT.firstName') } value={this.state.firstName} onChange={(evt) => this.setState({firstName: evt.target.value})} minLength="3" maxLength="20" required/>
                   <AvFeedback>{ t('CREATE_PAYMENT.invalidFirstName') }</AvFeedback>
                 </AvGroup>
               </Col>
               <Col md={6}>
                 <AvGroup>
                   <Label for="lastName">{ t('CREATE_PAYMENT.lastName') }</Label>
-                  <AvInput type="text" name="lastName" id="lastName" placeholder={ t('CREATE_PAYMENT.lastName') } value={this.state.lastName} onChange={(evt) => this.setState({lastName: evt.target.value})} pattern="^[a-zA-Z]*$" minLength="3" maxLength="20" required/>
+                  <AvInput type="text" name="lastName" id="lastName" placeholder={ t('CREATE_PAYMENT.lastName') } value={this.state.lastName} onChange={(evt) => this.setState({lastName: evt.target.value})} minLength="3" maxLength="20" required/>
                   <AvFeedback>{ t('CREATE_PAYMENT.invalidLastName') }</AvFeedback>
                 </AvGroup>
               </Col>

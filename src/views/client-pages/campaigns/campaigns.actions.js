@@ -3,7 +3,7 @@ import { getData } from '../../../fetch';
 
 class Campaigns extends Flux.Action {
   getCampaigns() {
-    return getData('/campaigns/', true);
+    return getData('/campaign/', true);
   }
 }
 

@@ -67,7 +67,7 @@ reject or resolve based on status then Parses the response to json
 function checkStatus(response) {
   // TODO: logout on err 401/403
 
-  if (response.status === 200) {
+  if (response.ok) {
     return response.json().then((res) => {
       return Promise.resolve(res);
     })

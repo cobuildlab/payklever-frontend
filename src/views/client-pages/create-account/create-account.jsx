@@ -55,7 +55,7 @@ class CreateAccount extends Flux.View {
           <AvForm onValidSubmit={(evt) => this.createAccount(evt)} noValidate>
             <AvGroup>
               <Label for="name">{ t('CREATE_ACCOUNT.accountName') }</Label>
-              <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_ACCOUNT.accountName') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})} pattern="^[a-zA-Z]*$" minLength="4" maxLength="10" required/>
+              <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_ACCOUNT.accountName') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})} minLength="4" maxLength="10" required/>
               <AvFeedback>{ t('CREATE_ACCOUNT.invalidName') }</AvFeedback>
             </AvGroup>
             {/* <AvGroup>

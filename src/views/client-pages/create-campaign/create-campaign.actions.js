@@ -4,7 +4,7 @@ import { CreateCampaignForm } from './create-campaign.classes';
 
 class CreateCampaignActions extends Flux.Action {
   createCampaign(createCampaignForm: CreateCampaignForm) {
-    return postData('/campaigns/', createCampaignForm, true);
+    return postData('/campaign/', createCampaignForm, true);
   }
 }
 
