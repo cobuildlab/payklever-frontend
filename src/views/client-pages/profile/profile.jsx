@@ -41,7 +41,8 @@ class Profile extends Flux.View {
 
     return (<I18n>{(t, { i18n }) => (
       <div>
-        <SubNav link="/client/edit-profile" linkI18n="PROFILE.editProfile" titleI18n="PROFILE.profile"></SubNav>
+        {/* link="/client/edit-profile" linkI18n="PROFILE.editProfile" */}
+        <SubNav titleI18n="PROFILE.profile"></SubNav>
 
        <Container className="mt-4">
          <Row>

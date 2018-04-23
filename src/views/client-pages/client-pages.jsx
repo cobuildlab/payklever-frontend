@@ -1,28 +1,7 @@
 import React from 'react';
 import Flux from '@4geeksacademy/react-flux-dash';
 import { Route, Redirect } from "react-router-dom";
-import {
-  Container,
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Button
-} from 'reactstrap';
-import {
-  GreenLogo,
-  PaykleverBg,
-  GearImg,
-  Camp,
-  Avatar
-} from '../../assets';
+import { MainNav } from '../components';
 import {
   Campaigns,
   CreateAccount,
@@ -52,47 +31,7 @@ class ClientPages extends Flux.View {
 
     return (
       <div>
-        <Navbar color="white" light expand="md">
-          <Container>
-         <NavbarBrand>
-           <img src={GreenLogo} width="180" alt="payklever"/>
-         </NavbarBrand>
-         <NavbarToggler onClick={this.toggle} />
-           <Collapse isOpen={this.state.isOpen} navbar>
-             <Nav className="ml-auto" navbar>
-               <NavItem>
-                 <Button outline color="success">Publication Rules</Button>
-               </NavItem>
-               {/* <NavItem className="camp">
-                 <NavLink href="https://github.com/reactstrap/reactstrap">
-              </NavLink>
-               </NavItem>
-               <NavItem className="avatar">
-                 <NavLink href="https://github.com/reactstrap/reactstrap">
-                 <img src={Avatar} width="25" alt="option"/>
-                 </NavLink>
-               </NavItem> */}
-               <UncontrolledDropdown nav inNavbar>
-                 <DropdownToggle nav>
-                   <img src={GearImg} width="25" alt="option"/>
-                 </DropdownToggle>
-                 <DropdownMenu right>
-                   <DropdownItem>
-                     Option 1
-                   </DropdownItem>
-                   <DropdownItem>
-                     Option 2
-                   </DropdownItem>
-                   <DropdownItem divider />
-                   <DropdownItem>
-                     Reset
-                   </DropdownItem>
-                 </DropdownMenu>
-               </UncontrolledDropdown>
-             </Nav>
-           </Collapse>
-          </Container>
-       </Navbar>
+        <MainNav></MainNav>
 
         <Route exact path="/client/campaigns" component={Campaigns}/>
         <Route exact path="/client/create-account" component={CreateAccount}/>

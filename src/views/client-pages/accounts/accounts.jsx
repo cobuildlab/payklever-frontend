@@ -23,7 +23,13 @@ class Accounts extends Flux.View {
     super(props);
 
     this.state = {
-      accounts: [],
+      accounts: [{
+        id: 1,
+        name: 'Account 1',
+      }, {
+        id: 2,
+        name: 'Account 2',
+      }],
     };
   }
 

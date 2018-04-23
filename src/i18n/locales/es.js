@@ -79,6 +79,9 @@ export default {
     gender: 'Género',
     invalidGender: 'Género requerido',
   },
+  MAIN_NAV: {
+    logout: 'Cerrar Sesión',
+  },
   FETCH: {
     noInternet: 'Verifica tu conexión a internet e intentalo de nuevo',
   },

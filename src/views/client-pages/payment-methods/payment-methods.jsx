@@ -21,7 +21,17 @@ class Accounts extends Flux.View {
     super(props);
 
     this.state = {
-      paymentMethods: []
+      paymentMethods: [{
+        id: 1,
+        firstName: 'Jose',
+        lastName: 'Villalobos',
+        cardNumber: '************4564'
+      }, {
+        id: 1,
+        firstName: 'Agustin',
+        lastName: 'Vargas',
+        cardNumber: '************4879'
+      }]
     };
   }
 
@@ -47,7 +57,7 @@ class Accounts extends Flux.View {
                 {paymentMethod.firstName} {' '} {paymentMethod.lastName}
               </td>
               <td>
-                {paymentMethod.card}
+                {paymentMethod.cardNumber}
               </td>
               <td>
                 <Button color="danger" size="sm">

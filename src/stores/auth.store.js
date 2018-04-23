@@ -16,7 +16,9 @@ class AuthStore extends Flux.Store {
     }).emit('USER_ADDED');
   }
 
-  _removeUser(data) {
+  _removeUser() {
+    localStorage.removeItem('user');
+
     this.setStoreState({
       user: {},
     }).emit('USER_REMOVED');
