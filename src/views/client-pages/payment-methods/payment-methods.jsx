@@ -27,7 +27,7 @@ class Accounts extends Flux.View {
         lastName: 'Villalobos',
         cardNumber: '************4564'
       }, {
-        id: 1,
+        id: 2,
         firstName: 'Agustin',
         lastName: 'Vargas',
         cardNumber: '************4879'

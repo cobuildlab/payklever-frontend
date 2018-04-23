@@ -1,5 +1,6 @@
 import React from 'react';
 import Flux from '@4geeksacademy/react-flux-dash';
+import PropTypes from 'prop-types';
 import {
   Link,
 } from "react-router-dom";
@@ -29,12 +30,14 @@ class SubNav extends Flux.View {
   }
 
   render() {
+    const hasLink = this.hasLink();
+
     return (<I18n>{(t, { i18n }) => (
       <div>
         <Navbar color="dark" dark expand="sm">
-          <NavbarBrand>{ t(this.props.titleI18n) }</NavbarBrand>
-          { this.hasLink() && (<NavbarToggler onClick={this.toggle} />) }
-          { this.hasLink() && (<Collapse isOpen={this.state.isOpen} navbar>
+          <NavbarBrand className="text-light">{ t(this.props.titleI18n) }</NavbarBrand>
+          { hasLink && (<NavbarToggler onClick={this.toggle} />) }
+          { hasLink && (<Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink tag={Link} to={this.props.link}>
@@ -64,5 +67,11 @@ class SubNav extends Flux.View {
     });
   }
 }
+
+SubNav.propTypes = {
+  titleI18n: PropTypes.string.isRequired,
+  link: PropTypes.string,
+  linkI18n: PropTypes.string,
+};
 
 export default SubNav;

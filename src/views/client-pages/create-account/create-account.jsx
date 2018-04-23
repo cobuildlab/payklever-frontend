@@ -32,12 +32,12 @@ class CreateAccount extends Flux.View {
         id: 1,
         firstName: 'Jose',
         lastName: 'Villalobos',
-        card: '****'
+        cardNumber: '************4561'
       }, {
         id: 2,
         firstName: 'Agustin',
         lastName: 'Vargas',
-        card: '****'
+        cardNumber: '************8571'
       }]
     };
   }
@@ -58,11 +58,11 @@ class CreateAccount extends Flux.View {
               <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_ACCOUNT.accountName') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})} pattern="^[a-zA-Z]*$" minLength="4" maxLength="10" required/>
               <AvFeedback>{ t('CREATE_ACCOUNT.invalidName') }</AvFeedback>
             </AvGroup>
-            <AvGroup>
+            {/* <AvGroup>
               <Label for="location">{ t('CREATE_ACCOUNT.location') }</Label>
               <AvInput type="text" name="location" id="location" placeholder={ t('CREATE_ACCOUNT.location') } value={this.state.location} onChange={(evt) => this.setState({location: evt.target.value})} pattern="^[a-zA-Z]*$" required/>
               <AvFeedback>{ t('CREATE_ACCOUNT.InvalidLocation') }</AvFeedback>
-            </AvGroup>
+            </AvGroup> */}
             <AvGroup>
               <Label for="paymediaId">
                 { t('CREATE_ACCOUNT.paymentMethod') }
@@ -72,7 +72,7 @@ class CreateAccount extends Flux.View {
                   { t('CREATE_ACCOUNT.selectPaymentMethod') }
                 </option>}
                 {this.state.paymentMethods.map((paymentMethod) =>
-                  <option key={paymentMethod.id} value={paymentMethod.id}>{paymentMethod.firstName}</option>
+                  <option key={paymentMethod.id} value={paymentMethod.id}>{paymentMethod.cardNumber}</option>
                 )}
               </AvInput>
               <AvFeedback>

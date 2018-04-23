@@ -48,7 +48,7 @@ export default {
     firstName: 'First Name',
     lastName: 'Last Name',
     cardNumber: 'Card Number',
-    expirationDate: 'Expiration date',
+    expirationDate: 'Expiration',
     expireMonth: 'Month',
     expireYear: 'Year',
     securityCode: 'Security Code',
@@ -80,6 +80,7 @@ export default {
   },
   MAIN_NAV: {
     logout: 'Log Out',
+    profile: 'Profile',
   },
   FETCH: {
     noInternet: 'Check your internet connection and try again',

@@ -49,7 +49,7 @@ export default {
     firstName: 'Nombre',
     lastName: 'Apellido',
     cardNumber: 'Número de tarjeta',
-    expirationDate: 'Fecha de vencimiento',
+    expirationDate: 'Vencimiento',
     expireMonth: 'Mes',
     expireYear: 'Año',
     securityCode: 'Código',
@@ -81,6 +81,7 @@ export default {
   },
   MAIN_NAV: {
     logout: 'Cerrar Sesión',
+    profile: 'Perfil',
   },
   FETCH: {
     noInternet: 'Verifica tu conexión a internet e intentalo de nuevo',

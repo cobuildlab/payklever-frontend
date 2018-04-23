@@ -42,10 +42,8 @@ class MainNav extends Flux.View {
     return (<I18n>{(t, { i18n }) => (
         <Navbar color="white" light expand="md">
           <Container>
-         <NavbarBrand>
-           <Link to="/client">
+         <NavbarBrand tag={Link} to="/client/campaigns">
              <img src={GreenLogo} width="180" alt="payklever"/>
-           </Link>
          </NavbarBrand>
          <NavbarToggler onClick={this.toggle} />
            <Collapse isOpen={this.state.isOpen} navbar>
@@ -69,13 +67,10 @@ class MainNav extends Flux.View {
                    <img src={GearImg} width="25" alt="option"/>
                  </DropdownToggle>
                  <DropdownMenu right>
-                   {/* <DropdownItem>
-                     Option 1
+                   <DropdownItem tag={Link} to="/client/profile/accounts">
+                     { t('MAIN_NAV.profile') }
                    </DropdownItem>
-                   <DropdownItem>
-                     Option 2
-                   </DropdownItem>
-                   <DropdownItem divider /> */}
+                   <DropdownItem divider />
                    <DropdownItem onClick={this.logout}>
                      { t('MAIN_NAV.logout') }
                    </DropdownItem>
