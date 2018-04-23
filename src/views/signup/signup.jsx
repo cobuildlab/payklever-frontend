@@ -9,25 +9,31 @@ import {
   Col,
   Row,
   Button,
-  Form,
-  FormGroup,
   Card,
   CardBody,
   CardTitle,
-  Input,
   Label
 } from 'reactstrap';
 import {
   WhiteLogo,
   PaykleverBg,
 } from '../../assets';
+import {
+  AvForm,
+  AvGroup,
+  AvInput,
+  AvFeedback,
+} from 'availity-reactstrap-validation';
+import signupActions from './signup.actions';
+import { SignupForm } from './signup.classes';
 
 class Signup extends Flux.View {
 
   constructor() {
     super();
     this.state = {
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
       repeatPassword: ''
@@ -67,31 +73,40 @@ class Signup extends Flux.View {
           <Card>
             <CardBody>
               <CardTitle tag="h1" className="text-center">{ t('SIGNUP.signup') }</CardTitle>
-              <Form onSubmit={(evt) => this.signup(evt)} noValidate>
-                <FormGroup>
-                  <Input type="text" name="name" id="name" placeholder={ t('SIGNUP.name') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})}/>
-                </FormGroup>
-                <FormGroup>
-                  <Input type="email" name="email" id="email" placeholder={ t('SIGNUP.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})}/>
-                </FormGroup>
-                <FormGroup>
-                  <Input type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})}/>
-                </FormGroup>
-                <FormGroup>
-                  <Input type="password" name="repeatPassword" id="repeatPassword" placeholder={ t('SIGNUP.repeatPassword') } value={this.state.repeatPassword} onChange={(evt) => this.setState({repeatPassword: evt.target.value})}/>
-                </FormGroup>
-                <FormGroup check>
-                  <Label check className="terminos">
-                    <Input type="checkbox"/>{' '}
-                    <a>{ t('SIGNUP.privacyPolicy') }</a>
+              <AvForm onValidSubmit={(evt) => this.signup(evt)} noValidate>
+                <AvGroup>
+                  <AvInput type="text" name="firstName" id="firstName" placeholder={ t('SIGNUP.firstName') } value={this.state.firstName} onChange={(evt) => this.setState({firstName: evt.target.value})} pattern="^[a-zA-Z]*$" minLength="3" maxLength="40" required/>
+                  <AvFeedback>{ t('SIGNUP.invalidFirstName') }</AvFeedback>
+                </AvGroup>
+                <AvGroup>
+                  <AvInput type="text" name="lastName" id="lastName" placeholder={ t('SIGNUP.lastName') } value={this.state.lastName} onChange={(evt) => this.setState({lastName: evt.target.value})} pattern="^[a-zA-Z]*$" minLength="3" maxLength="40" required/>
+                  <AvFeedback>{ t('SIGNUP.invalidLastName') }</AvFeedback>
+                </AvGroup>
+                <AvGroup>
+                  <AvInput type="email" name="email" id="email" placeholder={ t('SIGNUP.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} required/>
+                  <AvFeedback>{ t('SIGNUP.invalidEmail') }</AvFeedback>
+                </AvGroup>
+                <AvGroup>
+                  <AvInput type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} minLength="8" maxLength="20" required/>
+                  <AvFeedback>{ t('SIGNUP.invalidPassword') }</AvFeedback>
+                </AvGroup>
+                <AvGroup>
+                  <AvInput type="password" name="repeatPassword" id="repeatPassword" placeholder={ t('SIGNUP.repeatPassword') } value={this.state.repeatPassword}  onChange={(evt) => this.setState({repeatPassword: evt.target.value})} validate={{match:{value:'password'}}} required/>
+                  <AvFeedback>{ t('SIGNUP.passwordNotMatch') }</AvFeedback>
+                </AvGroup>
+                <AvGroup check>
+                  <Label check>
+                    <AvInput className="terminos" type="checkbox" name="checkbox" required/>
+                    {' '} <a href="#">{ t('SIGNUP.privacyPolicy') }</a>
+                    <AvFeedback>{ t('SIGNUP.acceptPrivacy') }</AvFeedback>
                   </Label>
-                </FormGroup>
-                <FormGroup>
+                </AvGroup>
+                <AvGroup>
                   <Button color="primary" type="submit" size="lg" block>
                     { t('SIGNUP.signup') }
                   </Button>
-                </FormGroup>
-              </Form>
+                </AvGroup>
+              </AvForm>
             </CardBody>
           </Card>
         </Col>
@@ -99,10 +114,19 @@ class Signup extends Flux.View {
     </Container>)}</I18n>)
   }
 
-  signup(evt) {
-    console.log("Signup", evt);
-    evt.preventDefault();
-    this.props.history.push('/login');
+  signup(evt, values) {
+    const signupForm = new SignupForm(
+      this.state.firstName,
+      this.state.lastName,
+      this.state.email,
+      this.state.password,
+    );
+
+    signupActions.signup(signupForm)
+      .then((res) => {
+        this.props.history.push('/login');
+      })
+      .catch((err) => console.log('err', err));
   }
 }
 

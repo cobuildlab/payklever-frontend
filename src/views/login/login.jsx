@@ -11,26 +11,37 @@ import {
 } from '../../assets';
 
 import {
+  AuthStore
+} from '../../stores';
+import {
   Container,
   Col,
   Row,
   Button,
-  Form,
-  FormGroup,
   Card,
   CardBody,
   CardTitle,
-  Input
 } from 'reactstrap';
+import {
+  AvForm,
+  AvGroup,
+  AvInput,
+  AvFeedback,
+} from 'availity-reactstrap-validation';
 
 class Login extends Flux.View {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
       email: '',
       password: '',
     };
+
+    this.bindStore(AuthStore, 'USER_ADDED', function() {
+      props.history.push('/client');
+    });
   }
 
   componentDidMount() {
@@ -66,23 +77,29 @@ class Login extends Flux.View {
           }}>
           <Card>
             <CardBody>
-              <CardTitle tag="h1" className="text-center">{ t('LOGIN.login') }</CardTitle>
-              <Form onSubmit={(evt) => this.login(evt)} noValidate>
-                <FormGroup>
-                  <Input type="email" name="email" id="email" placeholder={ t('LOGIN.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})}/>
-                </FormGroup>
-                <FormGroup>
-                  <Input type="password" name="password" id="password" placeholder={ t('LOGIN.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})}/>
-                </FormGroup>
-                <FormGroup>
-                  <Button color="primary" className="mt-4" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
-                </FormGroup>
-                <FormGroup>
-                  <a className="recover">
-                    <p className="text-center">{ t('LOGIN.recoverPassword') }</p>
+              <CardTitle tag="h1" className="text-center">
+                { t('LOGIN.login') }
+              </CardTitle>
+              <AvForm onValidSubmit={(evt) => this.login(evt)} noValidate>
+                <AvGroup>
+                  <AvInput type="email" name="email" id="email" placeholder={ t('LOGIN.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} required/>
+                  <AvFeedback>{ t('LOGIN.invalidEmail') }</AvFeedback>
+                </AvGroup>
+                <AvGroup>
+                  <AvInput type="password" name="password" id="password" placeholder={ t('LOGIN.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} required/>
+                  <AvFeedback>{ t('LOGIN.passwordRequired') }</AvFeedback>
+                </AvGroup>
+                <AvGroup>
+                  <Button color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
+                </AvGroup>
+                <AvGroup>
+                  <a href="#" className="recover">
+                    <p className="text-center">
+                      { t('LOGIN.recoverPassword') }
+                    </p>
                   </a>
-                </FormGroup>
-              </Form>
+                </AvGroup>
+              </AvForm>
             </CardBody>
           </Card>
         </Col>
@@ -91,8 +108,6 @@ class Login extends Flux.View {
   }
 
   login(evt) {
-    console.log("Login", evt);
-    evt.preventDefault();
     loginActions.login({
       email: this.state.email,
       password: this.state.password

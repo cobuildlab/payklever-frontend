@@ -24,7 +24,11 @@ import {
   Avatar
 } from '../../assets';
 import {
-  ClientManager
+  Campaigns,
+  CreateAccount,
+  CreatePayment,
+  CreateCampaign,
+  Profile,
 } from './';
 
 class ClientPages extends Flux.View {
@@ -43,7 +47,7 @@ class ClientPages extends Flux.View {
   }
   render() {
     if (this.props.match.isExact) {
-      return <Redirect to="/client/client-manager" />
+      return <Redirect to="/client/campaigns" />
     }
 
     return (
@@ -89,8 +93,12 @@ class ClientPages extends Flux.View {
            </Collapse>
           </Container>
        </Navbar>
-        <Route exact path="/client/client-manager" component={ClientManager}/>
 
+        <Route exact path="/client/campaigns" component={Campaigns}/>
+        <Route exact path="/client/create-account" component={CreateAccount}/>
+        <Route exact path="/client/create-payment" component={CreatePayment}/>
+        <Route exact path="/client/create-campaign" component={CreateCampaign}/>
+        <Route path="/client/profile" component={Profile}/>
       </div>
     );
   }
