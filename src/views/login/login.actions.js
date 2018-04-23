@@ -3,7 +3,7 @@ import { postData } from '../../fetch';
 
 class LoginActions extends Flux.Action {
   login(loginForm) {
-    return postData('/accounts/login', loginForm)
+    return postData('/auth/login', loginForm, false)
     .then((res) => {
       this.dispatch('AuthStore.setUser', res);
     })

@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ClientManager from './client-manager';
+import Campaigns from './campaigns';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<ClientManager />, div);
+  ReactDOM.render(<Campaigns />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

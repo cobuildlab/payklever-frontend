@@ -3,8 +3,7 @@ import LngDetector from 'i18next-browser-languagedetector';
 import {
   reactI18nextModule
 } from 'react-i18next';
-import es from './es';
-import en from './en';
+import { en, es } from './locales';
 
 i18next
   .use(LngDetector)

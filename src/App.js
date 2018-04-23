@@ -21,12 +21,11 @@ import {
 class App extends Flux.View {
   constructor(props) {
     super(props);
-
-    this.bindStore(AuthStore, 'USER_ADDED', function() {
-      props.history.push('/client');
-    });
-
     this.getCachedUser();
+
+    this.bindStore(AuthStore, 'USER_REMOVED', function() {
+      props.history.push('/login');
+    });
   }
 
   render() {

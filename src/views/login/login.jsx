@@ -4,6 +4,15 @@ import {
   I18n
 } from 'react-i18next';
 import loginActions from './login.actions';
+import './login.css';
+import {
+  WhiteLogo,
+  PaykleverBg,
+} from '../../assets';
+
+import {
+  AuthStore
+} from '../../stores';
 import {
   Container,
   Col,
@@ -22,31 +31,55 @@ import {
 
 class Login extends Flux.View {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
       email: '',
       password: '',
     };
+
+    this.bindStore(AuthStore, 'USER_ADDED', function() {
+      props.history.push('/client');
+    });
+  }
+
+  componentDidMount() {
+    document.body.style.backgroundImage = `url(${PaykleverBg})`;
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundSize = 'cover';
+  }
+
+  componentWillUnmount() {
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundRepeat = '';
+    document.body.style.backgroundPosition = '';
+    document.body.style.backgroundSize = '';
   }
 
   render() {
     return (
       <I18n>{(t, { i18n }) => (<Container>
       <Row>
-        <Col md={{
-            size: 4,
-            offset: 2
-          }}>
-          <h2 className="text-left">Ambitioni dedisse scripsisse iudicaretur.</h2>
-          <p className="text-left">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
+        <Col className="Login-contentLogo text-center"  md={{size: 12,}}>
+          <img src={WhiteLogo} width="400" alt="payklever"/>
         </Col>
         <Col md={{
-            size: 4
+            size: 4,
+            padding: 0,
+          }}>
+          <h2 className="text-left title">Ambitioni dedisse scripsisse iudicaretur.</h2>
+        <p className="text-left subTitle">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros.</p>
+        </Col>
+        <Col md={{
+            size: 5
           }}>
           <Card>
             <CardBody>
-              <CardTitle tag="h1" className="text-center">{ t('LOGIN.login') }</CardTitle>
+              <CardTitle tag="h1" className="text-center">
+                { t('LOGIN.login') }
+              </CardTitle>
               <AvForm onValidSubmit={(evt) => this.login(evt)} noValidate>
                 <AvGroup>
                   <AvInput type="email" name="email" id="email" placeholder={ t('LOGIN.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} required/>
@@ -60,8 +93,10 @@ class Login extends Flux.View {
                   <Button color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
                 </AvGroup>
                 <AvGroup>
-                  <a href="#">
-                    <p className="text-center">{ t('LOGIN.recoverPassword') }</p>
+                  <a href="#" className="recover">
+                    <p className="text-center">
+                      { t('LOGIN.recoverPassword') }
+                    </p>
                   </a>
                 </AvGroup>
               </AvForm>
