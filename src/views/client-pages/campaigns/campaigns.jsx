@@ -9,6 +9,16 @@ import {
   Nav,
   NavItem,
   NavLink,
+  Col,
+  Row,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  InputGroup,
+  InputGroupAddon,
+  Input,
 } from 'reactstrap';
 import {
   Link
@@ -48,17 +58,99 @@ class Campaigns extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (
       <div>
-      <SubNav link="/client/create-campaign" linkI18n="CAMPAIGNS.createCampaign" titleI18n="CAMPAIGNS.campaigns"></SubNav>
-
-       <Container className="mt-4">
-         <Nav tabs className="nav justify-content-center mt-4">
+       <Container className="mt-4 p-0">
+         <Nav className="nav mt-5 mb-3 p-0 d-flex justify-content-end">
           <NavItem>
-            <NavLink active={true}>
-              { t('CAMPAIGNS.campaigns') }
-            </NavLink>
+            {/* <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Options
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  Option 1
+                </DropdownItem>
+                <DropdownItem>
+                  Option 2
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  Reset
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </NavItem>
+          <NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Options
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  Option 1
+                </DropdownItem>
+                <DropdownItem>
+                  Option 2
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  Reset
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </NavItem>
+          <NavItem>
+          <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret>
+              Options
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem>
+                Option 1
+              </DropdownItem>
+              <DropdownItem>
+                Option 2
+              </DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem>
+                Reset
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+          </NavItem>
+          <InputGroup>
+           <Input/>
+           <InputGroupAddon addonType="append">
+             <Button color="secondary">S</Button>
+           </InputGroupAddon>
+         </InputGroup> */}
+          <Link to="/client/create-campaign">
+            <Button color="primary">Create Campaigns</Button>
+          </Link>
+        </NavItem>
         </Nav>
-
+        {/* <Row className="cant-data mb-5 d-flex justify-content-center">
+          <Col md={{size: 2,}}>
+            <p className="text-center mb-0">Conversion</p>
+            <h1 className="text-center">99</h1>
+          </Col>
+          <Col md={{size: 2,}}>
+            <p className="text-center mb-0">Lead</p>
+            <h1 className="text-center">99</h1>
+          </Col>
+          <Col md={{size: 2,}}>
+            <p className="text-center mb-0">Impressions</p>
+            <h1 className="text-center">99</h1>
+          </Col>
+          <Col md={{size: 2,}}>
+            <p className="text-center mb-0">Click</p>
+            <h1 className="text-center">99</h1>
+          </Col>
+          <Col md={{size: 2,}}>
+            <p className="text-center mb-0">Total Spend</p>
+            <h1 className="text-center">99</h1>
+          </Col>
+        </Row> */}
+          <h1 className="text-center mb-4">Campaigns</h1>
          <Table>
             <thead>
               <tr>

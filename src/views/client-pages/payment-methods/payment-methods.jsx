@@ -58,7 +58,7 @@ class Accounts extends Component {
               <td>
                 {paymentMethod.cardNumber}
               </td>
-              <td>
+              <td className="text-right">
                 <Button color="danger" size="sm">
                   <FontAwesomeIcon icon={faTimes}/>
                 </Button>

@@ -19,6 +19,7 @@ import {
   Nav,
   NavLink,
   NavItem,
+  Media,
 } from 'reactstrap';
 
 class Profile extends Component {
@@ -45,32 +46,40 @@ class Profile extends Component {
 
        <Container className="mt-4">
          <Row>
-           <Col md={{ size: 6, }}>
-             {/* TODO: profile img */}
-           </Col>
-           <Col md={{ size: 6, }}>
+           <Col md={{ size: 12,}}>
              {this.state.user && (
                <div>
-                 {this.state.user.firstName && (<div>
-                   { t('PROFILE.nameAndSurname') } { ': ' }
-                   { ` ${this.state.user.firstName} ${this.state.user.lastName}` }
-                 </div>)}
-                 {this.state.user.email && (<div>
-                   { t('PROFILE.email') }
-                   {this.state.user.email}
-                 </div>)}
+                 <Media>
+                    <Media left href="#">
+                      <Media object data-src="holder.js/64x64" alt="Generic placeholder image" />
+                    </Media>
+                    <Media body>
+                      <Media heading>
+                        {this.state.user.firstName && (<div>
+                          { t('PROFILE.nameAndSurname') } { ': ' }
+                          { ` ${this.state.user.firstName} ${this.state.user.lastName}` }
+                        </div>)}
+                      </Media>
+                      {this.state.user.email && (<div>
+                        { t('PROFILE.email') }
+                        {this.state.user.email}
+                      </div>)}
+                    </Media>
+                  </Media>
+
+
                </div>
              )}
            </Col>
          </Row>
 
-         <Nav tabs className="nav justify-content-center mt-4">
-          <NavItem>
+         <Nav tabs className="nav mt-4">
+          <NavItem className="tabs-profile">
             <NavLink tag={Link} to="/client/profile/accounts" active={(this.props.location.pathname === '/client/profile/accounts')}>
               { t('PROFILE.accounts') }
             </NavLink>
           </NavItem>
-          <NavItem>
+          <NavItem className="tabs-profile">
             <NavLink tag={Link} to="/client/profile/payment-methods" active={(this.props.location.pathname === '/client/profile/payment-methods')}>
               { t('PROFILE.paymentMethods') }
             </NavLink>

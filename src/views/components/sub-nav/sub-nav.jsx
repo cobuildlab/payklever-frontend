@@ -14,6 +14,7 @@ import {
   NavItem,
   NavLink,
   Nav,
+  Container,
 } from 'reactstrap';
 
 class SubNav extends Component {
@@ -33,18 +34,20 @@ class SubNav extends Component {
 
     return (<I18n>{(t, { i18n }) => (
       <div>
-        <Navbar color="dark" dark expand="sm">
-          <NavbarBrand className="text-light">{ t(this.props.titleI18n) }</NavbarBrand>
-          { hasLink && (<NavbarToggler onClick={this.toggle} />) }
-          { hasLink && (<Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem>
-                <NavLink tag={Link} to={this.props.link}>
-                  { t(this.props.linkI18n) }
-                </NavLink>
-              </NavItem>
-            </Nav>
-          </Collapse>) }
+        <Navbar className="sub-nav" color="dark" dark expand="sm">
+          <Container>
+            <NavbarBrand className="text-light">{ t(this.props.titleI18n) }</NavbarBrand>
+            { hasLink && (<NavbarToggler onClick={this.toggle} />) }
+            { hasLink && (<Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ml-auto" navbar>
+                <NavItem>
+                  <NavLink tag={Link} to={this.props.link}>
+                    { t(this.props.linkI18n) }
+                  </NavLink>
+                </NavItem>
+              </Nav>
+            </Collapse>) }
+          </Container>
         </Navbar>
       </div>
     )}</I18n>);

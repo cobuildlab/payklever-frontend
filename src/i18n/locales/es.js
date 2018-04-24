@@ -81,6 +81,10 @@ export default {
     messageDescription: `Descripción del mensaje de texto`,
     invalidMessageDescription: 'Descripción inválida',
     gender: 'Género',
+    age: 'Edad',
+    education: 'Educación',
+    civilStatus: 'Estado Civil',
+    income: 'Ingresos',
     invalidGender: 'Género requerido',
   },
   MAIN_NAV: {

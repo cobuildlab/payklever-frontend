@@ -80,6 +80,10 @@ export default {
     messageDescription: `Text message's description`,
     invalidMessageDescription: 'Invalid description',
     gender: 'Gender',
+    age: 'Age',
+    education: 'Education',
+    civilStatus: 'Civil Status',
+    income: 'income',
     invalidGender: 'Gender required',
   },
   MAIN_NAV: {
