@@ -1,5 +1,4 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {
   faTimes,
@@ -16,9 +15,9 @@ import {
 import {
   Link
 } from "react-router-dom";
-import AccountsActions from './accounts.actions';
+import * as AccountsActions from './accounts.actions';
 
-class Accounts extends Flux.View {
+class Accounts extends Component {
   constructor(props) {
     super(props);
 

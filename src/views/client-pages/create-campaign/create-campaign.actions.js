@@ -2,12 +2,8 @@ import Flux from '@4geeksacademy/react-flux-dash';
 import { postData } from '../../../fetch';
 import { CreateCampaignForm } from './create-campaign.classes';
 
-class CreateCampaignActions extends Flux.Action {
-  createCampaign(createCampaignForm: CreateCampaignForm) {
-    return postData('/campaign/', createCampaignForm, true);
-  }
+const createCampaign = (createCampaignForm: CreateCampaignForm) => {
+  return postData('/campaign/', createCampaignForm, true);
 }
 
-const createCampaignActions = new CreateCampaignActions();
-
-export default createCampaignActions;
+export { createCampaign };

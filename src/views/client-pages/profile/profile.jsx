@@ -1,5 +1,4 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import { SubNav } from '../../components';
 import {
   authStore,
@@ -22,7 +21,7 @@ import {
   NavItem,
 } from 'reactstrap';
 
-class Profile extends Flux.View {
+class Profile extends Component {
   constructor(props) {
     super(props);
 
