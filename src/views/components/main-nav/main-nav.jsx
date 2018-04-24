@@ -1,12 +1,11 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import {
   Link,
 } from "react-router-dom";
 import {
   I18n
 } from 'react-i18next';
-import MainNavActions from './main-nav.actions.js'
+import * as mainNavActions from './main-nav.actions.js'
 import {
   Container,
   Collapse,
@@ -27,7 +26,7 @@ import {
   GearImg,
 } from '../../../assets';
 
-class MainNav extends Flux.View {
+class MainNav extends Component {
   constructor(props) {
     super(props);
 
@@ -84,7 +83,7 @@ class MainNav extends Flux.View {
   }
 
   logout() {
-    MainNavActions.logout();
+    mainNavActions.logout();
   }
 
   toggle() {

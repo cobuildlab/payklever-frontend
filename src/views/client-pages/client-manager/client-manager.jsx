@@ -1,5 +1,4 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import './client-manager.css';
 import {
   Container,
@@ -14,7 +13,7 @@ import {
   DropdownItem,
 } from 'reactstrap';
 
-class ClientManager extends Flux.View {
+class ClientManager extends Component {
   render() {
     return (
       <Container>

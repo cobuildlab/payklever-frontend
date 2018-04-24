@@ -1,5 +1,4 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import { Route, Redirect } from "react-router-dom";
 import { MainNav } from '../components';
 import {
@@ -10,7 +9,7 @@ import {
   Profile,
 } from './';
 
-class ClientPages extends Flux.View {
+class ClientPages extends Component {
   constructor(props) {
     super(props);
 

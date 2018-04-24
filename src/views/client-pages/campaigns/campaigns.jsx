@@ -1,5 +1,4 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import {
   I18n
 } from 'react-i18next';
@@ -8,27 +7,27 @@ import {
   Table,
   Button,
   Nav,
-NavItem,
-NavLink,
+  NavItem,
+  NavLink,
 } from 'reactstrap';
 import {
   Link
 } from "react-router-dom";
-import CampaignsActions from './campaigns.actions';
+import * as CampaignsActions from './campaigns.actions';
 import { SubNav } from '../../components';
 
-class Campaigns extends Flux.View {
+class Campaigns extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       campaigns: [{
         id: 1,
-        name:  'campaign',
+        name: 'campaign',
         title: 'title',
       }, {
         id: 2,
-        name:  'campaign2',
+        name: 'campaign2',
         title: 'title2',
       }],
     };

@@ -1,5 +1,4 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import {
   I18n
 } from 'react-i18next';
@@ -24,10 +23,10 @@ import {
   AvInput,
   AvFeedback,
 } from 'availity-reactstrap-validation';
-import signupActions from './signup.actions';
+import * as signupActions from './signup.actions';
 import { SignupForm } from './signup.classes';
 
-class Signup extends Flux.View {
+class Signup extends Component {
 
   constructor() {
     super();

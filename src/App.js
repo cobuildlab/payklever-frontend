@@ -1,6 +1,5 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
-import appActions from './App.actions';
+import React, { Component } from 'react';
+import * as appActions from './App.actions';
 import './App.css';
 import {
   authStore
@@ -18,14 +17,20 @@ import {
   ClientRoute,
 } from './views';
 
-class App extends Flux.View {
+class App extends Component {
   constructor(props) {
     super(props);
     this.getCachedUser();
+  }
 
-    this.bindStore(authStore, 'USER_REMOVED', function() {
-      props.history.push('/login');
+  componentDidMount() {
+    this.setUser = authStore.subscribe('setUser', (user) => {
+        if (!user) this.props.history.push('/login');
     });
+  }
+
+  componentWillUnmount() {
+    this.setUser.unsubscribe();
   }
 
   render() {

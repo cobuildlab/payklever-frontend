@@ -1,9 +1,8 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import {
   I18n
 } from 'react-i18next';
-import loginActions from './login.actions';
+import * as loginActions from './login.actions';
 import './login.css';
 import {
   WhiteLogo,
@@ -26,7 +25,7 @@ import {
   AvFeedback,
 } from 'availity-reactstrap-validation';
 
-class Login extends Flux.View {
+class Login extends Component {
 
   constructor(props) {
     super(props);
@@ -35,13 +34,13 @@ class Login extends Flux.View {
       email: '',
       password: '',
     };
-
-    this.bindStore(authStore, 'USER_ADDED', function() {
-      props.history.push('/client');
-    });
   }
 
   componentDidMount() {
+    this.setUser = authStore.subscribe('setUser', (user) => {
+        if (user) this.props.history.push('/client');
+    });
+
     document.body.style.backgroundImage = `url(${PaykleverBg})`;
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundPosition = 'center';
@@ -49,6 +48,8 @@ class Login extends Flux.View {
   }
 
   componentWillUnmount() {
+    this.setUser.unsubscribe();
+
     document.body.style.backgroundImage = '';
     document.body.style.backgroundRepeat = '';
     document.body.style.backgroundPosition = '';

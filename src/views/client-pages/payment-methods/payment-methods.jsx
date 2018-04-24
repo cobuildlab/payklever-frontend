@@ -1,5 +1,4 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {
   faTimes,
@@ -14,9 +13,9 @@ import {
   Button,
 } from 'reactstrap';
 import { Link } from "react-router-dom";
-import PaymentMethodsActions from './payment-methods.actions';
+import * as PaymentMethodsActions from './payment-methods.actions';
 
-class Accounts extends Flux.View {
+class Accounts extends Component {
   constructor(props) {
     super(props);
 
