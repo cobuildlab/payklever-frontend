@@ -1,10 +1,9 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import {
   SubNav
 } from '../../components';
 import { CreateCampaignForm } from './create-campaign.classes';
-import CreateCampaignActions from './create-campaign.actions';
+import * as CreateCampaignActions from './create-campaign.actions';
 import {
   I18n
 } from 'react-i18next';
@@ -24,7 +23,7 @@ import {
   AvRadio,
 } from 'availity-reactstrap-validation';
 
-class CreateCampaign extends Flux.View {
+class CreateCampaign extends Component {
   constructor(props) {
     super(props);
 

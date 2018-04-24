@@ -1,7 +1,6 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 
-class CampaignManager extends Flux.View {
+class CampaignManager extends Component {
   render() {
     return (
       <div>

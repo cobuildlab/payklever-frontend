@@ -1,8 +1,7 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import { SubNav } from '../../components';
 import { CreateAccountForm } from './create-account.classes';
-import createAccountActions from './create-account.actions';
+import * as createAccountActions from './create-account.actions';
 import {
   I18n
 } from 'react-i18next';
@@ -20,7 +19,7 @@ import {
   AvFeedback,
 } from 'availity-reactstrap-validation';
 
-class CreateAccount extends Flux.View {
+class CreateAccount extends Component {
   constructor(props) {
     super(props);
 

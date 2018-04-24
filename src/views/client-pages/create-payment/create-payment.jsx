@@ -1,8 +1,7 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import { SubNav } from '../../components';
 import { CreatePaymentForm } from './create-payment.classes';
-import CreatePaymentActions from './create-payment.actions';
+import * as CreatePaymentActions from './create-payment.actions';
 import {
   I18n
 } from 'react-i18next';
@@ -20,7 +19,7 @@ import {
   AvFeedback,
 } from 'availity-reactstrap-validation';
 
-class CreatePayment extends Flux.View {
+class CreatePayment extends Component {
   constructor(props) {
     super(props);
 

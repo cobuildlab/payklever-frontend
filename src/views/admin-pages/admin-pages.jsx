@@ -1,5 +1,4 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import { Route, Redirect } from "react-router-dom";
 import {
   Navbar,
@@ -9,7 +8,7 @@ import {
   CampaignManager
 } from './';
 
-class AdminPages extends Flux.View {
+class AdminPages extends Component {
   render() {
     if (this.props.match.isExact) {
       return <Redirect to="/admin/campaign-manager" />

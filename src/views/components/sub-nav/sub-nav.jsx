@@ -1,5 +1,4 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
   Link,
@@ -17,7 +16,7 @@ import {
   Nav,
 } from 'reactstrap';
 
-class SubNav extends Flux.View {
+class SubNav extends Component {
   constructor(props) {
     super(props);
 
