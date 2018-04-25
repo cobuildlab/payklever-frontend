@@ -17,6 +17,7 @@
     margin-bottom: .75rem;
     font-weight: 100;
     padding: 20px;
+    padding-top: 0px;
 }
 .card-body {
     -ms-flex: 1 1 auto;
@@ -41,8 +42,8 @@
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
 }
-.logo{
-  width: 400px;
+.signup-logo{
+  width: 380px;
 }
 .terminos{
   color: #787979;

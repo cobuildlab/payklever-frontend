@@ -64,6 +64,7 @@ class Signup extends Component {
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundPosition = 'center';
     document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundAttachment = 'fixed';
   }
 
   componentWillUnmount() {
@@ -75,72 +76,67 @@ class Signup extends Component {
     document.body.style.backgroundRepeat = '';
     document.body.style.backgroundPosition = '';
     document.body.style.backgroundSize = '';
+    document.body.style.backgroundAttachment = '';
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (<Container>
-
-      <div hidden={!this.state.loading} className="App-overlay">
-        <div style={{width: '200px'}} className="App-center-loading">
-          <h4 className="text-center">{ t('SIGNUP.signingUp') }</h4>
-          <BounceLoader color={'#75c044'} size={200} loading={this.state.loading}/>
-        </div>
-      </div>
-
-      <Row>
-        <Col className="text-center contentLogo"  md={{size: 12,}}>
-          <img src={WhiteLogo} width="400" alt="payklever"/>
+      <Row className="mt-2 mb-5">
+        <Col className="mt-5 mb-5 text-center"  md={{size: 12,}}>
+          <img src={WhiteLogo} className="img-fluid signup-logo" alt="payklever"/>
         </Col>
-        <Col md={{
-            size: 4,
-            offset: 2
-          }}>
-          <h2 className="text-left title">Ambitioni dedisse scripsisse iudicaretur.</h2>
-        <p className="text-left subTitle">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
-        </Col>
-        <Col md={{
-            size: 5
-          }}>
-          <Card>
-            <CardBody>
-              <CardTitle tag="h1" className="text-center">{ t('SIGNUP.signup') }</CardTitle>
-              <AvForm onValidSubmit={(evt) => this.signup(evt)} noValidate>
-                <AvGroup>
-                  <AvInput type="text" name="firstName" id="firstName" placeholder={ t('SIGNUP.firstName') } value={this.state.firstName} onChange={(evt) => this.setState({firstName: evt.target.value})} minLength="3" maxLength="40" required/>
-                  <AvFeedback>{ t('SIGNUP.invalidFirstName') }</AvFeedback>
-                </AvGroup>
-                <AvGroup>
-                  <AvInput type="text" name="lastName" id="lastName" placeholder={ t('SIGNUP.lastName') } value={this.state.lastName} onChange={(evt) => this.setState({lastName: evt.target.value})} minLength="3" maxLength="40" required/>
-                  <AvFeedback>{ t('SIGNUP.invalidLastName') }</AvFeedback>
-                </AvGroup>
-                <AvGroup>
-                  <AvInput type="email" name="email" id="email" placeholder={ t('SIGNUP.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} required/>
-                  <AvFeedback>{ t('SIGNUP.invalidEmail') }</AvFeedback>
-                </AvGroup>
-                <AvGroup>
-                  <AvInput type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} minLength="8" maxLength="20" required/>
-                  <AvFeedback>{ t('SIGNUP.invalidPassword') }</AvFeedback>
-                </AvGroup>
-                <AvGroup>
-                  <AvInput type="password" name="repeatPassword" id="repeatPassword" placeholder={ t('SIGNUP.repeatPassword') } value={this.state.repeatPassword}  onChange={(evt) => this.setState({repeatPassword: evt.target.value})} validate={{match:{value:'password'}}} required/>
-                  <AvFeedback>{ t('SIGNUP.passwordNotMatch') }</AvFeedback>
-                </AvGroup>
-                <AvGroup check>
-                  <Label check>
-                    <AvInput className="terminos" type="checkbox" name="checkbox" required/>
-                    {' '} <a href="#">{ t('SIGNUP.privacyPolicy') }</a>
-                    <AvFeedback>{ t('SIGNUP.acceptPrivacy') }</AvFeedback>
-                  </Label>
-                </AvGroup>
-                <AvGroup>
-                  <Button  color="primary" type="submit" size="lg" block>
-                    { t('SIGNUP.signup') }
-                  </Button>
-                </AvGroup>
-              </AvForm>
-            </CardBody>
-          </Card>
-        </Col>
+        <Row>
+          <Col md={{
+              size: 4,
+              offset: 2
+            }}>
+            <h2 className="text-left title">Ambitioni dedisse scripsisse iudicaretur.</h2>
+          <p className="text-left subTitle">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
+          </Col>
+          <Col md={{
+              size: 5
+            }}>
+            <Card>
+              <CardBody>
+                <CardTitle tag="h1" className="text-center">{ t('SIGNUP.signup') }</CardTitle>
+                <AvForm onValidSubmit={(evt) => this.signup(evt)} noValidate>
+                  <AvGroup>
+                    <AvInput type="text" name="firstName" id="firstName" placeholder={ t('SIGNUP.firstName') } value={this.state.firstName} onChange={(evt) => this.setState({firstName: evt.target.value})} minLength="3" maxLength="40" required/>
+                    <AvFeedback>{ t('SIGNUP.invalidFirstName') }</AvFeedback>
+                  </AvGroup>
+                  <AvGroup>
+                    <AvInput type="text" name="lastName" id="lastName" placeholder={ t('SIGNUP.lastName') } value={this.state.lastName} onChange={(evt) => this.setState({lastName: evt.target.value})} minLength="3" maxLength="40" required/>
+                    <AvFeedback>{ t('SIGNUP.invalidLastName') }</AvFeedback>
+                  </AvGroup>
+                  <AvGroup>
+                    <AvInput type="email" name="email" id="email" placeholder={ t('SIGNUP.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} required/>
+                    <AvFeedback>{ t('SIGNUP.invalidEmail') }</AvFeedback>
+                  </AvGroup>
+                  <AvGroup>
+                    <AvInput type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} minLength="8" maxLength="20" required/>
+                    <AvFeedback>{ t('SIGNUP.invalidPassword') }</AvFeedback>
+                  </AvGroup>
+                  <AvGroup>
+                    <AvInput type="password" name="repeatPassword" id="repeatPassword" placeholder={ t('SIGNUP.repeatPassword') } value={this.state.repeatPassword}  onChange={(evt) => this.setState({repeatPassword: evt.target.value})} validate={{match:{value:'password'}}} required/>
+                    <AvFeedback>{ t('SIGNUP.passwordNotMatch') }</AvFeedback>
+                  </AvGroup>
+                  <AvGroup check>
+                    <Label check>
+                      <AvInput className="terminos" type="checkbox" name="checkbox" required/>
+                      {' '} <a href="#">{ t('SIGNUP.privacyPolicy') }</a>
+                      <AvFeedback>{ t('SIGNUP.acceptPrivacy') }</AvFeedback>
+                    </Label>
+                  </AvGroup>
+                  <AvGroup>
+                    <Button color="primary" type="submit" size="lg" block>
+                      { t('SIGNUP.signup') }
+                    </Button>
+                  </AvGroup>
+                </AvForm>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
       </Row>
     </Container>)}</I18n>)
   }

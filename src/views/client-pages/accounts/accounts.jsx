@@ -52,7 +52,7 @@ class Accounts extends Component {
               { this.state.accounts.map((account) =>
               <tr key={account.id}>
                 <td>{account.name}</td>
-                <td>
+              <td className="text-right">
                   <Button color="danger" size="sm">
                     <FontAwesomeIcon icon={faTimes}/>
                   </Button>
