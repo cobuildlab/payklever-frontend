@@ -10,6 +10,7 @@ export default {
     invalidEmail: 'Invalid Email',
     passwordRequired: 'Password required',
     youHaveLoggedIn: 'You have logged in',
+    loggingIn: 'Logging In',
   },
   SIGNUP: {
     signup: 'Sign Up',
@@ -26,6 +27,7 @@ export default {
     passwordNotMatch: 'Passwords do not match',
     acceptPrivacy: 'You must accept Privacy Policy',
     youHaveRegistered: 'You have Signed Up!',
+    signingUp: 'Signing Up',
   },
   PROFILE: {
     profile: 'Profile',
@@ -47,6 +49,7 @@ export default {
     invalidName: 'Letters only: min: 4, max: 10',
     InvalidLocation: 'Required: Letters only',
     accountCreated: 'Account Created!',
+    creatingAccount: 'Creating Account',
   },
   PAYMENT_METHODS: {
     addPayment: 'Add Payment Method',
@@ -71,6 +74,7 @@ export default {
     invalidCountry: 'Required: Letters only',
     invalidPostalCode: 'Invalid Postal Code',
     paymentCreated: 'Payment Method Created!',
+    creatingPayment: 'Creating Payment Method',
   },
   CAMPAIGNS: {
     createCampaign: 'Create Campaign',
@@ -89,6 +93,7 @@ export default {
     gender: 'Gender',
     invalidGender: 'Gender required',
     campaignCreated: 'Campaign Created!',
+    creatingCampaign: 'Creating Campaign',
   },
   MAIN_NAV: {
     logout: 'Log Out',

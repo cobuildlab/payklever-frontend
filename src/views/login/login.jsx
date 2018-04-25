@@ -4,6 +4,7 @@ import { i18next } from '../../i18n';
 import { toast } from 'react-toastify';
 import * as loginActions from './login.actions';
 import './login.css';
+import { RingLoader } from 'react-spinners';
 import {
   WhiteLogo,
   PaykleverBg,
@@ -74,6 +75,14 @@ class Login extends Component {
   render() {
     return (
       <I18n>{(t, { i18n }) => (<Container>
+
+      <div hidden={!this.state.loading} className="App-overlay">
+        <div style={{width: '200px'}} className="App-center-loading">
+          <h4 className="text-center">{ t('LOGIN.loggingIn') }</h4>
+          <RingLoader color={'#75c044'} size={200} loading={this.state.loading}/>
+        </div>
+      </div>
+
       <Row>
         <Col className="Login-contentLogo text-center"  md={{size: 12,}}>
           <img src={WhiteLogo} width="400" alt="payklever"/>
@@ -103,7 +112,7 @@ class Login extends Component {
                   <AvFeedback>{ t('LOGIN.passwordRequired') }</AvFeedback>
                 </AvGroup>
                 <AvGroup>
-                  <Button disabled={this.state.loading} color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
+                  <Button  color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
                 </AvGroup>
                 <AvGroup>
                   <a href="#" className="recover">

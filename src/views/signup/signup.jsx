@@ -5,6 +5,7 @@ import {
 import { i18next } from '../../i18n';
 import { toast } from 'react-toastify';
 import { authStore } from '../../stores';
+import { BounceLoader } from 'react-spinners';
 import './signup.css';
 import {
   Container,
@@ -78,6 +79,14 @@ class Signup extends Component {
 
   render() {
     return (<I18n>{(t, { i18n }) => (<Container>
+
+      <div hidden={!this.state.loading} className="App-overlay">
+        <div style={{width: '200px'}} className="App-center-loading">
+          <h4 className="text-center">{ t('SIGNUP.signingUp') }</h4>
+          <BounceLoader color={'#75c044'} size={200} loading={this.state.loading}/>
+        </div>
+      </div>
+
       <Row>
         <Col className="text-center contentLogo"  md={{size: 12,}}>
           <img src={WhiteLogo} width="400" alt="payklever"/>
@@ -124,7 +133,7 @@ class Signup extends Component {
                   </Label>
                 </AvGroup>
                 <AvGroup>
-                  <Button disabled={this.state.loading} color="primary" type="submit" size="lg" block>
+                  <Button  color="primary" type="submit" size="lg" block>
                     { t('SIGNUP.signup') }
                   </Button>
                 </AvGroup>

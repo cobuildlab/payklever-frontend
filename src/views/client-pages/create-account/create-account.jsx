@@ -5,6 +5,7 @@ import * as createAccountActions from './create-account.actions';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { accountStore } from '../../../stores';
+import { CircleLoader } from 'react-spinners';
 import {
   I18n
 } from 'react-i18next';
@@ -71,6 +72,16 @@ class CreateAccount extends Component {
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
+
+      <div hidden={!this.state.loading} className="App-overlay">
+        <div style={{width: '200px'}} className="App-center-loading">
+          <h4 className="text-center">
+            { t('CREATE_ACCOUNT.creatingAccount') }
+          </h4>
+          <CircleLoader size={200} color={'#75c044'} loading={this.state.loading}/>
+        </div>
+      </div>
+
       <SubNav titleI18n="CREATE_ACCOUNT.createAccount"></SubNav>
 
         <Container className="mt-4">
@@ -107,7 +118,7 @@ class CreateAccount extends Component {
               </AvFeedback>
             </AvGroup>
             <AvGroup>
-              <Button disabled={this.state.loading} type="submit" className="d-block mx-auto mt-4" color="primary">
+              <Button  type="submit" className="d-block mx-auto mt-4" color="primary">
               { t('ACCOUNTS.addAccount') }
               </Button>
             </AvGroup>
