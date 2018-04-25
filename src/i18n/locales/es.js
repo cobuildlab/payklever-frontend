@@ -1,4 +1,7 @@
 export default {
+  APP: {
+    youHaveLoggedOut: 'Has cerrado la sesión',
+  },
   LOGIN: {
     login: 'Iniciar Sesión',
     email: 'Correo',
@@ -6,6 +9,7 @@ export default {
     recoverPassword: 'Recuperar contraseña',
     invalidEmail: 'Email inválido',
     passwordRequired: 'Contraseña requerida',
+    youHaveLoggedIn: 'Has iniciado sesión',
   },
   SIGNUP: {
     signup: 'Registrarse',
@@ -21,6 +25,7 @@ export default {
     invalidPassword: 'Caracteres: min: 8, max: 12',
     passwordNotMatch: 'Las Contraseñas no coinciden',
     acceptPrivacy: 'Debes aceptar las Políticas de Privacidad',
+    youHaveRegistered: 'Te has Registrado!',
   },
   PROFILE: {
     profile: 'Perfil',
@@ -42,6 +47,7 @@ export default {
     selectPaymentMethod: 'Selecciona un Método de Pago',
     invalidName: 'Solo letras: min: 4, max: 10',
     InvalidLocation: 'Campo obligatorio: Solo letras',
+    accountCreated: 'Cuenta Creada!',
   },
   PAYMENT_METHODS: {
     addPayment: 'Agregar Método de Pago',
@@ -65,6 +71,7 @@ export default {
     invalidSecurityCode: '*',
     invalidCountry: 'Campo obligatorio: Solo letras',
     invalidPostalCode: 'Código Postal inválido',
+    paymentCreated: 'Método de Pago Creado!',
   },
   CAMPAIGNS: {
     createCampaign: 'Crear Campaña',
@@ -82,6 +89,7 @@ export default {
     invalidMessageDescription: 'Descripción inválida',
     gender: 'Género',
     invalidGender: 'Género requerido',
+    campaignCreated: 'Campaña Creada!',
   },
   MAIN_NAV: {
     logout: 'Cerrar Sesión',
@@ -89,5 +97,6 @@ export default {
   },
   FETCH: {
     noInternet: 'Verifica tu conexión a internet e intentalo de nuevo',
+    error: 'Ha ocurrido un error',
   },
 }

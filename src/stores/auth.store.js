@@ -6,7 +6,8 @@ class AuthStore extends Flux.DashStore {
 
     /**
      * Set the session's user
-     * @type {object || undefined} undefined to delete user from localStorage
+     * @param {object || undefined}  user undefined to delete user from
+     * localStorage & logout
      */
     this.addEvent('setUser', (user) => {
       if (JSON.stringify(user) !== '{}' && user !== undefined) {
@@ -16,6 +17,24 @@ class AuthStore extends Flux.DashStore {
       }
 
       return user;
+    });
+
+
+    /**
+     * Notifies when a user has signep up
+     * @param {object}  user the registered user
+     */
+    this.addEvent('signup', (user) => {
+      return user;
+    });
+
+
+    /**
+     * Error handler
+     * @param {Error} err the error from the action
+     */
+    this.addEvent('AuthStoreError', (err) => {
+      return err;
     });
   }
 

@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import {
   I18n
 } from 'react-i18next';
+import { i18next } from '../../i18n';
+import { toast } from 'react-toastify';
+import { authStore } from '../../stores';
 import './signup.css';
 import {
   Container,
@@ -31,15 +34,31 @@ class Signup extends Component {
   constructor() {
     super();
     this.state = {
+      loading: false,
       firstName: '',
       lastName: '',
       email: '',
       password: '',
       repeatPassword: ''
     };
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
+    this.signupSubscription = authStore.subscribe('signup', (user) => {
+      this.isLoading(false);
+      toast.dismiss();
+      toast.success(i18next.t('SIGNUP.youHaveRegistered'));
+      this.props.history.push('/login');
+    });
+
+    this.authStoreError = authStore.subscribe('AuthStoreError', (err) => {
+      this.isLoading(false);
+      toast.dismiss();
+      toast.error(err.message || i18next.t('FETCH.error'));
+    });
+
     document.body.style.backgroundImage = `url(${PaykleverBg})`;
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundPosition = 'center';
@@ -47,6 +66,10 @@ class Signup extends Component {
   }
 
   componentWillUnmount() {
+    this.signupSubscription.unsubscribe();
+    this.authStoreError.unsubscribe();
+
+
     document.body.style.backgroundImage = '';
     document.body.style.backgroundRepeat = '';
     document.body.style.backgroundPosition = '';
@@ -101,7 +124,7 @@ class Signup extends Component {
                   </Label>
                 </AvGroup>
                 <AvGroup>
-                  <Button color="primary" type="submit" size="lg" block>
+                  <Button disabled={this.state.loading} color="primary" type="submit" size="lg" block>
                     { t('SIGNUP.signup') }
                   </Button>
                 </AvGroup>
@@ -114,6 +137,8 @@ class Signup extends Component {
   }
 
   signup(evt, values) {
+    this.isLoading(true);
+
     const signupForm = new SignupForm(
       this.state.firstName,
       this.state.lastName,
@@ -121,11 +146,11 @@ class Signup extends Component {
       this.state.password,
     );
 
-    signupActions.signup(signupForm)
-      .then((res) => {
-        this.props.history.push('/login');
-      })
-      .catch((err) => console.log('err', err));
+    signupActions.signup(signupForm);
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 

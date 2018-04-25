@@ -3,7 +3,13 @@ import { postData } from '../../fetch';
 import { SignupForm } from './signup.classes';
 
 const signup = (signupForm: SignupForm) => {
-  return postData('/auth/register', signupForm, false);
+  return postData('/auth/register', signupForm, false)
+  .then((res) => {
+    Flux.dispatchEvent('signup', res);
+  })
+  .catch((err) => {
+    Flux.dispatchEvent('AuthStoreError', err);
+  });
 }
 
 export { signup };

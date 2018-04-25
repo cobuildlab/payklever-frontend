@@ -1,4 +1,7 @@
 export default {
+  APP: {
+    youHaveLoggedOut: 'You have Logged Out'
+  },
   LOGIN: {
     login: 'Log In',
     email: 'Email',
@@ -6,6 +9,7 @@ export default {
     recoverPassword: 'Recover Password',
     invalidEmail: 'Invalid Email',
     passwordRequired: 'Password required',
+    youHaveLoggedIn: 'You have logged in',
   },
   SIGNUP: {
     signup: 'Sign Up',
@@ -21,6 +25,7 @@ export default {
     invalidPassword: 'Characters: min: 8, max: 20',
     passwordNotMatch: 'Passwords do not match',
     acceptPrivacy: 'You must accept Privacy Policy',
+    youHaveRegistered: 'You have Signed Up!',
   },
   PROFILE: {
     profile: 'Profile',
@@ -41,6 +46,7 @@ export default {
     selectPaymentMethod: 'Select Payment Method',
     invalidName: 'Letters only: min: 4, max: 10',
     InvalidLocation: 'Required: Letters only',
+    accountCreated: 'Account Created!',
   },
   PAYMENT_METHODS: {
     addPayment: 'Add Payment Method',
@@ -64,6 +70,7 @@ export default {
     invalidSecurityCode: '*',
     invalidCountry: 'Required: Letters only',
     invalidPostalCode: 'Invalid Postal Code',
+    paymentCreated: 'Payment Method Created!',
   },
   CAMPAIGNS: {
     createCampaign: 'Create Campaign',
@@ -81,6 +88,7 @@ export default {
     invalidMessageDescription: 'Invalid description',
     gender: 'Gender',
     invalidGender: 'Gender required',
+    campaignCreated: 'Campaign Created!',
   },
   MAIN_NAV: {
     logout: 'Log Out',
@@ -88,5 +96,6 @@ export default {
   },
   FETCH: {
     noInternet: 'Check your internet connection and try again',
+    error: 'An error has ocurred',
   },
 }
