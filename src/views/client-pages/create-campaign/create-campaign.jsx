@@ -5,6 +5,7 @@ import {
 import { CreateCampaignForm } from './create-campaign.classes';
 import * as CreateCampaignActions from './create-campaign.actions';
 import { i18next } from '../../../i18n';
+import { campaignStore } from '../../../stores';
 import { toast } from 'react-toastify';
 import {
   I18n
@@ -78,6 +79,28 @@ class CreateCampaign extends Component {
     this.isLoading = this.isLoading.bind(this);
   }
 
+  componentDidMount() {
+    this.createCampaignSubscription = campaignStore
+      .subscribe('createCampaign', (campaign) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CREATE_CAMPAIGN.campaignCreated'));
+        this.props.history.push('/client/campaigns');
+      });
+
+    this.campaignStoreError = campaignStore
+      .subscribe('CampaignStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+  }
+
+  componentWillUnmount() {
+    this.createCampaignSubscription.unsubscribe();
+    this.campaignStoreError.unsubscribe();
+  }
+
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
       <SubNav titleI18n="CREATE_CAMPAIGN.createCampaign"></SubNav>
@@ -118,18 +141,7 @@ class CreateCampaign extends Component {
       this.state.messageDescription,
     );
 
-    CreateCampaignActions.createCampaign(createCampaignForm)
-      .then((res) => {
-        this.isLoading(false);
-        toast.dismiss();
-        toast.success(i18next.t('CREATE_CAMPAIGN.campaignCreated'));
-        this.props.history.push('/client/campaigns');
-      })
-      .catch((err) => {
-        this.isLoading(false);
-        toast.dismiss();
-        toast.error(err.message || i18next.t('FETCH.error'));
-      });
+    CreateCampaignActions.createCampaign(createCampaignForm);
   }
 
   isLoading(isLoading) {

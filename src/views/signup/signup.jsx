@@ -4,6 +4,7 @@ import {
 } from 'react-i18next';
 import { i18next } from '../../i18n';
 import { toast } from 'react-toastify';
+import { authStore } from '../../stores';
 import './signup.css';
 import {
   Container,
@@ -45,6 +46,19 @@ class Signup extends Component {
   }
 
   componentDidMount() {
+    this.signupSubscription = authStore.subscribe('signup', (user) => {
+      this.isLoading(false);
+      toast.dismiss();
+      toast.success(i18next.t('SIGNUP.youHaveRegistered'));
+      this.props.history.push('/login');
+    });
+
+    this.authStoreError = authStore.subscribe('AuthStoreError', (err) => {
+      this.isLoading(false);
+      toast.dismiss();
+      toast.error(err.message || i18next.t('FETCH.error'));
+    });
+
     document.body.style.backgroundImage = `url(${PaykleverBg})`;
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundPosition = 'center';
@@ -52,6 +66,10 @@ class Signup extends Component {
   }
 
   componentWillUnmount() {
+    this.signupSubscription.unsubscribe();
+    this.authStoreError.unsubscribe();
+
+
     document.body.style.backgroundImage = '';
     document.body.style.backgroundRepeat = '';
     document.body.style.backgroundPosition = '';
@@ -128,18 +146,7 @@ class Signup extends Component {
       this.state.password,
     );
 
-    signupActions.signup(signupForm)
-      .then((res) => {
-        this.isLoading(false);
-        toast.dismiss();
-        toast.success(i18next.t('SIGNUP.youHaveRegistered'));
-        this.props.history.push('/login');
-      })
-      .catch((err) => {
-        this.isLoading(false);
-        toast.dismiss();
-        toast.error(err.message || i18next.t('FETCH.error'));
-      });
+    signupActions.signup(signupForm);
   }
 
   isLoading(isLoading) {

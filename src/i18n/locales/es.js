@@ -1,4 +1,7 @@
 export default {
+  APP: {
+    youHaveLoggedOut: 'Has cerrado la sesión',
+  },
   LOGIN: {
     login: 'Iniciar Sesión',
     email: 'Correo',

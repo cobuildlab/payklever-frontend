@@ -4,6 +4,7 @@ import { CreateAccountForm } from './create-account.classes';
 import * as createAccountActions from './create-account.actions';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
+import { accountStore } from '../../../stores';
 import {
   I18n
 } from 'react-i18next';
@@ -44,6 +45,28 @@ class CreateAccount extends Component {
     };
 
     this.isLoading = this.isLoading.bind(this);
+  }
+
+  componentDidMount() {
+    this.createAccountSubscription = accountStore
+      .subscribe('createAccount', (account) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CREATE_ACCOUNT.accountCreated'));
+        this.props.history.push('/client/profile/accounts');
+      });
+
+    this.accountStoreError = accountStore
+      .subscribe('AccountStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+  }
+
+  componentWillUnmount() {
+    this.createAccountSubscription.unsubscribe();
+    this.accountStoreError.unsubscribe();
   }
 
   render() {
@@ -103,18 +126,7 @@ class CreateAccount extends Component {
       this.state.paymediaId,
     );
 
-    createAccountActions.createAccount(createAccountForm)
-      .then((res) => {
-        this.isLoading(false);
-        toast.dismiss();
-        toast.success(i18next.t('CREATE_ACCOUNT.accountCreated'));
-        this.props.history.push('/client/profile/accounts');
-      })
-      .catch((err) => {
-        this.isLoading(false);
-        toast.dismiss();
-        toast.error(err.message || i18next.t('FETCH.error'));
-      });
+    createAccountActions.createAccount(createAccountForm);
   }
 
   isLoading(isLoading) {

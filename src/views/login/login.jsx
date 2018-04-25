@@ -40,11 +40,19 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    this.setUser = authStore.subscribe('setUser', (user) => {
+    this.setUserSubscription = authStore.subscribe('setUser', (user) => {
+      this.isLoading(false);
+      if (user) {
+        toast.dismiss();
+        toast.success(i18next.t('LOGIN.youHaveLoggedIn'));
+        this.props.history.push('/client');
+      }
+    });
+
+    this.authStoreError = authStore.subscribe('AuthStoreError', (err) => {
       this.isLoading(false);
       toast.dismiss();
-      toast.success(i18next.t('LOGIN.youHaveLoggedIn'));
-      if (user) this.props.history.push('/client');
+      toast.error(err.message || i18next.t('FETCH.error'));
     });
 
     document.body.style.backgroundImage = `url(${PaykleverBg})`;
@@ -54,7 +62,8 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
-    this.setUser.unsubscribe();
+    this.setUserSubscription.unsubscribe();
+    this.authStoreError.unsubscribe();
 
     document.body.style.backgroundImage = '';
     document.body.style.backgroundRepeat = '';
@@ -117,16 +126,6 @@ class Login extends Component {
     loginActions.login({
       email: this.state.email,
       password: this.state.password
-    })
-    .then((data) => {
-      /*
-      redirections done on 'setUser' authStore's event
-       */
-    })
-    .catch((err) => {
-      this.isLoading(false);
-      toast.dismiss();
-      toast.error(err.message || i18next.t('FETCH.error'));
     });
   }
 

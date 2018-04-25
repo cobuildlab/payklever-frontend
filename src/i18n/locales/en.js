@@ -1,4 +1,7 @@
 export default {
+  APP: {
+    youHaveLoggedOut: 'You have Logged Out'
+  },
   LOGIN: {
     login: 'Log In',
     email: 'Email',

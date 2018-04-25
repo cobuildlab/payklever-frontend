@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SubNav } from '../../components';
 import { CreatePaymentForm } from './create-payment.classes';
 import * as CreatePaymentActions from './create-payment.actions';
+import { paymentStore } from '../../../stores';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import {
@@ -38,6 +39,28 @@ class CreatePayment extends Component {
     }
 
     this.isLoading = this.isLoading.bind(this);
+  }
+
+  componentDidMount() {
+    this.createPaymentSubscription = paymentStore
+      .subscribe('createPayment', (payment) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CREATE_PAYMENT.paymentCreated'));
+        this.props.history.push('/client/profile/payment-methods');
+      });
+
+    this.paymentStoreError = paymentStore
+      .subscribe('PaymentStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+  }
+
+  componentWillUnmount() {
+    this.createPaymentSubscription.unsubscribe();
+    this.paymentStoreError.unsubscribe();
   }
 
   render() {
@@ -132,18 +155,7 @@ class CreatePayment extends Component {
       this.state.zipCode,
     );
 
-    CreatePaymentActions.createPayment(createPaymentForm)
-      .then((res) => {
-        this.isLoading(false);
-        toast.dismiss();
-        toast.success(i18next.t('CREATE_PAYMENT.paymentCreated'));
-        this.props.history.push('/client/profile/payment-methods');
-      })
-      .catch((err) => {
-        this.isLoading(false);
-        toast.dismiss();
-        toast.error(err.message || i18next.t('FETCH.error'));
-      });
+    CreatePaymentActions.createPayment(createPaymentForm);
   }
 
   isLoading(isLoading) {

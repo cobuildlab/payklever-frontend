@@ -7,7 +7,9 @@ const login = (loginForm) => {
   return postData('/auth/login', loginForm, false)
     .then((res) => {
       Flux.dispatchEvent('setUser', res);
-      return Promise.resolve(res);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('AuthStoreError', err);
     });
 }
 

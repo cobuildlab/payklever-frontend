@@ -3,7 +3,13 @@ import { postData } from '../../../fetch';
 import { CreatePaymentForm } from './create-payment.classes';
 
 const createPayment = (createPaymentForm: CreatePaymentForm) => {
-  return postData('/pay-media/', createPaymentForm, true);
+  return postData('/pay-media/', createPaymentForm, true)
+    .then((res) => {
+      Flux.dispatchEvent('createPayment', res);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('PaymentStoreError', err);
+    });
 }
 
 export { createPayment };
