@@ -85,6 +85,13 @@ export default {
     civilStatus: 'Civil Status',
     income: 'income',
     invalidGender: 'Gender required',
+    hourHand: 'Hour Hand',
+    invalidHourHand: 'Hour hand required',
+    matchedAudiences: 'Matched Audiences',
+    budgetAndProgramming: 'Budget and Programming',
+    startDate: 'Start date',
+    stopDate: 'stop Date',
+    bidPerClick: 'Bid per click',
   },
   MAIN_NAV: {
     logout: 'Log Out',

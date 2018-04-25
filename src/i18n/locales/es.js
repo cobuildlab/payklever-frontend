@@ -86,6 +86,13 @@ export default {
     civilStatus: 'Estado Civil',
     income: 'Ingresos',
     invalidGender: 'Género requerido',
+    hourHand: 'Horario',
+    invalidHourHand: 'Horario requerido',
+    matchedAudiences: 'Audiencia',
+    budgetAndProgramming: 'Presupuesto y programación',
+    startDate: 'Fecha de inicio',
+    stopDate: 'Fecha de culminación',
+    bidPerClick: 'Oferta por clic',
   },
   MAIN_NAV: {
     logout: 'Cerrar Sesión',

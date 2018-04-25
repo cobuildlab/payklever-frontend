@@ -61,11 +61,11 @@ class Login extends Component {
   render() {
     return (
       <I18n>{(t, { i18n }) => (<Container>
-      <Row className="mt-5">
+      <Row className="mt-2 mb-5">
         <Col className="mt-5 mb-5 text-center"  md={{size: 12,}}>
           <img src={WhiteLogo} className="img-fluid Login-logo" alt="payklever"/>
         </Col>
-        <Row className="mt-4">
+        <Row>
           <Col md={{
               size: 4,
               padding: 0,

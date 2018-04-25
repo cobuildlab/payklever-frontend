@@ -21,6 +21,7 @@ import {
   NavItem,
   Media,
 } from 'reactstrap';
+import { Avatar } from '../../../assets';
 
 class Profile extends Component {
   constructor(props) {
@@ -48,27 +49,25 @@ class Profile extends Component {
          <Row>
            <Col md={{ size: 12,}}>
              {this.state.user && (
-               <div>
+               <Container>
                  <Media>
-                    <Media left href="#">
-                      <Media object data-src="holder.js/64x64" alt="Generic placeholder image" />
+                    <Media left>
+                      <Media  className="mr-3" style={{maxWidth: '128px'}} object src={Avatar} alt="Profile" />
                     </Media>
                     <Media body>
                       <Media heading>
-                        {this.state.user.firstName && (<div>
-                          { t('PROFILE.nameAndSurname') } { ': ' }
-                          { ` ${this.state.user.firstName} ${this.state.user.lastName}` }
-                        </div>)}
+                        {this.state.user.firstName && (<span>
+                          { t('PROFILE.nameAndSurname') } { ':' }
+                        </span>)}
                       </Media>
-                      {this.state.user.email && (<div>
-                        { t('PROFILE.email') }
-                        {this.state.user.email}
-                      </div>)}
+
+                      {this.state.user.firstName &&(<span> {` ${this.state.user.firstName} ${this.state.user.lastName}`}</span>)}
+
                     </Media>
                   </Media>
 
 
-               </div>
+               </Container>
              )}
            </Col>
          </Row>
