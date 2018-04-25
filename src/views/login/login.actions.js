@@ -7,10 +7,8 @@ const login = (loginForm) => {
   return postData('/auth/login', loginForm, false)
     .then((res) => {
       Flux.dispatchEvent('setUser', res);
-    })
-    .catch((err) => {
-      console.log('loginError', err);
-    })
+      return Promise.resolve(res);
+    });
 }
 
 export { login };

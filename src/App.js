@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as appActions from './App.actions';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import './App.css';
 import {
   authStore
@@ -40,6 +42,7 @@ class App extends Component {
 
     return (
       <div>
+        <ToastContainer/>
         <NotAuthRoute exact path="/signup" component={Signup}/>
         <NotAuthRoute exact path="/login" component={Login}/>
         <AdminRoute path="/admin" component={AdminPages}/>

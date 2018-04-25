@@ -4,6 +4,8 @@ import {
 } from '../../components';
 import { CreateCampaignForm } from './create-campaign.classes';
 import * as CreateCampaignActions from './create-campaign.actions';
+import { i18next } from '../../../i18n';
+import { toast } from 'react-toastify';
 import {
   I18n
 } from 'react-i18next';
@@ -28,6 +30,7 @@ class CreateCampaign extends Component {
     super(props);
 
     this.state = {
+      loading: false,
       name: '',
       messageTitle: '',
       messageDescription: '',
@@ -71,6 +74,8 @@ class CreateCampaign extends Component {
       date: '',
       account: '',
     };
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   render() {
@@ -95,7 +100,7 @@ class CreateCampaign extends Component {
             {this.state.genderlist.map((gender) => <AvRadio key={gender.id} label={gender.gender} value={gender.gender} />)}
         </AvRadioGroup>
         <AvGroup>
-          <Button color="primary" type="submit" size="lg" block>
+          <Button disabled={this.state.loading} color="primary" type="submit" size="lg" block>
             { t('CREATE_CAMPAIGN.createCampaign') }
           </Button>
         </AvGroup>
@@ -105,6 +110,8 @@ class CreateCampaign extends Component {
   }
 
   createCampaign(evt) {
+    this.isLoading(true);
+
     const createCampaignForm = new CreateCampaignForm(
       this.state.name,
       this.state.messageTitle,
@@ -113,9 +120,20 @@ class CreateCampaign extends Component {
 
     CreateCampaignActions.createCampaign(createCampaignForm)
       .then((res) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CREATE_CAMPAIGN.campaignCreated'));
         this.props.history.push('/client/campaigns');
       })
-      .catch((err) => console.log('err', err));
+      .catch((err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 

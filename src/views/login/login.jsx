@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {
-  I18n
-} from 'react-i18next';
+import { I18n } from 'react-i18next';
+import { i18next } from '../../i18n';
+import { toast } from 'react-toastify';
 import * as loginActions from './login.actions';
 import './login.css';
 import {
@@ -31,14 +31,20 @@ class Login extends Component {
     super(props);
 
     this.state = {
+      loading: false,
       email: '',
       password: '',
     };
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
     this.setUser = authStore.subscribe('setUser', (user) => {
-        if (user) this.props.history.push('/client');
+      this.isLoading(false);
+      toast.dismiss();
+      toast.success(i18next.t('LOGIN.youHaveLoggedIn'));
+      if (user) this.props.history.push('/client');
     });
 
     document.body.style.backgroundImage = `url(${PaykleverBg})`;
@@ -88,7 +94,7 @@ class Login extends Component {
                   <AvFeedback>{ t('LOGIN.passwordRequired') }</AvFeedback>
                 </AvGroup>
                 <AvGroup>
-                  <Button color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
+                  <Button disabled={this.state.loading} color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
                 </AvGroup>
                 <AvGroup>
                   <a href="#" className="recover">
@@ -106,10 +112,26 @@ class Login extends Component {
   }
 
   login(evt) {
+    this.isLoading(true);
+
     loginActions.login({
       email: this.state.email,
       password: this.state.password
+    })
+    .then((data) => {
+      /*
+      redirections done on 'setUser' authStore's event
+       */
+    })
+    .catch((err) => {
+      this.isLoading(false);
+      toast.dismiss();
+      toast.error(err.message || i18next.t('FETCH.error'));
     });
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 

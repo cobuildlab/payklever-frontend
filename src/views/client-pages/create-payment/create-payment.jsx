@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { SubNav } from '../../components';
 import { CreatePaymentForm } from './create-payment.classes';
 import * as CreatePaymentActions from './create-payment.actions';
+import { i18next } from '../../../i18n';
+import { toast } from 'react-toastify';
 import {
   I18n
 } from 'react-i18next';
@@ -24,6 +26,7 @@ class CreatePayment extends Component {
     super(props);
 
     this.state = {
+      loading: false,
       firstName: '',
       lastName: '',
       cardNumber: '',
@@ -33,6 +36,8 @@ class CreatePayment extends Component {
       country: '',
       zipCode: '',
     }
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   render() {
@@ -105,7 +110,7 @@ class CreatePayment extends Component {
             </Col>
           </Row>
             <AvGroup>
-              <Button type="submit" className="d-block mx-auto mt-4" color="primary">
+              <Button disabled={this.state.loading} type="submit" className="d-block mx-auto mt-4" color="primary">
               { t('PAYMENT_METHODS.addPayment') }
               </Button>
             </AvGroup>
@@ -115,6 +120,8 @@ class CreatePayment extends Component {
   }
 
   createPayment(evt) {
+    this.isLoading(true);
+
     const createPaymentForm = new CreatePaymentForm(
       this.state.firstName,
       this.state.lastName,
@@ -127,9 +134,20 @@ class CreatePayment extends Component {
 
     CreatePaymentActions.createPayment(createPaymentForm)
       .then((res) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CREATE_PAYMENT.paymentCreated'));
         this.props.history.push('/client/profile/payment-methods');
       })
-      .catch((err) => console.log('err', err));
+      .catch((err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 

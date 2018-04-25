@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
   I18n
 } from 'react-i18next';
+import { i18next } from '../../i18n';
+import { toast } from 'react-toastify';
 import './signup.css';
 import {
   Container,
@@ -31,12 +33,15 @@ class Signup extends Component {
   constructor() {
     super();
     this.state = {
+      loading: false,
       firstName: '',
       lastName: '',
       email: '',
       password: '',
       repeatPassword: ''
     };
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
@@ -101,7 +106,7 @@ class Signup extends Component {
                   </Label>
                 </AvGroup>
                 <AvGroup>
-                  <Button color="primary" type="submit" size="lg" block>
+                  <Button disabled={this.state.loading} color="primary" type="submit" size="lg" block>
                     { t('SIGNUP.signup') }
                   </Button>
                 </AvGroup>
@@ -114,6 +119,8 @@ class Signup extends Component {
   }
 
   signup(evt, values) {
+    this.isLoading(true);
+
     const signupForm = new SignupForm(
       this.state.firstName,
       this.state.lastName,
@@ -123,9 +130,20 @@ class Signup extends Component {
 
     signupActions.signup(signupForm)
       .then((res) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('SIGNUP.youHaveRegistered'));
         this.props.history.push('/login');
       })
-      .catch((err) => console.log('err', err));
+      .catch((err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 
