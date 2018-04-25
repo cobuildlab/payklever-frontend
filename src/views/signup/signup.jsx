@@ -5,6 +5,7 @@ import {
 import { i18next } from '../../i18n';
 import { toast } from 'react-toastify';
 import { authStore } from '../../stores';
+import { BounceLoader } from 'react-spinners';
 import './signup.css';
 import {
   Container,

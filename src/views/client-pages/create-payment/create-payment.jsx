@@ -5,6 +5,7 @@ import * as CreatePaymentActions from './create-payment.actions';
 import { paymentStore } from '../../../stores';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
+import { DotLoader } from 'react-spinners';
 import {
   I18n
 } from 'react-i18next';
@@ -66,6 +67,15 @@ class CreatePayment extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
       <SubNav titleI18n="CREATE_PAYMENT.addPayment"></SubNav>
+
+      <div hidden={!this.state.loading} className="App-overlay">
+        <div style={{width: '200px'}} className="App-center-loading">
+          <h4 className="text-center">
+            { t('CREATE_PAYMENT.creatingPayment') }
+          </h4>
+          <DotLoader size={200} color={'#75c044'} loading={this.state.loading}/>
+        </div>
+      </div>
 
         <Container className="mt-4">
           <AvForm onValidSubmit={(evt) => this.createPayment(evt)} noValidate>
@@ -133,7 +143,7 @@ class CreatePayment extends Component {
             </Col>
           </Row>
             <AvGroup>
-              <Button disabled={this.state.loading} type="submit" className="d-block mx-auto mt-4" color="primary">
+              <Button  type="submit" className="d-block mx-auto mt-4" color="primary">
               { t('PAYMENT_METHODS.addPayment') }
               </Button>
             </AvGroup>

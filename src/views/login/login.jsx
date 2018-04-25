@@ -4,6 +4,7 @@ import { i18next } from '../../i18n';
 import { toast } from 'react-toastify';
 import * as loginActions from './login.actions';
 import './login.css';
+import { RingLoader } from 'react-spinners';
 import {
   WhiteLogo,
   PaykleverBg,

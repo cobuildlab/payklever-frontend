@@ -10,6 +10,7 @@ export default {
     invalidEmail: 'Email inválido',
     passwordRequired: 'Contraseña requerida',
     youHaveLoggedIn: 'Has iniciado sesión',
+    loggingIn: 'Iniciando Sesión',
   },
   SIGNUP: {
     signup: 'Registrarse',
@@ -26,6 +27,7 @@ export default {
     passwordNotMatch: 'Las Contraseñas no coinciden',
     acceptPrivacy: 'Debes aceptar las Políticas de Privacidad',
     youHaveRegistered: 'Te has Registrado!',
+    signingUp: 'Registrando Usuario',
   },
   PROFILE: {
     profile: 'Perfil',
@@ -48,6 +50,7 @@ export default {
     invalidName: 'Solo letras: min: 4, max: 10',
     InvalidLocation: 'Campo obligatorio: Solo letras',
     accountCreated: 'Cuenta Creada!',
+    creatingAccount: 'Creando Cuenta',
   },
   PAYMENT_METHODS: {
     addPayment: 'Agregar Método de Pago',
@@ -72,6 +75,7 @@ export default {
     invalidCountry: 'Campo obligatorio: Solo letras',
     invalidPostalCode: 'Código Postal inválido',
     paymentCreated: 'Método de Pago Creado!',
+    creatingPayment: 'Creando Método de Pago',
   },
   CAMPAIGNS: {
     createCampaign: 'Crear Campaña',
@@ -101,6 +105,7 @@ export default {
     stopDate: 'Fecha de culminación',
     bidPerClick: 'Oferta por clic',
     campaignCreated: 'Campaña Creada!',
+    creatingCampaign: 'Creando Campaña',
   },
   MAIN_NAV: {
     logout: 'Cerrar Sesión',
