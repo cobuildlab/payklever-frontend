@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { SubNav } from '../../components';
 import { CreateAccountForm } from './create-account.classes';
 import * as createAccountActions from './create-account.actions';
+import { i18next } from '../../../i18n';
+import { toast } from 'react-toastify';
+import { accountStore } from '../../../stores';
 import {
   I18n
 } from 'react-i18next';
@@ -24,6 +27,7 @@ class CreateAccount extends Component {
     super(props);
 
     this.state = {
+      loading: false,
       name: '',
       location: '',
       paymediaId: '',
@@ -39,6 +43,30 @@ class CreateAccount extends Component {
         cardNumber: '************8571'
       }]
     };
+
+    this.isLoading = this.isLoading.bind(this);
+  }
+
+  componentDidMount() {
+    this.createAccountSubscription = accountStore
+      .subscribe('createAccount', (account) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CREATE_ACCOUNT.accountCreated'));
+        this.props.history.push('/client/profile/accounts');
+      });
+
+    this.accountStoreError = accountStore
+      .subscribe('AccountStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+  }
+
+  componentWillUnmount() {
+    this.createAccountSubscription.unsubscribe();
+    this.accountStoreError.unsubscribe();
   }
 
   render() {
@@ -79,7 +107,7 @@ class CreateAccount extends Component {
               </AvFeedback>
             </AvGroup>
             <AvGroup>
-              <Button type="submit" className="d-block mx-auto mt-4" color="primary">
+              <Button disabled={this.state.loading} type="submit" className="d-block mx-auto mt-4" color="primary">
               { t('ACCOUNTS.addAccount') }
               </Button>
             </AvGroup>
@@ -91,16 +119,18 @@ class CreateAccount extends Component {
   }
 
   createAccount(evt) {
+    this.isLoading(true);
+
     const createAccountForm = new CreateAccountForm(
       this.state.name,
       this.state.paymediaId,
     );
 
-    createAccountActions.createAccount(createAccountForm)
-      .then((res) => {
-        this.props.history.push('/client/profile/accounts');
-      })
-      .catch((err) => console.log('err', err));
+    createAccountActions.createAccount(createAccountForm);
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 

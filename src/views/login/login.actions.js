@@ -9,8 +9,8 @@ const login = (loginForm) => {
       Flux.dispatchEvent('setUser', res);
     })
     .catch((err) => {
-      console.log('loginError', err);
-    })
+      Flux.dispatchEvent('AuthStoreError', err);
+    });
 }
 
 export { login };

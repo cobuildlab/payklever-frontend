@@ -4,6 +4,9 @@ import {
 } from '../../components';
 import { CreateCampaignForm } from './create-campaign.classes';
 import * as CreateCampaignActions from './create-campaign.actions';
+import { i18next } from '../../../i18n';
+import { campaignStore } from '../../../stores';
+import { toast } from 'react-toastify';
 import {
   I18n
 } from 'react-i18next';
@@ -32,6 +35,7 @@ class CreateCampaign extends Component {
     super(props);
 
     this.state = {
+      loading: false,
       name: '',
       messageTitle: '',
       messageDescription: '',
@@ -122,6 +126,30 @@ class CreateCampaign extends Component {
       date: '',
       account: '',
     };
+
+    this.isLoading = this.isLoading.bind(this);
+  }
+
+  componentDidMount() {
+    this.createCampaignSubscription = campaignStore
+      .subscribe('createCampaign', (campaign) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CREATE_CAMPAIGN.campaignCreated'));
+        this.props.history.push('/client/campaigns');
+      });
+
+    this.campaignStoreError = campaignStore
+      .subscribe('CampaignStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+  }
+
+  componentWillUnmount() {
+    this.createCampaignSubscription.unsubscribe();
+    this.campaignStoreError.unsubscribe();
   }
 
   render() {
@@ -233,17 +261,19 @@ class CreateCampaign extends Component {
   }
 
   createCampaign(evt) {
+    this.isLoading(true);
+
     const createCampaignForm = new CreateCampaignForm(
       this.state.name,
       this.state.messageTitle,
       this.state.messageDescription,
     );
 
-    CreateCampaignActions.createCampaign(createCampaignForm)
-      .then((res) => {
-        this.props.history.push('/client/campaigns');
-      })
-      .catch((err) => console.log('err', err));
+    CreateCampaignActions.createCampaign(createCampaignForm);
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 

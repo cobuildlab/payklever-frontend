@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {
-  I18n
-} from 'react-i18next';
+import { I18n } from 'react-i18next';
+import { i18next } from '../../i18n';
+import { toast } from 'react-toastify';
 import * as loginActions from './login.actions';
 import './login.css';
 import {
@@ -31,14 +31,28 @@ class Login extends Component {
     super(props);
 
     this.state = {
+      loading: false,
       email: '',
       password: '',
     };
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
-    this.setUser = authStore.subscribe('setUser', (user) => {
-        if (user) this.props.history.push('/client');
+    this.setUserSubscription = authStore.subscribe('setUser', (user) => {
+      this.isLoading(false);
+      if (user) {
+        toast.dismiss();
+        toast.success(i18next.t('LOGIN.youHaveLoggedIn'));
+        this.props.history.push('/client');
+      }
+    });
+
+    this.authStoreError = authStore.subscribe('AuthStoreError', (err) => {
+      this.isLoading(false);
+      toast.dismiss();
+      toast.error(err.message || i18next.t('FETCH.error'));
     });
 
     document.body.style.backgroundImage = `url(${PaykleverBg})`;
@@ -49,7 +63,8 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
-    this.setUser.unsubscribe();
+    this.setUserSubscription.unsubscribe();
+    this.authStoreError.unsubscribe();
 
     document.body.style.backgroundImage = '';
     document.body.style.backgroundRepeat = '';
@@ -111,10 +126,16 @@ class Login extends Component {
   }
 
   login(evt) {
+    this.isLoading(true);
+
     loginActions.login({
       email: this.state.email,
       password: this.state.password
     });
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 
