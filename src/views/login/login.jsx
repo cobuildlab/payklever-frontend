@@ -77,6 +77,14 @@ class Login extends Component {
   render() {
     return (
       <I18n>{(t, { i18n }) => (<Container>
+
+      <div hidden={!this.state.loading} className="App-overlay">
+        <div style={{width: '200px'}} className="App-center-loading">
+          <h4 className="text-center">{ t('LOGIN.loggingIn') }</h4>
+          <RingLoader color={'#75c044'} size={200} loading={this.state.loading}/>
+        </div>
+      </div>
+
       <Row className="mt-2 mb-5">
         <Col className="mt-5 mb-5 text-center"  md={{size: 12,}}>
           <img src={WhiteLogo} className="img-fluid Login-logo" alt="payklever"/>
