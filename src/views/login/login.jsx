@@ -137,10 +137,7 @@ class Login extends Component {
   login(evt) {
     this.isLoading(true);
 
-    loginActions.login({
-      email: this.state.email,
-      password: this.state.password
-    });
+    loginActions.login(this.state.email, this.state.password);
   }
 
   isLoading(isLoading) {

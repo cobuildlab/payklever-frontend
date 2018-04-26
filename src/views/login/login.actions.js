@@ -2,9 +2,16 @@ import Flux from '@4geeksacademy/react-flux-dash';
 import {
   postData
 } from '../../fetch';
+import { loginValidator } from './login.validators';
 
-const login = (loginForm) => {
-  return postData('/auth/login', loginForm, false)
+const login = (email, password) => {
+  try {
+    loginValidator(email, password);
+  } catch (err) {
+    Flux.dispatchEvent('AuthStoreError', err);
+  }
+
+  postData('/auth/login', { email: email, password: password }, false)
     .then((res) => {
       Flux.dispatchEvent('setUser', res);
     })
