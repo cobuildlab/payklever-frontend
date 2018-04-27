@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import * as loginActions from './login.actions';
 import './login.css';
 import { RingLoader } from 'react-spinners';
+import { Link } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 import {
   WhiteLogo,
   PaykleverBg,
@@ -78,12 +80,14 @@ class Login extends Component {
     return (
       <I18n>{(t, { i18n }) => (<Container>
 
-      <div hidden={!this.state.loading} className="App-overlay">
-        <div style={{width: '200px'}} className="App-center-loading">
-          <h4 className="text-center">{ t('LOGIN.loggingIn') }</h4>
-          <RingLoader color={'#75c044'} size={200} loading={this.state.loading}/>
+      <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
+        <div className="App-overlay">
+          <div style={{width: '200px'}} className="App-center-loading">
+            <h4 className="text-center">{ t('LOGIN.loggingIn') }</h4>
+            <RingLoader color={'#75c044'} size={200} loading={true}/>
+          </div>
         </div>
-      </div>
+      </CSSTransition>
 
       <Row className="mt-2 mb-5">
         <Col className="mt-5 mb-5 text-center"  md={{size: 12,}}>
@@ -124,6 +128,11 @@ class Login extends Component {
                         { t('LOGIN.recoverPassword') }
                       </p>
                     </a>
+                    <Link to={"/signup/"} className="recover">
+                      <p className="text-center">
+                        { t('LOGIN.register') }
+                      </p>
+                    </Link>
                   </AvGroup>
                 </AvForm>
               </CardBody>
