@@ -12,42 +12,60 @@ import {
   Table,
   Button,
 } from 'reactstrap';
+import { i18next } from '../../../i18n';
+import { toast } from 'react-toastify';
+import { BounceLoader } from 'react-spinners';
 import { Link } from "react-router-dom";
+import { paymentStore } from '../../../stores';
 import * as PaymentMethodsActions from './payment-methods.actions';
 
-class Accounts extends Component {
+class PaymentMethods extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      paymentMethods: [{
-        id: 1,
-        firstName: 'Jose',
-        lastName: 'Villalobos',
-        cardNumber: '************4564'
-      }, {
-        id: 2,
-        firstName: 'Agustin',
-        lastName: 'Vargas',
-        cardNumber: '************4879'
-      }]
+      loading: true,
+      paymentMethods: []
     };
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
-    PaymentMethodsActions.getPaymentMethods()
-      .then((paymentMethods) => {
-        this.setState({
-          paymentMethods,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    this.getPaymentsSubscription = paymentStore
+      .subscribe('getPayments', (paymentMethods) => {
+        this.setState({ paymentMethods });
+        this.isLoading(false);
+      });
+
+    this.paymentStoreError = paymentStore
+      .subscribe('PaymentStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+
+
+    PaymentMethodsActions.getPaymentMethods();
+  }
+
+  componentWillUnmount() {
+    this.getPaymentsSubscription.unsubscribe();
+    this.paymentStoreError.unsubscribe();
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (
+      <div>
+        <div hidden={!this.state.loading} className="App-overlay">
+          <div style={{width: '200px'}} className="App-center-loading">
+            <h4 className="text-center">
+              { t('PAYMENT_METHODS.loadingPayments') }
+            </h4>
+            <BounceLoader size={200} color={'#75c044'} loading={this.state.loading}/>
+          </div>
+        </div>
+
         <Container className="mt-4">
         <Table>
            <tbody>
@@ -78,8 +96,13 @@ class Accounts extends Component {
         </Link>
 
        </Container>
+    </div>
     )}</I18n>);
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 
-export default Accounts;
+export default PaymentMethods;
