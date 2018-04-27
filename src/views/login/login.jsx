@@ -117,7 +117,7 @@ class Login extends Component {
                   </AvGroup>
                   <AvGroup>
                     <AvInput type="password" name="password" id="password" placeholder={ t('LOGIN.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} required/>
-                    <AvFeedback>{ t('LOGIN.passwordRequired') }</AvFeedback>
+                    <AvFeedback>{ t('LOGIN.emptyPassword') }</AvFeedback>
                   </AvGroup>
                   <AvGroup>
                     <Button color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
@@ -146,10 +146,7 @@ class Login extends Component {
   login(evt) {
     this.isLoading(true);
 
-    loginActions.login({
-      email: this.state.email,
-      password: this.state.password
-    });
+    loginActions.login(this.state.email, this.state.password);
   }
 
   isLoading(isLoading) {
