@@ -128,7 +128,7 @@ class Login extends Component {
                         { t('LOGIN.recoverPassword') }
                       </p>
                     </a>
-                    <Link to={"/signup/"} className="recover">
+                    <Link to="/signup" className="recover">
                       <p className="text-center">
                         { t('LOGIN.register') }
                       </p>

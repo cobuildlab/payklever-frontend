@@ -145,7 +145,7 @@ class Signup extends Component {
                       { t('SIGNUP.signup') }
                     </Button>
                   </AvGroup>
-                  <Link to={"/login/"} className="recover-login">
+                  <Link to="/login" className="recover-login">
                     <p className="text-center">
                       { t('SIGNUP.recoverLogin') }
                     </p>
