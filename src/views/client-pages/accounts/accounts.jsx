@@ -12,9 +12,13 @@ import {
   Table,
   Button,
 } from 'reactstrap';
+import { i18next } from '../../../i18n';
+import { toast } from 'react-toastify';
+import { BounceLoader } from 'react-spinners';
 import {
   Link
 } from "react-router-dom";
+import { accountStore } from '../../../stores';
 import * as AccountsActions from './accounts.actions';
 
 class Accounts extends Component {
@@ -22,30 +26,48 @@ class Accounts extends Component {
     super(props);
 
     this.state = {
-      accounts: [{
-        id: 1,
-        name: 'Account 1',
-      }, {
-        id: 2,
-        name: 'Account 2',
-      }],
+      loading: true,
+      accounts: [],
     };
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
-    AccountsActions.getAccounts()
-      .then((accounts) => {
-        this.setState({
-          accounts,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    this.getAccountsSubscription = accountStore
+      .subscribe('getAccounts', (accounts) => {
+        this.setState({ accounts });
+        this.isLoading(false);
+      });
+
+    this.accountStoreError = accountStore
+      .subscribe('AccountStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+
+
+      AccountsActions.getAccounts();
+  }
+
+  componentWillUnmount() {
+    this.getAccountsSubscription.unsubscribe();
+    this.accountStoreError.unsubscribe();
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (
+      <div>
+        <div hidden={!this.state.loading} className="App-overlay">
+          <div style={{width: '200px'}} className="App-center-loading">
+            <h4 className="text-center">
+              { t('ACCOUNTS.loadingAccounts') }
+            </h4>
+            <BounceLoader size={200} color={'#75c044'} loading={this.state.loading}/>
+          </div>
+        </div>
+
         <Container className="mt-4">
           <Table>
              <tbody>
@@ -72,7 +94,12 @@ class Accounts extends Component {
           </Link>
 
        </Container>
+       </div>
     )}</I18n>);
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 

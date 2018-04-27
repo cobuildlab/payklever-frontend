@@ -38,9 +38,11 @@ export default {
     accounts: 'Accounts',
   },
   ACCOUNTS: {
-    addAccount: 'Add Account'
+    addAccount: 'Add Account',
+    loadingAccounts: 'Loading Accounts',
   },
   CREATE_ACCOUNT: {
+    addAccount: 'Add Account',
     createAccount: 'Create Account',
     accountName: 'Account name',
     location: 'Location',
@@ -53,6 +55,7 @@ export default {
   },
   PAYMENT_METHODS: {
     addPayment: 'Add Payment Method',
+    loadingPayments: 'Loading Payment Methods',
   },
   CREATE_PAYMENT: {
     addPayment: 'Add Payment Method',
@@ -79,6 +82,7 @@ export default {
   CAMPAIGNS: {
     createCampaign: 'Create Campaign',
     campaigns: 'Campaigns',
+    loadingCampaigns: 'Loading Campaigns',
     name: 'Name',
     title: 'Title',
   },

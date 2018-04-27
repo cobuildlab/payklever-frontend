@@ -38,7 +38,8 @@ export default {
     accounts: 'Cuentas',
   },
   ACCOUNTS: {
-    addAccount: 'Agregar Cuenta'
+    addAccount: 'Agregar Cuenta',
+    loadingAccounts: 'Cargando Cuentas',
   },
   CREATE_ACCOUNT: {
     addAccount: 'Agregar Cuenta',
@@ -54,6 +55,7 @@ export default {
   },
   PAYMENT_METHODS: {
     addPayment: 'Agregar Método de Pago',
+    loadingPayments: 'Cargando metodos de Pago',
   },
   CREATE_PAYMENT: {
     addPayment: 'Agregar Método de Pago',
@@ -80,6 +82,7 @@ export default {
   CAMPAIGNS: {
     createCampaign: 'Crear Campaña',
     campaigns: 'Campañas',
+    loadingCampaigns: 'Cargando Campañas',
     name: 'Nombre',
     title: 'Título',
   },

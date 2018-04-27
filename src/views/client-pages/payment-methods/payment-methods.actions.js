@@ -2,7 +2,13 @@ import Flux from '@4geeksacademy/react-flux-dash';
 import { getData } from '../../../fetch';
 
 const getPaymentMethods = () => {
-  return getData('/pay-media/', true);
+  getData('/pay-media/', true)
+    .then((paymentMethods) => {
+      Flux.dispatchEvent('getPayments', paymentMethods);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('PaymentStoreError', err);
+    });;
 }
 
 export { getPaymentMethods };
