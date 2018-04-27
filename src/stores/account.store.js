@@ -5,6 +5,14 @@ class AccountStore extends Flux.DashStore {
     super();
 
     /**
+     * Notifies when the account list was loaded
+     * @param {Array}  accounts the account list
+     */
+    this.addEvent('getAccounts', (accounts) => {
+      return accounts;
+    });
+
+    /**
      * Notifies when a account was created
      * @param {object}  account the created account
      */

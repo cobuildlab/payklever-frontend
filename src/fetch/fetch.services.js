@@ -9,7 +9,7 @@ const API_URL = process.env.REACT_APP_API_URL;
  * @param  {Boolean} isAuth true if api requires token
  * @return {Promise}         the data from the endpoint
  */
-export function postData(url, data, isAuth) {
+export function postData(url, data, isAuth = true) {
   return new Promise((resolve, reject) => {
     checkConnection();
 
@@ -17,6 +17,7 @@ export function postData(url, data, isAuth) {
         body: JSON.stringify(data),
         headers: {
           'Accept': 'application/json',
+          'Accept-Language': i18next.language,
           'Content-Type': 'application/json',
           'Authorization': (isAuth) ? `Token ${authStore.getToken()}`: '',
         },
@@ -34,13 +35,14 @@ export function postData(url, data, isAuth) {
  * @param  {Boolean} isAuth true if api requires token
  * @return {Promise}         the data from the endpoint
  */
-export function getData(url, isAuth) {
+export function getData(url, isAuth = true) {
   return new Promise((resolve, reject) => {
     checkConnection();
 
     return fetch(`${API_URL}${url}`, {
         headers: {
           'Accept': 'application/json',
+          'Accept-Language': i18next.language,
           'Content-Type': 'application/json',
           'Authorization': (isAuth) ? `Token ${authStore.getToken()}`: '',
         },

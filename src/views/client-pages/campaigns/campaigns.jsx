@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {
   I18n
 } from 'react-i18next';
+import { i18next } from '../../../i18n';
+import { toast } from 'react-toastify';
 import {
   Container,
   Table,
@@ -23,7 +25,10 @@ import {
 import {
   Link
 } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { RingLoader } from 'react-spinners';
 import * as CampaignsActions from './campaigns.actions';
+import { campaignStore } from '../../../stores';
 import { SubNav } from '../../components';
 
 class Campaigns extends Component {
@@ -31,33 +36,50 @@ class Campaigns extends Component {
     super(props);
 
     this.state = {
-      campaigns: [{
-        id: 1,
-        name: 'campaign',
-        title: 'title',
-      }, {
-        id: 2,
-        name: 'campaign2',
-        title: 'title2',
-      }],
+      loading: true,
+      campaigns: [],
     };
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
-    CampaignsActions.getCampaigns()
-      .then((campaigns) => {
-        this.setState({
-          campaigns,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    this.getCampaignsSubscription = campaignStore
+      .subscribe('getCampaigns', (campaigns) => {
+        this.setState({ campaigns });
+        this.isLoading(false);
+      });
+
+    this.campaignStoreError = campaignStore
+      .subscribe('CampaignStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+
+      CampaignsActions.getCampaigns();
+  }
+
+  componentWillUnmount() {
+    this.getCampaignsSubscription.unsubscribe();
+    this.campaignStoreError.unsubscribe();
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (
       <div>
+
+      <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
+        <div className="App-overlay">
+          <div style={{width: '200px'}} className="App-center-loading">
+            <h4 className="text-center">
+                { t('CAMPAIGNS.loadingCampaigns') }
+            </h4>
+            <RingLoader size={200} color={'#75c044'} loading={true}/>
+          </div>
+        </div>
+      </CSSTransition>
+
        <Container className="mt-4 p-0">
          <Nav className="nav mt-5 mb-3 p-0 d-flex justify-content-end">
           <NavItem>
@@ -159,16 +181,24 @@ class Campaigns extends Component {
               </tr>
             </thead>
             <tbody>
+            <TransitionGroup component={null}>
              { this.state.campaigns.map((campaign) =>
-             <tr key={campaign.id}>
-               <td>{campaign.name}</td>
-               <td>{campaign.title}</td>
-             </tr> )}
+               <CSSTransition key={campaign.id} timeout={500} classNames="fade-in">
+                 <tr>
+                   <td>{campaign.name}</td>
+                   <td>{campaign.messageTitle}</td>
+                 </tr>
+               </CSSTransition>)}
+            </TransitionGroup>
            </tbody>
          </Table>
        </Container>
       </div>
     )}</I18n>);
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 
