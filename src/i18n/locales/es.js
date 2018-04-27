@@ -33,6 +33,7 @@ export default {
     acceptPrivacy: 'Debes aceptar las Políticas de Privacidad',
     youHaveRegistered: 'Te has Registrado!',
     signingUp: 'Registrando Usuario',
+    emailInUse: 'El Correo esta siendo usado por otro usuario',
   },
   PROFILE: {
     profile: 'Perfil',

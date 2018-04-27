@@ -32,6 +32,7 @@ export default {
     acceptPrivacy: 'You must accept Privacy Policy',
     youHaveRegistered: 'You have Signed Up!',
     signingUp: 'Signing Up',
+    emailInUse: 'The Email is being used by another user',
   },
   PROFILE: {
     profile: 'Profile',

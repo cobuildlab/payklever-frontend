@@ -32,7 +32,7 @@ export function postData(url, data, isAuth = true) {
 /**
  * GET method fetch
  * @param  {string}  url    Endpoint URL
- * @param  {Boolean} isAuth true if api requires token
+ * @param  {Boolean} isAuth true if api requires token, true by default
  * @return {Promise}         the data from the endpoint
  */
 export function getData(url, isAuth = true) {

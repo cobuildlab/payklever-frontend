@@ -26,16 +26,16 @@ const signupValidator = (signupForm: SignupForm) => {
   }
 
   if (!signupRegExp.validFirstName.test(signupForm.firstName)) {
-    throw new Error(i18next.t('SIGNUP.invalidFirstName'));
+    throw new Error(`${i18next.t('SIGNUP.firstName')}: ${i18next.t('SIGNUP.invalidFirstName')}`);
   }
   if (!signupRegExp.validLastName.test(signupForm.lastName)) {
-    throw new Error(i18next.t('SIGNUP.invalidLastName'));
+    throw new Error(`${i18next.t('SIGNUP.lastName')}: ${i18next.t('SIGNUP.invalidLastName')}`);
   }
   if (!signupRegExp.validEmail.test(signupForm.email)) {
-    throw new Error(i18next.t('SIGNUP.invalidPassword'));
+    throw new Error(`${i18next.t('SIGNUP.email')}: ${i18next.t('SIGNUP.invalidEmail')}`);
   }
   if (!signupRegExp.validPassword.test(signupForm.password)) {
-    throw new Error(i18next.t('SIGNUP.invalidEmail'));
+    throw new Error(`${i18next.t('SIGNUP.password')}: ${i18next.t('SIGNUP.invalidPassword')}`);
   }
 }
 
@@ -68,6 +68,7 @@ const signupAvForm = {
   },
   repeatPassword: {
     match: { value: 'password' },
+    required: true,
   },
   privacyPolicy: {
     required: true,
