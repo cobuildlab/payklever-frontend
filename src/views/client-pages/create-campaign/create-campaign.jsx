@@ -7,7 +7,8 @@ import * as CreateCampaignActions from './create-campaign.actions';
 import { i18next } from '../../../i18n';
 import { campaignStore } from '../../../stores';
 import { toast } from 'react-toastify';
-import { HashLoader } from 'react-spinners';
+import { CSSTransition } from 'react-transition-group';
+import { RingLoader } from 'react-spinners';
 import {
   I18n
 } from 'react-i18next';
@@ -156,14 +157,16 @@ class CreateCampaign extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
 
-    <div hidden={!this.state.loading} className="App-overlay">
-      <div style={{width: '200px'}} className="App-center-loading">
-        <h4 className="text-center">
-          { t('CREATE_CAMPAIGN.creatingCampaign') }
-        </h4>
-        <HashLoader size={200} color={'#75c044'} loading={this.state.loading}/>
+    <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
+      <div className="App-overlay">
+        <div style={{width: '200px'}} className="App-center-loading">
+          <h4 className="text-center">
+            { t('CREATE_CAMPAIGN.creatingCampaign') }
+          </h4>
+          <RingLoader size={200} color={'#75c044'} loading={true}/>
+        </div>
       </div>
-    </div>
+    </CSSTransition>
 
       <SubNav titleI18n="CREATE_CAMPAIGN.createCampaign"></SubNav>
 
