@@ -1,9 +1,14 @@
-import * as utils from '../../utils'
+import * as utils from '../../utils';
+import { i18next } from '../../i18n';
 
 const loginValidator = (email, password) => {
-  if (!utils.isValidString(email)) throw new Error('LOGIN.emptyEmail');
+  if (!utils.isValidString(email)) {
+    throw new Error(i18next.t('LOGIN.emptyEmail'));
+  }
 
-  if (!utils.isValidString(password)) throw new Error('LOGIN.emptyPassword');
+  if (!utils.isValidString(password)){ 
+    throw new Error(i18next.t('LOGIN.emptyPassword'));
+  }
 }
 
 export { loginValidator };

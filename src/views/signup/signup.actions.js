@@ -3,6 +3,7 @@ import { postData } from '../../fetch';
 import { SignupForm } from './signup.classes';
 
 const signup = (signupForm: SignupForm) => {
+  // TODO: add validator try catch
   return postData('/auth/register', signupForm, false)
   .then((res) => {
     Flux.dispatchEvent('signup', res);
