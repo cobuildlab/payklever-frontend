@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
 import { Link } from "react-router-dom";
 import { paymentStore } from '../../../stores';
@@ -72,23 +72,28 @@ class PaymentMethods extends Component {
         <Container className="mt-4">
         <Table>
            <tbody>
-            { this.state.paymentMethods.map((paymentMethod, index) => <tr key={paymentMethod.id}>
-              <td>
-                {paymentMethod.firstName} {' '} {paymentMethod.lastName}
-              </td>
-              <td>
-                {paymentMethod.cardNumber}
-              </td>
-              <td className="text-right">
-                <Button color="danger" size="sm">
-                  <FontAwesomeIcon icon={faTimes}/>
-                </Button>
-                 {' '}
-                <Button color="primary" size="sm">
-                 <FontAwesomeIcon icon={faEdit}/>
-                </Button>
-              </td>
-            </tr> )}
+            <TransitionGroup component={null}>
+            { this.state.paymentMethods.map((paymentMethod, index) =>
+              <CSSTransition key={paymentMethod.id} timeout={500} classNames="fade-in">
+              <tr>
+                <td>
+                  {paymentMethod.firstName} {' '} {paymentMethod.lastName}
+                </td>
+                <td>
+                  {paymentMethod.cardNumber}
+                </td>
+                <td className="text-right">
+                  <Button color="danger" size="sm">
+                    <FontAwesomeIcon icon={faTimes}/>
+                  </Button>
+                   {' '}
+                  <Button color="primary" size="sm">
+                   <FontAwesomeIcon icon={faEdit}/>
+                  </Button>
+                </td>
+              </tr>
+            </CSSTransition>)}
+            </TransitionGroup>
           </tbody>
         </Table>
 

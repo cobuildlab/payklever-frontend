@@ -14,7 +14,7 @@ import {
 } from 'reactstrap';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
 import {
   Link
@@ -75,19 +75,23 @@ class Accounts extends Component {
         <Container className="mt-4">
           <Table>
              <tbody>
+              <TransitionGroup component={null}>
               { this.state.accounts.map((account) =>
-              <tr key={account.id}>
-                <td>{account.name}</td>
-              <td className="text-right">
-                  <Button color="danger" size="sm">
-                    <FontAwesomeIcon icon={faTimes}/>
-                  </Button>
-                   {' '}
-                  <Button color="primary" size="sm">
-                   <FontAwesomeIcon icon={faEdit}/>
-                  </Button>
-                </td>
-              </tr> )}
+                <CSSTransition key={account.id} timeout={500} classNames="fade-in">
+                <tr>
+                  <td>{account.name}</td>
+                  <td className="text-right">
+                    <Button color="danger" size="sm">
+                      <FontAwesomeIcon icon={faTimes}/>
+                    </Button>
+                     {' '}
+                    <Button color="primary" size="sm">
+                     <FontAwesomeIcon icon={faEdit}/>
+                    </Button>
+                  </td>
+                </tr>
+                </CSSTransition>)}
+              </TransitionGroup>
             </tbody>
           </Table>
 

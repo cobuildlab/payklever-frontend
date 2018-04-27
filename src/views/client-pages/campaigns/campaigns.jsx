@@ -25,7 +25,7 @@ import {
 import {
   Link
 } from "react-router-dom";
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
 import * as CampaignsActions from './campaigns.actions';
 import { campaignStore } from '../../../stores';
@@ -181,11 +181,15 @@ class Campaigns extends Component {
               </tr>
             </thead>
             <tbody>
+            <TransitionGroup component={null}>
              { this.state.campaigns.map((campaign) =>
-             <tr key={campaign.id}>
-               <td>{campaign.name}</td>
-               <td>{campaign.messageTitle}</td>
-             </tr> )}
+               <CSSTransition key={campaign.id} timeout={500} classNames="fade-in">
+                 <tr>
+                   <td>{campaign.name}</td>
+                   <td>{campaign.messageTitle}</td>
+                 </tr>
+               </CSSTransition>)}
+            </TransitionGroup>
            </tbody>
          </Table>
        </Container>
