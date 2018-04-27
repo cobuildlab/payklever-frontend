@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import * as loginActions from './login.actions';
 import './login.css';
 import { RingLoader } from 'react-spinners';
+import { Link } from 'react-router-dom';
 import {
   WhiteLogo,
   PaykleverBg,
@@ -116,6 +117,11 @@ class Login extends Component {
                         { t('LOGIN.recoverPassword') }
                       </p>
                     </a>
+                    <Link to={"/signup/"} className="recover">
+                      <p className="text-center">
+                        { t('LOGIN.register') }
+                      </p>
+                    </Link>
                   </AvGroup>
                 </AvForm>
               </CardBody>

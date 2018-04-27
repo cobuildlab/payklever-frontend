@@ -6,6 +6,7 @@ import { i18next } from '../../i18n';
 import { toast } from 'react-toastify';
 import { authStore } from '../../stores';
 import { BounceLoader } from 'react-spinners';
+import { Link } from 'react-router-dom';
 import './signup.css';
 import {
   Container,
@@ -132,6 +133,11 @@ class Signup extends Component {
                       { t('SIGNUP.signup') }
                     </Button>
                   </AvGroup>
+                  <Link to={"/login/"} className="recover-login">
+                    <p className="text-center">
+                      { t('SIGNUP.recoverLogin') }
+                    </p>
+                  </Link>
                 </AvForm>
               </CardBody>
             </Card>

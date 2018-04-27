@@ -51,10 +51,16 @@
   transition: all .3s ease 0s;
   margin-bottom: 20px;
 }
-.recover:hover{
+.recover-login{
+  color: #787979;
+  cursor: pointer;
+  padding-top: 20px;
+  transition: all .3s ease 0s;
+}
+.recover-login:hover{
   color: #787979;
   cursor: pointer;
   transition: all .3s ease 0s;
   opacity: 0.7;
-  text-decoration: underline;
+  text-decoration: none;
 }
