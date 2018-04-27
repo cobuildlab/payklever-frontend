@@ -14,7 +14,8 @@ import {
 } from 'reactstrap';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { BounceLoader } from 'react-spinners';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { RingLoader } from 'react-spinners';
 import {
   Link
 } from "react-router-dom";
@@ -59,31 +60,38 @@ class Accounts extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (
       <div>
-        <div hidden={!this.state.loading} className="App-overlay">
-          <div style={{width: '200px'}} className="App-center-loading">
-            <h4 className="text-center">
-              { t('ACCOUNTS.loadingAccounts') }
-            </h4>
-            <BounceLoader size={200} color={'#75c044'} loading={this.state.loading}/>
+
+        <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
+          <div className="App-overlay">
+            <div style={{width: '200px'}} className="App-center-loading">
+              <h4 className="text-center">
+                { t('ACCOUNTS.loadingAccounts') }
+              </h4>
+              <RingLoader size={200} color={'#75c044'} loading={true}/>
+            </div>
           </div>
-        </div>
+        </CSSTransition>
 
         <Container className="mt-4">
           <Table>
              <tbody>
+              <TransitionGroup component={null}>
               { this.state.accounts.map((account) =>
-              <tr key={account.id}>
-                <td>{account.name}</td>
-              <td className="text-right">
-                  <Button color="danger" size="sm">
-                    <FontAwesomeIcon icon={faTimes}/>
-                  </Button>
-                   {' '}
-                  <Button color="primary" size="sm">
-                   <FontAwesomeIcon icon={faEdit}/>
-                  </Button>
-                </td>
-              </tr> )}
+                <CSSTransition key={account.id} timeout={500} classNames="fade-in">
+                <tr>
+                  <td>{account.name}</td>
+                  <td className="text-right">
+                    <Button color="danger" size="sm">
+                      <FontAwesomeIcon icon={faTimes}/>
+                    </Button>
+                     {' '}
+                    <Button color="primary" size="sm">
+                     <FontAwesomeIcon icon={faEdit}/>
+                    </Button>
+                  </td>
+                </tr>
+                </CSSTransition>)}
+              </TransitionGroup>
             </tbody>
           </Table>
 

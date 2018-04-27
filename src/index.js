@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './i18n/i18n';
+import './assets/css/animations.css';
 import './index.css';
 import {
   BrowserRouter as Router,

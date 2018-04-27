@@ -14,7 +14,8 @@ import {
 } from 'reactstrap';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { BounceLoader } from 'react-spinners';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { RingLoader } from 'react-spinners';
 import { Link } from "react-router-dom";
 import { paymentStore } from '../../../stores';
 import * as PaymentMethodsActions from './payment-methods.actions';
@@ -45,7 +46,6 @@ class PaymentMethods extends Component {
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-
     PaymentMethodsActions.getPaymentMethods();
   }
 
@@ -57,35 +57,43 @@ class PaymentMethods extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (
       <div>
-        <div hidden={!this.state.loading} className="App-overlay">
-          <div style={{width: '200px'}} className="App-center-loading">
-            <h4 className="text-center">
-              { t('PAYMENT_METHODS.loadingPayments') }
-            </h4>
-            <BounceLoader size={200} color={'#75c044'} loading={this.state.loading}/>
+
+        <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
+          <div className="App-overlay">
+            <div style={{width: '200px'}} className="App-center-loading">
+              <h4 className="text-center">
+                { t('PAYMENT_METHODS.loadingPayments') }
+              </h4>
+              <RingLoader size={200} color={'#75c044'} loading={true}/>
+            </div>
           </div>
-        </div>
+        </CSSTransition>
 
         <Container className="mt-4">
         <Table>
            <tbody>
-            { this.state.paymentMethods.map((paymentMethod, index) => <tr key={paymentMethod.id}>
-              <td>
-                {paymentMethod.firstName} {' '} {paymentMethod.lastName}
-              </td>
-              <td>
-                {paymentMethod.cardNumber}
-              </td>
-              <td className="text-right">
-                <Button color="danger" size="sm">
-                  <FontAwesomeIcon icon={faTimes}/>
-                </Button>
-                 {' '}
-                <Button color="primary" size="sm">
-                 <FontAwesomeIcon icon={faEdit}/>
-                </Button>
-              </td>
-            </tr> )}
+            <TransitionGroup component={null}>
+            { this.state.paymentMethods.map((paymentMethod, index) =>
+              <CSSTransition key={paymentMethod.id} timeout={500} classNames="fade-in">
+              <tr>
+                <td>
+                  {paymentMethod.firstName} {' '} {paymentMethod.lastName}
+                </td>
+                <td>
+                  {paymentMethod.cardNumber}
+                </td>
+                <td className="text-right">
+                  <Button color="danger" size="sm">
+                    <FontAwesomeIcon icon={faTimes}/>
+                  </Button>
+                   {' '}
+                  <Button color="primary" size="sm">
+                   <FontAwesomeIcon icon={faEdit}/>
+                  </Button>
+                </td>
+              </tr>
+            </CSSTransition>)}
+            </TransitionGroup>
           </tbody>
         </Table>
 

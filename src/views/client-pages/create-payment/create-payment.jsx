@@ -5,7 +5,8 @@ import * as CreatePaymentActions from './create-payment.actions';
 import { paymentStore } from '../../../stores';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { DotLoader } from 'react-spinners';
+import { CSSTransition } from 'react-transition-group';
+import { RingLoader } from 'react-spinners';
 import {
   I18n
 } from 'react-i18next';
@@ -68,14 +69,16 @@ class CreatePayment extends Component {
     return (<I18n>{(t, { i18n }) => (<div>
       <SubNav titleI18n="CREATE_PAYMENT.addPayment"></SubNav>
 
-      <div hidden={!this.state.loading} className="App-overlay">
-        <div style={{width: '200px'}} className="App-center-loading">
-          <h4 className="text-center">
-            { t('CREATE_PAYMENT.creatingPayment') }
-          </h4>
-          <DotLoader size={200} color={'#75c044'} loading={this.state.loading}/>
+      <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
+        <div className="App-overlay">
+          <div style={{width: '200px'}} className="App-center-loading">
+            <h4 className="text-center">
+              { t('CREATE_PAYMENT.creatingPayment') }
+            </h4>
+            <RingLoader size={200} color={'#75c044'} loading={true}/>
+          </div>
         </div>
-      </div>
+      </CSSTransition>
 
         <Container className="mt-4">
           <AvForm onValidSubmit={(evt) => this.createPayment(evt)} noValidate>
