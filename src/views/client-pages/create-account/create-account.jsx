@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { SubNav } from '../../components';
 import { CreateAccountForm } from './create-account.classes';
 import * as createAccountActions from './create-account.actions';
+import * as PaymentMethodsActions from '../payment-methods/payment-methods.actions';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { accountStore } from '../../../stores';
+import { accountStore, paymentStore } from '../../../stores';
 import { CSSTransition } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
 import {
@@ -33,17 +34,7 @@ class CreateAccount extends Component {
       name: '',
       location: '',
       paymediaId: '',
-      paymentMethods: [{
-        id: 1,
-        firstName: 'Jose',
-        lastName: 'Villalobos',
-        cardNumber: '************4561'
-      }, {
-        id: 2,
-        firstName: 'Agustin',
-        lastName: 'Vargas',
-        cardNumber: '************8571'
-      }]
+      paymentMethods: [],
     };
 
     this.isLoading = this.isLoading.bind(this);
@@ -64,11 +55,26 @@ class CreateAccount extends Component {
         toast.dismiss();
         toast.error(err.message || i18next.t('FETCH.error'));
       });
+
+    this.getPaymentsSubscription = paymentStore
+      .subscribe('getPayments', (paymentMethods) => {
+        this.setState({ paymentMethods });
+      });
+
+    this.paymentStoreError = paymentStore
+      .subscribe('PaymentStoreError', (err) => {
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+
+    PaymentMethodsActions.getPaymentMethods();
   }
 
   componentWillUnmount() {
     this.createAccountSubscription.unsubscribe();
     this.accountStoreError.unsubscribe();
+    this.getPaymentsSubscription.unsubscribe();
+    this.paymentStoreError.unsubscribe();
   }
 
   render() {
