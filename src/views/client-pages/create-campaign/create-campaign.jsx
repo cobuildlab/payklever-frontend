@@ -66,34 +66,6 @@ class CreateCampaign extends Component {
           text: '20 - 35',
         },
       ],
-      education: [],
-      educationList: [{
-          id: 1,
-          text: 'High school degree',
-        },
-        {
-          id: 2,
-          text: `Master's degree`,
-        },
-        {
-          id: 3,
-          text: `Collage degree`,
-        },
-      ],
-      civilStatus: [],
-      civilStatusList: [{
-          id: 1,
-          text: 'Single',
-        },
-        {
-          id: 2,
-          text: `Divorced`,
-        },
-        {
-          id: 3,
-          text: `Married`,
-        }
-      ],
       hourHand: [],
       hourHandList: [{
           id: 1,
@@ -104,10 +76,20 @@ class CreateCampaign extends Component {
           text: '12pm to 2pm',
         },
       ],
-      paymediaId: '',
-      bidPerClick: '',
-      date: '',
-      account: '',
+      income: [],
+      incomeList: [{
+          id: 1,
+          text: '100$ to 200$',
+        },
+        {
+          id: 2,
+          text: '200$ to 400$',
+        }],
+      accountId: {},
+      budget: {},
+      account: {},
+      startDate: '',
+      stopDate: '',
     };
 
     this.isLoading = this.isLoading.bind(this);
@@ -155,6 +137,25 @@ class CreateCampaign extends Component {
         <AvForm onValidSubmit={(evt) => this.createCampaign(evt)} noValidate>
       <Row className="mb-5 d-flex align-items-stretch">
         <Col className="divider-col" md={{size: 9}}>
+            <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
+              <p className="title-create">
+                { t('CREATE_CAMPAIGN.accountInfo') }
+              </p>
+            </Col>
+            <FormGroup>
+              <Input disabled type="text" name="accountName" placeholder={t('CREATE_CAMPAIGN.accountName')} value={this.state.account.name}/>
+            </FormGroup>
+            <FormGroup>
+              <Input disabled type="text" name="accountPayment" placeholder={t('CREATE_CAMPAIGN.accountPayment')} value={this.state.account.paymedia}/>
+            </FormGroup>
+            <FormGroup>
+              <Input disabled type="text" name="accountLocation" placeholder={t('CREATE_CAMPAIGN.accountLocation')} value={this.state.account.location}/>
+            </FormGroup>
+            <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
+              <p className="title-create">
+                { t('CREATE_CAMPAIGN.campaignInfo') }
+              </p>
+            </Col>
             <AvGroup>
               <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_CAMPAIGN.name') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})} validate={createCampaignAvForm.name}/>
               <AvFeedback>{ t('CREATE_CAMPAIGN.invalidName') }</AvFeedback>
@@ -173,31 +174,26 @@ class CreateCampaign extends Component {
             <AvRadioGroup className="divider-select" inline name="gender" label={ t('CREATE_CAMPAIGN.gender') } errorMessage={ t('CREATE_CAMPAIGN.invalidGender') }>
                 {this.state.genderlist.map((gender) => <AvRadio key={gender.id} label={gender.gender} value={gender.gender} />)}
             </AvRadioGroup>
-            <h4>{ t('CREATE_CAMPAIGN.age') }</h4>
+            <h4 className="mt-3">{ t('CREATE_CAMPAIGN.age') }</h4>
             {this.state.ageList.map((age) =><AvGroup key={age.id} inline check>
                 <Label check>
                   <AvInput name="age" type="checkbox" trueValue={age.id} falseValue={''} />{age.text}
                 </Label>
             </AvGroup>)}
             <div className="divider-select mt-3 mb-3"></div>
-            <h4>{ t('CREATE_CAMPAIGN.education') }</h4>
-            {this.state.educationList.map((education) =><AvGroup key={education.id} inline check>
+            <h4>{ t('CREATE_CAMPAIGN.income') }</h4>
+            {this.state.incomeList.map((income) =><AvGroup key={income.id} inline check>
                 <Label check>
-                  <AvInput name="education" type="checkbox" key={education.id} trueValue={education.id} falseValue={''} />
-                  {education.text}
-                </Label>
-            </AvGroup>)}
-            <div className="divider-select mt-3 mb-3"></div>
-            <h4>{ t('CREATE_CAMPAIGN.civilStatus') }</h4>
-            {this.state.civilStatusList.map((civilStatus) =><AvGroup key={civilStatus.id} inline check>
-                <Label check>
-                  <AvInput name="civilStatus" type="checkbox" key={civilStatus.id} trueValue={civilStatus.id} falseValue={''} />
-                  {civilStatus.text}
+                  <AvInput name="income" type="checkbox" trueValue={income.id} falseValue={''} />{income.text}
                 </Label>
             </AvGroup>)}
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
               <p className="title-create">{ t('CREATE_CAMPAIGN.budgetAndProgramming') }</p>
             </Col>
+            <AvGroup>
+              <AvInput type="number" name="budget" id="budget" placeholder={ t('CREATE_CAMPAIGN.budget') } value={this.state.budget} onChange={(evt) => this.setState({budget: evt.target.value})} validate={createCampaignAvForm.budget}/>
+              <AvFeedback>{ t('CREATE_CAMPAIGN.invalidName') }</AvFeedback>
+            </AvGroup>
             <Row>
               <Col md={{size: 6}}>
                 <AvGroup className="mr-sm-3 mb-sm-0" inline>
