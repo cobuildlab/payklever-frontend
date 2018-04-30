@@ -99,7 +99,7 @@ class PaymentMethods extends Component {
 
         <Link to="/client/create-payment">
           <Button className="d-block mx-auto mt-4" color="primary">
-          { t('PAYMENT_METHODS.addPayment') }
+          { t('PAYMENT_METHODS.createPayment') }
           </Button>
         </Link>
 

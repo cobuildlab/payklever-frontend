@@ -129,7 +129,7 @@ class CreateAccount extends Component {
             </AvGroup>
             <AvGroup>
               <Button  type="submit" className="d-block mx-auto mt-4" color="primary">
-              { t('ACCOUNTS.addAccount') }
+              { t('ACCOUNTS.createAccount') }
               </Button>
             </AvGroup>
           </AvForm>

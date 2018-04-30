@@ -68,7 +68,7 @@ class CreatePayment extends Component {
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <SubNav titleI18n="CREATE_PAYMENT.addPayment"></SubNav>
+      <SubNav titleI18n="CREATE_PAYMENT.createPayment"></SubNav>
 
       <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
         <div className="App-overlay">
@@ -148,7 +148,7 @@ class CreatePayment extends Component {
           </Row>
             <AvGroup>
               <Button  type="submit" className="d-block mx-auto mt-4" color="primary">
-              { t('PAYMENT_METHODS.addPayment') }
+              { t('PAYMENT_METHODS.createPayment') }
               </Button>
             </AvGroup>
           </AvForm>

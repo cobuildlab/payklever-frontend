@@ -97,7 +97,7 @@ class Accounts extends Component {
 
           <Link to="/client/create-account">
             <Button className="d-block mx-auto mt-4" color="primary">
-            { t('ACCOUNTS.addAccount') }
+            { t('ACCOUNTS.createAccount') }
             </Button>
           </Link>
 

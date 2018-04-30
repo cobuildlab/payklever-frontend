@@ -47,11 +47,10 @@ export default {
     accounts: 'Accounts',
   },
   ACCOUNTS: {
-    addAccount: 'Add Account',
+    createAccount: 'Create Account',
     loadingAccounts: 'Loading Accounts',
   },
   CREATE_ACCOUNT: {
-    addAccount: 'Add Account',
     createAccount: 'Create Account',
     accountName: 'Account name',
     emptyName: 'Name required',
@@ -65,11 +64,11 @@ export default {
     creatingAccount: 'Creating Account',
   },
   PAYMENT_METHODS: {
-    addPayment: 'Add Payment Method',
+    createPayment: 'Create Payment Method',
     loadingPayments: 'Loading Payment Methods',
   },
   CREATE_PAYMENT: {
-    addPayment: 'Add Payment Method',
+    createPayment: 'Create Payment Method',
     firstName: 'First Name',
     lastName: 'Last Name',
     cardNumber: 'Card Number',
