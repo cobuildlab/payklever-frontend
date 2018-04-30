@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { SubNav } from '../../components';
 import { CreatePaymentForm } from './create-payment.classes';
 import * as CreatePaymentActions from './create-payment.actions';
+import { createPaymentAvForm } from './create-payment.validators';
 import { paymentStore } from '../../../stores';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
@@ -86,14 +87,14 @@ class CreatePayment extends Component {
               <Col md={6}>
                 <AvGroup>
                   <Label for="firstName">{ t('CREATE_PAYMENT.firstName') }</Label>
-                  <AvInput type="text" name="firstName" id="firstName" placeholder={ t('CREATE_PAYMENT.firstName') } value={this.state.firstName} onChange={(evt) => this.setState({firstName: evt.target.value})} minLength="3" maxLength="20" required/>
+                  <AvInput type="text" name="firstName" id="firstName" placeholder={ t('CREATE_PAYMENT.firstName') } value={this.state.firstName} onChange={(evt) => this.setState({firstName: evt.target.value})} validate={createPaymentAvForm.firstName}/>
                   <AvFeedback>{ t('CREATE_PAYMENT.invalidFirstName') }</AvFeedback>
                 </AvGroup>
               </Col>
               <Col md={6}>
                 <AvGroup>
                   <Label for="lastName">{ t('CREATE_PAYMENT.lastName') }</Label>
-                  <AvInput type="text" name="lastName" id="lastName" placeholder={ t('CREATE_PAYMENT.lastName') } value={this.state.lastName} onChange={(evt) => this.setState({lastName: evt.target.value})} minLength="3" maxLength="20" required/>
+                  <AvInput type="text" name="lastName" id="lastName" placeholder={ t('CREATE_PAYMENT.lastName') } value={this.state.lastName} onChange={(evt) => this.setState({lastName: evt.target.value})} validate={createPaymentAvForm.lastName}/>
                   <AvFeedback>{ t('CREATE_PAYMENT.invalidLastName') }</AvFeedback>
                 </AvGroup>
               </Col>
@@ -102,28 +103,28 @@ class CreatePayment extends Component {
               <Col md={6}>
                 <AvGroup>
                   <Label for="cardNumber">{ t('CREATE_PAYMENT.cardNumber') }</Label>
-                  <AvInput type="text" name="cardNumber" id="cardNumber" placeholder={ t('CREATE_PAYMENT.cardNumber') } value={this.state.cardNumber} onChange={(evt) => this.setState({cardNumber: evt.target.value})}  minLength="16" maxLength="16" validate={{number: true}} required/>
+                  <AvInput type="text" name="cardNumber" id="cardNumber" placeholder={ t('CREATE_PAYMENT.cardNumber') } value={this.state.cardNumber} onChange={(evt) => this.setState({cardNumber: evt.target.value})} validate={createPaymentAvForm.cardNumber}/>
                   <AvFeedback>{ t('CREATE_PAYMENT.invalidCardNumber') }</AvFeedback>
                 </AvGroup>
               </Col>
               <Col md={6} lg={2}>
                 <AvGroup>
                   <Label for="expireMonth">{ t('CREATE_PAYMENT.expirationDate') }</Label>
-                  <AvInput type="text" name="expireMonth" id="expireMonth" placeholder={ t('CREATE_PAYMENT.expireMonth') } value={this.state.expireMonth} onChange={(evt) => this.setState({expireMonth: evt.target.value})}  minLength="2" maxLength="2" min="1" max="12" validate={{number: true}} required/>
+                  <AvInput type="text" name="expireMonth" id="expireMonth" placeholder={ t('CREATE_PAYMENT.expireMonth') } value={this.state.expireMonth} onChange={(evt) => this.setState({expireMonth: evt.target.value})} validate={createPaymentAvForm.expireMonth}/>
                   <AvFeedback>{ t('CREATE_PAYMENT.invalidExpirationDateMonth') }</AvFeedback>
                 </AvGroup>
               </Col>
               <Col md={6} lg={2}>
                 <AvGroup>
                 <Label style={{color: 'transparent'}} for="expireYear">{'_'}</Label>
-                <AvInput type="text" name="expireYear" id="expireYear" placeholder={ t('CREATE_PAYMENT.expireYear') } value={this.state.expireYear} onChange={(evt) => this.setState({expireYear: evt.target.value})}  minLength="2" maxLength="2" validate={{number: true}} required/>
+                <AvInput type="text" name="expireYear" id="expireYear" placeholder={ t('CREATE_PAYMENT.expireYear') } value={this.state.expireYear} onChange={(evt) => this.setState({expireYear: evt.target.value})} validate={createPaymentAvForm.expireYear}/>
                 <AvFeedback>{ t('CREATE_PAYMENT.invalidExpirationDateYear') }</AvFeedback>
               </AvGroup>
             </Col>
             <Col md={6} lg={2}>
               <AvGroup>
                 <Label for="securityCode">{ t('CREATE_PAYMENT.securityCode') }</Label>
-                <AvInput type="text" name="securityCode" id="securityCode" placeholder={ t('CREATE_PAYMENT.securityCode') } value={this.state.securityCode} onChange={(evt) => this.setState({securityCode: evt.target.value})}  minLength="3" maxLength="3" validate={{number: true}} required/>
+                <AvInput type="text" name="securityCode" id="securityCode" placeholder={ t('CREATE_PAYMENT.securityCode') } value={this.state.securityCode} onChange={(evt) => this.setState({securityCode: evt.target.value})} validate={createPaymentAvForm.securityCode}/>
                 <AvFeedback>{ t('CREATE_PAYMENT.invalidSecurityCode') }</AvFeedback>
               </AvGroup>
             </Col>
@@ -140,7 +141,7 @@ class CreatePayment extends Component {
             <Col md={6}>
               <AvGroup>
                 <Label for="zipCode">{ t('CREATE_PAYMENT.zipCode') }</Label>
-                <AvInput type="text" name="zipCode" id="zipCode" placeholder={ t('CREATE_PAYMENT.zipCode') } value={this.state.zipCode} onChange={(evt) => this.setState({zipCode: evt.target.value})} minLength="4" maxLength="5" validate={{number: true}} required/>
+                <AvInput type="text" name="zipCode" id="zipCode" placeholder={ t('CREATE_PAYMENT.zipCode') } value={this.state.zipCode} onChange={(evt) => this.setState({zipCode: evt.target.value})} validate={createPaymentAvForm.zipCode}/>
                 <AvFeedback>{ t('CREATE_PAYMENT.invalidPostalCode') }</AvFeedback>
               </AvGroup>
             </Col>

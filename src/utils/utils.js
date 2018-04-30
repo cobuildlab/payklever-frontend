@@ -17,14 +17,16 @@ const isValidString = (stringToTest, allowEmpty = false) => {
  * @param stringToTest The string to validate
  * @return {boolean} If the string is a valid number
  */
-const isValidNumber = (stringToTest) => {
+const isValidNumber = (stringToTest, allowCero = false, allowNegative = false) => {
   const numberToTest = parseInt(stringToTest, 10);
 
   if (stringToTest.length === 0) return false;
 
   if (typeof(numberToTest) !== 'number') return false;
 
-  if (numberToTest <= 0) return false;
+  if (numberToTest === 0 && allowCero === false) return false;
+
+  if (numberToTest < 0 && allowNegative === false) return false;
 
   return true;
 };
