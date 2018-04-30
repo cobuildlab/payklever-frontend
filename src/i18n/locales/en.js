@@ -106,7 +106,7 @@ export default {
   },
   CREATE_CAMPAIGN: {
     campaignInfo: 'Campaign Information',
-    accountInfo: 'Información de la Cuenta',
+    accountInfo: 'Account Information',
     accountName: 'Account Name',
     accountPayment: 'Payment Method',
     accountLocation: 'Location',
