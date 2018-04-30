@@ -4,6 +4,7 @@ import {
 } from '../../components';
 import { CreateCampaignForm } from './create-campaign.classes';
 import * as CreateCampaignActions from './create-campaign.actions';
+import { createCampaignAvForm } from './create-campaign.validators';
 import { i18next } from '../../../i18n';
 import { campaignStore } from '../../../stores';
 import { toast } from 'react-toastify';
@@ -91,16 +92,7 @@ class CreateCampaign extends Component {
         {
           id: 3,
           text: `Married`,
-        }],
-      income: [],
-      incomeList: [{
-          id: 1,
-          text: '100$ to 200$',
-        },
-        {
-          id: 2,
-          text: '200$ to 350$',
-        },
+        }
       ],
       hourHand: [],
       hourHandList: [{
@@ -113,18 +105,7 @@ class CreateCampaign extends Component {
         },
       ],
       paymediaId: '',
-      paymentMethods: [{
-        id: 1,
-        firstName: 'Jose',
-        lastName: 'Villalobos',
-        cardNumber: '************4561'
-      }, {
-        id: 2,
-        firstName: 'Agustin',
-        lastName: 'Vargas',
-        cardNumber: '************8571'
-      }],
-      bid: '',
+      bidPerClick: '',
       date: '',
       account: '',
     };
@@ -175,15 +156,15 @@ class CreateCampaign extends Component {
       <Row className="mb-5 d-flex align-items-stretch">
         <Col className="divider-col" md={{size: 9}}>
             <AvGroup>
-              <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_CAMPAIGN.name') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})}  minLength="6" maxLength="40" required/>
+              <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_CAMPAIGN.name') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})} />
               <AvFeedback>{ t('CREATE_CAMPAIGN.invalidName') }</AvFeedback>
             </AvGroup>
             <AvGroup>
-              <AvInput type="text" name="messageTitle" id="messageTitle" placeholder={ t('CREATE_CAMPAIGN.messageTitle') } value={this.state.messageTitle} onChange={(evt) => this.setState({messageTitle: evt.target.value})} required/>
+              <AvInput type="text" name="messageTitle" id="messageTitle" placeholder={ t('CREATE_CAMPAIGN.messageTitle') } value={this.state.messageTitle} onChange={(evt) => this.setState({messageTitle: evt.target.value})} />
               <AvFeedback>{ t('CREATE_CAMPAIGN.invalidMessageTitle') }</AvFeedback>
             </AvGroup>
             <AvGroup>
-              <AvInput style={{height: 'auto'}} type="textarea" name="messageDescription" id="messageDescription" placeholder={ t('CREATE_CAMPAIGN.messageDescription') } value={this.state.messageDescription} onChange={(evt) => this.setState({messageDescription: evt.target.value})} required/>
+              <AvInput style={{height: 'auto'}} type="textarea" name="messageDescription" id="messageDescription" placeholder={ t('CREATE_CAMPAIGN.messageDescription') } value={this.state.messageDescription} onChange={(evt) => this.setState({messageDescription: evt.target.value})} />
               <AvFeedback>{ t('CREATE_CAMPAIGN.invalidMessageDescription') }</AvFeedback>
             </AvGroup>
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
@@ -214,52 +195,27 @@ class CreateCampaign extends Component {
                   {civilStatus.text}
                 </Label>
             </AvGroup>)}
-            <div className="divider-select mt-3 mb-3"></div>
-            <h4>{ t('CREATE_CAMPAIGN.income') }</h4>
-            {this.state.incomeList.map((income) =><AvGroup key={income.id} inline check>
-                <Label check>
-                  <AvInput name="income" type="checkbox" key={income.id} trueValue={income.id} falseValue={''} />
-                  {income.text}
-                </Label>
-            </AvGroup>)}
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
               <p className="title-create">{ t('CREATE_CAMPAIGN.budgetAndProgramming') }</p>
             </Col>
-            <FormGroup className="mt-3 mb-3 divider-select">
-              <Label for="exampleEmail">{ t('CREATE_CAMPAIGN.bidPerClick') }</Label>
-            <Input className="mb-3" type="email" name="email" id="exampleEmail" placeholder={`$ ${ t('CREATE_CAMPAIGN.bidPerClick') }`} />
-            </FormGroup>
             <Row>
               <Col md={{size: 6}}>
-                <FormGroup className="mr-sm-3 mb-sm-0" inline>
+                <AvGroup className="mr-sm-3 mb-sm-0" inline>
                   <Label for="startDate">{ t('CREATE_CAMPAIGN.startDate') }</Label>
-                  <Input type="date" name="startDate" id="startDate" placeholder={ t('CREATE_CAMPAIGN.startDate') } />
-                </FormGroup>
+                  <AvInput type="date" name="startDate" id="startDate" placeholder={ t('CREATE_CAMPAIGN.startDate') }/>
+                </AvGroup>
               </Col>
               <Col md={{size: 6}}>
-                <FormGroup className="mr-sm-3 mb-sm-0" inline>
+                <AvGroup className="mr-sm-3 mb-sm-0" inline>
                   <Label for="stopDate">{ t('CREATE_CAMPAIGN.stopDate') }</Label>
-                  <Input type="date" name="stopDate" id="stopDate" placeholder={ t('CREATE_CAMPAIGN.stopDate') } />
-                </FormGroup>
+                  <AvInput type="date" name="stopDate" id="stopDate" placeholder={ t('CREATE_CAMPAIGN.stopDate') }/>
+                </AvGroup>
               </Col>
             </Row>
             <div className="divider-select mt-3 mb-3"></div>
             <AvRadioGroup inline name="hourHand" label={ t('CREATE_CAMPAIGN.hourHand') } errorMessage={ t('CREATE_CAMPAIGN.invalidHourHand') }>
                 {this.state.hourHandList.map((hourHand) => <AvRadio key={hourHand.id} label={hourHand.text} value={hourHand.id} />)}
             </AvRadioGroup>
-            <Col className="p-0 mb-3 bg-dark" md={{size: 12}}>
-              <p className="title-create">
-                { t('CREATE_ACCOUNT.paymentMethod') }
-              </p>
-            </Col>
-            <AvInput onChange={(evt) => this.setState({paymediaId: evt.target.value})} value={this.state.paymediaId} type="select" name="paymediaId" label={ t('CREATE_ACCOUNT.paymentMethod') }>
-              {!this.state.paymediaId && <option value="" disabled>
-                { t('CREATE_ACCOUNT.selectPaymentMethod') }
-              </option>}
-              {this.state.paymentMethods.map((paymentMethod) =>
-                <option key={paymentMethod.id} value={paymentMethod.id}>{paymentMethod.cardNumber}</option>
-              )}
-            </AvInput>
         </Col>
         <Col md={{size: 3}}>
           <AvGroup>

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import * as appActions from './App.actions';
-import 'react-toastify/dist/ReactToastify.css';
 import { i18next } from './i18n';
 import { toast, ToastContainer } from 'react-toastify';
 import './App.css';
