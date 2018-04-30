@@ -193,16 +193,20 @@ react-toastify overrides
  */
 .Toastify__toast--info {
   background: #3498db;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .Toastify__toast--success {
   background: #74c044;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .Toastify__toast--warning {
   background: #f1c40f;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .Toastify__toast--error {
   background: #dc3545;
+  font-family: 'Montserrat', sans-serif;
 }
