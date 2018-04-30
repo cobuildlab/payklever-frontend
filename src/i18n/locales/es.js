@@ -1,6 +1,7 @@
 export default {
   APP: {
     youHaveLoggedOut: 'Has cerrado la sesión',
+    invalidForm: 'Formulario inválido',
   },
   LOGIN: {
     login: 'Iniciar Sesión',
@@ -53,9 +54,11 @@ export default {
     addAccount: 'Agregar Cuenta',
     createAccount: 'Crear Cuenta',
     accountName: 'Nombre de la Cuenta',
+    emptyName: 'Nombre requerido',
     location: 'Ubicación',
     paymentMethod: 'Método de pago',
     selectPaymentMethod: 'Selecciona un Método de Pago',
+    invalidPaymedia: 'Invalid Payment Method',
     invalidName: 'Solo letras: min: 4, max: 10',
     InvalidLocation: 'Campo obligatorio: Solo letras',
     accountCreated: 'Cuenta Creada!',

@@ -12,4 +12,21 @@ const isValidString = (stringToTest, allowEmpty = false) => {
   return true;
 };
 
-export { isValidString };
+/**
+ * Validate if a string is a valid number
+ * @param stringToTest The string to validate
+ * @return {boolean} If the string is a valid number
+ */
+const isValidNumber = (stringToTest) => {
+  const numberToTest = parseInt(stringToTest, 10);
+
+  if (stringToTest.length === 0) return false;
+
+  if (typeof(numberToTest) !== 'number') return false;
+
+  if (numberToTest <= 0) return false;
+
+  return true;
+};
+
+export { isValidString, isValidNumber };

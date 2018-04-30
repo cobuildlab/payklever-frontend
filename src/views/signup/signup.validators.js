@@ -9,7 +9,7 @@ import { SignupForm } from './signup.classes';
  */
 const signupValidator = (signupForm: SignupForm) => {
   if (!(signupForm instanceof SignupForm)) {
-    throw new Error(i18next.t('LOGIN.emptyEmail'))
+    throw new Error(i18next.t('APP.invalidForm'))
   }
 
   if (!utils.isValidString(signupForm.firstName)) {

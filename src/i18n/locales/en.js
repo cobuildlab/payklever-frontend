@@ -1,6 +1,7 @@
 export default {
   APP: {
-    youHaveLoggedOut: 'You have Logged Out'
+    youHaveLoggedOut: 'You have Logged Out',
+    invalidForm: 'Formulario inválido',
   },
   LOGIN: {
     login: 'Log In',
@@ -9,6 +10,7 @@ export default {
     register: 'You do not have an account? Sign up',
     recoverPassword: 'Recover Password',
     invalidEmail: 'Invalid Email',
+    emptyEmail: 'Empty Email',
     passwordRequired: 'Password required',
     youHaveLoggedIn: 'You have logged in',
     loggingIn: 'Logging In',
@@ -52,9 +54,11 @@ export default {
     addAccount: 'Add Account',
     createAccount: 'Create Account',
     accountName: 'Account name',
+    emptyName: 'Name required',
     location: 'Location',
     paymentMethod: 'Payment Method',
     selectPaymentMethod: 'Select Payment Method',
+    invalidPaymedia: 'Invalid Payment Method',
     invalidName: 'Letters only: min: 4, max: 10',
     InvalidLocation: 'Required: Letters only',
     accountCreated: 'Account Created!',
