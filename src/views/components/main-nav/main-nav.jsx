@@ -24,6 +24,7 @@ import {
 import {
   GreenLogo,
   GearImg,
+  Avatar,
 } from '../../../assets';
 
 class MainNav extends Component {
@@ -47,22 +48,36 @@ class MainNav extends Component {
          <NavbarToggler onClick={this.toggle} />
            <Collapse isOpen={this.state.isOpen} navbar>
              <Nav className="ml-auto" navbar>
-               {/* <NavItem>
+               <NavItem className="mt-3 mr-3">
                  <Button outline color="success">
                    { t('MAIN_NAV.rules') }
                  </Button>
-               </NavItem> */}
-               {/* <NavItem className="camp">
-                 <NavLink href="https://github.com/reactstrap/reactstrap">
-              </NavLink>
                </NavItem>
-               <NavItem className="avatar">
-                 <NavLink href="https://github.com/reactstrap/reactstrap">
-                 <img src={Avatar} width="25" alt="option"/>
-                 </NavLink>
-               </NavItem> */}
+
                <UncontrolledDropdown nav inNavbar>
                  <DropdownToggle nav>
+                   <NavItem className="avatar">
+                     <NavLink href="https://github.com/reactstrap/reactstrap">
+                     <img src={Avatar} width="25" alt="option"/>
+                     </NavLink>
+                   </NavItem>
+                   <NavItem className="camp">
+                    <NavLink href="https://github.com/reactstrap/reactstrap">
+                    </NavLink>
+                   </NavItem>
+                 </DropdownToggle>
+                 <DropdownMenu right>
+                   <DropdownItem tag={Link} to="/client/profile/accounts">
+                     { t('MAIN_NAV.profile') }
+                   </DropdownItem>
+                   <DropdownItem divider />
+                   <DropdownItem onClick={this.logout}>
+                     { t('MAIN_NAV.logout') }
+                   </DropdownItem>
+                 </DropdownMenu>
+               </UncontrolledDropdown>
+               <UncontrolledDropdown nav inNavbar>
+                 <DropdownToggle nav className="mt-3">
                    <img src={GearImg} width="25" alt="option"/>
                  </DropdownToggle>
                  <DropdownMenu right>

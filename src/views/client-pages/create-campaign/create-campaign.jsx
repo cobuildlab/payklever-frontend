@@ -173,7 +173,7 @@ class CreateCampaign extends Component {
       <Container className="mt-4">
         <AvForm onValidSubmit={(evt) => this.createCampaign(evt)} noValidate>
       <Row className="mb-5 d-flex align-items-stretch">
-        <Col className="divider-col" md={{size: 9}}>
+        <Col className="divider-col" md={{size: 8}}>
             <AvGroup>
               <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_CAMPAIGN.name') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})}  minLength="6" maxLength="40" required/>
               <AvFeedback>{ t('CREATE_CAMPAIGN.invalidName') }</AvFeedback>
@@ -196,22 +196,6 @@ class CreateCampaign extends Component {
             {this.state.ageList.map((age) =><AvGroup key={age.id} inline check>
                 <Label check>
                   <AvInput name="age" type="checkbox" trueValue={age.id} falseValue={''} />{age.text}
-                </Label>
-            </AvGroup>)}
-            <div className="divider-select mt-3 mb-3"></div>
-            <h4>{ t('CREATE_CAMPAIGN.education') }</h4>
-            {this.state.educationList.map((education) =><AvGroup key={education.id} inline check>
-                <Label check>
-                  <AvInput name="education" type="checkbox" key={education.id} trueValue={education.id} falseValue={''} />
-                  {education.text}
-                </Label>
-            </AvGroup>)}
-            <div className="divider-select mt-3 mb-3"></div>
-            <h4>{ t('CREATE_CAMPAIGN.civilStatus') }</h4>
-            {this.state.civilStatusList.map((civilStatus) =><AvGroup key={civilStatus.id} inline check>
-                <Label check>
-                  <AvInput name="civilStatus" type="checkbox" key={civilStatus.id} trueValue={civilStatus.id} falseValue={''} />
-                  {civilStatus.text}
                 </Label>
             </AvGroup>)}
             <div className="divider-select mt-3 mb-3"></div>
@@ -261,12 +245,32 @@ class CreateCampaign extends Component {
               )}
             </AvInput>
         </Col>
-        <Col md={{size: 3}}>
+        <Col md={{size: 4}}>
+          <h5 className="mb-3">Name Campaña</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent auctor commodo posuere. Donec imperdiet lacus ante, non ultrices nunc vestibulum vel.
+            Mauris ac dui vel quam gravida cursus.
+            Curabitur accumsan nec ipsum vel dapibus.
+            Vestibulum eu venenatis tellus.
+            Cras nec nunc in diam dictum finibus eget at diam.</p>
+            <p>Genero:</p>
+            <p>Edad:</p>
+            <p>Comienzo:</p>
+            <p>Fin:</p>
+            <p>Presupuesto Diario:</p>
           <AvGroup>
-            <Button color="primary" type="submit" size="lg" block>
+            <Button className="cancel-left" outline color="danger" type="submit" size="sm">
+              { t('CREATE_CAMPAIGN.cancel') }
+            </Button>
+            <Button className="save-draft" outline color="success" type="submit" size="sm">
+              { t('CREATE_CAMPAIGN.saveDraft') }
+            </Button>
+          </AvGroup>
+          <AvGroup>
+            <Button className="mt-3" color="primary" type="submit" size="lg" block>
               { t('CREATE_CAMPAIGN.createCampaign') }
             </Button>
           </AvGroup>
+
         </Col>
       </Row>
     </AvForm>

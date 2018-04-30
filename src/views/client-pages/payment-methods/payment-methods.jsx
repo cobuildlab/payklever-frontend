@@ -71,6 +71,13 @@ class PaymentMethods extends Component {
 
         <Container className="mt-4">
         <Table>
+          <thead>
+            <tr>
+              <th>{ t('PAYMENT_METHODS.user') }</th>
+            <th>{ t('PAYMENT_METHODS.card') }</th>
+              <th> </th>
+            </tr>
+          </thead>
            <tbody>
             <TransitionGroup component={null}>
             { this.state.paymentMethods.map((paymentMethod, index) =>
@@ -96,13 +103,18 @@ class PaymentMethods extends Component {
             </TransitionGroup>
           </tbody>
         </Table>
-
+        <div className="text-center">
         <Link to="/client/create-payment">
-          <Button className="d-block mx-auto mt-4" color="primary">
+          <Button className="mr-2 mt-4" color="danger">
+          { t('PAYMENT_METHODS.cancel')}
+          </Button>
+        </Link>
+        <Link to="/client/create-payment">
+          <Button className="mt-4" color="primary">
           { t('PAYMENT_METHODS.addPayment') }
           </Button>
         </Link>
-
+        </div>
        </Container>
     </div>
     )}</I18n>);
