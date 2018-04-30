@@ -47,11 +47,10 @@ export default {
     accounts: 'Cuentas',
   },
   ACCOUNTS: {
-    addAccount: 'Agregar Cuenta',
+    createAccount: 'Crear Cuenta',
     loadingAccounts: 'Cargando Cuentas',
   },
   CREATE_ACCOUNT: {
-    addAccount: 'Agregar Cuenta',
     createAccount: 'Crear Cuenta',
     accountName: 'Nombre de la Cuenta',
     emptyName: 'Nombre requerido',
@@ -65,11 +64,11 @@ export default {
     creatingAccount: 'Creando Cuenta',
   },
   PAYMENT_METHODS: {
-    addPayment: 'Agregar Método de Pago',
+    createPayment: 'Crear Método de Pago',
     loadingPayments: 'Cargando metodos de Pago',
   },
   CREATE_PAYMENT: {
-    addPayment: 'Agregar Método de Pago',
+    createPayment: 'Crear Método de Pago',
     firstName: 'Nombre',
     lastName: 'Apellido',
     cardNumber: 'Número de tarjeta',
