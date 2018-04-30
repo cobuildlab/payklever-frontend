@@ -105,6 +105,12 @@ export default {
     title: 'Title',
   },
   CREATE_CAMPAIGN: {
+    campaignInfo: 'Campaign Information',
+    accountInfo: 'Información de la Cuenta',
+    accountName: 'Account Name',
+    accountPayment: 'Payment Method',
+    accountLocation: 'Location',
+    budget: 'Budget',
     createCampaign: 'Create Campaign',
     name: `Campaign's Name`,
     emptyName: `Campaign's name required`,
