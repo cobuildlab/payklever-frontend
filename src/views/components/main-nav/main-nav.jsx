@@ -19,12 +19,14 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Button
+  Button,
+  Media,
 } from 'reactstrap';
 import {
   GreenLogo,
   GearImg,
   Avatar,
+  Camp,
 } from '../../../assets';
 
 class MainNav extends Component {
@@ -56,23 +58,49 @@ class MainNav extends Component {
 
                <UncontrolledDropdown nav inNavbar>
                  <DropdownToggle nav>
-                   <NavItem className="avatar">
+                   <NavItem style={{ backgroundImage: `url(${ Avatar })`}} className="avatar">
                      <NavLink href="https://github.com/reactstrap/reactstrap">
-                     <img src={Avatar} width="25" alt="option"/>
                      </NavLink>
                    </NavItem>
-                   <NavItem className="camp">
+                   <NavItem style={{ backgroundImage: `url(${ GreenLogo })`}} className="camp">
                     <NavLink href="https://github.com/reactstrap/reactstrap">
                     </NavLink>
                    </NavItem>
                  </DropdownToggle>
-                 <DropdownMenu right>
-                   <DropdownItem tag={Link} to="/client/profile/accounts">
-                     { t('MAIN_NAV.profile') }
+                 <DropdownMenu className="m-0 p-0" right>
+                   <DropdownItem className="header-dropdown" tag={Link} to="/client/profile/accounts">
+                   <Media>
+                      <Media left href="#">
+                        <div className="img-account" style={{ backgroundImage: `url(${ Avatar })`}}></div>
+                      </Media>
+                      <Media body>
+                        <p className="m-0">Lorm Ipsum</p>
+                        <p>loremipsum@emailcom</p>
+                      </Media>
+                    </Media>
                    </DropdownItem>
-                   <DropdownItem divider />
-                   <DropdownItem onClick={this.logout}>
-                     { t('MAIN_NAV.logout') }
+                   <DropdownItem className="sub-header-dropdown">
+                     <Media>
+                        <Media left href="#">
+                          <div className="img-account" style={{ backgroundImage: `url(${ Avatar })`}}></div>
+                        </Media>
+                        <Media body>
+                          <p className="m-0">Lorm Ipsum</p>
+                          <p>loremipsum@emailcom</p>
+                        </Media>
+                      </Media>
+                   </DropdownItem>
+                   <DropdownItem className="m-0" divider />
+                 <DropdownItem className="sub-header-dropdown">
+                     <Media>
+                        <Media left href="#">
+                          <div className="img-account" style={{ backgroundImage: `url(${ Avatar })`}}></div>
+                        </Media>
+                        <Media body>
+                          <p className="m-0">Lorm Ipsum</p>
+                          <p>loremipsum@emailcom</p>
+                        </Media>
+                      </Media>
                    </DropdownItem>
                  </DropdownMenu>
                </UncontrolledDropdown>
