@@ -4,30 +4,40 @@ class CampaignStore extends Flux.DashStore {
   constructor() {
     super();
 
-    /**
-     * Notifies when the campaign list was loaded
-     * @param {Array}  campaigns the campaign list
+    /*
+    Notifies when the campaign list was loaded
      */
-    this.addEvent('getCampaigns', (campaigns) => {
-      return campaigns;
-    });
+    this.addEvent('getCampaigns');
 
-    /**
-     * Notifies when a campaign was created
-     * @param {object}  campaign the created campaign
+    /*
+    Notifies when a campaign was created
      */
-    this.addEvent('createCampaign', (campaign) => {
-      return campaign;
-    });
+    this.addEvent('createCampaign');
 
-
-    /**
-     * Error handler
-     * @param {Error} err the error from the action
+    /*
+    Genres list
      */
-    this.addEvent('CampaignStoreError', (err) => {
-      return err;
-    });
+    this.addEvent('getGenres');
+
+    /*
+    Ages list
+     */
+    this.addEvent('getAges');
+
+    /*
+    Estimated income list
+     */
+    this.addEvent('getEstimatedIncomes');
+
+    /*
+    Time frame list
+     */
+    this.addEvent('getTimeFrames');
+
+    /*
+    Error handler
+     */
+    this.addEvent('CampaignStoreError');
   }
 }
 

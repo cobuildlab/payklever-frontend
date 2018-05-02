@@ -3,6 +3,8 @@ import { i18next } from '../../../i18n';
 import { CreateCampaignForm } from './create-campaign.classes';
 import * as createCampaignRegExp from './create-campaign.reg-exp';
 
+// TODO: validate new fields
+
 const createCampaignValidator = (createCampaignForm: CreateCampaignForm) => {
   if (!(createCampaignForm instanceof CreateCampaignForm)) {
     throw new Error(i18next.t('APP.invalidForm'))
@@ -63,31 +65,21 @@ const createCampaignAvForm = {
     maxLength: { value: 160 },
     pattern: { value: createCampaignRegExp.validMessageDescription }
   },
-  gender: {
-    required: true,
-    number: true,
-    min: { value: 1 },
-  },
-  age: {
-    required: true,
-    number: true,
-    min: { value: 1 },
-  },
-  education: {
-    required: true,
-    number: true,
-    min: { value: 1 },
-  },
-  civilStatus: {
+  genre: {
     required: true,
     number: true,
     min: { value: 1 },
   },
   startDate: {
+    required: true,
     date: {format: 'MM/DD/YYYY'}
   },
-  stopDate: {
+  endDate: {
+    required: true,
     date: {format: 'MM/DD/YYYY'}
+  },
+  budget: {
+    required: true,
   }
 }
 
