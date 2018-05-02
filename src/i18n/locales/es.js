@@ -109,7 +109,7 @@ export default {
     loadingCampaigns: 'Cargando Campañas',
     name: 'Nombre',
     title: 'Título',
-    status: 'Status',
+    status: 'Estatus',
   },
   CREATE_CAMPAIGN: {
     campaignInfo: 'Información de la Campaña',
