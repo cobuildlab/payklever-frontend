@@ -107,18 +107,20 @@ class Accounts extends Component {
               </TransitionGroup>
             </tbody>
           </Table>
+          
           <div className="text-center">
-            <Link to="/client/create-account">
+            <Link to="/client/profile/accounts">
               <Button className="mr-3 mt-4" color="danger">
               { t('ACCOUNTS.cancel') }
               </Button>
             </Link>
             <Link to="/client/create-account">
               <Button className="mt-4" color="primary">
-                { t('ACCOUNTS.addAccount') }
+                { t('ACCOUNTS.createAccount') }
               </Button>
             </Link>
           </div>
+          
        </Container>
        </div>
     )}</I18n>);

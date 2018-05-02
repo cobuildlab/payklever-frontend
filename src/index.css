@@ -212,6 +212,7 @@ a:hover {
     text-decoration: none;
     opacity: 0.7;
 }
+
 .cancel-left{
   width: 48%;
   margin-right: 10px;
@@ -242,9 +243,32 @@ a:hover {
   background-color: #333;
   opacity: 1;
 }
-.sub-header-dropdown{
+.sub-header-dropdown {
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+/*
+react-toastify overrides
+ */
+.Toastify__toast--info {
+  background: #3498db;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.Toastify__toast--success {
+  background: #74c044;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.Toastify__toast--warning {
+  background: #f1c40f;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.Toastify__toast--error {
+  background: #dc3545;
+  font-family: 'Montserrat', sans-serif;
 }

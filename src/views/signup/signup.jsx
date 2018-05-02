@@ -30,6 +30,7 @@ import {
   AvFeedback,
 } from 'availity-reactstrap-validation';
 import * as signupActions from './signup.actions';
+import { signupAvForm } from './signup.validators';
 import { SignupForm } from './signup.classes';
 
 class Signup extends Component {
@@ -113,28 +114,28 @@ class Signup extends Component {
                 <CardTitle tag="h1" className="text-center">{ t('SIGNUP.signup') }</CardTitle>
                 <AvForm onValidSubmit={(evt) => this.signup(evt)} noValidate>
                   <AvGroup>
-                    <AvInput type="text" name="firstName" id="firstName" placeholder={ t('SIGNUP.firstName') } value={this.state.firstName} onChange={(evt) => this.setState({firstName: evt.target.value})} minLength="3" maxLength="40" required/>
+                    <AvInput type="text" name="firstName" id="firstName" placeholder={ t('SIGNUP.firstName') } value={this.state.firstName} onChange={(evt) => this.setState({firstName: evt.target.value})} validate={signupAvForm.firstName}/>
                     <AvFeedback>{ t('SIGNUP.invalidFirstName') }</AvFeedback>
                   </AvGroup>
                   <AvGroup>
-                    <AvInput type="text" name="lastName" id="lastName" placeholder={ t('SIGNUP.lastName') } value={this.state.lastName} onChange={(evt) => this.setState({lastName: evt.target.value})} minLength="3" maxLength="40" required/>
+                    <AvInput type="text" name="lastName" id="lastName" placeholder={ t('SIGNUP.lastName') } value={this.state.lastName} onChange={(evt) => this.setState({lastName: evt.target.value})} validate={signupAvForm.lastName}/>
                     <AvFeedback>{ t('SIGNUP.invalidLastName') }</AvFeedback>
                   </AvGroup>
                   <AvGroup>
-                    <AvInput type="email" name="email" id="email" placeholder={ t('SIGNUP.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} required/>
+                    <AvInput type="email" name="email" id="email" placeholder={ t('SIGNUP.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} validate={signupAvForm.email}/>
                     <AvFeedback>{ t('SIGNUP.invalidEmail') }</AvFeedback>
                   </AvGroup>
                   <AvGroup>
-                    <AvInput type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} minLength="8" maxLength="20" required/>
+                    <AvInput type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} validate={signupAvForm.password}/>
                     <AvFeedback>{ t('SIGNUP.invalidPassword') }</AvFeedback>
                   </AvGroup>
                   <AvGroup>
-                    <AvInput type="password" name="repeatPassword" id="repeatPassword" placeholder={ t('SIGNUP.repeatPassword') } value={this.state.repeatPassword}  onChange={(evt) => this.setState({repeatPassword: evt.target.value})} validate={{match:{value:'password'}}} required/>
+                    <AvInput type="password" name="repeatPassword" id="repeatPassword" placeholder={ t('SIGNUP.repeatPassword') } value={this.state.repeatPassword}  onChange={(evt) => this.setState({repeatPassword: evt.target.value})} validate={signupAvForm.repeatPassword}/>
                     <AvFeedback>{ t('SIGNUP.passwordNotMatch') }</AvFeedback>
                   </AvGroup>
                   <AvGroup check>
                     <Label check>
-                      <AvInput className="terminos" type="checkbox" name="checkbox" required/>
+                      <AvInput className="terminos" type="checkbox" name="checkbox" validate={signupAvForm.privacyPolicy}/>
                       {' '} <a href="#">{ t('SIGNUP.privacyPolicy') }</a>
                       <AvFeedback>{ t('SIGNUP.acceptPrivacy') }</AvFeedback>
                     </Label>
@@ -144,7 +145,7 @@ class Signup extends Component {
                       { t('SIGNUP.signup') }
                     </Button>
                   </AvGroup>
-                  <Link to={"/login/"} className="recover-login">
+                  <Link to="/login" className="recover-login">
                     <p className="text-center">
                       { t('SIGNUP.recoverLogin') }
                     </p>

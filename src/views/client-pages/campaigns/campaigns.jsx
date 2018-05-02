@@ -146,7 +146,7 @@ class Campaigns extends Component {
            </InputGroupAddon>
          </InputGroup> */}
           <Link to="/client/create-campaign">
-            <Button color="primary">Create Campaigns</Button>
+            <Button color="primary">{ t('CAMPAIGNS.createCampaign') }</Button>
           </Link>
         </NavItem>
         </Nav>
@@ -172,7 +172,7 @@ class Campaigns extends Component {
             <h1 className="text-center">99</h1>
           </Col>
         </Row> */}
-          <h1 className="text-center mb-4">Campaigns</h1>
+          <h1 className="text-center mb-4">{ t('CAMPAIGNS.campaigns') }</h1>
          <Table>
             <thead>
               <tr>
