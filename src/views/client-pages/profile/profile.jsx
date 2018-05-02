@@ -64,8 +64,6 @@ class Profile extends Component {
                       {this.state.user.firstName &&(<span> {` ${this.state.user.firstName} ${this.state.user.lastName}`}</span>)}
                     </Media>
                   </Media>
-
-
                </Container>
              )}
            </Col>

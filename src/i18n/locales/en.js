@@ -108,6 +108,7 @@ export default {
     loadingCampaigns: 'Loading Campaigns',
     name: 'Name',
     title: 'Title',
+    status: 'Status',
   },
   CREATE_CAMPAIGN: {
     campaignInfo: 'Campaign Information',

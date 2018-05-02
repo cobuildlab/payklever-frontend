@@ -6,7 +6,7 @@ import {
   NavbarBrand
 } from 'reactstrap';
 import {
-  CampaignManager
+  CampaignManager,
 } from './';
 
 
@@ -18,7 +18,7 @@ class AdminPages extends Component {
     return (
       <div>
       <MainNav></MainNav>
-      <Route exact path="/admin/campaign-manager" component={CampaignManager}/>
+      <Route path="/admin/campaign-manager" component={CampaignManager}/>
     </div>
     );
   }
