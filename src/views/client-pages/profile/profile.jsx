@@ -70,7 +70,6 @@ class Profile extends Component {
              )}
            </Col>
          </Row>
-
          <Nav tabs className="nav mt-4">
           <NavItem className="tabs-profile">
             <NavLink tag={Link} to="/client/profile/accounts" active={(this.props.location.pathname === '/client/profile/accounts')}>
@@ -83,10 +82,8 @@ class Profile extends Component {
             </NavLink>
           </NavItem>
         </Nav>
-
          <Route exact path="/client/profile/accounts" component={Accounts}/>
          <Route exact path="/client/profile/payment-methods" component={PaymentMethods}/>
-
        </Container>
       </div>
     )}</I18n>);

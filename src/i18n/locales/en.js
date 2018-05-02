@@ -50,7 +50,7 @@ export default {
     cancel: 'Cancel',
     createAccount: 'Create Account',
     loadingAccounts: 'Loading Accounts',
-    user: 'User',
+    Name: 'Name Account',
     status: 'Status',
   },
   CREATE_ACCOUNT: {
@@ -69,7 +69,7 @@ export default {
   PAYMENT_METHODS: {
     createPayment: 'Create Payment Method',
     loadingPayments: 'Loading Payment Methods',
-    user: 'User',
+    user: 'Name',
     card: 'Credit Card',
     cancel: 'Cancel',
   },
@@ -152,5 +152,10 @@ export default {
   FETCH: {
     noInternet: 'Check your internet connection and try again',
     error: 'An error has ocurred',
+  },
+  ADMIN: {
+    client: 'Clients',
+    campaign: 'Campaigns',
+    message: 'Messages',
   },
 }

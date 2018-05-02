@@ -19,6 +19,7 @@ import {
   NavLink,
   Nav,
   Container,
+  Button,
 } from 'reactstrap';
 
 class SubNav extends Component {
@@ -40,18 +41,14 @@ class SubNav extends Component {
       <div>
         <Navbar className="sub-nav" color="dark" dark expand="sm">
           <Container>
+            <Button color="link"><FontAwesomeIcon icon={faArrowLeft}/></Button>
             <NavbarBrand className="text-light">{ t(this.props.titleI18n) }</NavbarBrand>
             { hasLink && (<NavbarToggler onClick={this.toggle} />) }
             { hasLink && (<Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className="ml-auto" navbar>
-
-                <NavItem>
-                  <FontAwesomeIcon icon={faArrowLeft}/>
-                  <NavLink tag={Link} to={this.props.link}>
-                    { t(this.props.linkI18n) }
-                  </NavLink>
-                </NavItem>
-              </Nav>
+              <Button color="link"><FontAwesomeIcon icon={faArrowLeft}/></Button>
+              <NavLink tag={Link} to={this.props.link}>
+                { t(this.props.linkI18n) }
+              </NavLink>
             </Collapse>) }
           </Container>
         </Navbar>

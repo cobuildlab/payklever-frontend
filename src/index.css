@@ -56,6 +56,17 @@ a {
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
 }
+.btn-link {
+    font-weight: 400;
+    color: #74c044;
+    background-color: transparent;
+}
+.btn-link:hover {
+    color: #74c044c4;
+    text-decoration: underline;
+    background-color: transparent;
+    border-color: transparent;
+}
 .btn-primary {
     color: #fff;
     background-color: #75c044;
@@ -120,7 +131,8 @@ a {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  border: 2px solid #333;
+  background-color: #fbfbfb;
+  /*border: 2px solid #74c044;*/
   width: 60px;
   height: 60px;
   border-radius: 50px;
@@ -131,6 +143,7 @@ a {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-color: #fbfbfb;
   border-radius: 100px;
   width: 60px;
   height: 60px;
@@ -166,6 +179,16 @@ a {
     justify-content: space-between;
     padding: .9rem 1rem;
 }
+.navbar>.container, .navbar>.container-fluid {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: left;
+}
 .cant-data{
   background-color: #333;
   padding: 20px;
@@ -193,6 +216,10 @@ a {
 }
 .tabs-profile{
   width: 50%;
+  text-align: center;
+}
+.tabs-profile-admin{
+  width: 33.333%;
   text-align: center;
 }
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
@@ -225,9 +252,9 @@ a:hover {
   background-repeat: no-repeat;
   background-position: center;
   border-radius: 100px;
-    width: 130px;
-    height: 130px;
-    margin-right: 30px;
+  width: 130px;
+  height: 130px;
+  margin-right: 30px;
 }
 .header-dropdown{
   background-color: #333;

@@ -75,11 +75,11 @@ class Accounts extends Component {
           </div>
         </CSSTransition>
 
-        <Container className="mt-4">
+        <Container className="mt-5">
           <Table>
             <thead>
               <tr>
-                <th>{ t('ACCOUNTS.user')}</th>
+                <th>{ t('ACCOUNTS.name')}</th>
                 <th>{ t('ACCOUNTS.status')}</th>
                 <th> </th>
               </tr>
@@ -107,20 +107,15 @@ class Accounts extends Component {
               </TransitionGroup>
             </tbody>
           </Table>
-          
+
           <div className="text-center">
-            <Link to="/client/profile/accounts">
-              <Button className="mr-3 mt-4" color="danger">
-              { t('ACCOUNTS.cancel') }
-              </Button>
-            </Link>
             <Link to="/client/create-account">
               <Button className="mt-4" color="primary">
                 { t('ACCOUNTS.createAccount') }
               </Button>
             </Link>
           </div>
-          
+
        </Container>
        </div>
     )}</I18n>);
