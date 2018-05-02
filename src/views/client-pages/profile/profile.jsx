@@ -52,17 +52,16 @@ class Profile extends Component {
                <Container>
                  <Media>
                     <Media left>
-                      <Media  className="mr-3" style={{maxWidth: '128px'}} object src={Avatar} alt="Profile" />
-                    </Media>
-                    <Media body>
+                      <div className="img-profile" style={{ backgroundImage: `url(${ Avatar })`}}></div>
+                      <Media  className="mr-3" alt="Profile" />
+                      </Media>
+                    <Media className="mt-3" body>
                       <Media heading>
                         {this.state.user.firstName && (<span>
                           { t('PROFILE.nameAndSurname') } { ':' }
                         </span>)}
                       </Media>
-
                       {this.state.user.firstName &&(<span> {` ${this.state.user.firstName} ${this.state.user.lastName}`}</span>)}
-
                     </Media>
                   </Media>
 

@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import {
+  faArrowLeft,
+} from '@fortawesome/fontawesome-free-solid';
 import PropTypes from 'prop-types';
 import {
   Link,
@@ -40,7 +44,9 @@ class SubNav extends Component {
             { hasLink && (<NavbarToggler onClick={this.toggle} />) }
             { hasLink && (<Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
+
                 <NavItem>
+                  <FontAwesomeIcon icon={faArrowLeft}/>
                   <NavLink tag={Link} to={this.props.link}>
                     { t(this.props.linkI18n) }
                   </NavLink>

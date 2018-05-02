@@ -11,6 +11,9 @@ import {
   Container,
   Table,
   Button,
+  ButtonGroup,
+  Col,
+  Row,
 } from 'reactstrap';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
@@ -74,12 +77,20 @@ class Accounts extends Component {
 
         <Container className="mt-4">
           <Table>
+            <thead>
+              <tr>
+                <th>{ t('ACCOUNTS.user')}</th>
+                <th>{ t('ACCOUNTS.status')}</th>
+                <th> </th>
+              </tr>
+            </thead>
              <tbody>
               <TransitionGroup component={null}>
               { this.state.accounts.map((account) =>
                 <CSSTransition key={account.id} timeout={500} classNames="fade-in">
                 <tr>
                   <td>{account.name}</td>
+                  <td> </td>
                   <td className="text-right">
                     <Button color="danger" size="sm">
                       <FontAwesomeIcon icon={faTimes}/>
@@ -89,18 +100,27 @@ class Accounts extends Component {
                      <FontAwesomeIcon icon={faEdit}/>
                     </Button>
                   </td>
+
                 </tr>
+
                 </CSSTransition>)}
               </TransitionGroup>
             </tbody>
           </Table>
-
-          <Link to="/client/create-account">
-            <Button className="d-block mx-auto mt-4" color="primary">
-            { t('ACCOUNTS.createAccount') }
-            </Button>
-          </Link>
-
+          
+          <div className="text-center">
+            <Link to="/client/profile/accounts">
+              <Button className="mr-3 mt-4" color="danger">
+              { t('ACCOUNTS.cancel') }
+              </Button>
+            </Link>
+            <Link to="/client/create-account">
+              <Button className="mt-4" color="primary">
+                { t('ACCOUNTS.createAccount') }
+              </Button>
+            </Link>
+          </div>
+          
        </Container>
        </div>
     )}</I18n>);

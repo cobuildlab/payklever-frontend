@@ -47,8 +47,11 @@ export default {
     accounts: 'Cuentas',
   },
   ACCOUNTS: {
+    cancel: 'Cancelar',
     createAccount: 'Crear Cuenta',
     loadingAccounts: 'Cargando Cuentas',
+    user: 'Usuario',
+    status: 'Estatus',
   },
   CREATE_ACCOUNT: {
     createAccount: 'Crear Cuenta',
@@ -66,6 +69,10 @@ export default {
   PAYMENT_METHODS: {
     createPayment: 'Crear Método de Pago',
     loadingPayments: 'Cargando metodos de Pago',
+    user: 'Usuario',
+    card: 'Tarjeta de Credito',
+    cancel: 'Cancelar',
+
   },
   CREATE_PAYMENT: {
     createPayment: 'Crear Método de Pago',
@@ -102,6 +109,7 @@ export default {
     loadingCampaigns: 'Cargando Campañas',
     name: 'Nombre',
     title: 'Título',
+    status: 'Estatus',
   },
   CREATE_CAMPAIGN: {
     campaignInfo: 'Información de la Campaña',
@@ -135,10 +143,13 @@ export default {
     bidPerClick: 'Oferta por clic',
     campaignCreated: 'Campaña Creada!',
     creatingCampaign: 'Creando Campaña',
+    cancel: 'Cancelar',
+    saveDraft: 'Guardar Borrador',
   },
   MAIN_NAV: {
     logout: 'Cerrar Sesión',
     profile: 'Perfil',
+    rules: 'Reglas de Publicación',
   },
   FETCH: {
     noInternet: 'Verifica tu conexión a internet e intentalo de nuevo',

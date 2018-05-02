@@ -178,6 +178,7 @@ class Campaigns extends Component {
               <tr>
                 <th>{ t('CAMPAIGNS.name') }</th>
                 <th>{ t('CAMPAIGNS.title') }</th>
+              <th>{ t('CAMPAIGNS.status') }</th>
               </tr>
             </thead>
             <tbody>
@@ -187,6 +188,7 @@ class Campaigns extends Component {
                  <tr>
                    <td>{campaign.name}</td>
                    <td>{campaign.messageTitle}</td>
+                   <td></td>
                  </tr>
                </CSSTransition>)}
             </TransitionGroup>

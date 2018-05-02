@@ -19,11 +19,14 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Button
+  Button,
+  Media,
 } from 'reactstrap';
 import {
   GreenLogo,
   GearImg,
+  Avatar,
+  Camp,
 } from '../../../assets';
 
 class MainNav extends Component {
@@ -47,22 +50,62 @@ class MainNav extends Component {
          <NavbarToggler onClick={this.toggle} />
            <Collapse isOpen={this.state.isOpen} navbar>
              <Nav className="ml-auto" navbar>
-               {/* <NavItem>
+               <NavItem className="mt-3 mr-3">
                  <Button outline color="success">
                    { t('MAIN_NAV.rules') }
                  </Button>
-               </NavItem> */}
-               {/* <NavItem className="camp">
-                 <NavLink href="https://github.com/reactstrap/reactstrap">
-              </NavLink>
                </NavItem>
-               <NavItem className="avatar">
-                 <NavLink href="https://github.com/reactstrap/reactstrap">
-                 <img src={Avatar} width="25" alt="option"/>
-                 </NavLink>
-               </NavItem> */}
+
                <UncontrolledDropdown nav inNavbar>
                  <DropdownToggle nav>
+                   <NavItem style={{ backgroundImage: `url(${ Avatar })`}} className="avatar">
+                     <NavLink href="https://github.com/reactstrap/reactstrap">
+                     </NavLink>
+                   </NavItem>
+                   <NavItem style={{ backgroundImage: `url(${ GreenLogo })`}} className="camp">
+                    <NavLink href="https://github.com/reactstrap/reactstrap">
+                    </NavLink>
+                   </NavItem>
+                 </DropdownToggle>
+                 <DropdownMenu className="m-0 p-0" right>
+                   <DropdownItem className="header-dropdown" tag={Link} to="/client/profile/accounts">
+                   <Media>
+                      <Media left href="#">
+                        <div className="img-account" style={{ backgroundImage: `url(${ Avatar })`}}></div>
+                      </Media>
+                      <Media body>
+                        <p className="m-0">Lorm Ipsum</p>
+                        <p>loremipsum@emailcom</p>
+                      </Media>
+                    </Media>
+                   </DropdownItem>
+                   <DropdownItem className="sub-header-dropdown">
+                     <Media>
+                        <Media left href="#">
+                          <div className="img-account" style={{ backgroundImage: `url(${ Avatar })`}}></div>
+                        </Media>
+                        <Media body>
+                          <p className="m-0">Lorm Ipsum</p>
+                          <p>loremipsum@emailcom</p>
+                        </Media>
+                      </Media>
+                   </DropdownItem>
+                   <DropdownItem className="m-0" divider />
+                 <DropdownItem className="sub-header-dropdown">
+                     <Media>
+                        <Media left href="#">
+                          <div className="img-account" style={{ backgroundImage: `url(${ Avatar })`}}></div>
+                        </Media>
+                        <Media body>
+                          <p className="m-0">Lorm Ipsum</p>
+                          <p>loremipsum@emailcom</p>
+                        </Media>
+                      </Media>
+                   </DropdownItem>
+                 </DropdownMenu>
+               </UncontrolledDropdown>
+               <UncontrolledDropdown nav inNavbar>
+                 <DropdownToggle nav className="mt-3">
                    <img src={GearImg} width="25" alt="option"/>
                  </DropdownToggle>
                  <DropdownMenu right>

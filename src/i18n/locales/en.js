@@ -47,8 +47,11 @@ export default {
     accounts: 'Accounts',
   },
   ACCOUNTS: {
+    cancel: 'Cancel',
     createAccount: 'Create Account',
     loadingAccounts: 'Loading Accounts',
+    user: 'User',
+    status: 'Status',
   },
   CREATE_ACCOUNT: {
     createAccount: 'Create Account',
@@ -66,6 +69,9 @@ export default {
   PAYMENT_METHODS: {
     createPayment: 'Create Payment Method',
     loadingPayments: 'Loading Payment Methods',
+    user: 'User',
+    card: 'Credit Card',
+    cancel: 'Cancel',
   },
   CREATE_PAYMENT: {
     createPayment: 'Create Payment Method',
@@ -135,10 +141,13 @@ export default {
     bidPerClick: 'Bid per click',
     campaignCreated: 'Campaign Created!',
     creatingCampaign: 'Creating Campaign',
+    cancel: 'Cancel',
+    saveDraft: 'Save Draft',
   },
   MAIN_NAV: {
     logout: 'Log Out',
     profile: 'Profile',
+    rules: 'Publication Rules',
   },
   FETCH: {
     noInternet: 'Check your internet connection and try again',

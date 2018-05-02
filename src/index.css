@@ -94,7 +94,32 @@ a {
     background-color: #74c044;
     border-color: #74c044;
 }
+.btn-group-sm>.btn, .btn-sm {
+  padding: 0.20rem .5rem;
+  font-size: .875rem;
+  line-height: 1.5;
+  border-radius: .2rem;
+}
 .camp{
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px solid #333;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: 38px;
+  left: 40px;
+  background-color: #fff;
+  border-radius: 50px;
+  margin-left: 15px;
+  margin-right: 15px;
+  z-index: 999;
+}
+.avatar{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   border: 2px solid #333;
   width: 60px;
   height: 60px;
@@ -102,13 +127,14 @@ a {
   margin-left: 15px;
   margin-right: 15px;
 }
-.avatar{
-  border: 2px solid #333;
+.img-account{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 100px;
   width: 60px;
   height: 60px;
-  border-radius: 50px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-right: 10px;
 }
 .form-group {
     margin-bottom: 0.5rem !important;
@@ -187,6 +213,42 @@ a:hover {
     opacity: 0.7;
 }
 
+.cancel-left{
+  width: 48%;
+  margin-right: 10px;
+}
+.save-draft{
+  width: 48%;
+}
+.img-profile{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 100px;
+    width: 130px;
+    height: 130px;
+    margin-right: 30px;
+}
+.header-dropdown{
+  background-color: #333;
+  color: #fff;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.header-dropdown:hover{
+  color: #fff;
+  text-decoration: none;
+  background-color: #333;
+  opacity: 1;
+}
+.sub-header-dropdown {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
 
 /*
 react-toastify overrides
