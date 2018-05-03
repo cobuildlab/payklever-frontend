@@ -167,7 +167,7 @@ class CreateCampaign extends Component {
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
               <p className="title-create">{ t('CREATE_CAMPAIGN.matchedAudiences') }</p>
             </Col>
-            <AvRadioGroup className="divider-select" inline name="genreId" label={ t('CREATE_CAMPAIGN.gender') } errorMessage={ t('CREATE_CAMPAIGN.invalidGender') } validate={createCampaignAvForm.genre}>
+            <AvRadioGroup className="divider-select" inline name="genreId" label={ t('CREATE_CAMPAIGN.gender') } errorMessage={ t('CREATE_CAMPAIGN.emptyGender') } validate={createCampaignAvForm.genre}>
                 {this.state.genresList.map((genre) => <AvRadio onChange={(evt) => this.setState({genreId: evt.target.value})} key={genre.id} label={ t(`CREATE_CAMPAIGN.${genre.name}`) } value={genre.id} />)}
             </AvRadioGroup>
             <h4 className="mt-3">{ t('CREATE_CAMPAIGN.age') }</h4>
@@ -201,12 +201,18 @@ class CreateCampaign extends Component {
                 <AvGroup className="mr-sm-3 mb-sm-0" inline>
                   <Label for="startDate">{ t('CREATE_CAMPAIGN.startDate') }</Label>
                   <AvInput onChange={(evt) => this.setState({startDate: evt.target.value})} type="date" name="startDate" id="startDate" placeholder={ t('CREATE_CAMPAIGN.startDate') } validate={createCampaignAvForm.startDate}/>
+                  <AvFeedback>
+                    { t('CREATE_CAMPAIGN.invalidStartDate') }
+                  </AvFeedback>
                 </AvGroup>
               </Col>
               <Col md={{size: 6}}>
                 <AvGroup className="mr-sm-3 mb-sm-0" inline>
                   <Label for="endDate">{ t('CREATE_CAMPAIGN.endDate') }</Label>
                   <AvInput onChange={(evt) => this.setState({endDate: evt.target.value})} type="date" name="endDate" id="endDate" placeholder={ t('CREATE_CAMPAIGN.endDate') } validate={createCampaignAvForm.endDate}/>
+                  <AvFeedback>
+                    { t('CREATE_CAMPAIGN.invalidEndDate') }
+                  </AvFeedback>
                 </AvGroup>
               </Col>
             </Row>
@@ -353,12 +359,12 @@ class CreateCampaign extends Component {
       this.state.name,
       this.state.messageTitle,
       this.state.messageDescription,
-      parseInt(this.state.genreId, 10),
+      parseInt(this.state.genreId, 10) || null,
       JSON.stringify(this.state.ages.map(Number)),
       JSON.stringify(this.state.estimatedIncomes.map(Number)),
-      parseFloat(this.state.budget),
-      this.state.startDate,
-      this.state.endDate,
+      parseFloat(this.state.budget) || null,
+      this.state.startDate || undefined,
+      this.state.endDate || undefined,
       JSON.stringify(this.state.timeFrames.map(Number)),
     );
 
