@@ -70,8 +70,8 @@ Availity reactstrap Validation
 const createAccountAvForm = {
   name: {
     required: true,
-    minLength: { value: 4 },
-    maxLength: { value: 10 },
+    minLength: { value: 6 },
+    maxLength: { value: 40 },
     pattern: { value: createAccountRegExp.validName }
   },
   paymediaId: {

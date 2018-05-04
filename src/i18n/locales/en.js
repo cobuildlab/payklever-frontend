@@ -75,7 +75,7 @@ export default {
     paymentMethod: 'Payment Method',
     selectPaymentMethod: 'Select Payment Method',
     invalidPaymedia: 'Invalid Payment Method',
-    invalidName: 'Letters only: min: 4, max: 10',
+    invalidName: 'Letters only: min: 6, max: 40',
     InvalidLocation: 'Required: Letters only',
     accountCreated: 'Account Created!',
     creatingAccount: 'Creating Account',
