@@ -79,6 +79,9 @@ export default {
     InvalidLocation: 'Required: Letters only',
     accountCreated: 'Account Created!',
     creatingAccount: 'Creating Account',
+    createPayment: 'Create Payment Method',
+    noPayment: 'You must have at least one Payment Method before you can create an Account',
+    cancel: 'Cancel',
   },
   PAYMENT_METHODS: {
     createPayment: 'Create Payment Method',
@@ -115,6 +118,7 @@ export default {
     invalidPostalCode: 'Invalid Postal Code',
     paymentCreated: 'Payment Method Created!',
     creatingPayment: 'Creating Payment Method',
+    cancel: 'Cancel',
   },
   CAMPAIGNS: {
     createCampaign: 'Create Campaign',
@@ -168,6 +172,8 @@ export default {
     bidPerClick: 'Bid per click',
     campaignCreated: 'Campaign Created!',
     creatingCampaign: 'Creating Campaign',
+    createAccount: 'Create Account',
+    noAccount: 'You must have at least one Account before you can create a Campaign',
     cancel: 'Cancel',
     saveDraft: 'Save Draft',
     male: 'Male',

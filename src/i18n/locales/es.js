@@ -79,6 +79,9 @@ export default {
     InvalidLocation: 'Campo obligatorio: Solo letras',
     accountCreated: 'Cuenta Creada!',
     creatingAccount: 'Creando Cuenta',
+    createPayment: 'Crear Método de Pago',
+    noPayment: 'Debes tener al menos un Método de Pago antes de poder crear una Cuenta',
+    cancel: 'Cancelar',
   },
   PAYMENT_METHODS: {
     createPayment: 'Crear Método de Pago',
@@ -115,6 +118,7 @@ export default {
     invalidPostalCode: 'Código Postal inválido',
     paymentCreated: 'Método de Pago Creado!',
     creatingPayment: 'Creando Método de Pago',
+    cancel: 'Cancelar',
   },
   CAMPAIGNS: {
     createCampaign: 'Crear Campaña',
@@ -168,6 +172,8 @@ export default {
     bidPerClick: 'Oferta por clic',
     campaignCreated: 'Campaña Creada!',
     creatingCampaign: 'Creando Campaña',
+    createAccount: 'Crear Cuenta',
+    noAccount: 'Debes tener al menos una Cuenta antes de poder crear una Campaña',
     cancel: 'Cancelar',
     saveDraft: 'Guardar Borrador',
     male: 'Masculino',
