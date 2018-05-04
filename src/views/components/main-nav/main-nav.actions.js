@@ -4,4 +4,8 @@ const logout = () => {
   Flux.dispatchEvent('setUser', undefined);
 }
 
-export { logout };
+const changeAccount = (account) => {
+  Flux.dispatchEvent('changeAccount', account);
+}
+
+export { logout, changeAccount };

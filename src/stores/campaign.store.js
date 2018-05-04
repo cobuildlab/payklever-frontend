@@ -39,6 +39,30 @@ class CampaignStore extends Flux.DashStore {
      */
     this.addEvent('CampaignStoreError');
   }
+
+  getGenres() {
+    const genres = this.getState().getGenres || [];
+
+    return genres;
+  }
+
+  getAges() {
+    const ages = this.getState().getAges || [];
+
+    return ages;
+  }
+
+  getTimeFrames() {
+    const timeFrames = this.getState().getTimeFrames || [];
+
+    return timeFrames;
+  }
+
+  getEstimatedIncomes() {
+    const estimatedIncomes = this.getState().getEstimatedIncomes || [];
+
+    return estimatedIncomes;
+  }
 }
 
 const campaignStore = new CampaignStore();
