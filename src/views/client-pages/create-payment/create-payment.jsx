@@ -24,6 +24,7 @@ import {
   AvInput,
   AvFeedback,
 } from 'availity-reactstrap-validation';
+import { Link } from "react-router-dom";
 
 class CreatePayment extends Component {
   constructor(props) {
@@ -146,11 +147,18 @@ class CreatePayment extends Component {
               </AvGroup>
             </Col>
           </Row>
-            <AvGroup>
-              <Button  type="submit" className="d-block mx-auto mt-4" color="primary">
-              { t('PAYMENT_METHODS.createPayment') }
+
+          <div className="text-center mb-4">
+            <Link to="/client/profile/payment-methods">
+              <Button className="mr-3 mt-4" color="danger" type="button">
+              { t('CREATE_PAYMENT.cancel') }
               </Button>
-            </AvGroup>
+            </Link>
+            <Button type="submit" className="mt-4" color="primary">
+            { t('PAYMENT_METHODS.createPayment') }
+            </Button>
+          </div>
+
           </AvForm>
       </Container>
     </div>)}</I18n>);

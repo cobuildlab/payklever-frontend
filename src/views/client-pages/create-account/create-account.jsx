@@ -20,6 +20,7 @@ import {
   Label,
   FormGroup,
   Input,
+  Alert,
 } from 'reactstrap';
 import {
   AvForm,
@@ -27,6 +28,7 @@ import {
   AvInput,
   AvFeedback,
 } from 'availity-reactstrap-validation';
+import { Link } from "react-router-dom";
 var autocomplete;
 const google = window.google;
 
@@ -36,6 +38,7 @@ class CreateAccount extends Component {
 
     this.state = {
       loading: false,
+      loadingPayments: true,
       name: '',
       paymediaId: '',
       location: '',
@@ -72,11 +75,12 @@ class CreateAccount extends Component {
 
     this.getPaymentsSubscription = paymentStore
       .subscribe('getPayments', (paymentMethods) => {
-        this.setState({ paymentMethods });
+        this.setState({ paymentMethods, loadingPayments: false });
       });
 
     this.paymentStoreError = paymentStore
       .subscribe('PaymentStoreError', (err) => {
+        this.setState({ loadingPayments: false });
         toast.dismiss();
         toast.error(err.message || i18next.t('FETCH.error'));
       });
@@ -159,11 +163,31 @@ class CreateAccount extends Component {
               <AvInput disabled value={this.state.zipCode} type="text" name="zipCode" id="autocomplete" placeholder={ t('CREATE_ACCOUNT.zipCode') } required/>
               <AvFeedback>{ t('CREATE_ACCOUNT.emptyZipCode') }</AvFeedback>
             </AvGroup>
-            <AvGroup>
-              <Button  type="submit" className="d-block mx-auto mt-4" color="primary">
-              { t('ACCOUNTS.createAccount') }
-              </Button>
-            </AvGroup>
+
+            <CSSTransition in={ !this.state.loadingPayments && !this.state.paymentMethods.length } timeout={500} classNames="fade-in" unmountOnExit>
+              <Alert className="text-center" color="danger">
+                { t('CREATE_ACCOUNT.noPayment') }
+
+                <Link to="/client/create-payment">
+                  <Button className="d-block mx-auto mt-4" color="danger" type="button">
+                    { t('CREATE_ACCOUNT.createPayment') }
+                  </Button>
+                </Link>
+
+              </Alert>
+            </CSSTransition>
+
+              <div className="text-center mb-4">
+                <Link to="/client/profile/accounts">
+                  <Button className="mr-3 mt-4" color="danger" type="button">
+                  { t('CREATE_ACCOUNT.cancel') }
+                  </Button>
+                </Link>
+                <Button disabled={ !this.state.loadingPayments && !this.state.paymentMethods.length } type="submit" className=" mt-4" color="primary">
+                { t('ACCOUNTS.createAccount') }
+                </Button>
+              </div>
+
           </AvForm>
           </Col>
         </Row>
