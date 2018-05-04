@@ -20,6 +20,13 @@ class AccountStore extends Flux.DashStore {
       return account;
     });
 
+    /**
+     * Notifies when a account was changed
+     * @param {object}  account the new account
+     */
+    this.addEvent('changeAccount', (account) => {
+      return account;
+    });
 
     /**
      * Error handler
@@ -29,6 +36,17 @@ class AccountStore extends Flux.DashStore {
       return err;
     });
   }
+
+  /**
+   * Get the selected account
+   * @return {object} the last selected account
+   */
+  getAccount() {
+    const account = this.getState().changeAccount || {};
+
+    return account;
+  }
+
 }
 
 const accountStore = new AccountStore();
