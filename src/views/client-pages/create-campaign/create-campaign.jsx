@@ -7,6 +7,7 @@ import * as CreateCampaignActions from './create-campaign.actions';
 import { createCampaignAvForm } from './create-campaign.validators';
 import { i18next } from '../../../i18n';
 import { campaignStore } from '../../../stores';
+import { accountStore } from '../../../stores';
 import { toast } from 'react-toastify';
 import { CSSTransition } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
@@ -23,6 +24,7 @@ import {
   FormGroup,
   Input,
   FormText,
+  Alert,
 } from 'reactstrap';
 import {
   AvForm,
@@ -32,6 +34,7 @@ import {
   AvRadioGroup,
   AvRadio,
 } from 'availity-reactstrap-validation';
+import { Link } from "react-router-dom";
 
 class CreateCampaign extends Component {
   constructor(props) {
@@ -43,15 +46,14 @@ class CreateCampaign extends Component {
       messageTitle: '',
       messageDescription: '',
       genreId: '',
-      genresList: [],
+      genresList: campaignStore.getGenres(),
       ages: [],
-      agesList: [],
+      agesList: campaignStore.getAges(),
       timeFrames: [],
-      timeFramesList: [],
+      timeFramesList: campaignStore.getTimeFrames(),
       estimatedIncomes: [],
-      estimatedIncomesList: [],
-      account: {},
-      accountId: '',
+      estimatedIncomesList: campaignStore.getEstimatedIncomes(),
+      account: accountStore.getAccount(),
       budget: '',
       startDate: '',
       endDate: '',
@@ -98,10 +100,29 @@ class CreateCampaign extends Component {
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-    CreateCampaignActions.getGenres();
-    CreateCampaignActions.getAges();
-    CreateCampaignActions.getEstimatedIncomes();
-    CreateCampaignActions.getTimeFrames();
+    this.changeAccountSubscription = accountStore
+      .subscribe('changeAccount', (account) => {
+        this.setState({ account });
+      });
+
+    // get campaignStore data
+    const campaignState = campaignStore.getState();
+
+    if (Array.isArray(campaignState.getGenres) === false || campaignState.getGenres.length === 0) {
+      CreateCampaignActions.getGenres();
+    }
+
+    if (Array.isArray(campaignState.getAges) === false || campaignState.getAges.length === 0) {
+      CreateCampaignActions.getAges();
+    }
+
+    if (Array.isArray(campaignState.getEstimatedIncomes) === false || campaignState.getEstimatedIncomes.length === 0) {
+      CreateCampaignActions.getEstimatedIncomes();
+    }
+
+    if (Array.isArray(campaignState.getTimeFrames) === false || campaignState.getTimeFrames.length === 0) {
+      CreateCampaignActions.getTimeFrames();
+    }
   }
 
   componentWillUnmount() {
@@ -111,6 +132,7 @@ class CreateCampaign extends Component {
     this.getEstimatedIncomesSubscription.unsubscribe();
     this.getTimeframesSubscription.unsubscribe();
     this.campaignStoreError.unsubscribe();
+    this.changeAccountSubscription.unsubscribe();
   }
 
   render() {
@@ -130,6 +152,20 @@ class CreateCampaign extends Component {
       <SubNav titleI18n="CREATE_CAMPAIGN.createCampaign"></SubNav>
 
       <Container className="mt-4">
+
+        <CSSTransition in={ !this.state.account.id } timeout={500} classNames="fade-in" unmountOnExit>
+          <Alert className="text-center" color="danger">
+            { t('CREATE_CAMPAIGN.noAccount') }
+
+            <Link to="/client/create-account">
+              <Button className="d-block mx-auto mt-4" color="danger" type="button">
+                { t('CREATE_CAMPAIGN.createAccount') }
+              </Button>
+            </Link>
+
+          </Alert>
+        </CSSTransition>
+
         <AvForm onValidSubmit={(evt) => this.createCampaign(evt)} noValidate>
       <Row className="mb-5 d-flex align-items-stretch">
         <Col className="divider-col" md={{size: 8}}>
@@ -277,18 +313,33 @@ class CreateCampaign extends Component {
             </p>
 
           <AvGroup>
+            <Link to="/client/campaigns">
             <Button className="cancel-left" outline color="danger" type="button" size="sm">
               { t('CREATE_CAMPAIGN.cancel') }
             </Button>
-            <Button className="save-draft" outline color="success" type="button" size="sm">
+            </Link>
+            <Button disabled={ !this.state.account.id } className="save-draft" outline color="success" type="button" size="sm">
               { t('CREATE_CAMPAIGN.saveDraft') }
             </Button>
           </AvGroup>
           <AvGroup>
-            <Button className="mt-3" color="primary" type="submit" size="lg" block>
+            <Button disabled={ !this.state.account.id } className="mt-3" color="primary" type="submit" size="lg" block>
               { t('CREATE_CAMPAIGN.createCampaign') }
             </Button>
           </AvGroup>
+
+          <CSSTransition in={ !this.state.account.id } timeout={500} classNames="fade-in" unmountOnExit>
+            <Alert className="text-center" color="danger">
+              { t('CREATE_CAMPAIGN.noAccount') }
+
+              <Link to="/client/create-account">
+                <Button className="d-block mx-auto mt-4" color="danger" type="button">
+                  { t('CREATE_CAMPAIGN.createAccount') }
+                </Button>
+              </Link>
+
+            </Alert>
+          </CSSTransition>
 
         </Col>
       </Row>
@@ -319,7 +370,9 @@ class CreateCampaign extends Component {
     stateCopy.push(itemId);
     stateCopy = [...new Set(stateCopy.map((element) => element.toString()))]
 
-    this.setState({ [listName]: stateCopy });
+    this.setState({
+      [listName]: stateCopy
+    });
   }
 
   /**
@@ -332,7 +385,9 @@ class CreateCampaign extends Component {
 
     stateCopy = stateCopy.filter((element) => element.toString() !== itemId.toString());
 
-    this.setState({ [listName]: stateCopy });
+    this.setState({
+      [listName]: stateCopy
+    });
   }
 
   /**
@@ -366,6 +421,7 @@ class CreateCampaign extends Component {
       this.state.startDate || undefined,
       this.state.endDate || undefined,
       JSON.stringify(this.state.timeFrames.map(Number)),
+      parseInt(this.state.account.id, 10) || null,
     );
 
     CreateCampaignActions.createCampaign(createCampaignForm);

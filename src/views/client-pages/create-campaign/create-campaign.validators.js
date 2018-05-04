@@ -28,6 +28,11 @@ const createCampaignValidator = (createCampaignForm: CreateCampaignForm) => {
     throw new Error(i18next.t('CREATE_CAMPAIGN.emptyMessageDescription'));
   }
 
+  if (createCampaignForm.accountId === undefined ||
+    createCampaignForm.accountId === null) {
+    throw new Error(i18next.t('CREATE_CAMPAIGN.emptyAccount'));
+  }
+
   if (createCampaignForm.genreId === undefined ||
     createCampaignForm.genreId === null) {
     throw new Error(i18next.t('CREATE_CAMPAIGN.emptyGender'));
@@ -64,10 +69,14 @@ const createCampaignValidator = (createCampaignForm: CreateCampaignForm) => {
   }
 
   /*
-  validate genreId (isValidNumber)
+  validate genreId and accountId (isValidNumber)
    */
   if (!utils.isValidNumber(createCampaignForm.genreId.toString())) {
     throw new Error(i18next.t('CREATE_CAMPAIGN.invalidGender'));
+  }
+
+  if (!utils.isValidNumber(createCampaignForm.accountId.toString())) {
+    throw new Error(i18next.t('CREATE_CAMPAIGN.invalidAccount'));
   }
 
   /*
