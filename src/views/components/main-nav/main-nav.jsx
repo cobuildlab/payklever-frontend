@@ -58,6 +58,10 @@ class MainNav extends Component {
       .subscribe('getAccounts', (accounts) => {
         this.setState({ accounts });
         this.isLoading(false);
+        if (!this.state.account.id &&
+          Array.isArray(accounts) && accounts.length) {
+          this.changeAccount(accounts[0])
+        }
       });
 
     this.changeAccountSubscription = accountStore
@@ -99,29 +103,30 @@ class MainNav extends Component {
 
                <CSSTransition in={this.state.accounts.length > 0} timeout={500} classNames="fade-in" unmountOnExit>
                <Dropdown isOpen={this.state.accountsOpen} toggle={this.toggleAccounts} nav inNavbar>
-                 <DropdownToggle onClick={this.toggleAccounts} nav>
-                   <NavItem style={{ backgroundImage: `url(${ Avatar })`}} className="avatar">
-                     <NavLink href="https://github.com/reactstrap/reactstrap">
-                     </NavLink>
-                   </NavItem>
-                   <NavItem style={{ backgroundImage: `url(${ GreenLogo })`}} className="camp">
-                    <NavLink href="https://github.com/reactstrap/reactstrap">
-                    </NavLink>
-                   </NavItem>
+                 <DropdownToggle onClick={() => this.toggleAccounts} nav>
+                   <div style={{ backgroundImage: `url(${ Avatar })`}} className="avatar">
+                   </div>
+                   <div style={{ backgroundImage: `url(${ GreenLogo })`}} className="camp">
+                   </div>
                  </DropdownToggle>
 
                  <DropdownMenu className="m-0 p-0" right>
-                   {this.state.accounts.map((account) => <DropdownItem onClick={this.changeAccount(account)} key={account.id} className="header-dropdown">
+                   {this.state.accounts.map((account, index) => <div key={account.id}>
+                     <DropdownItem
+                     onClick={() => {this.changeAccount(account)}} className={ (this.state.account.id === account.id) ? "header-dropdown" : "sub-header-dropdown"}>
                    <Media>
-                      <Media left href="#">
+                      <Media left>
                         <div className="img-account" style={{ backgroundImage: `url(${account.avatar || Avatar} )`}}></div>
                       </Media>
                       <Media body>
-                        <p className="m-0">Lorm Ipsum</p>
-                        <p>loremipsum@emailcom</p>
+                        <p className="mt-3">{ account.name }</p>
                       </Media>
                     </Media>
-                   </DropdownItem>)}
+                   </DropdownItem>
+                   { (index !== (this.state.accounts.length -1)) ?
+                     (<DropdownItem divider></DropdownItem>)
+                     : null}
+                 </div>)}
                  </DropdownMenu>
                </Dropdown>
                </CSSTransition>
@@ -153,8 +158,9 @@ class MainNav extends Component {
   }
 
   changeAccount(account) {
-    console.log('changeAccount');
-    mainNavActions.changeAccount(account);
+    setTimeout(() => {
+      mainNavActions.changeAccount(account);
+    })
   }
 
   toggle() {
@@ -166,7 +172,7 @@ class MainNav extends Component {
   }
 
   toggleAccounts() {
-    if (this.state.loading || !this.state.account.length) return;
+    if (this.state.loading || !this.state.accounts.length) return;
 
     this.setState({
       accountsOpen: !this.state.accountsOpen,
