@@ -4,62 +4,69 @@ class CampaignStore extends Flux.DashStore {
   constructor() {
     super();
 
-    /*
-    Notifies when the campaign list was loaded
+    /**
+     * Notifies when the campaign list was loaded
+     * @param {Array} campaigns the payments list
      */
     this.addEvent('getCampaigns');
 
-    /*
-    Notifies when a campaign was created
+    /**
+     * Notifies when a campaign was created
+     * @param {object} campaign the created campaign
      */
     this.addEvent('createCampaign');
 
-    /*
-    Genres list
+    /**
+     * Genres list
+     * @param {Array} genres the genres list
      */
     this.addEvent('getGenres');
 
-    /*
-    Ages list
+    /**
+     * Ages list
+     * @param {Array} ages the ages list
      */
     this.addEvent('getAges');
 
-    /*
-    Estimated income list
+    /**
+     * EstiMated Incomes list
+     * @param {Array} estimatedIncomes the estimated incomes list
      */
     this.addEvent('getEstimatedIncomes');
 
-    /*
-    Time frame list
+    /**
+     * Time frames list
+     * @param {Array} timeFrames the Time frames list
      */
     this.addEvent('getTimeFrames');
 
-    /*
-    Error handler
+    /**
+     * Error handler
+     * @param {Error} err the error from the action
      */
     this.addEvent('CampaignStoreError');
   }
 
   getGenres() {
-    const genres = this.getState().getGenres || [];
+    const genres = this.getState('getGenres') || [];
 
     return genres;
   }
 
   getAges() {
-    const ages = this.getState().getAges || [];
+    const ages = this.getState('getAges') || [];
 
     return ages;
   }
 
   getTimeFrames() {
-    const timeFrames = this.getState().getTimeFrames || [];
+    const timeFrames = this.getState('getTimeFrames') || [];
 
     return timeFrames;
   }
 
   getEstimatedIncomes() {
-    const estimatedIncomes = this.getState().getEstimatedIncomes || [];
+    const estimatedIncomes = this.getState('getEstimatedIncomes') || [];
 
     return estimatedIncomes;
   }

@@ -8,33 +8,25 @@ class AccountStore extends Flux.DashStore {
      * Notifies when the account list was loaded
      * @param {Array}  accounts the account list
      */
-    this.addEvent('getAccounts', (accounts) => {
-      return accounts;
-    });
+    this.addEvent('getAccounts');
 
     /**
-     * Notifies when a account was created
+     * Notifies when an account was created
      * @param {object}  account the created account
      */
-    this.addEvent('createAccount', (account) => {
-      return account;
-    });
+    this.addEvent('createAccount');
 
     /**
-     * Notifies when a account was changed
-     * @param {object}  account the new account
+     * Notifies when the account was changed
+     * @param {object} account the new account
      */
-    this.addEvent('changeAccount', (account) => {
-      return account;
-    });
+    this.addEvent('changeAccount');
 
     /**
      * Error handler
      * @param {Error} err the error from the action
      */
-    this.addEvent('AccountStoreError', (err) => {
-      return err;
-    });
+    this.addEvent('AccountStoreError');
   }
 
   /**
@@ -42,11 +34,10 @@ class AccountStore extends Flux.DashStore {
    * @return {object} the last selected account
    */
   getAccount() {
-    const account = this.getState().changeAccount || {};
+    const account = this.getState('changeAccount') || {};
 
     return account;
   }
-
 }
 
 const accountStore = new AccountStore();

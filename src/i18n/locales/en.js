@@ -135,7 +135,7 @@ export default {
     accountPayment: 'Payment Method',
     accountLocation: 'Location',
     budget: 'Budget',
-    emptyBudget: 'Presupuesto requerido',
+    emptyBudget: 'Budget required',
     invalidBudget: 'Invalid Budget',
     createCampaign: 'Create Campaign',
     name: `Campaign's Name`,

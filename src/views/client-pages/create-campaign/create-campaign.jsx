@@ -175,13 +175,13 @@ class CreateCampaign extends Component {
               </p>
             </Col>
             <FormGroup>
-              <Input disabled type="text" name="accountName" placeholder={t('CREATE_CAMPAIGN.accountName')} value={this.state.account.name}/>
+              <Input disabled type="text" name="accountName" placeholder={t('CREATE_CAMPAIGN.accountName')} value={this.state.account.name || '' }/>
             </FormGroup>
             <FormGroup>
-              <Input disabled type="text" name="accountPayment" placeholder={t('CREATE_CAMPAIGN.accountPayment')} value={this.state.account.paymedia}/>
+              <Input disabled type="text" name="accountPayment" placeholder={t('CREATE_CAMPAIGN.accountPayment')} value={this.state.account.paymedia || '' }/>
             </FormGroup>
             <FormGroup>
-              <Input disabled type="text" name="accountLocation" placeholder={t('CREATE_CAMPAIGN.accountLocation')} value={this.state.account.location}/>
+              <Input disabled type="text" name="accountLocation" placeholder={t('CREATE_CAMPAIGN.accountLocation')} value={this.state.account.location || '' }/>
             </FormGroup>
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
               <p className="title-create">
