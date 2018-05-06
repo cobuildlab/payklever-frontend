@@ -168,6 +168,9 @@ export default {
     campaignName: 'Campaign name',
     messageTitle: 'Message Title',
     status: 'status',
+    adminStatus: 'Admin Status',
     loadingCampaigns: 'Loading Campaigns',
+    approve: 'Approve Campaign',
+    reject: 'Reject Campaign',
   },
 }

@@ -168,6 +168,9 @@ export default {
     campaignName: 'Nombre de la campaña',
     messageTitle: 'Título del mansaje',
     status: 'Estatus',
+    adminStatus: 'Estatus del admin',
     loadingCampaigns: 'Cargando Campañas',
+    approve: 'Aprobar Campaña',
+    reject: 'Rechazar Campaña',
   },
 }

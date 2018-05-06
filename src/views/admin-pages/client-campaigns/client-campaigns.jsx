@@ -4,6 +4,11 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import {
+  faClipboardCheck,
+  faBan,
+} from '@fortawesome/fontawesome-free-solid';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { campaignStore } from '../../../stores';
@@ -15,6 +20,7 @@ import {
   Container,
   Col,
   Row,
+  Button,
   Table,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -73,6 +79,8 @@ class ClientCampaigns extends Component {
             <th>{ t('CLIENT_CAMPAIGNS.campaignName') }</th>
             <th>{ t('CLIENT_CAMPAIGNS.messageTitle') }</th>
             <th>{ t('CLIENT_CAMPAIGNS.status') }</th>
+            <th>{ t('CLIENT_CAMPAIGNS.adminStatus') }</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -83,6 +91,18 @@ class ClientCampaigns extends Component {
                  <td>{campaign.name}</td>
                  <td>{campaign.messageTitle}</td>
                  <td>{campaign.status}</td>
+                 <td>{campaign.adminStatus}</td>
+                 <td className="text-right">
+                   {(campaign.adminStatus === 'wa') ? (<div>
+                    <Button className="mr-2" title={ t('CLIENT_CAMPAIGNS.approve') } color="primary" size="sm">
+                     <FontAwesomeIcon icon={faClipboardCheck}/>
+                    </Button>
+                    <Button color="danger" title={ t('CLIENT_CAMPAIGNS.reject') } size="sm">
+                     <FontAwesomeIcon icon={faBan}/>
+                   </Button>
+                  </div>)
+                 : null }
+                 </td>
                </tr>
              </CSSTransition>)}
           </TransitionGroup>

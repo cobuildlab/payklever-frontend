@@ -29,7 +29,7 @@ class CampaignManager extends Component {
            </NavLink>
          </NavItem>
          <NavItem className="tabs-profile-admin">
-           <NavLink tag={Link} to="/admin/campaign-manager/client-campaigns" active={(this.props.location.pathname === '/admin/campaign-manager/campaigns')}>
+           <NavLink tag={Link} to="/admin/campaign-manager/client-campaigns" active={(this.props.location.pathname === '/admin/campaign-manager/client-campaigns')}>
              { t('CAMPAIGN_MANAGER.campaign') }
            </NavLink>
          </NavItem>
