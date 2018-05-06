@@ -163,6 +163,7 @@ export default {
     firstName: 'Nombres',
     lastName: 'Apellidos',
     email: 'Correo',
+    loadingClients: 'Cargando Clientes',
   },
   CLIENT_CAMPAIGNS: {
     campaignName: 'Nombre de la campaña',

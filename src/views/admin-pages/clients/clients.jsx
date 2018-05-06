@@ -59,7 +59,7 @@ class Clients extends Component {
         <div className="App-overlay">
           <div style={{width: '200px'}} className="App-center-loading">
             <h4 className="text-center">
-                { t('CAMPAIGNS.loadingCampaigns') }
+                { t('CLIENTS.loadingClients') }
             </h4>
             <RingLoader size={200} color={'#75c044'} loading={true}/>
           </div>
