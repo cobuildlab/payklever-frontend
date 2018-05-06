@@ -40,7 +40,7 @@ class CampaignManager extends Component {
            </NavLink>
          </NavItem>
        </Nav>
-        <Route exact path="'/admin/campaign-manager/clients" component={Clients}/>
+        <Route exact path="/admin/campaign-manager/clients" component={Clients}/>
         {/* <Route exact path="/admin/campaign-manager/campaigns" component={Campaigns}/>
         <Route exact path="/admin/campaign-manager/messages" component={Messages}/> */}
       </Container>
