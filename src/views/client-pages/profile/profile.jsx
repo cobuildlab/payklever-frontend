@@ -69,12 +69,12 @@ class Profile extends Component {
            </Col>
          </Row>
          <Nav tabs className="nav mt-4">
-          <NavItem className="tabs-profile">
+          <NavItem className="App-tabs-50">
             <NavLink tag={Link} to="/client/profile/accounts" active={(this.props.location.pathname === '/client/profile/accounts')}>
               { t('PROFILE.accounts') }
             </NavLink>
           </NavItem>
-          <NavItem className="tabs-profile">
+          <NavItem className="App-tabs-50">
             <NavLink tag={Link} to="/client/profile/payment-methods" active={(this.props.location.pathname === '/client/profile/payment-methods')}>
               { t('PROFILE.paymentMethods') }
             </NavLink>
