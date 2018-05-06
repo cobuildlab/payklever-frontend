@@ -19,33 +19,27 @@ class AuthStore extends Flux.DashStore {
       return user;
     });
 
-
     /**
      * Notifies when a user has signep up
      * @param {object}  user the registered user
      */
-    this.addEvent('signup', (user) => {
-      return user;
-    });
-
+    this.addEvent('signup');
 
     /**
      * Error handler
      * @param {Error} err the error from the action
      */
-    this.addEvent('AuthStoreError', (err) => {
-      return err;
-    });
+    this.addEvent('AuthStoreError');
   }
 
   getUser() {
-    const user = this.getState().setUser || {};
+    const user = this.getState('setUser') || {};
 
     return user;
   }
 
   getToken() {
-    const user = this.getState().setUser || {};
+    const user = this.getState('setUser') || {};
 
     return user.token;
   }
@@ -57,19 +51,19 @@ class AuthStore extends Flux.DashStore {
 
 
   isAuthenticated() {
-    const user = this.getState().setUser || {};
+    const user = this.getState('setUser') || {};
 
     return (typeof user.token === 'string');
   }
 
   isAdmin() {
-    const user = this.getState().setUser || {};
+    const user = this.getState('setUser') || {};
 
     return (user.isAdmin === true);
   }
 
   isClient() {
-    const user = this.getState().setUser || {};
+    const user = this.getState('setUser') || {};
 
     return (user.isAdmin === false);
   }

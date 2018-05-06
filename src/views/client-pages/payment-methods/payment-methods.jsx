@@ -103,20 +103,13 @@ class PaymentMethods extends Component {
             </TransitionGroup>
           </tbody>
         </Table>
-          
-        <div className="text-center">
-          <Link to="/client/create-payment">
-            <Button className="mr-2 mt-4" color="danger">
-            { t('PAYMENT_METHODS.cancel')}
-            </Button>
-          </Link>
-          <Link to="/client/create-payment">
-            <Button className="mt-4" color="primary">
-            { t('PAYMENT_METHODS.createPayment') }
-            </Button>
-          </Link>
-        </div>
-          
+
+        <Link to="/client/create-payment">
+          <Button className="mx-auto d-block mt-4 mb-2" color="primary">
+          { t('PAYMENT_METHODS.createPayment') }
+          </Button>
+        </Link>
+
        </Container>
     </div>
     )}</I18n>);

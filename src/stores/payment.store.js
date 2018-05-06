@@ -8,26 +8,19 @@ class PaymentStore extends Flux.DashStore {
      * Notifies when the payment methods list was loaded
      * @param {Array}  paymentMethods the payments list
      */
-    this.addEvent('getPayments', (paymentMethods) => {
-      return paymentMethods;
-    });
+    this.addEvent('getPayments');
 
     /**
      * Notifies when a payment was created
      * @param {object}  payment the created payment
      */
-    this.addEvent('createPayment', (payment) => {
-      return payment;
-    });
-
+    this.addEvent('createPayment');
 
     /**
      * Error handler
      * @param {Error} err the error from the action
      */
-    this.addEvent('PaymentStoreError', (err) => {
-      return err;
-    });
+    this.addEvent('PaymentStoreError');
   }
 }
 
