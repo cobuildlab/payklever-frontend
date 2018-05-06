@@ -4,11 +4,10 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
-import { Clients } from '../';
 import {
   I18n
 } from 'react-i18next';
-// import { Clients, Campaigns, Messages } from '../';
+import { Clients, ClientCampaigns } from '../';
 import {
   Container,
   Col,
@@ -30,19 +29,19 @@ class CampaignManager extends Component {
            </NavLink>
          </NavItem>
          <NavItem className="tabs-profile-admin">
-           <NavLink tag={Link} to="/admin/campaign-manager/campaigns" active={(this.props.location.pathname === '/admin/campaign-manager/campaigns')}>
+           <NavLink tag={Link} to="/admin/campaign-manager/client-campaigns" active={(this.props.location.pathname === '/admin/campaign-manager/campaigns')}>
              { t('CAMPAIGN_MANAGER.campaign') }
            </NavLink>
          </NavItem>
-         <NavItem className="tabs-profile-admin">
+         {/* <NavItem className="tabs-profile-admin">
            <NavLink tag={Link} to="/admin/campaign-manager/messages" active={(this.props.location.pathname === '/admin/campaign-manager/messages')}>
              { t('CAMPAIGN_MANAGER.message') }
            </NavLink>
-         </NavItem>
+         </NavItem> */}
        </Nav>
         <Route exact path="/admin/campaign-manager/clients" component={Clients}/>
-        {/* <Route exact path="/admin/campaign-manager/campaigns" component={Campaigns}/>
-        <Route exact path="/admin/campaign-manager/messages" component={Messages}/> */}
+        <Route exact path="/admin/campaign-manager/client-campaigns" component={ClientCampaigns}/>
+        {/* <Route exact path="/admin/campaign-manager/messages" component={Messages}/> */}
       </Container>
     )}</I18n>);
   }

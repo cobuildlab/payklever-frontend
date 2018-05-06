@@ -6,8 +6,8 @@ import {
 } from "react-router-dom";
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { userStore } from '../../../stores';
-import * as ClientsActions from './clients.actions';
+import { campaignStore } from '../../../stores';
+import * as ClientCampaignsActions from './client-campaigns.actions';
 import {
   I18n
 } from 'react-i18next';
@@ -20,36 +20,36 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
 
-class Clients extends Component {
+class ClientCampaigns extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       loading: true,
-      clients: [],
+      campaigns: [],
     };
   }
 
   componentDidMount() {
-    this.getClientsSubscription = userStore
-      .subscribe('getUsers', (clients) => {
-        this.setState({ clients });
+    this.getCampaignsSubscription = campaignStore
+      .subscribe('getCampaigns', (campaigns) => {
+        this.setState({ campaigns });
         this.isLoading(false);
       });
 
-    this.userStoreError = userStore
-      .subscribe('UserStoreError', (err) => {
+    this.campaignStoreError = campaignStore
+      .subscribe('CampaignStoreError', (err) => {
         this.isLoading(false);
         toast.dismiss();
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-    ClientsActions.getUsers();
+    ClientCampaignsActions.getCampaigns();
   }
 
   componentWillUnmount() {
-    this.getClientsSubscription.unsubscribe();
-    this.userStoreError.unsubscribe();
+    this.getCampaignsSubscription.unsubscribe();
+    this.campaignStoreError.unsubscribe();
   }
 
   render() {
@@ -59,7 +59,7 @@ class Clients extends Component {
         <div className="App-overlay">
           <div style={{width: '200px'}} className="App-center-loading">
             <h4 className="text-center">
-                { t('CAMPAIGNS.loadingCampaigns') }
+                { t('CLIENT_CAMPAIGNS.loadingCampaigns') }
             </h4>
             <RingLoader size={200} color={'#75c044'} loading={true}/>
           </div>
@@ -70,19 +70,19 @@ class Clients extends Component {
         <Table>
         <thead>
           <tr>
-            <th>{ t('CLIENTS.firstName') }</th>
-            <th>{ t('CLIENTS.lastName') }</th>
-            <th>{ t('CLIENTS.email') }</th>
+            <th>{ t('CLIENT_CAMPAIGNS.campaignName') }</th>
+            <th>{ t('CLIENT_CAMPAIGNS.messageTitle') }</th>
+            <th>{ t('CLIENT_CAMPAIGNS.status') }</th>
           </tr>
         </thead>
         <tbody>
           <TransitionGroup component={null}>
-           { this.state.clients.map((client) =>
-             <CSSTransition key={client.id} timeout={500} classNames="fade-in">
+           { this.state.campaigns.map((campaign) =>
+             <CSSTransition key={campaign.id} timeout={500} classNames="fade-in">
                <tr>
-                 <td>{client.firstName}</td>
-                 <td>{client.lastName}</td>
-                 <td>{client.email}</td>
+                 <td>{campaign.name}</td>
+                 <td>{campaign.messageTitle}</td>
+                 <td>{campaign.status}</td>
                </tr>
              </CSSTransition>)}
           </TransitionGroup>
@@ -97,6 +97,4 @@ class Clients extends Component {
   }
 }
 
-
-
-export default Clients;
+export default ClientCampaigns;

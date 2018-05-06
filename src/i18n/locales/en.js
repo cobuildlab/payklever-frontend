@@ -69,7 +69,7 @@ export default {
   PAYMENT_METHODS: {
     createPayment: 'Create Payment Method',
     loadingPayments: 'Loading Payment Methods',
-    user: 'Name',
+    user: 'Name and Surname',
     card: 'Credit Card',
     cancel: 'Cancel',
   },
@@ -158,5 +158,16 @@ export default {
     client: 'Clients',
     campaign: 'Campaigns',
     message: 'Messages',
+  },
+  CLIENTS: {
+    firstName: 'Firstname',
+    lastName: 'Lastname',
+    email: 'Email',
+  },
+  CLIENT_CAMPAIGNS: {
+    campaignName: 'Campaign name',
+    messageTitle: 'Message Title',
+    status: 'status',
+    loadingCampaigns: 'Loading Campaigns',
   },
 }

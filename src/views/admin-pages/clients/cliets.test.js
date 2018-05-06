@@ -4,6 +4,6 @@ import Clients from './clients';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<CamPaignManager />, div);
+  ReactDOM.render(<Clients />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
