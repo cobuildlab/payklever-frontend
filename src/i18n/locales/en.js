@@ -50,7 +50,7 @@ export default {
     cancel: 'Cancel',
     createAccount: 'Create Account',
     loadingAccounts: 'Loading Accounts',
-    Name: 'Name Account',
+    name: 'Account Name',
     status: 'Status',
   },
   CREATE_ACCOUNT: {
@@ -154,7 +154,7 @@ export default {
     noInternet: 'Check your internet connection and try again',
     error: 'An error has ocurred',
   },
-  ADMIN: {
+  CAMPAIGN_MANAGER: {
     client: 'Clients',
     campaign: 'Campaigns',
     message: 'Messages',
