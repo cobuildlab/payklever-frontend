@@ -2,6 +2,8 @@ export default {
   APP: {
     youHaveLoggedOut: 'You have Logged Out',
     invalidForm: 'Formulario inválido',
+    accept: 'Accept',
+    cancel: 'Cancel',
   },
   LOGIN: {
     login: 'Log In',
@@ -173,5 +175,13 @@ export default {
     loadingCampaigns: 'Loading Campaigns',
     approve: 'Approve Campaign',
     reject: 'Reject Campaign',
+    approveHeader: 'Approve Campaign?',
+    approveBody: 'Are you sure you want to approve the Campaign: {{campaignName}}?',
+    rejectHeader: 'Reject Campaign?',
+    rejectBody: 'Are you sure you want to reject the Campaign: {{campaignName}}?',
+    approvingCampaign: 'Approving Campaign',
+    rejectingCampaign: 'Rejecting Campaign',
+    campaignApproved: 'The Campaign was succesfully Approved',
+    campaignRejected: 'The Campaign was succesfully Rejected',
   },
 }

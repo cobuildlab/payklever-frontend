@@ -1,5 +1,5 @@
 import Flux from '@4geeksacademy/react-flux-dash';
-import { getData } from '../../../fetch';
+import { getData, putData } from '../../../fetch';
 
 const getCampaigns = () => {
   getData('/campaign/all/')
@@ -11,4 +11,24 @@ const getCampaigns = () => {
     });
 }
 
-export { getCampaigns };
+const approveCampaign = (campaignId) => {
+  putData(`/campaign/${campaignId}/approve/`)
+    .then((data) => {
+      Flux.dispatchEvent('approveCampaign', data);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+const rejectCampaign = (campaignId) => {
+  putData(`/campaign/${campaignId}/reject/`)
+    .then((data) => {
+      Flux.dispatchEvent('rejectCampaign', data);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+export { getCampaigns, approveCampaign, rejectCampaign };

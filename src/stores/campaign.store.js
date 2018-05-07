@@ -20,6 +20,15 @@ class CampaignStore extends Flux.DashStore {
       return campaign;
     });
 
+    /**
+     * Notifies when a campaign was approved
+     */
+    this.addEvent('approveCampaign');
+
+    /**
+     * Notifies when a campaign was rejected
+     */
+    this.addEvent('rejectCampaign');
 
     /**
      * Error handler

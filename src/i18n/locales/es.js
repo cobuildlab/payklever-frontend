@@ -2,6 +2,8 @@ export default {
   APP: {
     youHaveLoggedOut: 'Has cerrado la sesión',
     invalidForm: 'Formulario inválido',
+    accept: 'Aceptar',
+    cancel: 'Cancelar',
   },
   LOGIN: {
     login: 'Iniciar Sesión',
@@ -173,5 +175,13 @@ export default {
     loadingCampaigns: 'Cargando Campañas',
     approve: 'Aprobar Campaña',
     reject: 'Rechazar Campaña',
+    approveHeader: 'Aprobar Campaña?',
+    approveBody: 'Estas seguro que deseas aprobar la campaña: {{campaignName}}?',
+    rejectHeader: 'Rechazar Campaña?',
+    rejectBody: 'Estas seguro que deseas rechazar la campaña: {{campaignName}}?',
+    approvingCampaign: 'Aprobando Campaña',
+    rejectingCampaign: 'Rechazando Campaña',
+    campaignApproved: 'La Campaña fue aprobada satisfactoriamente',
+    campaignRejected: 'La Campaña fue rechazada satisfactoriamente',
   },
 }
