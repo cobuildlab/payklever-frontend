@@ -21,6 +21,7 @@ import {
   NavItem,
   Media,
   Table,
+  Button,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
@@ -85,7 +86,10 @@ class Clients extends Component {
            { this.state.clients.map((client) =>
              <CSSTransition key={client.id} timeout={500} classNames="fade-in">
                <tr>
-                 <td>{client.firstName}</td>
+                 <td>{client.firstName}
+                   <Link to="/admin/clients-details">
+                     <Button color="primary">{ t('CAMPAIGNS.createCampaign') }</Button>
+                   </Link></td>
                  <td>{client.lastName}</td>
                  <td>{client.email}</td>
                </tr>
