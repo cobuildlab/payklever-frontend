@@ -30,6 +30,32 @@ export function postData(url, data, isAuth = true) {
 }
 
 /**
+ * PUT method fetch
+ * @param  {string}  url    Endpoint URL
+ * @param  {Boolean} isAuth if endpoint needs token, true by default
+ * @return {Promise}         the data from the endpoint
+ */
+export function putData(url, data, isAuth = true) {
+  return new Promise((resolve, reject) => {
+    checkConnection();
+
+    return fetch(`${API_URL}${url}`, {
+        body: JSON.stringify(data),
+        headers: {
+          'Accept': 'application/json',
+          'Accept-Language': i18next.language,
+          'Content-Type': 'application/json',
+          'Authorization': (isAuth) ? `Token ${authStore.getToken()}`: '',
+        },
+        method: 'PUT',
+      })
+      .then(checkStatus)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err));
+  });
+}
+
+/**
  * GET method fetch
  * @param  {string}  url    Endpoint URL
  * @param  {Boolean} isAuth true if api requires token, true by default

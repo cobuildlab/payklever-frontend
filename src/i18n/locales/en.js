@@ -2,6 +2,8 @@ export default {
   APP: {
     youHaveLoggedOut: 'You have Logged Out',
     invalidForm: 'Formulario inválido',
+    accept: 'Accept',
+    cancel: 'Cancel',
   },
   LOGIN: {
     login: 'Log In',
@@ -50,7 +52,7 @@ export default {
     cancel: 'Cancel',
     createAccount: 'Create Account',
     loadingAccounts: 'Loading Accounts',
-    user: 'User',
+    name: 'Account Name',
     status: 'Status',
   },
   CREATE_ACCOUNT: {
@@ -86,7 +88,7 @@ export default {
   PAYMENT_METHODS: {
     createPayment: 'Create Payment Method',
     loadingPayments: 'Loading Payment Methods',
-    user: 'User',
+    user: 'Name and Surname',
     card: 'Credit Card',
     cancel: 'Cancel',
   },
@@ -189,5 +191,33 @@ export default {
   FETCH: {
     noInternet: 'Check your internet connection and try again',
     error: 'An error has ocurred',
+  },
+  CAMPAIGN_MANAGER: {
+    client: 'Clients',
+    campaign: 'Campaigns',
+    message: 'Messages',
+  },
+  CLIENTS: {
+    firstName: 'Firstname',
+    lastName: 'Lastname',
+    email: 'Email',
+    loadingClients: 'Loading Clients',
+  },
+  CLIENT_CAMPAIGNS: {
+    campaignName: 'Campaign name',
+    messageTitle: 'Message Title',
+    status: 'status',
+    adminStatus: 'Admin Status',
+    loadingCampaigns: 'Loading Campaigns',
+    approve: 'Approve Campaign',
+    reject: 'Reject Campaign',
+    approveHeader: 'Approve Campaign?',
+    approveBody: 'Are you sure you want to approve the Campaign: {{campaignName}}?',
+    rejectHeader: 'Reject Campaign?',
+    rejectBody: 'Are you sure you want to reject the Campaign: {{campaignName}}?',
+    approvingCampaign: 'Approving Campaign',
+    rejectingCampaign: 'Rejecting Campaign',
+    campaignApproved: 'The Campaign was succesfully Approved',
+    campaignRejected: 'The Campaign was succesfully Rejected',
   },
 }

@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CamPaignManager from './campaign-manager';
-import { Route } from "react-router-dom";
+import Clients from './clients';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Route> <CamPaignManager /> </Route>, div);
+  ReactDOM.render(<Clients />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

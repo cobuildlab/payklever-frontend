@@ -2,6 +2,8 @@ export default {
   APP: {
     youHaveLoggedOut: 'Has cerrado la sesión',
     invalidForm: 'Formulario inválido',
+    accept: 'Aceptar',
+    cancel: 'Cancelar',
   },
   LOGIN: {
     login: 'Iniciar Sesión',
@@ -50,7 +52,7 @@ export default {
     cancel: 'Cancelar',
     createAccount: 'Crear Cuenta',
     loadingAccounts: 'Cargando Cuentas',
-    user: 'Usuario',
+    name: 'Nombre de la Cuenta',
     status: 'Estatus',
   },
   CREATE_ACCOUNT: {
@@ -86,7 +88,7 @@ export default {
   PAYMENT_METHODS: {
     createPayment: 'Crear Método de Pago',
     loadingPayments: 'Cargando metodos de Pago',
-    user: 'Usuario',
+    user: 'Nombre y Apellido',
     card: 'Tarjeta de Credito',
     cancel: 'Cancelar',
   },
@@ -189,5 +191,33 @@ export default {
   FETCH: {
     noInternet: 'Verifica tu conexión a internet e intentalo de nuevo',
     error: 'Ha ocurrido un error',
+  },
+  ADMIN: {
+    client: 'Clientes',
+    campaign: 'Campañas',
+    message: 'Mensajes',
+  },
+  CLIENTS: {
+    firstName: 'Nombres',
+    lastName: 'Apellidos',
+    email: 'Correo',
+    loadingClients: 'Cargando Clientes',
+  },
+  CLIENT_CAMPAIGNS: {
+    campaignName: 'Nombre de la campaña',
+    messageTitle: 'Título del mansaje',
+    status: 'Estatus',
+    adminStatus: 'Estatus del admin',
+    loadingCampaigns: 'Cargando Campañas',
+    approve: 'Aprobar Campaña',
+    reject: 'Rechazar Campaña',
+    approveHeader: 'Aprobar Campaña?',
+    approveBody: 'Estas seguro que deseas aprobar la campaña: {{campaignName}}?',
+    rejectHeader: 'Rechazar Campaña?',
+    rejectBody: 'Estas seguro que deseas rechazar la campaña: {{campaignName}}?',
+    approvingCampaign: 'Aprobando Campaña',
+    rejectingCampaign: 'Rechazando Campaña',
+    campaignApproved: 'La Campaña fue aprobada satisfactoriamente',
+    campaignRejected: 'La Campaña fue rechazada satisfactoriamente',
   },
 }

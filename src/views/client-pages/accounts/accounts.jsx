@@ -75,11 +75,11 @@ class Accounts extends Component {
           </div>
         </CSSTransition>
 
-        <Container className="mt-4">
+        <Container className="mt-5">
           <Table>
             <thead>
               <tr>
-                <th>{ t('ACCOUNTS.user')}</th>
+                <th>{ t('ACCOUNTS.name')}</th>
                 <th>{ t('ACCOUNTS.status')}</th>
                 <th> </th>
               </tr>

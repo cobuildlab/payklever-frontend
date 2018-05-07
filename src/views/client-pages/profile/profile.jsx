@@ -64,29 +64,24 @@ class Profile extends Component {
                       {this.state.user.firstName &&(<span> {` ${this.state.user.firstName} ${this.state.user.lastName}`}</span>)}
                     </Media>
                   </Media>
-
-
                </Container>
              )}
            </Col>
          </Row>
-
          <Nav tabs className="nav mt-4">
-          <NavItem className="tabs-profile">
+          <NavItem className="App-tabs-50">
             <NavLink tag={Link} to="/client/profile/accounts" active={(this.props.location.pathname === '/client/profile/accounts')}>
               { t('PROFILE.accounts') }
             </NavLink>
           </NavItem>
-          <NavItem className="tabs-profile">
+          <NavItem className="App-tabs-50">
             <NavLink tag={Link} to="/client/profile/payment-methods" active={(this.props.location.pathname === '/client/profile/payment-methods')}>
               { t('PROFILE.paymentMethods') }
             </NavLink>
           </NavItem>
         </Nav>
-
          <Route exact path="/client/profile/accounts" component={Accounts}/>
          <Route exact path="/client/profile/payment-methods" component={PaymentMethods}/>
-
        </Container>
       </div>
     )}</I18n>);

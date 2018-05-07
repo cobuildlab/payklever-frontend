@@ -6,7 +6,7 @@ class CampaignStore extends Flux.DashStore {
 
     /**
      * Notifies when the campaign list was loaded
-     * @param {Array} campaigns the payments list
+     * @param {Array} campaigns the campaigns list
      */
     this.addEvent('getCampaigns');
 
@@ -15,6 +15,16 @@ class CampaignStore extends Flux.DashStore {
      * @param {object} campaign the created campaign
      */
     this.addEvent('createCampaign');
+
+    /**
+     * Notifies when a campaign was approved
+     */
+    this.addEvent('approveCampaign');
+
+    /**
+     * Notifies when a campaign was rejected
+     */
+    this.addEvent('rejectCampaign');
 
     /**
      * Genres list
