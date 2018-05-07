@@ -41,7 +41,10 @@ class SubNav extends Component {
       <div>
         <Navbar className="sub-nav" color="dark" dark expand="sm">
           <Container>
+            { (this.props.backRoute) ? (<Link to={this.props.backRoute}>
             <Button color="link"><FontAwesomeIcon icon={faArrowLeft}/></Button>
+            </Link>)
+            : null }
             <NavbarBrand className="text-light">{ t(this.props.titleI18n) }</NavbarBrand>
             { hasLink && (<NavbarToggler onClick={this.toggle} />) }
             { hasLink && (<Collapse isOpen={this.state.isOpen} navbar>
@@ -75,6 +78,7 @@ class SubNav extends Component {
 
 SubNav.propTypes = {
   titleI18n: PropTypes.string.isRequired,
+  backRoute: PropTypes.string,
   link: PropTypes.string,
   linkI18n: PropTypes.string,
 };

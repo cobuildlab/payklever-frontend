@@ -109,7 +109,7 @@ class CreateAccount extends Component {
         </div>
       </CSSTransition>
 
-      <SubNav titleI18n="CREATE_ACCOUNT.createAccount"></SubNav>
+      <SubNav backRoute="/client/profile/accounts" titleI18n="CREATE_ACCOUNT.createAccount"></SubNav>
 
         <Container className="mt-4">
           <Row>

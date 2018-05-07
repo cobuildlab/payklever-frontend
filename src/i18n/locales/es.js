@@ -129,6 +129,7 @@ export default {
     name: 'Nombre',
     title: 'Título',
     status: 'Estatus',
+    adminStatus: 'Estatus del admin',
   },
   CREATE_CAMPAIGN: {
     campaignInfo: 'Información de la Campaña',

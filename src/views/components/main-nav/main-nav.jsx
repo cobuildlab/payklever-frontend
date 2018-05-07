@@ -143,10 +143,14 @@ class MainNav extends Component {
                    <img src={GearImg} width="25" alt="option"/>
                  </DropdownToggle>
                  <DropdownMenu right>
-                   <DropdownItem tag={Link} to="/client/profile/accounts">
+                   {(this.state.user.isAdmin === false) ?
+                   (<DropdownItem tag={Link} to="/client/profile/accounts">
                      { t('MAIN_NAV.profile') }
-                   </DropdownItem>
+                   </DropdownItem>)
+                   : null}
+                   {(this.state.user.isAdmin === false) ?
                    <DropdownItem divider />
+                   : null}
                    <DropdownItem onClick={this.logout}>
                      { t('MAIN_NAV.logout') }
                    </DropdownItem>
