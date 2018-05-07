@@ -30,7 +30,7 @@ import {
 } from '../../../assets';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { accountStore } from '../../../stores';
+import { accountStore, authStore } from '../../../stores';
 import { CSSTransition } from 'react-transition-group';
 import * as AccountsActions from '../../client-pages/accounts/accounts.actions';
 
@@ -43,6 +43,7 @@ class MainNav extends Component {
       accountsOpen: false,
       profileOpen: false,
       loading: false,
+      user: authStore.getUser(),
       accounts: [],
       account: {},
     };
@@ -86,20 +87,26 @@ class MainNav extends Component {
   }
 
   render() {
+    const homeUrl = (this.state.user.isAdmin === true)
+    ? '/admin/campaign-manager/client-campaigns'
+    : '/client/campaigns';
+
     return (<I18n>{(t, { i18n }) => (
         <Navbar color="white" light expand="md">
           <Container>
-         <NavbarBrand tag={Link} to="/client/campaigns">
+         <NavbarBrand tag={Link} to={homeUrl}>
              <img src={GreenLogo} width="180" alt="payklever"/>
          </NavbarBrand>
          <NavbarToggler onClick={this.toggle} />
            <Collapse isOpen={this.state.isOpen} navbar>
              <Nav className="ml-auto" navbar>
-               <NavItem className="mt-3 mr-3">
+               {(this.state.user.isAdmin === false) ? (
+                 <NavItem className="mt-3 mr-3">
                  <Button outline color="success">
                    { t('MAIN_NAV.rules') }
                  </Button>
-               </NavItem>
+                </NavItem>)
+                : null}
 
                <CSSTransition in={this.state.accounts.length > 0} timeout={500} classNames="fade-in" unmountOnExit>
                <Dropdown isOpen={this.state.accountsOpen} toggle={this.toggleAccounts} nav inNavbar>
