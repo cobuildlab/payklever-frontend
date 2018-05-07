@@ -108,13 +108,11 @@ class Accounts extends Component {
             </tbody>
           </Table>
 
-          <div className="text-center">
-            <Link to="/client/create-account">
-              <Button className="mt-4" color="primary">
-                { t('ACCOUNTS.createAccount') }
-              </Button>
-            </Link>
-          </div>
+          <Link to="/client/create-account">
+            <Button className="mx-auto d-block mt-4 mb-2" color="primary">
+            { t('ACCOUNTS.createAccount') }
+            </Button>
+          </Link>
 
        </Container>
        </div>

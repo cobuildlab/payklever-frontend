@@ -104,13 +104,11 @@ class PaymentMethods extends Component {
           </tbody>
         </Table>
 
-        <div className="text-center">
-          <Link to="/client/create-payment">
-            <Button className="mt-4" color="primary">
-            { t('PAYMENT_METHODS.createPayment') }
-            </Button>
-          </Link>
-        </div>
+        <Link to="/client/create-payment">
+          <Button className="mx-auto d-block mt-4 mb-2" color="primary">
+          { t('PAYMENT_METHODS.createPayment') }
+          </Button>
+        </Link>
 
        </Container>
     </div>
