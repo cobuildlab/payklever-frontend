@@ -11,10 +11,15 @@ import * as ClientsActions from './clients.actions';
 import {
   I18n
 } from 'react-i18next';
+// import { Clients, Campaigns, Messages } from '../';
 import {
   Container,
   Col,
   Row,
+  Nav,
+  NavLink,
+  NavItem,
+  Media,
   Table,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -66,13 +71,13 @@ class Clients extends Component {
         </div>
       </CSSTransition>
 
-      <Container>
-        <Table>
+      <Container className="p-0">
+        <Table hover className="mt-5">
         <thead>
           <tr>
-            <th>{ t('CLIENTS.firstName') }</th>
-            <th>{ t('CLIENTS.lastName') }</th>
-            <th></th>
+            <th className="App-header-table-admin">{ t('CLIENTS.firstName') }</th>
+            <th className="App-header-table-admin">{ t('CLIENTS.lastName') }</th>
+            <th className="App-header-table-admin"></th>
           </tr>
         </thead>
         <tbody>

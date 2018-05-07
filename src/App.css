@@ -13,7 +13,13 @@
   padding: 20px;
   color: white;
 }
-
+.table thead th.App-header-table-admin {
+    vertical-align: bottom;
+    border-bottom: 2px solid #74c044;
+    color: #fff;
+    background-color: #333;
+    font-weight: 500;
+}
 .App-title {
   font-size: 1.5em;
 }
@@ -21,7 +27,6 @@
 .App-intro {
   font-size: large;
 }
-
 
 .App-overlay {
   width: 100%;
