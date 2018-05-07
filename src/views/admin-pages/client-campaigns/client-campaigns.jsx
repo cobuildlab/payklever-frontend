@@ -84,10 +84,10 @@ class ClientCampaigns extends Component {
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <ModalConfirm isOpen={this.state.approveCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.approveHeader')} modalBody={t('CLIENT_CAMPAIGNS.approveBody', { campaignName: this.state.selectedCampaign.name } )}
+      <ModalConfirm isOpen={this.state.approveCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.approveHeader')} modalBody={t('CLIENT_CAMPAIGNS.approveBody', { campaignName: this.state.selectedCampaign.name || ' ' } )}
       acceptI18n="CLIENT_CAMPAIGNS.approve" confirm={this.approveCampaign} />
 
-      <ModalConfirm isOpen={this.state.rejectCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.rejectHeader')} modalBody={t('CLIENT_CAMPAIGNS.rejectBody', { campaignName: this.state.selectedCampaign.name })}
+      <ModalConfirm isOpen={this.state.rejectCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.rejectHeader')} modalBody={t('CLIENT_CAMPAIGNS.rejectBody', { campaignName: this.state.selectedCampaign.name || ' ' })}
       acceptI18n="CLIENT_CAMPAIGNS.reject" confirm={this.rejectCampaign} />
 
       <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
