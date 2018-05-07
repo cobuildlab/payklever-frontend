@@ -5,6 +5,17 @@ export default {
     accept: 'Accept',
     cancel: 'Cancel',
   },
+  CAMPAIGN_ADMIN_STATUS: {
+    ap: 'Approved',
+    wa: 'Waiting Approval',
+    na: 'Not Approved',
+    re: 'Rejected',
+  },
+  CAMPAIGN_USER_STATUS: {
+    ac: 'Active',
+    ia: 'Inactive',
+    de: 'deleted',
+  },
   LOGIN: {
     login: 'Log In',
     email: 'Email',

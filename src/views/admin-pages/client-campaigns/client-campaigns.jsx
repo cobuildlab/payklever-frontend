@@ -119,8 +119,8 @@ class ClientCampaigns extends Component {
                <tr>
                  <td>{campaign.name}</td>
                  <td>{campaign.messageTitle}</td>
-                 <td>{campaign.status}</td>
-                 <td>{campaign.adminStatus}</td>
+                 <td>{t(`CAMPAIGN_USER_STATUS.${campaign.status}`)}</td>
+                 <td>{t(`CAMPAIGN_ADMIN_STATUS.${campaign.adminStatus}`)}</td>
                  <td className="text-right">
                    {(campaign.adminStatus === 'na') ? (<div>
                     <Button onClick={() => this.approveCampaign(false, campaign)} className="mr-2" title={ t('CLIENT_CAMPAIGNS.approve') } color="primary" size="sm">
