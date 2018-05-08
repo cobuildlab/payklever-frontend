@@ -8,7 +8,7 @@ export default {
   CAMPAIGN_ADMIN_STATUS: {
     ap: 'Approved',
     wa: 'Waiting Approval',
-    na: 'Not Approved',
+    na: 'Draft',
     re: 'Rejected',
   },
   CAMPAIGN_USER_STATUS: {
