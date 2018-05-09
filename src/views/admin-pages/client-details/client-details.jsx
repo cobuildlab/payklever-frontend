@@ -24,23 +24,14 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
 
-class ClientsDetails extends Component {
+class ClientDetails extends Component {
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
-        <div className="App-overlay">
-          <div style={{width: '200px'}} className="App-center-loading">
-            <h4 className="text-center">
-                { t('CLIENTS.loadingClients') }
-            </h4>
-            <RingLoader size={200} color={'#75c044'} loading={true}/>
-          </div>
-        </div>
-      </CSSTransition>
-      <SubNav backRoute="/admin/campaign-manager/clients/" titleI18n="PROFILE.profile"></SubNav>
+      <SubNav backRoute="/admin/campaign-manager/clients" titleI18n="CLIENT_DETAILS.clientDetails"></SubNav>
+      
       <Container className="p-0">
-        <h1>HOLAAAAAA</h1>
+        <h1>{t('CLIENT_DETAILS.clientDetails')}</h1>
       </Container>
     </div>)}</I18n>);
   }
@@ -49,4 +40,4 @@ class ClientsDetails extends Component {
     this.setState({ loading: isLoading });
   }
 }
-export default ClientsDetails;
+export default ClientDetails;

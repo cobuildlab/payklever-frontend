@@ -86,10 +86,11 @@ class Clients extends Component {
            { this.state.clients.map((client) =>
              <CSSTransition key={client.id} timeout={500} classNames="fade-in">
                <tr>
-                 <td>{client.firstName}
-                   <Link to="/admin/clients-details">
-                     <Button color="primary">{ t('CAMPAIGNS.createCampaign') }</Button>
-                   </Link></td>
+                 <td>
+                   <Link to="/admin/client-details">
+                     {client.firstName}
+                   </Link>
+                 </td>
                  <td>{client.lastName}</td>
                  <td>{client.email}</td>
                </tr>

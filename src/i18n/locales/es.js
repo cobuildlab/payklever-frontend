@@ -235,4 +235,7 @@ export default {
   CAMPAIGN_DETAILS: {
     campaignDetails: 'Detalles de la Campaña'
   },
+  CLIENT_DETAILS: {
+    clientDetails: 'Detalles del Cliente',
+  },
 }
