@@ -204,7 +204,7 @@ export default {
     noInternet: 'Verifica tu conexión a internet e intentalo de nuevo',
     error: 'Ha ocurrido un error',
   },
-  ADMIN: {
+  CAMPAIGN_MANAGER: {
     client: 'Clientes',
     campaign: 'Campañas',
     message: 'Mensajes',
