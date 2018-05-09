@@ -232,4 +232,7 @@ export default {
     campaignApproved: 'La Campaña fue aprobada satisfactoriamente',
     campaignRejected: 'La Campaña fue rechazada satisfactoriamente',
   },
+  CAMPAIGN_DETAILS: {
+    campaignDetails: 'Detalles de la Campaña'
+  },
 }

@@ -117,9 +117,9 @@ class ClientCampaigns extends Component {
            { this.state.campaigns.map((campaign) =>
              <CSSTransition key={campaign.id} timeout={500} classNames="fade-in">
                <tr>
-                 <td>{campaign.name}
-                   <Link to="/admin/campaigns-details">
-                     <Button color="primary">{ t('CAMPAIGNS.createCampaign') }</Button>
+                 <td>
+                   <Link to="/admin/campaign-details">
+                      {campaign.name}
                    </Link>
                  </td>
                  <td>{campaign.messageTitle}</td>

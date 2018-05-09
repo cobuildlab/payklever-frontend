@@ -3,4 +3,4 @@ export { CampaignManager } from './campaign-manager';
 export { Clients } from './clients';
 export { ClientsDetails } from './clients-details';
 export { ClientCampaigns } from './client-campaigns';
-export { CampaignsDetails } from './campaigns-details';
+export { CampaignDetails } from './campaign-details';
