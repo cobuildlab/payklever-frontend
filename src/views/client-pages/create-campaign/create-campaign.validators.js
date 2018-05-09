@@ -332,11 +332,6 @@ const createCampaignAvForm = {
     maxLength: { value: 160 },
     pattern: { value: createCampaignRegExp.validMessageDescription }
   },
-  genre: {
-    // required: true,
-    number: true,
-    min: { value: 1 },
-  },
   startDate: {
     // required: true,
   },

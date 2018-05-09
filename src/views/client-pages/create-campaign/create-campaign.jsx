@@ -90,7 +90,7 @@ class CreateCampaign extends Component {
       .subscribe('createCampaign', (campaign) => {
         this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('CREATE_CAMPAIGN.campaignCreated'));
+        toast.success(i18next.t('CREATE_CAMPAIGN.campaignSaved'));
         this.setState({ campaignId: campaign.id });
         this.props.history.push(`/client/create-campaign/${campaign.id}`);
         this.canActivateCamapaign(campaign);
@@ -100,7 +100,7 @@ class CreateCampaign extends Component {
       .subscribe('updateCampaign', (campaign) => {
         this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('CREATE_CAMPAIGN.campaignCreated'));
+        toast.success(i18next.t('CREATE_CAMPAIGN.campaignSaved'));
         this.canActivateCamapaign(campaign);
       });
 
@@ -263,28 +263,43 @@ class CreateCampaign extends Component {
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
               <p className="title-create">{ t('CREATE_CAMPAIGN.matchedAudiences') }</p>
             </Col>
-            <AvRadioGroup className="divider-select" inline name="genreId" label={ t('CREATE_CAMPAIGN.gender') } errorMessage={ t('CREATE_CAMPAIGN.emptyGender') } validate={createCampaignAvForm.genre}>
-                {this.state.genresList.map((genre) => <AvRadio onChange={(evt) => this.setState({genreId: evt.target.value})} key={genre.id} label={ t(`CREATE_CAMPAIGN.${genre.name}`) } value={genre.id} />)}
-            </AvRadioGroup>
+          <FormGroup tag="fieldset">
+            <legend>{ t('CREATE_CAMPAIGN.gender') }</legend>
+            {this.state.genresList.map((genre) =>
+            <FormGroup key={genre.id} check inline>
+                <Label check>
+                  <Input type="radio" name="genreId" value={genre.id} checked={ (genre.id === this.state.genreId) ? true : false } onChange={(evt) => this.setState({genreId: evt.target.value})}/>{' '}
+                  { t(`CREATE_CAMPAIGN.${genre.name}`) }
+                </Label>
+            </FormGroup>)}
+          </FormGroup>
             <h4 className="mt-3">{ t('CREATE_CAMPAIGN.age') }</h4>
-            {this.state.agesList.map((age) =><AvGroup key={age.id} inline check>
+            {this.state.agesList.map((age) => {
+              const isChecked = this.isChecked(age.id, 'ages');
+
+              return (<AvGroup key={age.id} inline check>
                 <Label className="mb-2 mr-4" check>
-                  <AvInput name="age" type="checkbox" onChange={(evt) => this.onCheckBoxChange(age.id, 'ages', evt)} />
+                  <AvInput checked={isChecked} name="age" type="checkbox" onChange={(evt) => this.onCheckBoxChange(age.id, 'ages', evt)} />
                   {age.minValue}
                   {age.maxValue !== '+' ? (
                     <span>{' - '}</span>)
                     : null}
                   {age.maxValue}
                 </Label>
-            </AvGroup>)}
+              </AvGroup>)
+            })}
             <div className="divider-select mt-3 mb-3"></div>
             <h4>{ t('CREATE_CAMPAIGN.income') }</h4>
-            {this.state.estimatedIncomesList.map((income) =><AvGroup key={income.id} inline check>
+            {this.state.estimatedIncomesList.map((income) => {
+              const isChecked = this.isChecked(income.id, 'estimatedIncomes');
+
+              return (<AvGroup key={income.id} inline check>
                 <Label className="mb-2 mr-4" check>
-                  <AvInput name="income" type="checkbox" onChange={(evt) => this.onCheckBoxChange(income.id, 'estimatedIncomes', evt)} />
+                  <AvInput checked={isChecked} name="income" type="checkbox" onChange={(evt) => this.onCheckBoxChange(income.id, 'estimatedIncomes', evt)} />
                   {`${income.minValue}$`} {' - '} {`${income.maxValue}$`}
                 </Label>
-            </AvGroup>)}
+             </AvGroup>)
+            })}
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
               <p className="title-create">{ t('CREATE_CAMPAIGN.budgetAndProgramming') }</p>
             </Col>
@@ -314,12 +329,16 @@ class CreateCampaign extends Component {
             </Row>
             <div className="divider-select mt-3 mb-3"></div>
             <h4>{ t('CREATE_CAMPAIGN.hourHand') }</h4>
-            {this.state.timeFramesList.map((timeFrame) =><AvGroup key={timeFrame.id} inline check>
+            {this.state.timeFramesList.map((timeFrame) => {
+              const isChecked = this.isChecked(timeFrame.id, 'timeFrames');
+
+              return (<AvGroup key={timeFrame.id} inline check>
                 <Label className="mb-2 mr-4" check>
-                  <AvInput name="timeFrame" type="checkbox" onChange={(evt) => this.onCheckBoxChange(timeFrame.id, 'timeFrames', evt)} />
+                  <AvInput checked={isChecked} name="timeFrame" type="checkbox" onChange={(evt) => this.onCheckBoxChange(timeFrame.id, 'timeFrames', evt)} />
                   {`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}
                 </Label>
-            </AvGroup>)}
+              </AvGroup>)
+            })}
         </Col>
         <Col md={{size: 4}}>
           <h5 className="mb-3">
@@ -411,6 +430,20 @@ class CreateCampaign extends Component {
     </AvForm>
   </Container>
 </div>)}</I18n>);
+  }
+
+  /**
+   * Check if a ages, estimatedIncomes or timeFrames checkbox is checked
+   * @param  {string || number} itemIdToCompare the age, estimatedIncome or
+   * timeFrames id to compare
+   * @param  {[type]} listName  'ages', 'timeFrames', or 'estimatedIncomes'
+   * @return {boolean}   true if the item is checked
+   */
+  isChecked = (itemIdToCompare, listName) => {
+    for (const itemId of this.state[listName]) {
+      if (itemId.toString() === itemIdToCompare.toString()) return true;
+    }
+    return false;
   }
 
   /**
