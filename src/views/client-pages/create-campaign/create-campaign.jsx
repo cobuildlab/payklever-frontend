@@ -536,12 +536,12 @@ class CreateCampaign extends Component {
       campaign.messageTitle || null,
       campaign.messageDescription || '',
       parseInt(campaign.genreId, 10) || null,
-      JSON.stringify(campaign.ages.map(Number)),
-      JSON.stringify(campaign.estimatedIncomes.map(Number)),
+      JSON.stringify((campaign.ages || []).map(Number)),
+      JSON.stringify((campaign.estimatedIncomes || []).map(Number)),
       parseFloat(campaign.budget) || null,
       campaign.startDate || null,
       campaign.endDate || null,
-      JSON.stringify(campaign.timeFrames.map(Number)),
+      JSON.stringify((campaign.timeFrames || []).map(Number)),
       accountId,
     );
 

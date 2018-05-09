@@ -137,6 +137,7 @@ export default {
     createCampaign: 'Crear Campaña',
     campaigns: 'Campañas',
     loadingCampaigns: 'Cargando Campañas',
+    editCampaign: 'Editar Campaña',
     name: 'Nombre',
     title: 'Título',
     status: 'Estatus',

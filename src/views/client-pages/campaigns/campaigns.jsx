@@ -4,6 +4,8 @@ import {
 } from 'react-i18next';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faTimes, faEdit } from '@fortawesome/fontawesome-free-solid';
 import {
   Container,
   Table,
@@ -180,6 +182,7 @@ class Campaigns extends Component {
                 <th>{ t('CAMPAIGNS.title') }</th>
                 <th>{ t('CAMPAIGNS.status') }</th>
                 <th>{ t('CAMPAIGNS.adminStatus') }</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -191,6 +194,16 @@ class Campaigns extends Component {
                    <td>{campaign.messageTitle}</td>
                    <td>{t(`CAMPAIGN_USER_STATUS.${campaign.status}`)}</td>
                    <td>{t(`CAMPAIGN_ADMIN_STATUS.${campaign.adminStatus}`)}</td>
+                   <td className="text-right">
+                     {(campaign.adminStatus === 'na' ||
+                      campaign.adminStatus === 're') ? (
+                      <Link to={`/client/create-campaign/${campaign.id}`}>
+                        <Button title={t('CAMPAIGNS.editCampaign')} color="primary" size="sm">
+                        <FontAwesomeIcon icon={faEdit}/>
+                        </Button>
+                      </Link>
+                     ) : null}
+                   </td>
                  </tr>
                </CSSTransition>)}
             </TransitionGroup>
