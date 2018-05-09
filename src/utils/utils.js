@@ -31,4 +31,19 @@ const isValidNumber = (stringToTest, allowCero = false, allowNegative = false) =
   return true;
 };
 
-export { isValidString, isValidNumber };
+/**
+ * Validate if a number is a valid integer
+ * @param numberToTest The number to validate
+ * @return {boolean} If the number is a valid integer
+ */
+const isValidInteger = (numberToTest, allowCero = false, allowNegative = false) => {
+  if (!Number.isInteger(numberToTest)) return false;
+
+  if (numberToTest === 0 && allowCero === false) return false;
+
+  if (numberToTest < 0 && allowNegative === false) return false;
+
+  return true;
+};
+
+export { isValidString, isValidNumber, isValidInteger };

@@ -4,7 +4,159 @@ import moment from 'moment';
 import { CreateCampaignForm } from './create-campaign.classes';
 import * as createCampaignRegExp from './create-campaign.reg-exp';
 
-const createCampaignValidator = (createCampaignForm: CreateCampaignForm) => {
+const draftCampaignValidator = (createCampaignForm: CreateCampaignForm,
+  campaignId) => {
+  if (!(createCampaignForm instanceof CreateCampaignForm)) {
+    throw new Error(i18next.t('APP.invalidForm'))
+  }
+
+  /*
+  validate campaignId
+   */
+   if (campaignId !== undefined) {
+     if (!utils.isValidInteger(campaignId)) {
+       throw new Error(i18next.t('CREATE_CAMPAIGN.invalidCampaignId'));
+     }
+   }
+
+  /*
+  Validate empty fields
+   */
+  if (!utils.isValidString(createCampaignForm.name)) {
+    throw new Error(i18next.t('CREATE_CAMPAIGN.emptyName'));
+  }
+
+  /*
+   validate regExp (strings)
+   */
+  if (!createCampaignRegExp.validCampaignName.test(createCampaignForm.name)) {
+    throw new Error(`${i18next.t('CREATE_CAMPAIGN.name')}: ${i18next.t('CREATE_CAMPAIGN.invalidName')}`);
+  }
+
+  if (createCampaignForm.messageTitle !== '' &&
+    createCampaignForm.messageTitle !== undefined) {
+    if (!createCampaignRegExp.validMessageTitle
+      .test(createCampaignForm.messageTitle)) {
+      throw new Error(`${i18next.t('CREATE_CAMPAIGN.messageTitle')}: ${i18next.t('CREATE_CAMPAIGN.invalidMessageTitle')}`);
+    }
+  }
+
+  if (createCampaignForm.validMessageDescription !== '' &&
+    createCampaignForm.validMessageDescription !== undefined) {
+    if (!createCampaignRegExp.validMessageDescription
+      .test(createCampaignForm.messageDescription)) {
+      throw new Error(`${i18next.t('CREATE_CAMPAIGN.messageDescription')}: ${i18next.t('CREATE_CAMPAIGN.invalidMessageDescription')}`);
+    }
+  }
+
+  /*
+  validate genreId and accountId (isValidInteger)
+   */
+  if (createCampaignForm.genreId !== null &&
+    createCampaignForm.genreId !== undefined) {
+    if (!utils.isValidInteger(createCampaignForm.genreId)) {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidGender'));
+    }
+  }
+
+  if (createCampaignForm.accountId !== null &&
+    createCampaignForm.accountId !== undefined) {
+    if (!utils.isValidInteger(createCampaignForm.accountId)) {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidAccount'));
+    }
+  }
+
+  /*
+  validate list of ids (invalid or empty)
+   */
+  if (createCampaignForm.ages !== undefined &&
+    createCampaignForm.ages !== '[]') {
+    let agesAsJson;
+    try {
+      agesAsJson = JSON.parse(createCampaignForm.ages);
+    } catch (err) {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidAge'));
+    }
+    if (Array.isArray(agesAsJson) === false) {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidAge'));
+    } else if (agesAsJson.length > 0) {
+      if (!agesAsJson.every((element) => {
+          return (Number.isInteger(element) && element > 0)
+        })) {
+        throw new Error(i18next.t('CREATE_CAMPAIGN.invalidAge'));
+      }
+    }
+  }
+
+  if (createCampaignForm.estimatedIncomes !== undefined &&
+    createCampaignForm.estimatedIncomes !== '[]') {
+    let estimatedIncomesAsJson;
+    try {
+      estimatedIncomesAsJson = JSON.parse(createCampaignForm.estimatedIncomes);
+    } catch (err) {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
+    }
+
+    if (Array.isArray(estimatedIncomesAsJson) === false) {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
+    } else if (estimatedIncomesAsJson.length > 0) {
+      if (!estimatedIncomesAsJson.every((element) => {
+          return (Number.isInteger(element) && element > 0)
+        })) {
+        throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
+      }
+    }
+  }
+
+  if (createCampaignForm.timeFrames !== undefined &&
+    createCampaignForm.timeFrames !== '[]') {
+    let timeFramesAsJson;
+    try {
+      timeFramesAsJson = JSON.parse(createCampaignForm.timeFrames);
+    } catch (err) {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidHourHand'));
+    }
+
+    if (Array.isArray(timeFramesAsJson) === false) {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidHourHand'));
+    } else if (timeFramesAsJson.length > 0) {
+      if (!timeFramesAsJson.every((element) => {
+          return (Number.isInteger(element) && element > 0)
+        })) {
+        throw new Error(i18next.t('CREATE_CAMPAIGN.invalidHourHand'));
+      }
+    }
+  }
+
+  /*
+   validate budget (valid number)
+   */
+  if (createCampaignForm.budget !== undefined &&
+    createCampaignForm.budget !== null) {
+    if (typeof(createCampaignForm.budget) !== 'number') {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidBudget'));
+    }
+  }
+
+  /*
+  validate dates (moment)
+   */
+  if (createCampaignForm.startDate !== undefined &&
+    createCampaignForm.startDate !== null) {
+    if (!moment(createCampaignForm.startDate).isValid()) {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidStartDate'));
+    }
+  }
+
+  if (createCampaignForm.endDate !== undefined &&
+    createCampaignForm.endDate !== null) {
+    if (!moment(createCampaignForm.endDate).isValid()) {
+      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidEndDate'));
+    }
+  }
+}
+
+const activateCampaignValidator = (createCampaignForm: CreateCampaignForm) => {
   if (!(createCampaignForm instanceof CreateCampaignForm)) {
     throw new Error(i18next.t('APP.invalidForm'))
   }
@@ -39,7 +191,7 @@ const createCampaignValidator = (createCampaignForm: CreateCampaignForm) => {
   }
 
   if (createCampaignForm.budget === null ||
-     createCampaignForm.budget === undefined) {
+    createCampaignForm.budget === undefined) {
     throw new Error(i18next.t('CREATE_CAMPAIGN.emptyBudget'));
   }
 
@@ -169,32 +321,32 @@ const createCampaignAvForm = {
     pattern: { value: createCampaignRegExp.validCampaignName }
   },
   messageTitle: {
-    required: true,
+    // required: true,
     minLength: { value: 6 },
     maxLength: { value: 40 },
     pattern: { value: createCampaignRegExp.validMessageTitle }
   },
   messageDescription: {
-    required: true,
+    // required: true,
     minLength: { value: 40 },
     maxLength: { value: 160 },
     pattern: { value: createCampaignRegExp.validMessageDescription }
   },
   genre: {
-    required: true,
+    // required: true,
     number: true,
     min: { value: 1 },
   },
   startDate: {
-    required: true,
+    // required: true,
   },
   endDate: {
-    required: true,
+    // required: true,
   },
   budget: {
     min: { value: 1 },
-    required: true,
+    // required: true,
   }
 }
 
-export { createCampaignValidator, createCampaignAvForm };
+export { draftCampaignValidator, activateCampaignValidator, createCampaignAvForm };

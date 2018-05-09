@@ -4,7 +4,7 @@ import {
 } from '../../components';
 import { CreateCampaignForm } from './create-campaign.classes';
 import * as CreateCampaignActions from './create-campaign.actions';
-import { createCampaignAvForm } from './create-campaign.validators';
+import { createCampaignAvForm, activateCampaignValidator } from './create-campaign.validators';
 import { i18next } from '../../../i18n';
 import { campaignStore } from '../../../stores';
 import { accountStore } from '../../../stores';
@@ -42,6 +42,9 @@ class CreateCampaign extends Component {
 
     this.state = {
       loading: false,
+      loadingI18n: '',
+      canActivateCamapaign: false,
+      campaignId: props.match.params.campaignId || '',
       name: '',
       messageTitle: '',
       messageDescription: '',
@@ -59,18 +62,54 @@ class CreateCampaign extends Component {
       endDate: '',
     };
 
-    this.isLoading = this.isLoading.bind(this);
     this.checkItem = this.checkItem.bind(this);
     this.unCheckItem = this.unCheckItem.bind(this);
   }
 
   componentDidMount() {
+    this.getCampaignSubscription = campaignStore
+      .subscribe('getCampaign', (campaign) => {
+        this.setState({
+          name: campaign.name || '',
+          messageTitle: campaign.messageTitle || '',
+          messageDescription: campaign.messageDescription || '',
+          genreId: campaign.genreId || '',
+          ages: campaign.ages || [],
+          timeFrames: campaign.timeFrames || [],
+          estimatedIncomes: campaign.estimatedIncomes || [],
+          budget: campaign.budget || '',
+          startDate: campaign.startDate || '',
+          endDate: campaign.endDate || '',
+        });
+
+        this.isLoading(false);
+        this.canActivateCamapaign(campaign);
+      });
+
     this.createCampaignSubscription = campaignStore
       .subscribe('createCampaign', (campaign) => {
         this.isLoading(false);
         toast.dismiss();
         toast.success(i18next.t('CREATE_CAMPAIGN.campaignCreated'));
-        this.props.history.push('/client/campaigns');
+        this.setState({ campaignId: campaign.id });
+        this.props.history.push(`/client/create-campaign/${campaign.id}`);
+        this.canActivateCamapaign(campaign);
+      });
+
+    this.updateCampaignSubscription = campaignStore
+      .subscribe('updateCampaign', (campaign) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CREATE_CAMPAIGN.campaignCreated'));
+        this.canActivateCamapaign(campaign);
+      });
+
+    this.activateCampaignSubscription = campaignStore
+      .subscribe('activateCampaign', (campaign) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CREATE_CAMPAIGN.campaignActivated'));
+        this.props.history.push(`/client/campaigns`);
       });
 
     this.getGenresSubscription = campaignStore
@@ -105,6 +144,15 @@ class CreateCampaign extends Component {
         this.setState({ account });
       });
 
+    // if there is a campaignId param get the campaign data from server
+    setTimeout(() => {
+      if (this.state.campaignId) {
+        const campaignId = parseInt(this.state.campaignId, 10);
+        this.isLoading(true, 'CREATE_CAMPAIGN.loadingCampaign');
+        CreateCampaignActions.getCampaign(campaignId);
+      }
+    });
+
     // get campaignStore data
     const campaignState = campaignStore.getState();
 
@@ -126,7 +174,10 @@ class CreateCampaign extends Component {
   }
 
   componentWillUnmount() {
+    this.getCampaignSubscription.unsubscribe();
     this.createCampaignSubscription.unsubscribe();
+    this.updateCampaignSubscription.unsubscribe();
+    this.activateCampaignSubscription.unsubscribe();
     this.getGenresSubscription.unsubscribe();
     this.getAgesSubscription.unsubscribe();
     this.getEstimatedIncomesSubscription.unsubscribe();
@@ -142,7 +193,7 @@ class CreateCampaign extends Component {
       <div className="App-overlay">
         <div style={{width: '200px'}} className="App-center-loading">
           <h4 className="text-center">
-            { t('CREATE_CAMPAIGN.creatingCampaign') }
+            { t(this.state.loadingI18n) }
           </h4>
           <RingLoader size={200} color={'#75c044'} loading={true}/>
         </div>
@@ -152,6 +203,15 @@ class CreateCampaign extends Component {
       <SubNav backRoute="/client/campaigns" titleI18n="CREATE_CAMPAIGN.createCampaign"></SubNav>
 
       <Container className="mt-4">
+
+        <CSSTransition in={ this.state.canActivateCamapaign } timeout={500} classNames="fade-in" unmountOnExit>
+          <Alert className="text-center" color="success">
+            { t('CREATE_CAMPAIGN.canActivateCamapaign') }
+            <Button className="d-block mx-auto mt-4" color="success" type="button">
+                { t('CREATE_CAMPAIGN.activateCampaign') }
+            </Button>
+          </Alert>
+        </CSSTransition>
 
         <CSSTransition in={ !this.state.account.id } timeout={500} classNames="fade-in" unmountOnExit>
           <Alert className="text-center" color="danger">
@@ -166,7 +226,7 @@ class CreateCampaign extends Component {
           </Alert>
         </CSSTransition>
 
-        <AvForm onValidSubmit={(evt) => this.createCampaign(evt)} noValidate>
+        <AvForm onValidSubmit={this.handleDraftButton} noValidate>
       <Row className="mb-5 d-flex align-items-stretch">
         <Col className="divider-col" md={{size: 8}}>
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
@@ -312,28 +372,33 @@ class CreateCampaign extends Component {
                </span>)}
             </p>
 
-          <AvGroup>
+          <AvGroup className="text-center">
             <Link to="/client/campaigns">
-            <Button className="cancel-left" outline color="danger" type="button" size="sm">
+            <Button outline color="danger" type="button" size="sm">
               { t('CREATE_CAMPAIGN.cancel') }
             </Button>
             </Link>
-            <Button disabled={ !this.state.account.id } className="save-draft" outline color="success" type="button" size="sm">
+            {' '}
+            <Button disabled={ !this.state.account.id } outline color="success" type="submit" size="sm">
               { t('CREATE_CAMPAIGN.saveDraft') }
             </Button>
           </AvGroup>
-          <AvGroup>
-            <Button disabled={ !this.state.account.id } className="mt-3" color="primary" type="submit" size="lg" block>
-              { t('CREATE_CAMPAIGN.createCampaign') }
-            </Button>
-          </AvGroup>
+
+          <CSSTransition in={ this.state.canActivateCamapaign } timeout={500} classNames="fade-in" unmountOnExit>
+            <Alert className="text-center" color="success">
+              { t('CREATE_CAMPAIGN.canActivateCamapaign') }
+              <Button className="d-block mx-auto mt-4" color="success" type="button">
+                  { t('CREATE_CAMPAIGN.activateCampaign') }
+              </Button>
+            </Alert>
+          </CSSTransition>
 
           <CSSTransition in={ !this.state.account.id } timeout={500} classNames="fade-in" unmountOnExit>
             <Alert className="text-center" color="danger">
               { t('CREATE_CAMPAIGN.noAccount') }
 
               <Link to="/client/create-account">
-                <Button className="d-block mx-auto mt-4" color="danger" type="button">
+                <Button onClick={this.activateCampaign} className="d-block mx-auto mt-4" color="danger" type="button">
                   { t('CREATE_CAMPAIGN.createAccount') }
                 </Button>
               </Link>
@@ -407,19 +472,24 @@ class CreateCampaign extends Component {
     }))
   }
 
+  handleDraftButton = () => {
+    if (this.state.campaignId) this.updateCampaign();
+    else this.createCampaign();
+  }
+
   createCampaign(evt) {
-    this.isLoading(true);
+    this.isLoading(true, 'CREATE_CAMPAIGN.savingCampaign');
 
     const createCampaignForm = new CreateCampaignForm(
       this.state.name,
-      this.state.messageTitle,
-      this.state.messageDescription,
+      this.state.messageTitle || '',
+      this.state.messageDescription || '',
       parseInt(this.state.genreId, 10) || null,
       JSON.stringify(this.state.ages.map(Number)),
       JSON.stringify(this.state.estimatedIncomes.map(Number)),
       parseFloat(this.state.budget) || null,
-      this.state.startDate || undefined,
-      this.state.endDate || undefined,
+      this.state.startDate || null,
+      this.state.endDate || null,
       JSON.stringify(this.state.timeFrames.map(Number)),
       parseInt(this.state.account.id, 10) || null,
     );
@@ -427,8 +497,76 @@ class CreateCampaign extends Component {
     CreateCampaignActions.createCampaign(createCampaignForm);
   }
 
-  isLoading(isLoading) {
-    this.setState({ loading: isLoading });
+  updateCampaign() {
+    this.isLoading(true, 'CREATE_CAMPAIGN.savingCampaign');
+
+    const campaignId = parseInt(this.state.campaignId, 10);
+
+    const createCampaignForm = new CreateCampaignForm(
+      this.state.name,
+      this.state.messageTitle || null,
+      this.state.messageDescription || '',
+      parseInt(this.state.genreId, 10) || null,
+      JSON.stringify(this.state.ages.map(Number)),
+      JSON.stringify(this.state.estimatedIncomes.map(Number)),
+      parseFloat(this.state.budget) || null,
+      this.state.startDate || null,
+      this.state.endDate || null,
+      JSON.stringify(this.state.timeFrames.map(Number)),
+      parseInt(this.state.account.id, 10) || null,
+    );
+
+    CreateCampaignActions.updateCampaign(createCampaignForm, campaignId);
+  }
+
+  canActivateCamapaign = (campaign) => {
+    if (campaign.adminStatus !== 're' && campaign.adminStatus !== 'na') {
+      toast.dismiss();
+      toast.error(i18next.t('CREATE_CAMPAIGN.cannotEdit'));
+      this.props.history.push(`/client/campaigns`);
+    }
+
+    const campaignId = parseInt(campaign.id, 10);
+    const accountId = (campaign.account) ?
+      parseInt(campaign.account.id, 10) :
+      null;
+
+    const createCampaignForm = new CreateCampaignForm(
+      campaign.name,
+      campaign.messageTitle || null,
+      campaign.messageDescription || '',
+      parseInt(campaign.genreId, 10) || null,
+      JSON.stringify(campaign.ages.map(Number)),
+      JSON.stringify(campaign.estimatedIncomes.map(Number)),
+      parseFloat(campaign.budget) || null,
+      campaign.startDate || null,
+      campaign.endDate || null,
+      JSON.stringify(campaign.timeFrames.map(Number)),
+      accountId,
+    );
+
+    try {
+      activateCampaignValidator(createCampaignForm, campaignId);
+
+      this.setState({ canActivateCamapaign: true });
+    } catch (err) {
+      this.setState({ canActivateCamapaign: false });
+    }
+  }
+
+  activateCampaign = () => {
+    this.isLoading(true, 'CREATE_CAMPAIGN.activatingCampaign');
+
+    const campaignId = parseInt(this.state.campaignId, 10);
+
+    CreateCampaignActions.activateCampaign(campaignId);
+  }
+
+  isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {
+    this.setState({
+      loadingI18n,
+      loading: isLoading
+    });
   }
 }
 

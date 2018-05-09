@@ -145,7 +145,7 @@ class Campaigns extends Component {
              <Button color="secondary">S</Button>
            </InputGroupAddon>
          </InputGroup> */}
-          <Link to="/client/create-campaign">
+          <Link to="/client/create-campaign/">
             <Button color="primary">{ t('CAMPAIGNS.createCampaign') }</Button>
           </Link>
         </NavItem>
