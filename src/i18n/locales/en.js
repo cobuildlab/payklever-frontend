@@ -111,6 +111,8 @@ export default {
     expirationDate: 'Expiration',
     expireMonth: 'Month',
     expireYear: 'Year',
+    expirationMonth: 'Expiration Month',
+    expirationYear: 'Expiration Year',
     securityCode: 'Security Code',
     country: 'Country',
     zipCode: 'Postal Code',
