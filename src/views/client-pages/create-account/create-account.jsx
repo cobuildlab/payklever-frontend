@@ -38,7 +38,6 @@ class CreateAccount extends Component {
 
     this.state = {
       loading: false,
-      loadingPayments: true,
       name: '',
       paymediaId: '',
       location: '',
@@ -75,12 +74,11 @@ class CreateAccount extends Component {
 
     this.getPaymentsSubscription = paymentStore
       .subscribe('getPayments', (paymentMethods) => {
-        this.setState({ paymentMethods, loadingPayments: false });
+        this.setState({ paymentMethods });
       });
 
     this.paymentStoreError = paymentStore
       .subscribe('PaymentStoreError', (err) => {
-        this.setState({ loadingPayments: false });
         toast.dismiss();
         toast.error(err.message || i18next.t('FETCH.error'));
       });
@@ -164,26 +162,13 @@ class CreateAccount extends Component {
               <AvFeedback>{ t('CREATE_ACCOUNT.emptyZipCode') }</AvFeedback>
             </AvGroup>
 
-            <CSSTransition in={ !this.state.loadingPayments && !this.state.paymentMethods.length } timeout={500} classNames="fade-in" unmountOnExit>
-              <Alert className="text-center" color="danger">
-                { t('CREATE_ACCOUNT.noPayment') }
-
-                <Link to="/client/create-payment">
-                  <Button className="d-block mx-auto mt-4" color="danger" type="button">
-                    { t('CREATE_ACCOUNT.createPayment') }
-                  </Button>
-                </Link>
-
-              </Alert>
-            </CSSTransition>
-
               <div className="text-center mb-4">
                 <Link to="/client/profile/accounts">
                   <Button className="mr-3 mt-4" color="danger" type="button">
                   { t('CREATE_ACCOUNT.cancel') }
                   </Button>
                 </Link>
-                <Button disabled={ !this.state.loadingPayments && !this.state.paymentMethods.length } type="submit" className=" mt-4" color="primary">
+                <Button type="submit" className=" mt-4" color="primary">
                 { t('ACCOUNTS.createAccount') }
                 </Button>
               </div>
