@@ -341,54 +341,54 @@ class CreateCampaign extends Component {
             })}
         </Col>
         <Col md={{size: 4}}>
-          <h5 className="mb-3">
-            { t('CREATE_CAMPAIGN.name') } {': '} {this.state.name}
+          <h5 className="mb-3 title-create-show">
+            { t('CREATE_CAMPAIGN.name') } {': '} <span className="subtitle-create-show">{this.state.name}</span>
           </h5>
-          <p>
-            { t('CREATE_CAMPAIGN.messageTitle') } {': '} {this.state.messageTitle}
+          <p className="title-create-show">
+            { t('CREATE_CAMPAIGN.messageTitle') } {': '} <span className="subtitle-create-show">{this.state.messageTitle}</span>
           </p>
-          <p>
-            { t('CREATE_CAMPAIGN.messageDescription') } {': '} {this.state.messageDescription}
+          <p className="title-create-show">
+            { t('CREATE_CAMPAIGN.messageDescription') } {': '} <span className="subtitle-create-show">{this.state.messageDescription}</span>
           </p>
-            <p>
-              { t('CREATE_CAMPAIGN.gender') } {': '} {(this.state.genreId.length > 0) ? (this.state.genresList.filter((element) => element.id === this.state.genreId)
+            <p className="title-create-show">
+              { t('CREATE_CAMPAIGN.gender') } {': '} <span className="subtitle-create-show">{(this.state.genreId.length > 0) ? (this.state.genresList.filter((element) => element.id === this.state.genreId)
                 .map((genre) => (
                   <span key={genre.id}>
                     { t(`CREATE_CAMPAIGN.${genre.name}`) }
                   </span>))
-              ) : null}
+              ) : null}</span>
             </p>
-            <p>
+            <p className="title-create-show">
               { t('CREATE_CAMPAIGN.age') } {': '}
-              {(this.state.ages.length > 0) &&
+              <span className="subtitle-create-show">{(this.state.ages.length > 0) &&
                 this.filterUnChecked('agesList', 'ages')
                .map((age) => <span className="mb-2 mr-2" key={age.id}>
                  [{age.minValue} {' - '} {age.maxValue}]
-               </span>)}
+               </span>)}</span>
             </p>
-            <p>
+            <p className="title-create-show">
               { t('CREATE_CAMPAIGN.income') } {': '}
-              {(this.state.estimatedIncomes.length > 0) &&
+              <span className="subtitle-create-show">{(this.state.estimatedIncomes.length > 0) &&
                 this.filterUnChecked('estimatedIncomesList', 'estimatedIncomes')
                .map((income) => <span className="mb-2 mr-2" key={income.id}>
                  [{`${income.minValue}$`} {' - '} {`${income.maxValue}$`}]
-               </span>)}
+               </span>)}</span>
             </p>
-            <p>
-              { t('CREATE_CAMPAIGN.budget') } {': '} {this.state.budget}
+            <p className="title-create-show">
+              { t('CREATE_CAMPAIGN.budget') } {': '} <span className="subtitle-create-show">{this.state.budget}</span>
             </p>
-            <p>
-              { t('CREATE_CAMPAIGN.startDate') } {': '} {this.state.startDate}
+            <p className="title-create-show">
+              { t('CREATE_CAMPAIGN.startDate') } {': '} <span className="subtitle-create-show">{this.state.startDate}</span>
             </p>
-            <p>
-              { t('CREATE_CAMPAIGN.endDate') } {': '} {this.state.endDate}
+            <p className="title-create-show">
+              { t('CREATE_CAMPAIGN.endDate') } {': '} <span className="subtitle-create-show">{this.state.endDate}</span>
             </p>
-            <p>
-              { t('CREATE_CAMPAIGN.hourHand') } {': '} {(this.state.timeFrames.length > 0) &&
+            <p className="title-create-show">
+              { t('CREATE_CAMPAIGN.hourHand') } {': '} <span className="subtitle-create-show">{(this.state.timeFrames.length > 0) &&
                 this.filterUnChecked('timeFramesList', 'timeFrames')
                .map((timeFrame) => <span className="mb-2 mr-2" key={timeFrame.id}>
                  [{`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}]
-               </span>)}
+               </span>)}</span>
             </p>
 
           <AvGroup className="text-center">
