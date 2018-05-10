@@ -52,7 +52,7 @@ class Campaigns extends Component {
         this.isLoading(false);
       });
 
-    this.getCampaignsSubscription = accountStore
+    this.changeSubscription = accountStore
       .subscribe('changeAccount', (account) => {
         if (this.state.campaigns.length === 0) this.isLoading(true);
         CampaignsActions.getCampaigns(account.id);
@@ -74,6 +74,7 @@ class Campaigns extends Component {
 
   componentWillUnmount() {
     this.getCampaignsSubscription.unsubscribe();
+    this.changeSubscription.unsubscribe();
     this.campaignStoreError.unsubscribe();
   }
 
