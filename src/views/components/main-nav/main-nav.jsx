@@ -77,7 +77,9 @@ class MainNav extends Component {
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-    AccountsActions.getAccounts();
+    setTimeout(() => {
+      if (this.state.user.isAdmin === false) AccountsActions.getAccounts();
+    })
   }
 
   componentWillUnmount() {

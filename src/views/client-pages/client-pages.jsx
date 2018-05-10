@@ -35,7 +35,7 @@ class ClientPages extends Component {
         <Route exact path="/client/campaigns" component={Campaigns}/>
         <Route exact path="/client/create-account" component={CreateAccount}/>
         <Route exact path="/client/create-payment" component={CreatePayment}/>
-        <Route exact path="/client/create-campaign" component={CreateCampaign}/>
+        <Route exact path="/client/create-campaign/:campaignId?" component={CreateCampaign}/>
         <Route path="/client/profile" component={Profile}/>
       </div>
     );

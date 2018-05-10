@@ -4,6 +4,8 @@ import {
 } from 'react-i18next';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faTimes, faEdit } from '@fortawesome/fontawesome-free-solid';
 import {
   Container,
   Table,
@@ -28,7 +30,7 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
 import * as CampaignsActions from './campaigns.actions';
-import { campaignStore } from '../../../stores';
+import { campaignStore, accountStore } from '../../../stores';
 import { SubNav } from '../../components';
 
 class Campaigns extends Component {
@@ -50,6 +52,12 @@ class Campaigns extends Component {
         this.isLoading(false);
       });
 
+    this.getCampaignsSubscription = accountStore
+      .subscribe('changeAccount', (account) => {
+        if (this.state.campaigns.length === 0) this.isLoading(true);
+        CampaignsActions.getCampaigns(account.id);
+      });
+
     this.campaignStoreError = campaignStore
       .subscribe('CampaignStoreError', (err) => {
         this.isLoading(false);
@@ -57,7 +65,11 @@ class Campaigns extends Component {
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-      CampaignsActions.getCampaigns();
+    const account = accountStore.getAccount();
+    if (account.id) {
+      this.isLoading(true);
+      CampaignsActions.getCampaigns(account.id);
+    }
   }
 
   componentWillUnmount() {
@@ -145,7 +157,7 @@ class Campaigns extends Component {
              <Button color="secondary">S</Button>
            </InputGroupAddon>
          </InputGroup> */}
-          <Link to="/client/create-campaign">
+          <Link to="/client/create-campaign/">
             <Button color="primary">{ t('CAMPAIGNS.createCampaign') }</Button>
           </Link>
         </NavItem>
@@ -180,6 +192,7 @@ class Campaigns extends Component {
                 <th>{ t('CAMPAIGNS.title') }</th>
                 <th>{ t('CAMPAIGNS.status') }</th>
                 <th>{ t('CAMPAIGNS.adminStatus') }</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -191,6 +204,16 @@ class Campaigns extends Component {
                    <td>{campaign.messageTitle}</td>
                    <td>{t(`CAMPAIGN_USER_STATUS.${campaign.status}`)}</td>
                    <td>{t(`CAMPAIGN_ADMIN_STATUS.${campaign.adminStatus}`)}</td>
+                   <td className="text-right">
+                     {(campaign.adminStatus === 'na' ||
+                      campaign.adminStatus === 're') ? (
+                      <Link to={`/client/create-campaign/${campaign.id}`}>
+                        <Button title={t('CAMPAIGNS.editCampaign')} color="primary" size="sm">
+                        <FontAwesomeIcon icon={faEdit}/>
+                        </Button>
+                      </Link>
+                     ) : null}
+                   </td>
                  </tr>
                </CSSTransition>)}
             </TransitionGroup>
