@@ -1,5 +1,6 @@
 import i18next from '../i18n/i18n';
 import { authStore } from '../stores';
+import Flux from '@4geeksacademy/react-flux-dash';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -19,7 +20,7 @@ export function postData(url, data, isAuth = true) {
           'Accept': 'application/json',
           'Accept-Language': i18next.language,
           'Content-Type': 'application/json',
-          'Authorization': (isAuth) ? `Token ${authStore.getToken()}`: '',
+          'Authorization': (isAuth) ? `Token ${authStore.getToken()}` : '',
         },
         method: 'POST',
       })
@@ -45,7 +46,7 @@ export function putData(url, data, isAuth = true) {
           'Accept': 'application/json',
           'Accept-Language': i18next.language,
           'Content-Type': 'application/json',
-          'Authorization': (isAuth) ? `Token ${authStore.getToken()}`: '',
+          'Authorization': (isAuth) ? `Token ${authStore.getToken()}` : '',
         },
         method: 'PUT',
       })
@@ -70,7 +71,7 @@ export function getData(url, isAuth = true) {
           'Accept': 'application/json',
           'Accept-Language': i18next.language,
           'Content-Type': 'application/json',
-          'Authorization': (isAuth) ? `Token ${authStore.getToken()}`: '',
+          'Authorization': (isAuth) ? `Token ${authStore.getToken()}` : '',
         },
         method: 'GET',
       })
@@ -93,7 +94,9 @@ function checkConnection() {
 reject or resolve based on status then Parses the response to json
  */
 function checkStatus(response) {
-  // TODO: logout on err 401/403
+  if (response.status === 401 || response.status === 403) {
+    Flux.dispatchEvent('setUser', undefined);
+  }
 
   if (response.ok) {
     return response.json().then((res) => {
