@@ -30,6 +30,7 @@ class App extends Component {
         if (!user) {
           toast.dismiss();
           toast.success(i18next.t('APP.youHaveLoggedOut'));
+          this.deleteAccounts();
           this.props.history.push('/login');
         }
     });
@@ -53,6 +54,12 @@ class App extends Component {
         <ClientRoute path="/client" component={ClientPages}/>
       </div>
     );
+  }
+
+  deleteAccounts() {
+    setTimeout(() => {
+      appActions.deleteAccounts();
+    })
   }
 
   getCachedUser() {

@@ -269,6 +269,15 @@ a:hover {
   padding-bottom: 15px;
 }
 
+.title-create-show{
+  font-weight: 600;
+  color: #333;
+}
+.subtitle-create-show{
+  font-weight: 300;
+  color: #777;
+}
+
 /*
 react-toastify overrides
  */
