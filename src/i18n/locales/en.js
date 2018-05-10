@@ -233,7 +233,19 @@ export default {
     campaignRejected: 'The Campaign was succesfully Rejected',
   },
   CAMPAIGN_DETAILS: {
-    campaignDetails: 'Campaign details'
+    campaignDetails: 'Campaign details',
+    accountPayment: 'Payment Method',
+    accountLocation: 'Location',
+    gender: 'Gender',
+    age: 'Age',
+    income: 'Income',
+    budgetAndProgramming: 'Budget and Programming',
+    matchedAudiences: 'Matched Audiences',
+    bidPerClick: 'Bid per click',
+    startDate: 'Start date',
+    endDate: 'stop Date',
+    approvingCampaign: 'Approve',
+    rejectingCampaign: 'Reject',
   },
   CLIENT_DETAILS: {
     clientDetails: 'Client details',

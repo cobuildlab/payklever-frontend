@@ -226,6 +226,11 @@ a {
     border-top-right-radius: .25rem;
     color: #777;
 }
+.dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #75c045;
+}
 a:hover {
     color: #74c044;
     text-decoration: none;
@@ -267,6 +272,14 @@ a:hover {
   padding-right: 20px;
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+.title-detail{
+  font-weight: 600;
+}
+
+.sub-details{
+  font-weight: 300;
 }
 
 /*

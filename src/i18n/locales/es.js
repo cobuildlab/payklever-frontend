@@ -233,7 +233,19 @@ export default {
     campaignRejected: 'La Campaña fue rechazada satisfactoriamente',
   },
   CAMPAIGN_DETAILS: {
-    campaignDetails: 'Detalles de la Campaña'
+    campaignDetails: 'Detalles de la Campaña',
+    accountPayment: 'Método de Pago',
+    accountLocation: 'Ubicación',
+    gender: 'Género',
+    age: 'Edad',
+    income: 'Ingresos',
+    budgetAndProgramming: 'Presupuesto y programación',
+    matchedAudiences: 'Infomación Audiencia',
+    bidPerClick: 'Oferta por click',
+    startDate: 'Fecha de Inicio',
+    endDate: 'Fecha de culminación',
+    approvingCampaign: 'Aprobar',
+    rejectingCampaign: 'Rechazar',
   },
   CLIENT_DETAILS: {
     clientDetails: 'Detalles del Cliente',
