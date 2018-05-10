@@ -235,13 +235,16 @@ export default {
   CAMPAIGN_DETAILS: {
     campaignDetails: 'Campaign details',
     accountPayment: 'Payment Method',
+    accountInfo: 'Account Information',
     accountLocation: 'Location',
+    accountName: 'Account Name',
+    timeFrame: 'Hour Hand',
     gender: 'Gender',
     age: 'Age',
     income: 'Income',
     budgetAndProgramming: 'Budget and Programming',
     matchedAudiences: 'Matched Audiences',
-    bidPerClick: 'Bid per click',
+    budget: 'Budget',
     startDate: 'Start date',
     endDate: 'stop Date',
     approvingCampaign: 'Approve',
@@ -249,5 +252,6 @@ export default {
   },
   CLIENT_DETAILS: {
     clientDetails: 'Client details',
+    accounts: 'Accounts',
   },
 }

@@ -235,13 +235,16 @@ export default {
   CAMPAIGN_DETAILS: {
     campaignDetails: 'Detalles de la Campaña',
     accountPayment: 'Método de Pago',
+    accountInfo: 'Información de la Cuenta',
     accountLocation: 'Ubicación',
+    accountName: 'Nombre de la cuenta',
+    timeFrame: 'Horario',
     gender: 'Género',
     age: 'Edad',
     income: 'Ingresos',
     budgetAndProgramming: 'Presupuesto y programación',
     matchedAudiences: 'Infomación Audiencia',
-    bidPerClick: 'Oferta por click',
+    budget: 'Presupuesto',
     startDate: 'Fecha de Inicio',
     endDate: 'Fecha de culminación',
     approvingCampaign: 'Aprobar',
@@ -249,5 +252,6 @@ export default {
   },
   CLIENT_DETAILS: {
     clientDetails: 'Detalles del Cliente',
+    accounts: 'Cuentas',
   },
 }

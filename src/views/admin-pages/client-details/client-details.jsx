@@ -26,10 +26,32 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
 
 class ClientDetails extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: false,
+      client: {
+        firstName: 'Jose Agustin',
+        lastName: 'Villalobos Vargas',
+        email: 'jose@example.com'
+      },
+      accounts: [{
+        name: 'Account2',
+        location: 'location of the account1',
+        id: '1',
+      },{
+        name: 'Account2',
+        location: 'location of the account2',
+        id: '2',
+      }],
+    };
+  }
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <SubNav backRoute="/admin/campaign-manager/clients" titleI18n="CLIENT_DETAILS.clientDetails"></SubNav>
+      <SubNav backRoute="/admin/campaign-manager/clients" subNavtitle={t('CLIENT_DETAILS.clientDetails')}></SubNav>
+
       <Container>
         <Media className="mt-5">
           <Media left href="#">
@@ -37,34 +59,39 @@ class ClientDetails extends Component {
           </Media>
           <Media body>
             <Media heading>
-              Name and LastName
+              {this.state.client.firstName} {' '} {this.state.client.lastName}
             </Media>
-              Email
+            {this.state.client.email}
           </Media>
         </Media>
 
         <Table className="mt-4">
        <thead className="text-center">
          <tr>
-           <th>Accounts</th>
+           <th>{t('CLIENT_DETAILS.accounts')}</th>
          </tr>
        </thead>
        <tbody>
-         <tr>
-           <td>
-             <Media>
-               <Media left href="#">
-                 <Media className="App-img-media-item" style={{ backgroundImage: `url(${ Avatar })`}}/>
-               </Media>
-               <Media body>
-                 <Media heading>
-                   Accounts Name
-                 </Media>
-                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-               </Media>
-             </Media>
-           </td>
-         </tr>
+         <TransitionGroup component={null}>
+          { this.state.accounts.map((account) =>
+            <CSSTransition key={account.id} timeout={500} classNames="fade-in">
+              <tr>
+                <td>
+                  <Media>
+                    <Media left href="#">
+                      <Media className="App-img-media-item" style={{ backgroundImage: `url(${ Avatar })`}}/>
+                    </Media>
+                    <Media body>
+                      <Media heading>
+                        {account.name}
+                      </Media>
+                      {account.location}
+                    </Media>
+                  </Media>
+                </td>
+              </tr>
+            </CSSTransition>)}
+         </TransitionGroup>
        </tbody>
      </Table>
       </Container>
