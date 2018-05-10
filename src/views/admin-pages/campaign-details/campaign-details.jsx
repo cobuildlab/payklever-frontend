@@ -127,7 +127,7 @@ class CampaignDetails extends Component {
              { (this.state.campaign.estimatedIncomes) && this.state.campaign.estimatedIncomes.map((income) =>
                <CSSTransition key={income.id} timeout={500} classNames="fade-in">
                   <span className="sub-details">
-                  {'['}{`${income.minValue}$`} {' - '} {`${income.maxValue}$`}{'] '}
+                  {'['}{`$${income.minValue}`} {' - '} {`$${income.maxValue}`}{'] '}
                   </span>
               </CSSTransition>)}
             </TransitionGroup>
