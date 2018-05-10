@@ -296,7 +296,7 @@ class CreateCampaign extends Component {
               return (<AvGroup key={income.id} inline check>
                 <Label className="mb-2 mr-4" check>
                   <AvInput checked={isChecked} name="income" type="checkbox" onChange={(evt) => this.onCheckBoxChange(income.id, 'estimatedIncomes', evt)} />
-                  {`${income.minValue}$`} {' - '} {`${income.maxValue}$`}
+                  {`$${income.minValue}`} {' - '} {`$${income.maxValue}`}
                 </Label>
              </AvGroup>)
             })}
@@ -371,7 +371,7 @@ class CreateCampaign extends Component {
               <span className="subtitle-create-show">{(this.state.estimatedIncomes.length > 0) &&
                 this.filterUnChecked('estimatedIncomesList', 'estimatedIncomes')
                .map((income) => <span className="mb-2 mr-2" key={income.id}>
-                 [{`${income.minValue}$`} {' - '} {`${income.maxValue}$`}]
+                 [{`$${income.minValue}`} {' - '} {`$${income.maxValue}`}]
                </span>)}</span>
             </p>
             <p className="title-create-show">
