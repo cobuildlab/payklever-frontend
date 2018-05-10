@@ -72,7 +72,7 @@ class Clients extends Component {
           <tr>
             <th>{ t('CLIENTS.firstName') }</th>
             <th>{ t('CLIENTS.lastName') }</th>
-            <th></th>
+            <th>{ t('CLIENTS.email') }</th>
           </tr>
         </thead>
         <tbody>
