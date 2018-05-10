@@ -238,7 +238,7 @@ class CreateCampaign extends Component {
               <Input disabled type="text" name="accountName" placeholder={t('CREATE_CAMPAIGN.accountName')} value={this.state.account.name || '' }/>
             </FormGroup>
             <FormGroup>
-              <Input disabled type="text" name="accountPayment" placeholder={t('CREATE_CAMPAIGN.accountPayment')} value={this.state.account.paymedia || '' }/>
+              <Input disabled type="text" name="accountPayment" placeholder={t('CREATE_CAMPAIGN.accountPayment')} value={(this.state.account.Pay_medium || {}).cardNumber || '' }/>
             </FormGroup>
             <FormGroup>
               <Input disabled type="text" name="accountLocation" placeholder={t('CREATE_CAMPAIGN.accountLocation')} value={this.state.account.location || '' }/>
@@ -515,8 +515,8 @@ class CreateCampaign extends Component {
 
     const createCampaignForm = new CreateCampaignForm(
       this.state.name,
-      this.state.messageTitle || '',
-      this.state.messageDescription || '',
+      this.state.messageTitle || null,
+      this.state.messageDescription || null,
       parseInt(this.state.genreId, 10) || null,
       JSON.stringify(this.state.ages.map(Number)),
       JSON.stringify(this.state.estimatedIncomes.map(Number)),
@@ -538,7 +538,7 @@ class CreateCampaign extends Component {
     const createCampaignForm = new CreateCampaignForm(
       this.state.name,
       this.state.messageTitle || null,
-      this.state.messageDescription || '',
+      this.state.messageDescription || null,
       parseInt(this.state.genreId, 10) || null,
       JSON.stringify(this.state.ages.map(Number)),
       JSON.stringify(this.state.estimatedIncomes.map(Number)),
@@ -567,7 +567,7 @@ class CreateCampaign extends Component {
     const createCampaignForm = new CreateCampaignForm(
       campaign.name,
       campaign.messageTitle || null,
-      campaign.messageDescription || '',
+      campaign.messageDescription || null,
       parseInt(campaign.genreId, 10) || null,
       JSON.stringify((campaign.ages || []).map(Number)),
       JSON.stringify((campaign.estimatedIncomes || []).map(Number)),

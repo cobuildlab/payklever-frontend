@@ -33,7 +33,7 @@ const draftCampaignValidator = (createCampaignForm: CreateCampaignForm,
     throw new Error(`${i18next.t('CREATE_CAMPAIGN.name')}: ${i18next.t('CREATE_CAMPAIGN.invalidName')}`);
   }
 
-  if (createCampaignForm.messageTitle !== '' &&
+  if (createCampaignForm.messageTitle !== null &&
     createCampaignForm.messageTitle !== undefined) {
     if (!createCampaignRegExp.validMessageTitle
       .test(createCampaignForm.messageTitle)) {
@@ -41,7 +41,7 @@ const draftCampaignValidator = (createCampaignForm: CreateCampaignForm,
     }
   }
 
-  if (createCampaignForm.validMessageDescription !== '' &&
+  if (createCampaignForm.validMessageDescription !== null &&
     createCampaignForm.validMessageDescription !== undefined) {
     if (!createCampaignRegExp.validMessageDescription
       .test(createCampaignForm.messageDescription)) {
