@@ -156,9 +156,13 @@ const draftCampaignValidator = (createCampaignForm: CreateCampaignForm,
   }
 }
 
-const activateCampaignValidator = (createCampaignForm: CreateCampaignForm) => {
+const activateCampaignValidator = (createCampaignForm: CreateCampaignForm, paymediaId, campaignId) => {
   if (!(createCampaignForm instanceof CreateCampaignForm)) {
     throw new Error(i18next.t('APP.invalidForm'))
+  }
+
+  if (!utils.isValidInteger(campaignId)) {
+    throw new Error(i18next.t('CREATE_CAMPAIGN.invalidCampaignId'));
   }
 
   /*
@@ -178,6 +182,10 @@ const activateCampaignValidator = (createCampaignForm: CreateCampaignForm) => {
 
   if (!utils.isValidString(createCampaignForm.messageDescription)) {
     throw new Error(i18next.t('CREATE_CAMPAIGN.emptyMessageDescription'));
+  }
+
+  if (paymediaId === undefined || paymediaId === null) {
+    throw new Error(i18next.t('CREATE_CAMPAIGN.emptyPaymedia'));
   }
 
   if (createCampaignForm.accountId === undefined ||
@@ -223,12 +231,16 @@ const activateCampaignValidator = (createCampaignForm: CreateCampaignForm) => {
   /*
   validate genreId and accountId (isValidNumber)
    */
-  if (!utils.isValidNumber(createCampaignForm.genreId.toString())) {
+  if (!utils.isValidInteger(createCampaignForm.genreId)) {
     throw new Error(i18next.t('CREATE_CAMPAIGN.invalidGender'));
   }
 
-  if (!utils.isValidNumber(createCampaignForm.accountId.toString())) {
+  if (!utils.isValidInteger(createCampaignForm.accountId)) {
     throw new Error(i18next.t('CREATE_CAMPAIGN.invalidAccount'));
+  }
+
+  if (!utils.isValidInteger(paymediaId)) {
+    throw new Error(i18next.t('CREATE_CAMPAIGN.invalidPaymedia'));
   }
 
   /*

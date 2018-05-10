@@ -406,7 +406,7 @@ class CreateCampaign extends Component {
           <CSSTransition in={ this.state.canActivateCamapaign } timeout={500} classNames="fade-in" unmountOnExit>
             <Alert className="text-center" color="success">
               { t('CREATE_CAMPAIGN.canActivateCamapaign') }
-              <Button className="d-block mx-auto mt-4" color="success" type="button">
+              <Button onClick={this.activateCampaign} className="d-block mx-auto mt-4" color="success" type="button">
                   { t('CREATE_CAMPAIGN.activateCampaign') }
               </Button>
             </Alert>
@@ -417,7 +417,7 @@ class CreateCampaign extends Component {
               { t('CREATE_CAMPAIGN.noAccount') }
 
               <Link to="/client/create-account">
-                <Button onClick={this.activateCampaign} className="d-block mx-auto mt-4" color="danger" type="button">
+                <Button className="d-block mx-auto mt-4" color="danger" type="button">
                   { t('CREATE_CAMPAIGN.createAccount') }
                 </Button>
               </Link>
@@ -559,10 +559,17 @@ class CreateCampaign extends Component {
       this.props.history.push(`/client/campaigns`);
     }
 
-    const campaignId = parseInt(campaign.id, 10);
-    const accountId = (campaign.account) ?
-      parseInt(campaign.account.id, 10) :
-      null;
+    let campaignId;
+    let accountId;
+    let paymediaId;
+
+    try {
+      campaignId = parseInt(campaign.id, 10);
+      accountId = parseInt(campaign.Account.id, 10);
+      paymediaId = parseInt(campaign.Account.Pay_medium.id, 10);
+    } catch (err) {
+      return;
+    }
 
     const createCampaignForm = new CreateCampaignForm(
       campaign.name,
@@ -579,7 +586,7 @@ class CreateCampaign extends Component {
     );
 
     try {
-      activateCampaignValidator(createCampaignForm, campaignId);
+      activateCampaignValidator(createCampaignForm, paymediaId, campaignId);
 
       this.setState({ canActivateCamapaign: true });
     } catch (err) {

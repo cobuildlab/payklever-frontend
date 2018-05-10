@@ -185,6 +185,8 @@ export default {
     emptyEndDate: 'Fecha de culminación requerida',
     invalidEndDate: 'Fecha de culminación inválida',
     bidPerClick: 'Oferta por clic',
+    emptyPaymedia: 'Tu cuenta debe tener un Método de pago para poder activar la Campaña',
+    invalidPaymedia: 'Método de pago inválido',
     campaignSaved: 'Campaña Guardada!',
     savingCampaign: 'Guardando Campaña',
     createAccount: 'Crear Cuenta',

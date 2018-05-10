@@ -185,6 +185,8 @@ export default {
     emptyEndDate: 'End Date required',
     invalidEndDate: 'Invalid End Date',
     bidPerClick: 'Bid per click',
+    emptyPaymedia: 'Your Account must have a Payment Method in order to activate the Campaign',
+    invalidPaymedia: 'Invalid Payment Method',
     campaignSaved: 'Campaign saved!',
     savingCampaign: 'Saving Campaign',
     createAccount: 'Create Account',

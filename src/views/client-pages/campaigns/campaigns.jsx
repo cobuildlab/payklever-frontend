@@ -30,7 +30,7 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
 import * as CampaignsActions from './campaigns.actions';
-import { campaignStore } from '../../../stores';
+import { campaignStore, accountStore } from '../../../stores';
 import { SubNav } from '../../components';
 
 class Campaigns extends Component {
@@ -52,6 +52,12 @@ class Campaigns extends Component {
         this.isLoading(false);
       });
 
+    this.getCampaignsSubscription = accountStore
+      .subscribe('changeAccount', (account) => {
+        if (this.state.campaigns.length === 0) this.isLoading(true);
+        CampaignsActions.getCampaigns(account.id);
+      });
+
     this.campaignStoreError = campaignStore
       .subscribe('CampaignStoreError', (err) => {
         this.isLoading(false);
@@ -59,7 +65,11 @@ class Campaigns extends Component {
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-      CampaignsActions.getCampaigns();
+    const account = accountStore.getAccount();
+    if (account.id) {
+      this.isLoading(true);
+      CampaignsActions.getCampaigns(account.id);
+    }
   }
 
   componentWillUnmount() {
