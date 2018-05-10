@@ -311,7 +311,7 @@ class CreateCampaign extends Component {
               <Col md={{size: 6}}>
                 <AvGroup className="mr-sm-3 mb-sm-0" inline>
                   <Label for="startDate">{ t('CREATE_CAMPAIGN.startDate') }</Label>
-                  <AvInput onChange={(evt) => this.setState({startDate: evt.target.value})} type="date" name="startDate" id="startDate" placeholder={ t('CREATE_CAMPAIGN.startDate') } validate={createCampaignAvForm.startDate}/>
+                  <AvInput value={this.state.startDate} onChange={(evt) => this.setState({startDate: evt.target.value})} type="date" name="startDate" id="startDate" placeholder={ t('CREATE_CAMPAIGN.startDate') } validate={createCampaignAvForm.startDate}/>
                   <AvFeedback>
                     { t('CREATE_CAMPAIGN.invalidStartDate') }
                   </AvFeedback>
@@ -320,7 +320,7 @@ class CreateCampaign extends Component {
               <Col md={{size: 6}}>
                 <AvGroup className="mr-sm-3 mb-sm-0" inline>
                   <Label for="endDate">{ t('CREATE_CAMPAIGN.endDate') }</Label>
-                  <AvInput onChange={(evt) => this.setState({endDate: evt.target.value})} type="date" name="endDate" id="endDate" placeholder={ t('CREATE_CAMPAIGN.endDate') } validate={createCampaignAvForm.endDate}/>
+                  <AvInput value={this.state.endDate} onChange={(evt) => this.setState({endDate: evt.target.value})} type="date" name="endDate" id="endDate" placeholder={ t('CREATE_CAMPAIGN.endDate') } validate={createCampaignAvForm.endDate}/>
                   <AvFeedback>
                     { t('CREATE_CAMPAIGN.invalidEndDate') }
                   </AvFeedback>
