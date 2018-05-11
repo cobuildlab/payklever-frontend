@@ -189,7 +189,7 @@ export default {
     bidPerClick: 'Bid per click',
     emptyPaymedia: 'Your Account must have a Payment Method in order to activate the Campaign',
     invalidPaymedia: 'Invalid Payment Method',
-    campaignSaved: 'Campaign saved! Keep updating it until it is ready to e activated!',
+    campaignSaved: 'Campaign successfully saved! You can continue editing your campaign until it is ready to be activated!',
     savingCampaign: 'Saving Campaign',
     createAccount: 'Create Account',
     noAccount: 'You must have at least one Account before you can create a Campaign',

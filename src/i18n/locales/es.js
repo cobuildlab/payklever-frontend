@@ -189,7 +189,7 @@ export default {
     bidPerClick: 'Oferta por clic',
     emptyPaymedia: 'Tu cuenta debe tener un Método de pago para poder activar la Campaña',
     invalidPaymedia: 'Método de pago inválido',
-    campaignSaved: 'Campaña Guardada! Sigue actualizándola hasta que esté lista para ser activada!',
+    campaignSaved: 'Campaña guardada satisfactoriamente! Puedes seguir editando tu campaña hasta que este lista para ser activada!',
     savingCampaign: 'Guardando Campaña',
     createAccount: 'Crear Cuenta',
     noAccount: 'Debes tener al menos una Cuenta antes de poder crear una Campaña',
