@@ -568,6 +568,7 @@ class CreateCampaign extends Component {
       accountId = parseInt(campaign.Account.id, 10);
       paymediaId = parseInt(campaign.Account.Pay_medium.id, 10);
     } catch (err) {
+      this.setState({ canActivateCamapaign: false });
       return;
     }
 
