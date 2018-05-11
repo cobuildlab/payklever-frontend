@@ -96,9 +96,11 @@ class Accounts extends Component {
                       <FontAwesomeIcon icon={faTimes}/>
                     </Button>
                      {' '}
-                    <Button color="primary" size="sm">
-                     <FontAwesomeIcon icon={faEdit}/>
-                    </Button>
+                    <Link to={`/client/edit-account/${account.id}`}>
+                     <Button color="primary" size="sm">
+                      <FontAwesomeIcon icon={faEdit}/>
+                     </Button>
+                    </Link>
                   </td>
 
                 </tr>

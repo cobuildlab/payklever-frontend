@@ -68,6 +68,10 @@ export default {
   },
   CREATE_ACCOUNT: {
     createAccount: 'Create Account',
+    editAccount: 'Update Account',
+    loadingAccount: 'Loading Account',
+    updatingAccount: 'Updating Account',
+    accountUpdated: 'Account succesfully updated!',
     accountName: 'Account name',
     emptyName: 'Name required',
     location: 'Location',
