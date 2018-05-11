@@ -1,5 +1,5 @@
-const validFirstName = /^[A-Za-z]{3,20}$/;
-const validLastName = /^[A-Za-z]{3,20}$/;
+const validFirstName = /^[^0-9]{3,40}$/;
+const validLastName = /^[^0-9]{3,40}$/;
 const validExpireMonth = /^0[1-9]|1[0-2]$/;
 const validExpireYear = /^[0-9]{2,}$/;
 const validSecurityCode = /^[0-9]{3,4}$/;

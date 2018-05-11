@@ -77,13 +77,13 @@ const createPaymentAvForm = {
   firstName: {
     required: true,
     minLength: { value: 3 },
-    maxLength: { value: 20 },
+    maxLength: { value: 40 },
     pattern: { value: createPaymentRegExp.validFirstName }
   },
   lastName: {
     required: true,
     minLength: { value: 3 },
-    maxLength: { value: 20 },
+    maxLength: { value: 40 },
     pattern: { value: createPaymentRegExp.validFirstName }
   },
   cardNumber: {
