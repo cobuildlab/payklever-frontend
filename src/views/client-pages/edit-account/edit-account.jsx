@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { SubNav } from '../../components';
-import { CreateAccountForm } from './create-account.classes';
-import * as createAccountActions from './create-account.actions';
+import { CreateAccountForm } from '../create-account/create-account.classes';
+import * as EditAccountActions from './edit-account.actions';
 import * as PaymentMethodsActions from '../payment-methods/payment-methods.actions';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { accountStore, paymentStore } from '../../../stores';
-import { createAccountAvForm } from './create-account.validators';
+import { createAccountAvForm } from '../create-account/create-account.validators';
 import { CSSTransition } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
 import {
@@ -32,12 +32,14 @@ import { Link } from "react-router-dom";
 var autocomplete;
 const google = window.google;
 
-class CreateAccount extends Component {
+class EditAccount extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       loading: false,
+      loadingI18n: '',
+      accountId: props.match.params.accountId || '',
       name: '',
       paymediaId: '',
       location: '',
@@ -50,19 +52,34 @@ class CreateAccount extends Component {
       longitude: null,
       paymentMethods: [],
     };
-
-    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
     this.initAutocomplete();
 
-    this.createAccountSubscription = accountStore
-      .subscribe('createAccount', (account) => {
+    this.editAccountSubscription = accountStore
+      .subscribe('editAccount', (account) => {
         this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('CREATE_ACCOUNT.accountCreated'));
+        toast.success(i18next.t('CREATE_ACCOUNT.accountUpdated'));
         this.props.history.push('/client/profile/accounts');
+      });
+
+    this.getAccountSubscription = accountStore
+      .subscribe('getAccount', (account) => {
+        this.isLoading(false);
+        this.setState({
+          name: account.name || '',
+          paymediaId: account.paymediaId || '',
+          location: account.location || '',
+          city: account.city || '',
+          state: account.state || '',
+          country: account.country || '',
+          level2: account.level2 || '',
+          zipCode: account.zipCode || '',
+          latitude: account.latitude || null,
+          longitude: account.longitude || null,
+        });
       });
 
     this.accountStoreError = accountStore
@@ -83,11 +100,16 @@ class CreateAccount extends Component {
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-    PaymentMethodsActions.getPaymentMethods();
+    setTimeout(() => {
+      this.isLoading(true, 'CREATE_ACCOUNT.loadingAccount');
+      EditAccountActions.getAccount(this.state.accountId);
+      PaymentMethodsActions.getPaymentMethods();
+    });
   }
 
   componentWillUnmount() {
-    this.createAccountSubscription.unsubscribe();
+    this.editAccountSubscription.unsubscribe();
+    this.getAccountSubscription.unsubscribe();
     this.accountStoreError.unsubscribe();
     this.getPaymentsSubscription.unsubscribe();
     this.paymentStoreError.unsubscribe();
@@ -100,14 +122,14 @@ class CreateAccount extends Component {
         <div className="App-overlay">
           <div style={{width: '200px'}} className="App-center-loading">
             <h4 className="text-center">
-              { t('CREATE_ACCOUNT.creatingAccount') }
+              { t(this.state.loadingI18n) }
             </h4>
             <RingLoader size={200} color={'#75c044'} loading={true}/>
           </div>
         </div>
       </CSSTransition>
 
-      <SubNav backRoute="/client/profile/accounts" subNavTitle={t('CREATE_ACCOUNT.createAccount')}></SubNav>
+      <SubNav backRoute="/client/profile/accounts" subNavTitle={t('CREATE_ACCOUNT.editAccount')}></SubNav>
 
         <Container className="mt-4">
           <Row>
@@ -115,7 +137,7 @@ class CreateAccount extends Component {
                 size: 6,
                 offset: 3
               }}>
-          <AvForm onValidSubmit={(evt) => this.createAccount(evt)} noValidate>
+          <AvForm onValidSubmit={(evt) => this.editAccount(evt)} noValidate>
             <AvGroup>
               <Label for="name">{ t('CREATE_ACCOUNT.accountName') }</Label>
               <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_ACCOUNT.accountName') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})} validate={createAccountAvForm.name}/>
@@ -169,7 +191,7 @@ class CreateAccount extends Component {
                   </Button>
                 </Link>
                 <Button type="submit" className=" mt-4" color="primary">
-                { t('CREATE_ACCOUNT.createAccount') }
+                { t('CREATE_ACCOUNT.editAccount') }
                 </Button>
               </div>
 
@@ -180,9 +202,10 @@ class CreateAccount extends Component {
     </div>)}</I18n>);
   }
 
-  createAccount(evt) {
-    this.isLoading(true);
+  editAccount(evt) {
+    this.isLoading(true, 'CREATE_ACCOUNT.updatingAccount');
 
+    const accountId = parseInt(this.state.accountId, 10);
     const createAccountForm = new CreateAccountForm(
       this.state.name,
       parseInt(this.state.paymediaId, 10) || null,
@@ -196,7 +219,7 @@ class CreateAccount extends Component {
       this.state.longitude,
     );
 
-    createAccountActions.createAccount(createAccountForm);
+    EditAccountActions.editAccount(createAccountForm, accountId);
   }
 
   handleKeyPress(event) {
@@ -206,7 +229,7 @@ class CreateAccount extends Component {
   initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */
-      (document.getElementById('autocomplete')), {types: ['address']});
+      (document.getElementById('autocomplete')), { types: ['address'] });
 
     autocomplete.addListener('place_changed', this.fillInAddress);
   }
@@ -249,9 +272,12 @@ class CreateAccount extends Component {
     });
   }
 
-  isLoading(isLoading) {
-    this.setState({ loading: isLoading });
+  isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {
+    this.setState({
+      loadingI18n,
+      loading: isLoading
+    });
   }
 }
 
-export default CreateAccount;
+export default EditAccount;

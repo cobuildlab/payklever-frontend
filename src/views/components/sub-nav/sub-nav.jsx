@@ -45,7 +45,7 @@ class SubNav extends Component {
             <Button color="link"><FontAwesomeIcon icon={faArrowLeft}/></Button>
             </Link>)
             : null }
-            <NavbarBrand className="text-light">{ t(this.props.titleI18n) }</NavbarBrand>
+            <NavbarBrand className="text-light">{ this.props.subNavTitle }</NavbarBrand>
             { hasLink && (<NavbarToggler onClick={this.toggle} />) }
             { hasLink && (<Collapse isOpen={this.state.isOpen} navbar>
               <Button color="link"><FontAwesomeIcon icon={faArrowLeft}/></Button>
@@ -77,7 +77,7 @@ class SubNav extends Component {
 }
 
 SubNav.propTypes = {
-  titleI18n: PropTypes.string.isRequired,
+  subNavTitle: PropTypes.string.isRequired,
   backRoute: PropTypes.string,
   link: PropTypes.string,
   linkI18n: PropTypes.string,

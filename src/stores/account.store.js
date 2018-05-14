@@ -11,10 +11,22 @@ class AccountStore extends Flux.DashStore {
     this.addEvent('getAccounts');
 
     /**
+     * Notifies when an account was loaded
+     * @param {object}  account the account
+     */
+    this.addEvent('getAccount');
+
+    /**
      * Notifies when an account was created
      * @param {object}  account the created account
      */
     this.addEvent('createAccount');
+
+    /**
+     * Notifies when an account was updated
+     * @param {object}  account the updated account
+     */
+    this.addEvent('editAccount');
 
     /**
      * Notifies when the account was changed

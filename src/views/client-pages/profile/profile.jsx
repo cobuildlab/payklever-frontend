@@ -43,7 +43,7 @@ class Profile extends Component {
     return (<I18n>{(t, { i18n }) => (
       <div>
         {/* link="/client/edit-profile" linkI18n="PROFILE.editProfile" */}
-        <SubNav backRoute="/client/campaigns" titleI18n="PROFILE.profile"></SubNav>
+        <SubNav backRoute="/client/campaigns" subNavTitle={t('PROFILE.profile')}></SubNav>
 
        <Container className="mt-4">
          <Row>
