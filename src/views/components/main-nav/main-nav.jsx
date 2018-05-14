@@ -59,10 +59,7 @@ class MainNav extends Component {
       .subscribe('getAccounts', (accounts) => {
         this.setState({ accounts });
         this.isLoading(false);
-        if (!this.state.account.id &&
-          Array.isArray(accounts) && accounts.length) {
-          this.changeAccount(accounts[0])
-        }
+        this.autoSelectAccount(accounts);
       });
 
     this.changeAccountSubscription = accountStore
@@ -89,9 +86,9 @@ class MainNav extends Component {
   }
 
   render() {
-    const homeUrl = (this.state.user.isAdmin === true)
-    ? '/admin/campaign-manager/client-campaigns'
-    : '/client/campaigns';
+    const homeUrl = (this.state.user.isAdmin === true) ?
+      '/admin/campaign-manager/client-campaigns' :
+      '/client/campaigns';
 
     return (<I18n>{(t, { i18n }) => (
         <Navbar color="white" light expand="md">
@@ -164,6 +161,27 @@ class MainNav extends Component {
           </Container>
        </Navbar>
     )}</I18n>);
+  }
+
+  autoSelectAccount = (accounts) => {
+    if (!Array.isArray(accounts)) return;
+
+    if (!this.state.account.id && accounts.length) {
+      this.changeAccount(accounts[0]);
+    } else if (this.state.account.id && !accounts.length) {
+      this.changeAccount({});
+    } else if (this.state.account.id && accounts.length) {
+      let deleted = true;
+
+      for (const account of accounts) {
+        if (account.id === this.state.account.id) {
+          this.changeAccount(accounts[0]);
+          deleted = false;
+        }
+      }
+
+      if (deleted) this.changeAccount(accounts[0])
+    }
   }
 
   logout() {
