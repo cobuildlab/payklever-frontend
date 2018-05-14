@@ -93,10 +93,6 @@ class PaymentMethods extends Component {
                   <Button color="danger" size="sm">
                     <FontAwesomeIcon icon={faTimes}/>
                   </Button>
-                   {' '}
-                  <Button color="primary" size="sm">
-                   <FontAwesomeIcon icon={faEdit}/>
-                  </Button>
                 </td>
               </tr>
             </CSSTransition>)}

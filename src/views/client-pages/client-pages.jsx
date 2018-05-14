@@ -4,6 +4,7 @@ import { MainNav } from '../components';
 import {
   Campaigns,
   CreateAccount,
+  EditAccount,
   CreatePayment,
   CreateCampaign,
   Profile,
@@ -35,7 +36,8 @@ class ClientPages extends Component {
         <Route exact path="/client/campaigns" component={Campaigns}/>
         <Route exact path="/client/create-account" component={CreateAccount}/>
         <Route exact path="/client/create-payment" component={CreatePayment}/>
-        <Route exact path="/client/create-campaign" component={CreateCampaign}/>
+        <Route exact path="/client/create-campaign/:campaignId?" component={CreateCampaign}/>
+        <Route exact path="/client/edit-account/:accountId" component={EditAccount}/>
         <Route path="/client/profile" component={Profile}/>
       </div>
     );

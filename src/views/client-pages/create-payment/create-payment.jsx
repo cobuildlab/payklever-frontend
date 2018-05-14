@@ -110,14 +110,24 @@ class CreatePayment extends Component {
               </Col>
               <Col md={6} lg={2}>
                 <AvGroup>
-                  <Label for="expireMonth">{ t('CREATE_PAYMENT.expirationDate') }</Label>
+                  <Label className="d-none d-lg-block" for="expireMonth">
+                    { t('CREATE_PAYMENT.expirationDate') }
+                  </Label>
+                  <Label className="d-block d-lg-none" for="expireMonth">
+                    { t('CREATE_PAYMENT.expirationMonth') }
+                  </Label>
                   <AvInput type="text" name="expireMonth" id="expireMonth" placeholder={ t('CREATE_PAYMENT.expireMonth') } value={this.state.expireMonth} onChange={(evt) => this.setState({expireMonth: evt.target.value})} validate={createPaymentAvForm.expireMonth}/>
                   <AvFeedback>{ t('CREATE_PAYMENT.invalidExpirationDateMonth') }</AvFeedback>
                 </AvGroup>
               </Col>
               <Col md={6} lg={2}>
                 <AvGroup>
-                <Label style={{color: 'transparent'}} for="expireYear">{'_'}</Label>
+                <Label className="d-none d-lg-block" style={{color: 'transparent'}} for="expireYear">
+                  {'_'}
+                </Label>
+                <Label className="d-block d-lg-none" for="expireYear">
+                  { t('CREATE_PAYMENT.expirationYear') }
+                </Label>
                 <AvInput type="text" name="expireYear" id="expireYear" placeholder={ t('CREATE_PAYMENT.expireYear') } value={this.state.expireYear} onChange={(evt) => this.setState({expireYear: evt.target.value})} validate={createPaymentAvForm.expireYear}/>
                 <AvFeedback>{ t('CREATE_PAYMENT.invalidExpirationDateYear') }</AvFeedback>
               </AvGroup>

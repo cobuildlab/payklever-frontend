@@ -12,13 +12,11 @@ const createAccountValidator = (createAccountForm: CreateAccountForm) => {
     throw new Error(i18next.t('CREATE_ACCOUNT.emptyName'));
   }
 
-  if (createAccountForm.paymediaId === null ||
-    createAccountForm.paymediaId === undefined) {
-    throw new Error(i18next.t('CREATE_ACCOUNT.selectPaymentMethod'));
-  }
-
-  if (!utils.isValidNumber(createAccountForm.paymediaId.toString())) {
-    throw new Error(i18next.t('CREATE_ACCOUNT.invalidPaymedia'));
+  if (createAccountForm.paymediaId !== null &&
+    createAccountForm.paymediaId !== undefined) {
+      if (!utils.isValidNumber(createAccountForm.paymediaId.toString())) {
+        throw new Error(i18next.t('CREATE_ACCOUNT.invalidPaymedia'));
+      }
   }
 
   if (!createAccountRegExp.validName.test(createAccountForm.name)) {
@@ -75,7 +73,6 @@ const createAccountAvForm = {
     pattern: { value: createAccountRegExp.validName }
   },
   paymediaId: {
-    required: true,
     number: true,
     min: { value: 1 },
   },

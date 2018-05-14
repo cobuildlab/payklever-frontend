@@ -78,7 +78,7 @@ class Clients extends Component {
           <tr>
             <th className="App-header-table-admin">{ t('CLIENTS.firstName') }</th>
             <th className="App-header-table-admin">{ t('CLIENTS.lastName') }</th>
-            <th className="App-header-table-admin"></th>
+            <th className="App-header-table-admin">{ t('CLIENTS.email') }</th>
           </tr>
         </thead>
         <tbody>

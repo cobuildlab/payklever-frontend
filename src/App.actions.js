@@ -4,4 +4,9 @@ const setCachedUser = (user) => {
   Flux.dispatchEvent('setUser', user);
 }
 
-export { setCachedUser };
+const deleteAccounts = () => {
+  Flux.dispatchEvent('getAccounts', []);
+  Flux.dispatchEvent('changeAccount', {});
+}
+
+export { setCachedUser, deleteAccounts };

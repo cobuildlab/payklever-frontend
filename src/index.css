@@ -274,12 +274,22 @@ a:hover {
   padding-bottom: 15px;
 }
 
-.title-detail{
+.title-detail {
   font-weight: 600;
 }
 
 .sub-details{
   font-weight: 300;
+}
+
+.title-create-show {
+  font-weight: 600;
+  color: #333;
+}
+
+.subtitle-create-show{
+  font-weight: 300;
+  color: #777;
 }
 
 /*

@@ -133,7 +133,7 @@ class Signup extends Component {
                     <AvInput type="password" name="repeatPassword" id="repeatPassword" placeholder={ t('SIGNUP.repeatPassword') } value={this.state.repeatPassword}  onChange={(evt) => this.setState({repeatPassword: evt.target.value})} validate={signupAvForm.repeatPassword}/>
                     <AvFeedback>{ t('SIGNUP.passwordNotMatch') }</AvFeedback>
                   </AvGroup>
-                  <AvGroup check>
+                  <AvGroup check className="mt-2 mb-2">
                     <Label check>
                       <AvInput className="terminos" type="checkbox" name="checkbox" validate={signupAvForm.privacyPolicy}/>
                       {' '} <a href="#">{ t('SIGNUP.privacyPolicy') }</a>

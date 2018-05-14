@@ -1,11 +1,11 @@
 import Flux from '@4geeksacademy/react-flux-dash';
-import { postData, getData } from '../../../fetch';
+import { postData, getData, putData } from '../../../fetch';
 import { CreateCampaignForm } from './create-campaign.classes';
-import { createCampaignValidator } from './create-campaign.validators';
+import { draftCampaignValidator } from './create-campaign.validators';
 
 const createCampaign = (createCampaignForm: CreateCampaignForm) => {
   try {
-    createCampaignValidator(createCampaignForm);
+    draftCampaignValidator(createCampaignForm);
 
     postData('/campaign/', createCampaignForm, true)
       .then((res) => {
@@ -17,6 +17,42 @@ const createCampaign = (createCampaignForm: CreateCampaignForm) => {
   } catch (err) {
     Flux.dispatchEvent('CampaignStoreError', err);
   }
+}
+
+const updateCampaign = (createCampaignForm: CreateCampaignForm, campaignId) => {
+  try {
+    draftCampaignValidator(createCampaignForm, campaignId);
+
+    putData(`/campaign/${campaignId}`, createCampaignForm, true)
+      .then((res) => {
+        Flux.dispatchEvent('updateCampaign', res);
+      })
+      .catch((err) => {
+        Flux.dispatchEvent('CampaignStoreError', err);
+      });
+  } catch (err) {
+    Flux.dispatchEvent('CampaignStoreError', err);
+  }
+}
+
+const activateCampaign = (campaignId) => {
+  putData(`/campaign/${campaignId}/activate/`, {}, true)
+    .then((res) => {
+      Flux.dispatchEvent('activateCampaign', res);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+const getCampaign = (campaignId) => {
+  getData(`/campaign/${campaignId}/`)
+    .then((campaign) => {
+      Flux.dispatchEvent('getCampaign', campaign);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
 }
 
 const getGenres = () => {
@@ -61,8 +97,11 @@ const getTimeFrames = () => {
 
 export {
   createCampaign,
+  getCampaign,
   getGenres,
   getAges,
   getEstimatedIncomes,
   getTimeFrames,
+  updateCampaign,
+  activateCampaign,
 };
