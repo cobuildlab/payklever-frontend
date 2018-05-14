@@ -65,6 +65,13 @@ export default {
     loadingAccounts: 'Loading Accounts',
     name: 'Account Name',
     status: 'Status',
+    deleteHeader: 'Delete Account?',
+    deleteBody: 'Are you sure you want to delete the Account: {{accountName}}?',
+    deletingAccount: 'Deleting Account',
+    confirmDelete: 'Delete Account',
+    accountDeleted: 'The Account was succesfully deleted',
+    deleteAccount: 'Delete Account',
+    editAccount: 'Edit Account',
   },
   CREATE_ACCOUNT: {
     createAccount: 'Create Account',

@@ -29,6 +29,12 @@ class AccountStore extends Flux.DashStore {
     this.addEvent('editAccount');
 
     /**
+     * Notifies when an account was deleted
+     * @param {object}  account the deleted account
+     */
+    this.addEvent('deleteAccount');
+
+    /**
      * Notifies when the account was changed
      * @param {object} account the new account
      */
