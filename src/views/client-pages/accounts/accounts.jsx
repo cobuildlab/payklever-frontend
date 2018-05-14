@@ -22,7 +22,6 @@ import { RingLoader } from 'react-spinners';
 import {
   Link
 } from "react-router-dom";
-import { ModalConfirm } from '../../components';
 import { accountStore } from '../../../stores';
 import * as AccountsActions from './accounts.actions';
 
@@ -31,12 +30,11 @@ class Accounts extends Component {
     super(props);
 
     this.state = {
-      loading: false,
-      loadingI18n: '',
-      selectedAccount: {},
+      loading: true,
       accounts: [],
-      deleteAccountIsOpen: false,
     };
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
@@ -46,14 +44,6 @@ class Accounts extends Component {
         this.isLoading(false);
       });
 
-    this.deleteAccountSubscription = accountStore
-      .subscribe('deleteAccount', (account) => {
-        this.isLoading(false);
-        toast.dismiss();
-        toast.success(i18next.t('ACCOUNTS.accountDeleted'));
-        AccountsActions.getAccounts();
-      });
-
     this.accountStoreError = accountStore
       .subscribe('AccountStoreError', (err) => {
         this.isLoading(false);
@@ -61,13 +51,12 @@ class Accounts extends Component {
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-    this.isLoading(true, 'ACCOUNTS.loadingAccounts');
-    AccountsActions.getAccounts();
+
+      AccountsActions.getAccounts();
   }
 
   componentWillUnmount() {
     this.getAccountsSubscription.unsubscribe();
-    this.deleteAccountSubscription.unsubscribe();
     this.accountStoreError.unsubscribe();
   }
 
@@ -75,14 +64,11 @@ class Accounts extends Component {
     return (<I18n>{(t, { i18n }) => (
       <div>
 
-        <ModalConfirm isOpen={this.state.deleteAccountIsOpen} modalHeader={t('ACCOUNTS.deleteHeader')} modalBody={t('ACCOUNTS.deleteBody', { accountName: this.state.selectedAccount.name || ' ' } )}
-        acceptI18n="ACCOUNTS.confirmDelete" confirm={this.deleteAccount} />
-
         <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
           <div className="App-overlay">
             <div style={{width: '200px'}} className="App-center-loading">
               <h4 className="text-center">
-                { t(this.state.loadingI18n) }
+                { t('ACCOUNTS.loadingAccounts') }
               </h4>
               <RingLoader size={200} color={'#75c044'} loading={true}/>
             </div>
@@ -106,12 +92,12 @@ class Accounts extends Component {
                   <td>{account.name}</td>
                   <td> </td>
                   <td className="text-right">
-                    <Button onClick={() => this.deleteAccount(false, account)} title={ t('ACCOUNTS.deleteAccount')} color="danger" size="sm">
+                    <Button color="danger" size="sm">
                       <FontAwesomeIcon icon={faTimes}/>
                     </Button>
                      {' '}
                     <Link to={`/client/edit-account/${account.id}`}>
-                     <Button title={ t('ACCOUNTS.editAccount')} color="primary" size="sm">
+                     <Button color="primary" size="sm">
                       <FontAwesomeIcon icon={faEdit}/>
                      </Button>
                     </Link>
@@ -135,29 +121,8 @@ class Accounts extends Component {
     )}</I18n>);
   }
 
-  /**
-   * toggles the deleteAccount modal and deletes the account if you pass confirm = true
-   * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
-   * component only to delete the account
-   * @param  {[type]}  [account=undefined] to set the last selected account,
-   * pass the account from the account's list
-   */
-  deleteAccount = (confirm = false, account = undefined) => {
-    if (account) this.setState({ selectedAccount: account });
-
-    this.setState({ deleteAccountIsOpen: !this.state.deleteAccountIsOpen });
-
-    if (confirm === true) {
-      this.isLoading(true, 'ACCOUNTS.deletingAccount');
-      AccountsActions.deleteAccount(this.state.selectedAccount.id);
-    }
-  }
-
-  isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {
-    this.setState({
-      loadingI18n,
-      loading: isLoading
-    });
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 

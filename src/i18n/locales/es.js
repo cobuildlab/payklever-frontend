@@ -65,13 +65,6 @@ export default {
     loadingAccounts: 'Cargando Cuentas',
     name: 'Nombre de la Cuenta',
     status: 'Estatus',
-    deleteHeader: 'Eliminar Cuenta?',
-    deleteBody: 'Estas seguro que desea eliminar la Cuenta: {{accountName}}?',
-    deletingAccount: 'Eliminando Cuenta',
-    confirmDelete: 'Eliminar Cuenta',
-    accountDeleted: 'La cuenta fue eliminada satisfactoriamente',
-    deleteAccount: 'Eliminar Cuenta',
-    editAccount: 'Editar Cuenta',
   },
   CREATE_ACCOUNT: {
     createAccount: 'Crear Cuenta',
