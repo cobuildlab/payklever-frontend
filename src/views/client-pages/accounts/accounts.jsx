@@ -92,12 +92,12 @@ class Accounts extends Component {
                   <td>{account.name}</td>
                   <td> </td>
                   <td className="text-right">
-                    <Button color="danger" size="sm">
+                    {/* <Button color="danger" size="sm">
                       <FontAwesomeIcon icon={faTimes}/>
                     </Button>
-                     {' '}
+                     {' '} */}
                     <Link to={`/client/edit-account/${account.id}`}>
-                     <Button color="primary" size="sm">
+                     <Button title={t('ACCOUNTS.editAccount')} color="primary" size="sm">
                       <FontAwesomeIcon icon={faEdit}/>
                      </Button>
                     </Link>

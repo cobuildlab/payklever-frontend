@@ -65,6 +65,7 @@ export default {
     loadingAccounts: 'Loading Accounts',
     name: 'Account Name',
     status: 'Status',
+    editAccount: 'Edit Account',
   },
   CREATE_ACCOUNT: {
     createAccount: 'Create Account',
