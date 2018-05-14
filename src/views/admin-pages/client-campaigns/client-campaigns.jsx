@@ -101,15 +101,15 @@ class ClientCampaigns extends Component {
         </div>
       </CSSTransition>
 
-      <Container>
-        <Table>
+      <Container className="p-0">
+        <Table hover className="mt-5">
         <thead>
           <tr>
-            <th>{ t('CLIENT_CAMPAIGNS.campaignName') }</th>
-            <th>{ t('CLIENT_CAMPAIGNS.messageTitle') }</th>
-            <th>{ t('CLIENT_CAMPAIGNS.status') }</th>
-            <th>{ t('CLIENT_CAMPAIGNS.adminStatus') }</th>
-            <th></th>
+            <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.campaignName') }</th>
+            <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.messageTitle') }</th>
+            <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.status') }</th>
+            <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.adminStatus') }</th>
+            <th className="App-header-table-admin"></th>
           </tr>
         </thead>
         <tbody>
@@ -117,7 +117,11 @@ class ClientCampaigns extends Component {
            { this.state.campaigns.map((campaign) =>
              <CSSTransition key={campaign.id} timeout={500} classNames="fade-in">
                <tr>
-                 <td>{campaign.name}</td>
+                 <td>
+                   <Link to="/admin/campaign-details">
+                      {campaign.name}
+                   </Link>
+                 </td>
                  <td>{campaign.messageTitle}</td>
                  <td>{t(`CAMPAIGN_USER_STATUS.${campaign.status}`)}</td>
                  <td>{t(`CAMPAIGN_ADMIN_STATUS.${campaign.adminStatus}`)}</td>

@@ -13,7 +13,13 @@
   padding: 20px;
   color: white;
 }
-
+.table thead th.App-header-table-admin {
+    vertical-align: bottom;
+    border-bottom: 2px solid #74c044;
+    color: #fff;
+    background-color: #333;
+    font-weight: 500;
+}
 .App-title {
   font-size: 1.5em;
 }
@@ -21,7 +27,6 @@
 .App-intro {
   font-size: large;
 }
-
 
 .App-overlay {
   width: 100%;
@@ -49,6 +54,25 @@
   width: 50%;
   text-align: center;
 }
+
+.App-img-media-header{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 150px;
+  height: 150px;
+  margin-right: 35px;
+}
+
+.App-img-media-item{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 120px;
+  height: 120px;
+  margin-right: 35px;
+}
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

@@ -200,7 +200,7 @@ class CreateCampaign extends Component {
       </div>
     </CSSTransition>
 
-      <SubNav backRoute="/client/campaigns" titleI18n="CREATE_CAMPAIGN.createCampaign"></SubNav>
+      <SubNav backRoute="/client/campaigns" subNavtitle={t('CREATE_CAMPAIGN.createCampaign')}></SubNav>
 
       <Container className="mt-4">
 

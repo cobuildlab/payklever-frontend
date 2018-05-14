@@ -11,11 +11,17 @@ import * as ClientsActions from './clients.actions';
 import {
   I18n
 } from 'react-i18next';
+// import { Clients, Campaigns, Messages } from '../';
 import {
   Container,
   Col,
   Row,
+  Nav,
+  NavLink,
+  NavItem,
+  Media,
   Table,
+  Button,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { RingLoader } from 'react-spinners';
@@ -66,13 +72,13 @@ class Clients extends Component {
         </div>
       </CSSTransition>
 
-      <Container>
-        <Table>
+      <Container className="p-0">
+        <Table hover className="mt-5">
         <thead>
           <tr>
-            <th>{ t('CLIENTS.firstName') }</th>
-            <th>{ t('CLIENTS.lastName') }</th>
-            <th>{ t('CLIENTS.email') }</th>
+            <th className="App-header-table-admin">{ t('CLIENTS.firstName') }</th>
+            <th className="App-header-table-admin">{ t('CLIENTS.lastName') }</th>
+            <th className="App-header-table-admin">{ t('CLIENTS.email') }</th>
           </tr>
         </thead>
         <tbody>
@@ -80,7 +86,11 @@ class Clients extends Component {
            { this.state.clients.map((client) =>
              <CSSTransition key={client.id} timeout={500} classNames="fade-in">
                <tr>
-                 <td>{client.firstName}</td>
+                 <td>
+                   <Link to="/admin/client-details">
+                     {client.firstName}
+                   </Link>
+                 </td>
                  <td>{client.lastName}</td>
                  <td>{client.email}</td>
                </tr>
