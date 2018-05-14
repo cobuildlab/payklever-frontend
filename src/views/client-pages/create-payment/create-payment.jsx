@@ -69,7 +69,7 @@ class CreatePayment extends Component {
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <SubNav backRoute="/client/profile/payment-methods" subNavtitle={t('CREATE_PAYMENT.createPayment')}></SubNav>
+      <SubNav backRoute="/client/profile/payment-methods" subNavTitle={t('CREATE_PAYMENT.createPayment')}></SubNav>
 
       <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
         <div className="App-overlay">

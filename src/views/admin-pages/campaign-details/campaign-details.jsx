@@ -81,7 +81,7 @@ class CampaignDetails extends Component {
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <SubNav backRoute="/admin/campaign-manager/" subNavtitle={this.state.campaign.name || ' '}></SubNav>
+      <SubNav backRoute="/admin/campaign-manager/" subNavTitle={this.state.campaign.name || ' '}></SubNav>
 
       <Container className="mt-5">
       <h4>{this.state.campaign.messageTitle}</h4>

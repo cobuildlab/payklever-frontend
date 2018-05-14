@@ -50,7 +50,7 @@ class ClientDetails extends Component {
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <SubNav backRoute="/admin/campaign-manager/clients" subNavtitle={t('CLIENT_DETAILS.clientDetails')}></SubNav>
+      <SubNav backRoute="/admin/campaign-manager/clients" subNavTitle={t('CLIENT_DETAILS.clientDetails')}></SubNav>
 
       <Container>
         <Media className="mt-5">

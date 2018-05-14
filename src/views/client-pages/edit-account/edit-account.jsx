@@ -129,7 +129,7 @@ class EditAccount extends Component {
         </div>
       </CSSTransition>
 
-      <SubNav backRoute="/client/profile/accounts" titleI18n="CREATE_ACCOUNT.editAccount"></SubNav>
+      <SubNav backRoute="/client/profile/accounts" subNavTitle={t('CREATE_ACCOUNT.editAccount')}></SubNav>
 
         <Container className="mt-4">
           <Row>
