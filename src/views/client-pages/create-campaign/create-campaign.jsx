@@ -272,6 +272,7 @@ class CreateCampaign extends Component {
                   { t(`CREATE_CAMPAIGN.${genre.name}`) }
                 </Label>
             </FormGroup>)}
+            <a href="">{ t('CREATE_CAMPAIGN.selectAll')}</a>
           </FormGroup>
             <h4 className="mt-3">{ t('CREATE_CAMPAIGN.age') }</h4>
             {this.state.agesList.map((age) => {
@@ -288,6 +289,7 @@ class CreateCampaign extends Component {
                 </Label>
               </AvGroup>)
             })}
+            <a href="">{ t('CREATE_CAMPAIGN.selectAll')}</a>
             <div className="divider-select mt-3 mb-3"></div>
             <h4>{ t('CREATE_CAMPAIGN.income') }</h4>
             {this.state.estimatedIncomesList.map((income) => {
@@ -300,6 +302,7 @@ class CreateCampaign extends Component {
                 </Label>
              </AvGroup>)
             })}
+            <a href="">{ t('CREATE_CAMPAIGN.selectAll')}</a>
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
               <p className="title-create">{ t('CREATE_CAMPAIGN.budgetAndProgramming') }</p>
             </Col>
@@ -339,11 +342,12 @@ class CreateCampaign extends Component {
                 </Label>
               </AvGroup>)
             })}
+            <a href="">{ t('CREATE_CAMPAIGN.selectAll')}</a>
         </Col>
         <Col md={{size: 4}}>
-          <h5 className="mb-3 title-create-show">
+          <p className="mb-3 title-create-show">
             { t('CREATE_CAMPAIGN.name') } {': '} <span className="subtitle-create-show">{this.state.name}</span>
-          </h5>
+        </p>
           <p className="title-create-show">
             { t('CREATE_CAMPAIGN.messageTitle') } {': '} <span className="subtitle-create-show">{this.state.messageTitle}</span>
           </p>
@@ -363,7 +367,7 @@ class CreateCampaign extends Component {
               <span className="subtitle-create-show">{(this.state.ages.length > 0) &&
                 this.filterUnChecked('agesList', 'ages')
                .map((age) => <span className="mb-2 mr-2" key={age.id}>
-                 [{age.minValue} {' - '} {age.maxValue}]
+                 {age.minValue} {' - '} {age.maxValue}
                </span>)}</span>
             </p>
             <p className="title-create-show">
@@ -371,7 +375,7 @@ class CreateCampaign extends Component {
               <span className="subtitle-create-show">{(this.state.estimatedIncomes.length > 0) &&
                 this.filterUnChecked('estimatedIncomesList', 'estimatedIncomes')
                .map((income) => <span className="mb-2 mr-2" key={income.id}>
-                 [{`$${income.minValue}`} {' - '} {`$${income.maxValue}`}]
+                 {`$${income.minValue}`} {' - '} {`$${income.maxValue}`}
                </span>)}</span>
             </p>
             <p className="title-create-show">
@@ -387,7 +391,7 @@ class CreateCampaign extends Component {
               { t('CREATE_CAMPAIGN.hourHand') } {': '} <span className="subtitle-create-show">{(this.state.timeFrames.length > 0) &&
                 this.filterUnChecked('timeFramesList', 'timeFrames')
                .map((timeFrame) => <span className="mb-2 mr-2" key={timeFrame.id}>
-                 [{`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}]
+                 {`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}
                </span>)}</span>
             </p>
 

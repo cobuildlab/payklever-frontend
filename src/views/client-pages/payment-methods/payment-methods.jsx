@@ -69,7 +69,7 @@ class PaymentMethods extends Component {
           </div>
         </CSSTransition>
 
-        <Container className="mt-4">
+        <Container className="mt-5">
         <Table>
           <thead>
             <tr>

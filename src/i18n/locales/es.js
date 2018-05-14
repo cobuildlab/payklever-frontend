@@ -198,6 +198,7 @@ export default {
     male: 'Masculino',
     female: 'Femenino',
     all: 'Todos',
+    selectAll: 'Seleccionar Todos',
     to: 'a',
     campaignActivated: 'Campaña activada satisfactoriamente, por favor, espera que nuestros administradores hagan la revisión de la misma!',
     activateCampaign: 'Activar Campaña',
