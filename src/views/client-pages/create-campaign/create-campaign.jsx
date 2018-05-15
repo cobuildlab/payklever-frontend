@@ -23,6 +23,7 @@ import {
   FormGroup,
   Input,
   FormText,
+  Badge,
   Alert,
 } from 'reactstrap';
 import {
@@ -263,7 +264,16 @@ class CreateCampaign extends Component {
                 </Label>
             </FormGroup>)}
           </FormGroup>
-            <h4 className="mt-3">{ t('CREATE_CAMPAIGN.age') }</h4>
+            <h4 className="mt-3">
+              { t('CREATE_CAMPAIGN.age') } {' '}
+              {(this.state.agesList.length && (this.state.agesList.length === this.state.ages.length)) ?
+              <Button size="sm" color="link" onClick={() => {this.unSelectAll('ages')}}>
+                { t('CREATE_CAMPAIGN.unSelectAll')}
+              </Button> :
+              <Button size="sm" color="link" onClick={() => {this.selectAll('agesList', 'ages')}}>
+                  { t('CREATE_CAMPAIGN.selectAll')}
+              </Button> }
+            </h4>
             {this.state.agesList.map((age) => {
               const isChecked = this.isChecked(age.id, 'ages');
 
@@ -279,7 +289,16 @@ class CreateCampaign extends Component {
               </AvGroup>)
             })}
             <div className="divider-select mt-3 mb-3"></div>
-            <h4>{ t('CREATE_CAMPAIGN.income') }</h4>
+            <h4>
+              { t('CREATE_CAMPAIGN.income') }
+              {(this.state.estimatedIncomesList.length && (this.state.estimatedIncomesList.length === this.state.estimatedIncomes.length)) ?
+              <Button size="sm" color="link" onClick={() => {this.unSelectAll('estimatedIncomes')}}>
+                { t('CREATE_CAMPAIGN.unSelectAll')}
+              </Button> :
+              <Button size="sm" color="link" onClick={() => {this.selectAll('estimatedIncomesList', 'estimatedIncomes')}}>
+                  { t('CREATE_CAMPAIGN.selectAll')}
+              </Button> }
+            </h4>
             {this.state.estimatedIncomesList.map((income) => {
               const isChecked = this.isChecked(income.id, 'estimatedIncomes');
 
@@ -318,7 +337,16 @@ class CreateCampaign extends Component {
               </Col>
             </Row>
             <div className="divider-select mt-3 mb-3"></div>
-            <h4>{ t('CREATE_CAMPAIGN.hourHand') }</h4>
+            <h4>
+              { t('CREATE_CAMPAIGN.hourHand') }
+              {(this.state.timeFramesList.length && (this.state.timeFramesList.length === this.state.timeFrames.length)) ?
+              <Button size="sm" color="link" onClick={() => {this.unSelectAll('timeFrames')}}>
+                { t('CREATE_CAMPAIGN.unSelectAll')}
+              </Button> :
+              <Button size="sm" color="link" onClick={() => {this.selectAll('timeFramesList', 'timeFrames')}}>
+                  { t('CREATE_CAMPAIGN.selectAll')}
+              </Button> }
+            </h4>
             {this.state.timeFramesList.map((timeFrame) => {
               const isChecked = this.isChecked(timeFrame.id, 'timeFrames');
 
@@ -331,9 +359,9 @@ class CreateCampaign extends Component {
             })}
         </Col>
         <Col md={{size: 4}}>
-          <h5 className="mb-3 title-create-show">
+          <p className="mb-3 title-create-show">
             { t('CREATE_CAMPAIGN.name') } {': '} <span className="subtitle-create-show">{this.state.name}</span>
-          </h5>
+        </p>
           <p className="title-create-show">
             { t('CREATE_CAMPAIGN.messageTitle') } {': '} <span className="subtitle-create-show">{this.state.messageTitle}</span>
           </p>
@@ -352,17 +380,17 @@ class CreateCampaign extends Component {
               { t('CREATE_CAMPAIGN.age') } {': '}
               <span className="subtitle-create-show">{(this.state.ages.length > 0) &&
                 this.filterUnChecked('agesList', 'ages')
-               .map((age) => <span className="mb-2 mr-2" key={age.id}>
-                 [{age.minValue} {' - '} {age.maxValue}]
-               </span>)}</span>
+               .map((age) => <Badge color="secondary" className="mb-2 mr-2" key={age.id}>
+                 {age.minValue} {' - '} {age.maxValue}
+               </Badge>)}</span>
             </p>
             <p className="title-create-show">
               { t('CREATE_CAMPAIGN.income') } {': '}
               <span className="subtitle-create-show">{(this.state.estimatedIncomes.length > 0) &&
                 this.filterUnChecked('estimatedIncomesList', 'estimatedIncomes')
-               .map((income) => <span className="mb-2 mr-2" key={income.id}>
-                 [{`$${income.minValue}`} {' - '} {`$${income.maxValue}`}]
-               </span>)}</span>
+               .map((income) => <Badge color="secondary" className="mb-2 mr-2" key={income.id}>
+                 {`$${income.minValue}`} {' - '} {`$${income.maxValue}`}
+               </Badge>)}</span>
             </p>
             <p className="title-create-show">
               { t('CREATE_CAMPAIGN.budget') } {': '} <span className="subtitle-create-show">{this.state.budget}</span>
@@ -376,9 +404,9 @@ class CreateCampaign extends Component {
             <p className="title-create-show">
               { t('CREATE_CAMPAIGN.hourHand') } {': '} <span className="subtitle-create-show">{(this.state.timeFrames.length > 0) &&
                 this.filterUnChecked('timeFramesList', 'timeFrames')
-               .map((timeFrame) => <span className="mb-2 mr-2" key={timeFrame.id}>
-                 [{`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}]
-               </span>)}</span>
+               .map((timeFrame) => <Badge color="secondary" className="mb-2 mr-2" key={timeFrame.id}>
+                 {`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}
+               </Badge>)}</span>
             </p>
 
           <AvGroup className="text-center">
@@ -475,6 +503,30 @@ class CreateCampaign extends Component {
 
     this.setState({
       [listName]: stateCopy
+    });
+  }
+
+  /**
+   * select all checkbox items
+   * @param  {string} selectListName  the list to select 'ages', 'timeFrames',
+   *  or 'estimatedIncomes'
+   * @param  {string} listName 'agesList', 'timeFramesList', or
+   *  'estimatedIncomesList'
+   */
+  selectAll = (listName, selectListName) => {
+    this.setState({
+      [selectListName]: this.state[listName].map((item) => item.id),
+    });
+  }
+
+  /**
+   * unSelect all checkbox items
+   * @param  {string} unSelectListName  the list to select 'ages', 'timeFrames',
+   *  or 'estimatedIncomes'
+   */
+  unSelectAll = (unSelectListName) => {
+    this.setState({
+      [unSelectListName]: [],
     });
   }
 

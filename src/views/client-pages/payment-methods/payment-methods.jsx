@@ -60,7 +60,7 @@ class PaymentMethods extends Component {
 
         <Loading isLoading={this.state.loading} loadingMessage={ t('PAYMENT_METHODS.loadingPayments') }></Loading>
 
-        <Container className="mt-4">
+        <Container className="mt-5">
         <Table>
           <thead>
             <tr>
