@@ -265,6 +265,8 @@ export default {
     endDate: 'stop Date',
     approvingCampaign: 'Approve',
     rejectingCampaign: 'Reject',
+    adminStatus: 'Admin Status',
+    status: 'Status',
   },
   CLIENT_DETAILS: {
     clientDetails: 'Client details',
