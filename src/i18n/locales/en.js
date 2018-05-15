@@ -199,6 +199,7 @@ export default {
     female: 'Female',
     all: 'All',
     selectAll: 'Select All',
+    unSelectAll: 'Unselect All',
     to: 'to',
     campaignActivated: 'Campaign succesfully activated, please, wait for our administrador to review it!',
     activateCampaign: 'Activate Campaign',
