@@ -18,7 +18,7 @@ import {
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { RingLoader } from 'react-spinners';
+import { Loading } from '../../components';
 import {
   Link
 } from "react-router-dom";
@@ -64,16 +64,7 @@ class Accounts extends Component {
     return (<I18n>{(t, { i18n }) => (
       <div>
 
-        <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
-          <div className="App-overlay">
-            <div style={{width: '200px'}} className="App-center-loading">
-              <h4 className="text-center">
-                { t('ACCOUNTS.loadingAccounts') }
-              </h4>
-              <RingLoader size={200} color={'#75c044'} loading={true}/>
-            </div>
-          </div>
-        </CSSTransition>
+        <Loading isLoading={this.state.loading} loadingMessage={ t('ACCOUNTS.loadingAccounts') }></Loading>
 
         <Container className="mt-5">
           <Table>

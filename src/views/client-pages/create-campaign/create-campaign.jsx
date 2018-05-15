@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  SubNav
+  SubNav, Loading,
 } from '../../components';
 import { CreateCampaignForm } from './create-campaign.classes';
 import * as CreateCampaignActions from './create-campaign.actions';
@@ -10,7 +10,6 @@ import { campaignStore } from '../../../stores';
 import { accountStore } from '../../../stores';
 import { toast } from 'react-toastify';
 import { CSSTransition } from 'react-transition-group';
-import { RingLoader } from 'react-spinners';
 import {
   I18n
 } from 'react-i18next';
@@ -189,16 +188,7 @@ class CreateCampaign extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
 
-    <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
-      <div className="App-overlay">
-        <div style={{width: '200px'}} className="App-center-loading">
-          <h4 className="text-center">
-            { t(this.state.loadingI18n) }
-          </h4>
-          <RingLoader size={200} color={'#75c044'} loading={true}/>
-        </div>
-      </div>
-    </CSSTransition>
+    <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
       <SubNav backRoute="/client/campaigns" subNavTitle={t('CREATE_CAMPAIGN.createCampaign')}></SubNav>
 

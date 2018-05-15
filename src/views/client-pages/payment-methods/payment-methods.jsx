@@ -15,7 +15,7 @@ import {
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { RingLoader } from 'react-spinners';
+import { Loading } from '../../components';
 import { Link } from "react-router-dom";
 import { paymentStore } from '../../../stores';
 import * as PaymentMethodsActions from './payment-methods.actions';
@@ -58,16 +58,7 @@ class PaymentMethods extends Component {
     return (<I18n>{(t, { i18n }) => (
       <div>
 
-        <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
-          <div className="App-overlay">
-            <div style={{width: '200px'}} className="App-center-loading">
-              <h4 className="text-center">
-                { t('PAYMENT_METHODS.loadingPayments') }
-              </h4>
-              <RingLoader size={200} color={'#75c044'} loading={true}/>
-            </div>
-          </div>
-        </CSSTransition>
+        <Loading isLoading={this.state.loading} loadingMessage={ t('PAYMENT_METHODS.loadingPayments') }></Loading>
 
         <Container className="mt-4">
         <Table>

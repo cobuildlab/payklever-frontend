@@ -11,7 +11,6 @@ import * as ClientsActions from './clients.actions';
 import {
   I18n
 } from 'react-i18next';
-// import { Clients, Campaigns, Messages } from '../';
 import {
   Container,
   Col,
@@ -24,7 +23,7 @@ import {
   Button,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { RingLoader } from 'react-spinners';
+import { Loading } from '../../components';
 
 class Clients extends Component {
   constructor(props) {
@@ -61,16 +60,7 @@ class Clients extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
 
-      <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
-        <div className="App-overlay">
-          <div style={{width: '200px'}} className="App-center-loading">
-            <h4 className="text-center">
-                { t('CLIENTS.loadingClients') }
-            </h4>
-            <RingLoader size={200} color={'#75c044'} loading={true}/>
-          </div>
-        </div>
-      </CSSTransition>
+      <Loading isLoading={this.state.loading} loadingMessage={ t('CLIENTS.loadingClients') }></Loading>
 
       <Container className="p-0">
         <Table hover className="mt-5">

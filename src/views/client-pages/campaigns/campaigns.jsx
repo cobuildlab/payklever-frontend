@@ -28,10 +28,9 @@ import {
   Link
 } from "react-router-dom";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { RingLoader } from 'react-spinners';
 import * as CampaignsActions from './campaigns.actions';
 import { campaignStore, accountStore } from '../../../stores';
-import { SubNav } from '../../components';
+import { Loading } from '../../components';
 
 class Campaigns extends Component {
   constructor(props) {
@@ -82,16 +81,7 @@ class Campaigns extends Component {
     return (<I18n>{(t, { i18n }) => (
       <div>
 
-      <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
-        <div className="App-overlay">
-          <div style={{width: '200px'}} className="App-center-loading">
-            <h4 className="text-center">
-                { t('CAMPAIGNS.loadingCampaigns') }
-            </h4>
-            <RingLoader size={200} color={'#75c044'} loading={true}/>
-          </div>
-        </div>
-      </CSSTransition>
+      <Loading isLoading={this.state.loading} loadingMessage={ t('CAMPAIGNS.loadingCampaigns') }></Loading>
 
        <Container className="mt-4 p-0">
          <Nav className="nav mt-5 mb-3 p-0 d-flex justify-content-end">
