@@ -6,7 +6,7 @@ import { i18next } from '../../i18n';
 import { toast } from 'react-toastify';
 import { authStore } from '../../stores';
 import { Link } from 'react-router-dom';
-import { Loading } from '../../components';
+import { Loading } from '../components';
 import './signup.css';
 import {
   Container,

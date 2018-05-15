@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import * as loginActions from './login.actions';
 import './login.css';
 import { Link } from 'react-router-dom';
-import { Loading } from '../../components';
+import { Loading } from '../components';
 import {
   WhiteLogo,
   PaykleverBg,
