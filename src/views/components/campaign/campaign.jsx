@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { I18n } from 'react-i18next';
 import PropTypes from 'prop-types';
-import { Col, Row } from 'reactstrap';
+import { Col, Row, Badge } from 'reactstrap';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -103,13 +103,13 @@ class Campaign extends Component {
            { (this.props.campaign.ages && this.state.agesList.length) && this.filterUnChecked('agesList', 'ages')
            .map((age) =>
              <CSSTransition key={age.id} timeout={500} classNames="fade-in">
-                <span className="sub-details">
-                {'['}{age.minValue}
+                <Badge color="secondary" className="mr-1 sub-details">
+                {age.minValue}
                 {age.maxValue !== '+' ? (
                   <span>{' - '}</span>)
                   : null}
-                {age.maxValue}{'] '}
-                </span>
+                {age.maxValue}
+                </Badge>
             </CSSTransition>)}
           </TransitionGroup>
        </p>
@@ -121,9 +121,9 @@ class Campaign extends Component {
              { (this.props.campaign.estimatedIncomes && this.state.estimatedIncomesList.length) && this.filterUnChecked('estimatedIncomesList', 'estimatedIncomes')
              .map((income) =>
                <CSSTransition key={income.id} timeout={500} classNames="fade-in">
-                  <span className="sub-details">
-                  {'['}{`$${income.minValue}`} {' - '} {`$${income.maxValue}`}{'] '}
-                  </span>
+                  <Badge color="secondary" className="mr-1 sub-details">
+                  {`$${income.minValue}`} {' - '} {`$${income.maxValue}`}
+                  </Badge>
               </CSSTransition>)}
             </TransitionGroup>
         </p>
@@ -152,9 +152,9 @@ class Campaign extends Component {
              { (this.props.campaign.timeFrames && this.state.timeFramesList.length) && this.filterUnChecked('timeFramesList', 'timeFrames')
              .map((timeFrame) =>
                <CSSTransition key={timeFrame.id} timeout={500} classNames="fade-in">
-                  <span className="sub-details">
-                  {'['}{`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}{'] '}
-                  </span>
+                  <Badge color="secondary" className="mr-1 sub-details">
+                  {`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}
+                  </Badge>
               </CSSTransition>)}
             </TransitionGroup>
         </p>
