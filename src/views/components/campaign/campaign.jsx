@@ -65,7 +65,7 @@ class Campaign extends Component {
         <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.budget') }{': '}
           {(this.props.campaign.budget) ?
             <span className="sub-details">
-              {`${this.props.campaign.budget}$`}
+              {`$${this.props.campaign.budget}`}
             </span>
           : null}
       </p>
@@ -96,17 +96,17 @@ class Campaign extends Component {
       </Col>
       <Col className=" mt-3 mb-3" md={{size: 6}}>
         <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.accountName')}{': '}
-          {(this.props.campaign.account) ?
+          {(this.props.campaign.Account) ?
             <span className="sub-details">
-            {this.props.campaign.account.name}
+            {this.props.campaign.Account.name}
             </span>
           : null}
         </p>
       </Col>
       <Col className=" mt-3 mb-3" md={{size: 6}}>
         <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.accountPayment')}{': '}
-          {(this.props.campaign.account && this.props.campaign.account.payment) ? <span className="sub-details">
-              {this.props.campaign.account.payment.cardNumber}
+          {(this.props.campaign.Account && this.props.campaign.Account.Pay_medium) ? <span className="sub-details">
+              {this.props.campaign.Account.Pay_medium.cardNumber}
             </span>
           : null}
         </p>
@@ -114,9 +114,9 @@ class Campaign extends Component {
       <Col className=" mt-3 mb-3" md={{size: 12}}>
         <p className="mb-0 title-detail">
           { t('CAMPAIGN_DETAILS.accountLocation')}{': '}
-          {(this.props.campaign.account) ?
+          {(this.props.campaign.Account) ?
             <span className="sub-details">
-              {this.props.campaign.account.location}
+              {this.props.campaign.Account.location}
             </span>
           : null}
         </p>
@@ -128,13 +128,19 @@ class Campaign extends Component {
       <Col className=" mt-3 mb-3" md={{size: 6}}>
         <p className="mb-0 title-detail">
           { t('CAMPAIGN_DETAILS.status')}{': '}
-          {t(`CAMPAIGN_USER_STATUS.${this.props.campaign.status}`)}
+          {(this.props.campaign.status) ? <span>
+            {t(`CAMPAIGN_USER_STATUS.${this.props.campaign.status}`)}
+          </span>
+          : null}
         </p>
       </Col>
       <Col className=" mt-3 mb-3" md={{size: 6}}>
         <p className="mb-0 title-detail">
           { t('CAMPAIGN_DETAILS.adminStatus')}{': '}
-          {t(`CAMPAIGN_ADMIN_STATUS.${this.props.campaign.adminStatus}`)}
+          {(this.props.campaign.status) ? <span>
+            {t(`CAMPAIGN_ADMIN_STATUS.${this.props.campaign.adminStatus}`)}
+          </span>
+          : null}
         </p>
       </Col>
 

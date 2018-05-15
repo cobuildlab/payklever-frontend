@@ -5,10 +5,10 @@ import {
   Redirect,
 } from "react-router-dom";
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import {
-  faClipboardCheck,
-  faBan,
-} from '@fortawesome/fontawesome-free-solid';
+// import {
+//   faClipboardCheck,
+//   faBan,
+// } from '@fortawesome/fontawesome-free-solid';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { campaignStore } from '../../../stores';
@@ -99,7 +99,7 @@ class ClientCampaigns extends Component {
             <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.messageTitle') }</th>
             <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.status') }</th>
             <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.adminStatus') }</th>
-            <th className="App-header-table-admin"></th>
+            {/* <th className="App-header-table-admin"></th> */}
           </tr>
         </thead>
         <tbody>
@@ -108,14 +108,14 @@ class ClientCampaigns extends Component {
              <CSSTransition key={campaign.id} timeout={500} classNames="fade-in">
                <tr>
                  <td>
-                   <Link to="/admin/campaign-details">
+                   <Link to={`/admin/campaign-details/${campaign.id}`}>
                       {campaign.name}
                    </Link>
                  </td>
                  <td>{campaign.messageTitle}</td>
                  <td>{t(`CAMPAIGN_USER_STATUS.${campaign.status}`)}</td>
                  <td>{t(`CAMPAIGN_ADMIN_STATUS.${campaign.adminStatus}`)}</td>
-                 <td className="text-right">
+                 {/* <td className="text-right">
                    {(campaign.adminStatus === 'na') ? (<div>
                     <Button onClick={() => this.approveCampaign(false, campaign)} className="mr-2" title={ t('CLIENT_CAMPAIGNS.approve') } color="primary" size="sm">
                      <FontAwesomeIcon icon={faClipboardCheck}/>
@@ -125,7 +125,7 @@ class ClientCampaigns extends Component {
                    </Button>
                   </div>)
                  : null }
-                 </td>
+                 </td> */}
                </tr>
              </CSSTransition>)}
           </TransitionGroup>

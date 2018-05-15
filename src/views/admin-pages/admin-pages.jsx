@@ -21,7 +21,7 @@ class AdminPages extends Component {
       <div>
       <MainNav></MainNav>
       <Route path="/admin/campaign-manager" component={CampaignManager}/>
-      <Route exact path="/admin/campaign-details" component={CampaignDetails}/>
+      <Route exact path="/admin/campaign-details/:campaignId" component={CampaignDetails}/>
       <Route exact path="/admin/client-details" component={ClientDetails}/>
     </div>
     );
