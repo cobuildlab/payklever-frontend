@@ -6,8 +6,7 @@ import { i18next } from '../../i18n';
 import { toast } from 'react-toastify';
 import { authStore } from '../../stores';
 import { Link } from 'react-router-dom';
-import { RingLoader } from 'react-spinners';
-import { CSSTransition } from 'react-transition-group';
+import { Loading } from '../../components';
 import './signup.css';
 import {
   Container,
@@ -85,14 +84,7 @@ class Signup extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (<Container>
 
-      <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
-        <div className="App-overlay">
-          <div style={{width: '200px'}} className="App-center-loading">
-            <h4 className="text-center">{ t('SIGNUP.signingUp') }</h4>
-            <RingLoader color={'#75c044'} size={200} loading={true}/>
-          </div>
-        </div>
-      </CSSTransition>
+      <Loading isLoading={this.state.loading} loadingMessage={ t('SIGNUP.signingUp') }></Loading>
 
       <Row className="mt-2 mb-5">
         <Col className="mt-5 mb-5 text-center"  md={{size: 12,}}>

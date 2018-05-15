@@ -24,8 +24,7 @@ import {
   Table,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { RingLoader } from 'react-spinners';
-import { ModalConfirm } from '../../components';
+import { ModalConfirm, Loading } from '../../components';
 
 class ClientCampaigns extends Component {
   constructor(props) {
@@ -90,16 +89,7 @@ class ClientCampaigns extends Component {
       <ModalConfirm isOpen={this.state.rejectCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.rejectHeader')} modalBody={t('CLIENT_CAMPAIGNS.rejectBody', { campaignName: this.state.selectedCampaign.name || ' ' })}
       acceptI18n="CLIENT_CAMPAIGNS.reject" confirm={this.rejectCampaign} />
 
-      <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
-        <div className="App-overlay">
-          <div style={{width: '200px'}} className="App-center-loading">
-            <h4 className="text-center">
-                { t(this.state.loadingI18n) }
-            </h4>
-            <RingLoader size={200} color={'#75c044'} loading={true}/>
-          </div>
-        </div>
-      </CSSTransition>
+      <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
       <Container className="p-0">
         <Table hover className="mt-5">

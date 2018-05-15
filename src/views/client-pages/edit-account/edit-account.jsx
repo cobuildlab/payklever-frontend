@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SubNav } from '../../components';
+import { SubNav, Loading } from '../../components';
 import { CreateAccountForm } from '../create-account/create-account.classes';
 import * as EditAccountActions from './edit-account.actions';
 import * as PaymentMethodsActions from '../payment-methods/payment-methods.actions';
@@ -7,8 +7,6 @@ import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { accountStore, paymentStore } from '../../../stores';
 import { createAccountAvForm } from '../create-account/create-account.validators';
-import { CSSTransition } from 'react-transition-group';
-import { RingLoader } from 'react-spinners';
 import {
   I18n
 } from 'react-i18next';
@@ -118,18 +116,9 @@ class EditAccount extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
 
-      <CSSTransition in={this.state.loading} timeout={500} classNames="fade-in" unmountOnExit>
-        <div className="App-overlay">
-          <div style={{width: '200px'}} className="App-center-loading">
-            <h4 className="text-center">
-              { t(this.state.loadingI18n) }
-            </h4>
-            <RingLoader size={200} color={'#75c044'} loading={true}/>
-          </div>
-        </div>
-      </CSSTransition>
-
       <SubNav backRoute="/client/profile/accounts" subNavTitle={t('CREATE_ACCOUNT.editAccount')}></SubNav>
+
+      <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
         <Container className="mt-4">
           <Row>
