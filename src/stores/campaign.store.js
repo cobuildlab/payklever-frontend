@@ -45,6 +45,16 @@ class CampaignStore extends Flux.DashStore {
     this.addEvent('rejectCampaign');
 
     /**
+     * Notifies when a campaign was suspended
+     */
+    this.addEvent('suspendCampaign');
+
+    /**
+     * Notifies when a campaign was paused
+     */
+    this.addEvent('pauseCampaign');
+
+    /**
      * Genres list
      * @param {Array} genres the genres list
      */

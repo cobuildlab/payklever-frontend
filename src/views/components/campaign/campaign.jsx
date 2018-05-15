@@ -2,9 +2,71 @@ import React, { Component } from 'react';
 import { I18n } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'reactstrap';
+import { i18next } from '../../../i18n';
+import { toast } from 'react-toastify';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { campaignStore } from '../../../stores';
+import * as CreateCampaignActions from '../../client-pages/create-campaign/create-campaign.actions';
 
 class Campaign extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      genresList: campaignStore.getGenres(),
+      agesList: campaignStore.getAges(),
+      timeFramesList: campaignStore.getTimeFrames(),
+      estimatedIncomesList: campaignStore.getEstimatedIncomes(),
+    };
+  }
+
+  componentDidMount() {
+    this.getGenresSubscription = campaignStore
+      .subscribe('getGenres', (genresList) => {
+        this.setState({ genresList });
+      });
+
+    this.getAgesSubscription = campaignStore
+      .subscribe('getAges', (agesList) => {
+        this.setState({ agesList });
+      });
+
+    this.getEstimatedIncomesSubscription = campaignStore
+      .subscribe('getEstimatedIncomes', (estimatedIncomesList) => {
+        this.setState({ estimatedIncomesList });
+      });
+
+    this.getTimeframesSubscription = campaignStore
+      .subscribe('getTimeFrames', (timeFramesList) => {
+        this.setState({ timeFramesList });
+      });
+
+    // get campaignStore data
+    const campaignState = campaignStore.getState();
+
+    if (Array.isArray(campaignState.getGenres) === false || campaignState.getGenres.length === 0) {
+      CreateCampaignActions.getGenres();
+    }
+
+    if (Array.isArray(campaignState.getAges) === false || campaignState.getAges.length === 0) {
+      CreateCampaignActions.getAges();
+    }
+
+    if (Array.isArray(campaignState.getEstimatedIncomes) === false || campaignState.getEstimatedIncomes.length === 0) {
+      CreateCampaignActions.getEstimatedIncomes();
+    }
+
+    if (Array.isArray(campaignState.getTimeFrames) === false || campaignState.getTimeFrames.length === 0) {
+      CreateCampaignActions.getTimeFrames();
+    }
+  }
+
+  componentWillUnmount() {
+    this.getGenresSubscription.unsubscribe();
+    this.getAgesSubscription.unsubscribe();
+    this.getEstimatedIncomesSubscription.unsubscribe();
+    this.getTimeframesSubscription.unsubscribe();
+  }
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
@@ -22,6 +84,12 @@ class Campaign extends Component {
       <Col className=" mt-3 mb-3" md={{size: 4}}>
         <p className="mb-0 title-detail">
           { t('CAMPAIGN_DETAILS.gender') }{': '}
+          {(this.props.campaign.genreId) ? (this.state.genresList.filter((element) => element.id === this.props.campaign.genreId)
+            .map((genre) => (
+              <span key={genre.id}>
+                { t(`CREATE_CAMPAIGN.${genre.name}`) }
+              </span>))
+          ) : null}
           {(this.props.campaign.genre) ?
             <span className="sub-details">
               {t(`CREATE_CAMPAIGN.${this.props.campaign.genre.name}`)}
@@ -32,7 +100,8 @@ class Campaign extends Component {
       <Col className=" mt-3 mb-3" md={{size: 4}}>
         <p className="mb-0 title-detail">{t('CAMPAIGN_DETAILS.age') }{': '}
         <TransitionGroup component={null}>
-           { (this.props.campaign.ages) && this.props.campaign.ages.map((age) =>
+           { (this.props.campaign.ages && this.state.agesList.length) && this.filterUnChecked('agesList', 'ages')
+           .map((age) =>
              <CSSTransition key={age.id} timeout={500} classNames="fade-in">
                 <span className="sub-details">
                 {'['}{age.minValue}
@@ -49,7 +118,8 @@ class Campaign extends Component {
         <p className="mb-0 title-detail">
           {t('CAMPAIGN_DETAILS.income') }{': '}
           <TransitionGroup component={null}>
-             { (this.props.campaign.estimatedIncomes) && this.props.campaign.estimatedIncomes.map((income) =>
+             { (this.props.campaign.estimatedIncomes && this.state.estimatedIncomesList.length) && this.filterUnChecked('estimatedIncomesList', 'estimatedIncomes')
+             .map((income) =>
                <CSSTransition key={income.id} timeout={500} classNames="fade-in">
                   <span className="sub-details">
                   {'['}{`$${income.minValue}`} {' - '} {`$${income.maxValue}`}{'] '}
@@ -79,7 +149,8 @@ class Campaign extends Component {
       <Col className=" mt-3 mb-3" md={{size: 12}}>
         <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.timeFrame')}{': '}
           <TransitionGroup component={null}>
-             { (this.props.campaign.timeFrames) && this.props.campaign.timeFrames.map((timeFrame) =>
+             { (this.props.campaign.timeFrames && this.state.timeFramesList.length) && this.filterUnChecked('timeFramesList', 'timeFrames')
+             .map((timeFrame) =>
                <CSSTransition key={timeFrame.id} timeout={500} classNames="fade-in">
                   <span className="sub-details">
                   {'['}{`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}{'] '}
@@ -146,6 +217,25 @@ class Campaign extends Component {
 
     </Row>
     </div>)}</I18n>);
+  }
+
+  /**
+   * Filter the unChecked elements from the full list of items
+   * @param  {string} checkedListName 'ages', 'timeFrames', or
+   * 'estimatedIncomes' (must match props names)
+   * @param  {string} listName 'agesList', 'timeFramesList', or
+   * 'estimatedIncomesList' (must match states names)
+   */
+  filterUnChecked = (listName, checkedListName) => {
+    if(!Array.isArray(this.props.campaign[checkedListName])) return [];
+
+    return (this.state[listName].filter((element) => {
+      for (const id of this.props.campaign[checkedListName]) {
+        if (element.id.toString() === id.toString()) return true;
+      }
+
+      return false;
+    }))
   }
 }
 

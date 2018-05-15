@@ -33,6 +33,8 @@ class CampaignDetails extends Component {
       loadingI18n: '',
       campaignId: props.match.params.campaignId || '',
       campaign: {},
+      activateCampaignIsOpen: false,
+      suspendCampaignIsOpen: false,
       approveCampaignIsOpen: false,
       rejectCampaignIsOpen: false,
     };
@@ -61,6 +63,14 @@ class CampaignDetails extends Component {
         this.props.history.push('/admin/campaign-manager/client-campaigns');
       });
 
+    this.suspendCampaignSubscription = campaignStore
+      .subscribe('suspendCampaign', (data) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CLIENT_CAMPAIGNS.campaignSuspended'));
+        this.props.history.push('/admin/campaign-manager/client-campaigns');
+      });
+
     this.campaignStoreError = campaignStore
       .subscribe('CampaignStoreError', (err) => {
         this.isLoading(false);
@@ -78,6 +88,7 @@ class CampaignDetails extends Component {
     this.getCampaignSubscription.unsubscribe();
     this.approveCampaignSubscription.unsubscribe();
     this.rejectCampaignSubscription.unsubscribe();
+    this.suspendCampaignSubscription.unsubscribe();
     this.campaignStoreError.unsubscribe();
   }
 
@@ -87,11 +98,17 @@ class CampaignDetails extends Component {
 
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
+      <ModalConfirm isOpen={this.state.activateCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.activateHeader')} modalBody={t('CAMPAIGN_DETAILS.activateBody', { campaignName: this.state.campaign.name || ' ' } )}
+      acceptI18n="CAMPAIGN_DETAILS.activateCampaign" confirm={this.activateCampaign} />
+
       <ModalConfirm isOpen={this.state.approveCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.approveHeader')} modalBody={t('CLIENT_CAMPAIGNS.approveBody', { campaignName: this.state.campaign.name || ' ' } )}
       acceptI18n="CLIENT_CAMPAIGNS.approve" confirm={this.approveCampaign} />
 
       <ModalConfirm isOpen={this.state.rejectCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.rejectHeader')} modalBody={t('CLIENT_CAMPAIGNS.rejectBody', { campaignName: this.state.campaign.name || ' ' })}
       acceptI18n="CLIENT_CAMPAIGNS.reject" confirm={this.rejectCampaign} />
+
+      <ModalConfirm isOpen={this.state.suspendCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.suspendHeader')} modalBody={t('CAMPAIGN_DETAILS.suspendBody', { campaignName: this.state.campaign.name || ' ' })}
+      acceptI18n="CAMPAIGN_DETAILS.suspendCampaign" confirm={this.suspendCampaign} />
 
       <Container className="mt-5">
 
@@ -107,15 +124,34 @@ class CampaignDetails extends Component {
       </Col>
       : null }
 
-      {/* TODO: suspendCampaign */}
+      {(this.state.campaign.adminStatus === 'su') ?
+        <Button onClick={() => this.activateCampaign(false)} className="mx-auto d-block mt-5 mb-5" color="success" type="button">
+          { t('CAMPAIGN_DETAILS.activateCampaign') }
+        </Button>
+      : null }
+
       {(this.state.campaign.adminStatus === 'ap') ?
-        <Button className="mx-auto d-block mt-5 mb-5" color="danger" type="button">
+        <Button onClick={() => this.suspendCampaign(false)} className="mx-auto d-block mt-5 mb-5" color="danger" type="button">
           { t('CAMPAIGN_DETAILS.suspendCampaign') }
         </Button>
       : null }
 
       </Container>
     </div>)}</I18n>);
+  }
+
+  /**
+   * toggles the activateCampaign modal and activate the campaign if you pass confirm = true
+   * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
+   * component only to activate the campaign
+   */
+  activateCampaign = (confirm = false, campaign = undefined) => {
+    this.setState({ activateCampaignIsOpen: !this.state.activateCampaignIsOpen });
+
+    if (confirm === true) {
+      this.isLoading(true, 'CAMPAIGN_DETAILS.activatingCampaign');
+      CampaignDetailsActions.approveCampaign(this.state.campaign.id);
+    }
   }
 
   /**
@@ -144,6 +180,21 @@ class CampaignDetails extends Component {
     if (confirm === true) {
       this.isLoading(true, 'CLIENT_CAMPAIGNS.rejectingCampaign');
       CampaignDetailsActions.rejectCampaign(this.state.campaign.id);
+    }
+  }
+
+  /**
+   * toggles the rejectCampaign modal and suspend the campaign if you pass confirm = true
+   * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
+   * component only to suspend the campaign
+   */
+  suspendCampaign = (confirm = false) => {
+
+    this.setState({ suspendCampaignIsOpen: !this.state.suspendCampaignIsOpen });
+
+    if (confirm === true) {
+      this.isLoading(true, 'CLIENT_CAMPAIGNS.suspendingCampaign');
+      CampaignDetailsActions.suspendCampaign(this.state.campaign.id);
     }
   }
 

@@ -31,4 +31,14 @@ const rejectCampaign = (campaignId) => {
     });
 }
 
-export { getCampaign, approveCampaign, rejectCampaign };
+const suspendCampaign = (campaignId) => {
+  putData(`/campaign/${campaignId}/suspend/`)
+    .then((data) => {
+      Flux.dispatchEvent('suspendCampaign', data);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+export { getCampaign, approveCampaign, rejectCampaign, suspendCampaign };

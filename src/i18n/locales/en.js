@@ -13,7 +13,7 @@ export default {
   },
   CAMPAIGN_USER_STATUS: {
     ac: 'Active',
-    ia: 'Inactive',
+    ia: 'Paused',
     de: 'deleted',
   },
   LOGIN: {
@@ -268,6 +268,19 @@ export default {
     suspendCampaign: 'Suspend',
     adminStatus: 'Admin Status',
     status: 'Status',
+    activateHeader: 'Activate Campaign?',
+    activateBody: 'Are you sure you want to activate the Campaign: {{campaignName}}?',
+    pauseHeader: 'Pause Campaign?',
+    pauseBody: 'Are you sure you want to pause the Campaign: {{campaignName}}?',
+    activateCampaign: 'Activate Campaign',
+    pauseCampaign: 'Pause Campaign',
+    activatingCampaign: 'Activating Campaign',
+    pausingCampaign: 'Pausing Campaign',
+    suspendHeader: 'Suspend Campaign?',
+    suspendBody: 'Are you sure you want to suspend the Campaign: {{campaignName}}?',
+    suspendingCampaign: 'Suspending Campaign',
+    campaignSuspended: 'The Campaign was succesfully suspended',
+    campaignPaused: 'The Campaign was succesfully paused',
     loadingCampaign: 'Loading Campaign',
   },
   CLIENT_DETAILS: {
