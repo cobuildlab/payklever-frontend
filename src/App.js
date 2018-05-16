@@ -12,6 +12,7 @@ import {
 import {
   Login,
   Signup,
+  Term,
   AdminPages,
   ClientPages,
   NotAuthRoute,
@@ -50,6 +51,7 @@ class App extends Component {
         <ToastContainer/>
         <NotAuthRoute exact path="/signup" component={Signup}/>
         <NotAuthRoute exact path="/login" component={Login}/>
+        <NotAuthRoute exact path="/term" component={Term}/>
         <AdminRoute path="/admin" component={AdminPages}/>
         <ClientRoute path="/client" component={ClientPages}/>
       </div>
