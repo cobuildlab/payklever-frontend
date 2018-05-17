@@ -77,7 +77,7 @@ class Clients extends Component {
              <CSSTransition key={client.id} timeout={500} classNames="fade-in">
                <tr>
                  <td>
-                   <Link to="/admin/client-details">
+                   <Link to={`/admin/client-details/${client.id}`}>
                      {client.firstName}
                    </Link>
                  </td>

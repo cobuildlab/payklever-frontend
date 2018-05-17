@@ -191,7 +191,11 @@ class Campaigns extends Component {
              { this.state.campaigns.map((campaign) =>
                <CSSTransition key={campaign.id} timeout={500} classNames="fade-in">
                  <tr>
-                   <td>{campaign.name}</td>
+                   <td>
+                     <Link to={`/client/campaign-details/${campaign.id}`}>
+                        {campaign.name}
+                     </Link>
+                   </td>
                    <td>{campaign.messageTitle}</td>
                    <td>{t(`CAMPAIGN_USER_STATUS.${campaign.status}`)}</td>
                    <td>{t(`CAMPAIGN_ADMIN_STATUS.${campaign.adminStatus}`)}</td>

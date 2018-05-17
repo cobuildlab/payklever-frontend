@@ -6,11 +6,10 @@ import {
 } from "react-router-dom";
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { SubNav } from '../../components';
+import { SubNav, Campaign, Loading, ModalConfirm } from '../../components';
 import {
   I18n
 } from 'react-i18next';
-// import { Clients, Campaigns, Messages } from '../';
 import {
   Container,
   Col,
@@ -22,8 +21,8 @@ import {
   Table,
   Button,
 } from 'reactstrap';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { RingLoader } from 'react-spinners';
+import { campaignStore } from '../../../stores';
+import * as CampaignDetailsActions from './campaign-details.actions';
 
 class CampaignDetails extends Component {
   constructor(props) {
@@ -31,190 +30,182 @@ class CampaignDetails extends Component {
 
     this.state = {
       loading: false,
-      campaign: {
-        name: 'Mi primera campaña',
-        messageTitle: 'Mi primera campaña',
-        messageDescription: 'Descripción de mi primera campaña',
-        genre: {
-          name: 'male',
-        },
-        account: {
-          name: 'accountName',
-          location: 'Account location',
-          payment: {
-            cardNumber: '#4345'
-          },
-        },
-        ages: [{
-          id: 1,
-          minValue: '8',
-          maxValue: '12'
-        }, {
-          id: 2,
-          minValue: '12',
-          maxValue: '20'
-        }, ],
-        estimatedIncomes: [{
-          id: 1,
-          minValue: '80',
-          maxValue: '100'
-        }, {
-          id: 2,
-          minValue: '100',
-          maxValue: '200'
-        }, ],
-        timeFrames: [{
-          id: 1,
-          minValue: '8',
-          maxValue: '12'
-        }, {
-          id: 2,
-          minValue: '14',
-          maxValue: '16'
-        }, ],
-        budget: '1000',
-        startDate: '2018-12-15',
-        endDate: '2018-12-30',
-      },
+      loadingI18n: '',
+      campaignId: props.match.params.campaignId || '',
+      campaign: {},
+      activateCampaignIsOpen: false,
+      suspendCampaignIsOpen: false,
+      approveCampaignIsOpen: false,
+      rejectCampaignIsOpen: false,
     };
+  }
+
+  componentDidMount() {
+    this.getCampaignSubscription = campaignStore
+      .subscribe('getCampaign', (campaign) => {
+        this.setState({ campaign });
+        this.isLoading(false);
+      });
+
+    this.approveCampaignSubscription = campaignStore
+      .subscribe('approveCampaign', (data) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CLIENT_CAMPAIGNS.campaignApproved'));
+        this.props.history.push('/admin/campaign-manager/client-campaigns');
+      });
+
+    this.rejectCampaignSubscription = campaignStore
+      .subscribe('rejectCampaign', (data) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CLIENT_CAMPAIGNS.campaignRejected'));
+        this.props.history.push('/admin/campaign-manager/client-campaigns');
+      });
+
+    this.suspendCampaignSubscription = campaignStore
+      .subscribe('suspendCampaign', (data) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CLIENT_CAMPAIGNS.campaignSuspended'));
+        this.props.history.push('/admin/campaign-manager/client-campaigns');
+      });
+
+    this.campaignStoreError = campaignStore
+      .subscribe('CampaignStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+
+    setTimeout(() => {
+      this.isLoading(true, 'CAMPAIGN_DETAILS.loadingCampaign');
+      CampaignDetailsActions.getCampaign(this.state.campaignId);
+    });
+  }
+
+  componentWillUnmount() {
+    this.getCampaignSubscription.unsubscribe();
+    this.approveCampaignSubscription.unsubscribe();
+    this.rejectCampaignSubscription.unsubscribe();
+    this.suspendCampaignSubscription.unsubscribe();
+    this.campaignStoreError.unsubscribe();
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <SubNav backRoute="/admin/campaign-manager/" subNavTitle={this.state.campaign.name || ' '}></SubNav>
+      <SubNav backRoute="/admin/campaign-manager/client-campaigns" subNavTitle={this.state.campaign.name || ' '}></SubNav>
+
+      <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
+
+      <ModalConfirm isOpen={this.state.activateCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.activateHeader')} modalBody={t('CAMPAIGN_DETAILS.activateBody', { campaignName: this.state.campaign.name || ' ' } )}
+      acceptI18n="CAMPAIGN_DETAILS.activateCampaign"
+      inputLabel={t('APP.optionalMsg')} confirm={this.activateCampaign} />
+
+      <ModalConfirm isOpen={this.state.approveCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.approveHeader')} modalBody={t('CLIENT_CAMPAIGNS.approveBody', { campaignName: this.state.campaign.name || ' ' } )} inputLabel={t('APP.optionalMsg')}
+      acceptI18n="CLIENT_CAMPAIGNS.approve" confirm={this.approveCampaign} />
+
+      <ModalConfirm isOpen={this.state.rejectCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.rejectHeader')} modalBody={t('CLIENT_CAMPAIGNS.rejectBody', { campaignName: this.state.campaign.name || ' ' })} inputLabel={t('APP.optionalMsg')}
+      acceptI18n="CLIENT_CAMPAIGNS.reject" confirm={this.rejectCampaign} />
+
+      <ModalConfirm isOpen={this.state.suspendCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.suspendHeader')} modalBody={t('CAMPAIGN_DETAILS.suspendBody', { campaignName: this.state.campaign.name || ' ' })} inputLabel={t('APP.optionalMsg')}
+      acceptI18n="CAMPAIGN_DETAILS.suspendCampaign" confirm={this.suspendCampaign} />
 
       <Container className="mt-5">
-      <h4>{this.state.campaign.messageTitle}</h4>
-      <p >
-        {this.state.campaign.messageDescription}
-      </p>
-    <Row>
-      <Col className=" mt-3 mb-3 bg-dark" md={{size: 12}}>
-        <p className="title-create mb-0">
-          { t('CAMPAIGN_DETAILS.matchedAudiences') }
-        </p>
-      </Col>
-      <Col className=" mt-3 mb-3" md={{size: 4}}>
-        <p className="mb-0 title-detail">
-          { t('CAMPAIGN_DETAILS.gender') }{': '}
-          {(this.state.campaign.genre) ?
-            <span className="sub-details">
-              {t(`CREATE_CAMPAIGN.${this.state.campaign.genre.name}`)}
-            </span>
-          : null}
-        </p>
-      </Col>
-      <Col className=" mt-3 mb-3" md={{size: 4}}>
-        <p className="mb-0 title-detail">{t('CAMPAIGN_DETAILS.age') }{': '}
-        <TransitionGroup component={null}>
-           { (this.state.campaign.ages) && this.state.campaign.ages.map((age) =>
-             <CSSTransition key={age.id} timeout={500} classNames="fade-in">
-                <span className="sub-details">
-                {'['}{age.minValue}
-                {age.maxValue !== '+' ? (
-                  <span>{' - '}</span>)
-                  : null}
-                {age.maxValue}{'] '}
-                </span>
-            </CSSTransition>)}
-          </TransitionGroup>
-       </p>
-      </Col>
-      <Col className=" mt-3 mb-3" md={{size: 4}}>
-        <p className="mb-0 title-detail">
-          {t('CAMPAIGN_DETAILS.income') }{': '}
-          <TransitionGroup component={null}>
-             { (this.state.campaign.estimatedIncomes) && this.state.campaign.estimatedIncomes.map((income) =>
-               <CSSTransition key={income.id} timeout={500} classNames="fade-in">
-                  <span className="sub-details">
-                  {'['}{`$${income.minValue}`} {' - '} {`$${income.maxValue}`}{'] '}
-                  </span>
-              </CSSTransition>)}
-            </TransitionGroup>
-        </p>
-      </Col>
-      <Col className=" mt-3 mb-3 bg-dark" md={{size: 12}}>
-        <p className="title-create mb-0">{ t('CAMPAIGN_DETAILS.budgetAndProgramming') }</p>
-      </Col>
-      <Col className=" mt-3 mb-3" md={{size: 4}}>
-        <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.budget') }{': '}
-          {(this.state.campaign.budget) ?
-            <span className="sub-details">
-              {`${this.state.campaign.budget}$`}
-            </span>
-          : null}
-      </p>
-      </Col>
-      <Col className=" mt-3 mb-3" md={{size: 4}}>
-        <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.startDate')}{': '} <span className="sub-details">{this.state.campaign.startDate}</span></p>
-      </Col>
-      <Col className=" mt-3 mb-3" md={{size: 4}}>
-        <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.endDate')}{': '} <span className="sub-details">{this.state.campaign.endDate}</span></p>
-      </Col>
-      <Col className=" mt-3 mb-3" md={{size: 12}}>
-        <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.timeFrame')}{': '}
-          <TransitionGroup component={null}>
-             { (this.state.campaign.timeFrames) && this.state.campaign.timeFrames.map((timeFrame) =>
-               <CSSTransition key={timeFrame.id} timeout={500} classNames="fade-in">
-                  <span className="sub-details">
-                  {'['}{`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}{'] '}
-                  </span>
-              </CSSTransition>)}
-            </TransitionGroup>
-        </p>
-      </Col>
 
-      <Col className=" mt-3 mb-3 bg-dark" md={{size: 12}}>
-        <p className="title-create mb-0">
-          { t('CAMPAIGN_DETAILS.accountInfo') }
-        </p>
-      </Col>
-      <Col className=" mt-3 mb-3" md={{size: 6}}>
-        <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.accountName')}{': '}
-          {(this.state.campaign.account) ?
-            <span className="sub-details">
-            {this.state.campaign.account.name}
-            </span>
-          : null}
-        </p>
-      </Col>
-      <Col className=" mt-3 mb-3" md={{size: 6}}>
-        <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.accountPayment')}{': '}
-          {(this.state.campaign.account && this.state.campaign.account.payment) ? <span className="sub-details">
-              {this.state.campaign.account.payment.cardNumber}
-            </span>
-          : null}
-        </p>
-      </Col>
-      <Col className=" mt-3 mb-3" md={{size: 12}}>
-        <p className="mb-0 title-detail">
-          { t('CAMPAIGN_DETAILS.accountLocation')}{': '}
-          {(this.state.campaign.account) ?
-            <span className="sub-details">
-              {this.state.campaign.account.location}
-            </span>
-          : null}
-        </p>
-      </Col>
+      <Campaign campaign={this.state.campaign}></Campaign>
 
-      <Col className="mt-5 mb-5 text-center" md={{size: 12}}>
-        <Button  className="mr-2" color="danger" type="button" size="sm">
-          { t('CAMPAIGN_DETAILS.rejectingCampaign') }
+      {(this.state.campaign.adminStatus === 'wa' || this.state.campaign.adminStatus === 'su') ?
+        <Col className="mt-5 mb-5 text-center" md={{size: 12}}>
+          <Button onClick={() => this.rejectCampaign(false)} className="mr-2" color="danger" type="button">
+            { t('CAMPAIGN_DETAILS.rejectCampaign') }
+          </Button>
+          {(this.state.campaign.adminStatus === 'wa') ?
+            <Button onClick={() => this.approveCampaign(false)} className="" color="success" type="button">
+              { t('CAMPAIGN_DETAILS.approveCampaign') }
+            </Button>
+          : null}
+          {(this.state.campaign.adminStatus === 'su') ?
+            <Button onClick={() => this.activateCampaign(false)} className="mx-auto d-block mt-5 mb-5" color="success" type="button">
+              { t('CAMPAIGN_DETAILS.activateCampaign') }
+            </Button>
+          : null }
+        </Col>
+      : null }
+
+      {(this.state.campaign.adminStatus === 'ap') ?
+        <Button onClick={() => this.suspendCampaign(false)} className="mx-auto d-block mt-5 mb-5" color="danger" type="button">
+          { t('CAMPAIGN_DETAILS.suspendCampaign') }
         </Button>
-        <Button  className="" color="success" type="button" size="sm">
-          { t('CAMPAIGN_DETAILS.approvingCampaign') }
-        </Button>
-      </Col>
+      : null }
 
-
-
-    </Row>
       </Container>
     </div>)}</I18n>);
   }
 
-  isLoading = (isLoading) => {
-    this.setState({ loading: isLoading });
+  /**
+   * toggles the activateCampaign modal and activate the campaign if you pass confirm = true
+   * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
+   * component only to activate the campaign
+   */
+  activateCampaign = (confirm = false, msg) => {
+    this.setState({ activateCampaignIsOpen: !this.state.activateCampaignIsOpen });
+
+    if (confirm === true) {
+      this.isLoading(true, 'CAMPAIGN_DETAILS.activatingCampaign');
+      CampaignDetailsActions.approveCampaign(this.state.campaign.id, msg);
+    }
+  }
+
+  /**
+   * toggles the approveCampaign modal and approve the campaign if you pass confirm = true
+   * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
+   * component only to approve the campaign
+   */
+  approveCampaign = (confirm = false, msg) => {
+    this.setState({ approveCampaignIsOpen: !this.state.approveCampaignIsOpen });
+
+    if (confirm === true) {
+      this.isLoading(true, 'CLIENT_CAMPAIGNS.approvingCampaign');
+      CampaignDetailsActions.approveCampaign(this.state.campaign.id, msg);
+    }
+  }
+
+  /**
+   * toggles the rejectCampaign modal and reject the campaign if you pass confirm = true
+   * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
+   * component only to reject the campaign
+   */
+  rejectCampaign = (confirm = false, msg) => {
+
+    this.setState({ rejectCampaignIsOpen: !this.state.rejectCampaignIsOpen });
+
+    if (confirm === true) {
+      this.isLoading(true, 'CLIENT_CAMPAIGNS.rejectingCampaign');
+      CampaignDetailsActions.rejectCampaign(this.state.campaign.id, msg);
+    }
+  }
+
+  /**
+   * toggles the rejectCampaign modal and suspend the campaign if you pass confirm = true
+   * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
+   * component only to suspend the campaign
+   */
+  suspendCampaign = (confirm = false, msg) => {
+
+    this.setState({ suspendCampaignIsOpen: !this.state.suspendCampaignIsOpen });
+
+    if (confirm === true) {
+      this.isLoading(true, 'CLIENT_CAMPAIGNS.suspendingCampaign');
+      CampaignDetailsActions.suspendCampaign(this.state.campaign.id, msg);
+    }
+  }
+
+  isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {
+    this.setState({
+      loadingI18n,
+      loading: isLoading
+    });
   }
 }
 export default CampaignDetails;
