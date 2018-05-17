@@ -88,25 +88,25 @@ const draftCampaignValidator = (createCampaignForm: CreateCampaignForm,
     }
   }
 
-  if (createCampaignForm.estimatedIncomes !== undefined &&
-    createCampaignForm.estimatedIncomes !== '[]') {
-    let estimatedIncomesAsJson;
-    try {
-      estimatedIncomesAsJson = JSON.parse(createCampaignForm.estimatedIncomes);
-    } catch (err) {
-      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
-    }
-
-    if (Array.isArray(estimatedIncomesAsJson) === false) {
-      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
-    } else if (estimatedIncomesAsJson.length > 0) {
-      if (!estimatedIncomesAsJson.every((element) => {
-          return (Number.isInteger(element) && element > 0)
-        })) {
-        throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
-      }
-    }
-  }
+  // if (createCampaignForm.estimatedIncomes !== undefined &&
+  //   createCampaignForm.estimatedIncomes !== '[]') {
+  //   let estimatedIncomesAsJson;
+  //   try {
+  //     estimatedIncomesAsJson = JSON.parse(createCampaignForm.estimatedIncomes);
+  //   } catch (err) {
+  //     throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
+  //   }
+  //
+  //   if (Array.isArray(estimatedIncomesAsJson) === false) {
+  //     throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
+  //   } else if (estimatedIncomesAsJson.length > 0) {
+  //     if (!estimatedIncomesAsJson.every((element) => {
+  //         return (Number.isInteger(element) && element > 0)
+  //       })) {
+  //       throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
+  //     }
+  //   }
+  // }
 
   if (createCampaignForm.timeFrames !== undefined &&
     createCampaignForm.timeFrames !== '[]') {
@@ -265,24 +265,24 @@ const activateCampaignValidator = (createCampaignForm: CreateCampaignForm, payme
     }
   } else throw new Error(i18next.t('CREATE_CAMPAIGN.emptyAge'));
 
-  if (createCampaignForm.estimatedIncomes !== undefined) {
-    let estimatedIncomesAsJson;
-    try {
-      estimatedIncomesAsJson = JSON.parse(createCampaignForm.estimatedIncomes);
-    } catch (err) {
-      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
-    }
-
-    if (Array.isArray(estimatedIncomesAsJson) === false) {
-      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
-    } else if (estimatedIncomesAsJson.length === 0) {
-      throw new Error(i18next.t('CREATE_CAMPAIGN.emptyIncome'));
-    } else if (!estimatedIncomesAsJson.every((element) => {
-        return (Number.isInteger(element) && element > 0)
-      })) {
-      throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
-    }
-  } else throw new Error(i18next.t('CREATE_CAMPAIGN.emptyIncome'));
+  // if (createCampaignForm.estimatedIncomes !== undefined) {
+  //   let estimatedIncomesAsJson;
+  //   try {
+  //     estimatedIncomesAsJson = JSON.parse(createCampaignForm.estimatedIncomes);
+  //   } catch (err) {
+  //     throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
+  //   }
+  //
+  //   if (Array.isArray(estimatedIncomesAsJson) === false) {
+  //     throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
+  //   } else if (estimatedIncomesAsJson.length === 0) {
+  //     throw new Error(i18next.t('CREATE_CAMPAIGN.emptyIncome'));
+  //   } else if (!estimatedIncomesAsJson.every((element) => {
+  //       return (Number.isInteger(element) && element > 0)
+  //     })) {
+  //     throw new Error(i18next.t('CREATE_CAMPAIGN.invalidIncome'));
+  //   }
+  // } else throw new Error(i18next.t('CREATE_CAMPAIGN.emptyIncome'));
 
   if (createCampaignForm.timeFrames !== undefined) {
     let timeFramesAsJson;

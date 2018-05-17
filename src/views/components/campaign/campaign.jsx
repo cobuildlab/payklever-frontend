@@ -16,7 +16,7 @@ class Campaign extends Component {
       genresList: campaignStore.getGenres(),
       agesList: campaignStore.getAges(),
       timeFramesList: campaignStore.getTimeFrames(),
-      estimatedIncomesList: campaignStore.getEstimatedIncomes(),
+      // estimatedIncomesList: campaignStore.getEstimatedIncomes(),
     };
   }
 
@@ -31,10 +31,10 @@ class Campaign extends Component {
         this.setState({ agesList });
       });
 
-    this.getEstimatedIncomesSubscription = campaignStore
-      .subscribe('getEstimatedIncomes', (estimatedIncomesList) => {
-        this.setState({ estimatedIncomesList });
-      });
+    // this.getEstimatedIncomesSubscription = campaignStore
+    //   .subscribe('getEstimatedIncomes', (estimatedIncomesList) => {
+    //     this.setState({ estimatedIncomesList });
+    //   });
 
     this.getTimeframesSubscription = campaignStore
       .subscribe('getTimeFrames', (timeFramesList) => {
@@ -52,9 +52,9 @@ class Campaign extends Component {
       CreateCampaignActions.getAges();
     }
 
-    if (Array.isArray(campaignState.getEstimatedIncomes) === false || campaignState.getEstimatedIncomes.length === 0) {
-      CreateCampaignActions.getEstimatedIncomes();
-    }
+    // if (Array.isArray(campaignState.getEstimatedIncomes) === false || campaignState.getEstimatedIncomes.length === 0) {
+    //   CreateCampaignActions.getEstimatedIncomes();
+    // }
 
     if (Array.isArray(campaignState.getTimeFrames) === false || campaignState.getTimeFrames.length === 0) {
       CreateCampaignActions.getTimeFrames();
@@ -64,7 +64,7 @@ class Campaign extends Component {
   componentWillUnmount() {
     this.getGenresSubscription.unsubscribe();
     this.getAgesSubscription.unsubscribe();
-    this.getEstimatedIncomesSubscription.unsubscribe();
+    // this.getEstimatedIncomesSubscription.unsubscribe();
     this.getTimeframesSubscription.unsubscribe();
   }
 
@@ -81,7 +81,7 @@ class Campaign extends Component {
           { t('CAMPAIGN_DETAILS.matchedAudiences') }
         </p>
       </Col>
-      <Col className=" mt-3 mb-3" md={{size: 4}}>
+      <Col className=" mt-3 mb-3" md={{size: 6}}>
         <p className="mb-0 title-detail">
           { t('CAMPAIGN_DETAILS.gender') }{': '}
           {(this.props.campaign.genreId) ? (this.state.genresList.filter((element) => element.id === this.props.campaign.genreId)
@@ -97,7 +97,7 @@ class Campaign extends Component {
           : null}
         </p>
       </Col>
-      <Col className=" mt-3 mb-3" md={{size: 4}}>
+      <Col className=" mt-3 mb-3" md={{size: 6}}>
         <p className="mb-0 title-detail">{t('CAMPAIGN_DETAILS.age') }{': '}
         <TransitionGroup component={null}>
            { (this.props.campaign.ages && this.state.agesList.length) && this.filterUnChecked('agesList', 'ages')
@@ -114,7 +114,7 @@ class Campaign extends Component {
           </TransitionGroup>
        </p>
       </Col>
-      <Col className=" mt-3 mb-3" md={{size: 4}}>
+      {/* <Col className=" mt-3 mb-3" md={{size: 4}}>
         <p className="mb-0 title-detail">
           {t('CAMPAIGN_DETAILS.income') }{': '}
           <TransitionGroup component={null}>
@@ -127,7 +127,7 @@ class Campaign extends Component {
               </CSSTransition>)}
             </TransitionGroup>
         </p>
-      </Col>
+      </Col> */}
       <Col className=" mt-3 mb-3 bg-dark" md={{size: 12}}>
         <p className="title-create mb-0">{ t('CAMPAIGN_DETAILS.budgetAndProgramming') }</p>
       </Col>

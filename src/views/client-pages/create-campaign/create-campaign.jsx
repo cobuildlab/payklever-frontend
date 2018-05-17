@@ -54,8 +54,8 @@ class CreateCampaign extends Component {
       agesList: campaignStore.getAges(),
       timeFrames: [],
       timeFramesList: campaignStore.getTimeFrames(),
-      estimatedIncomes: [],
-      estimatedIncomesList: campaignStore.getEstimatedIncomes(),
+      // estimatedIncomes: [],
+      // estimatedIncomesList: campaignStore.getEstimatedIncomes(),
       account: accountStore.getAccount(),
       budget: '',
       startDate: '',
@@ -76,7 +76,7 @@ class CreateCampaign extends Component {
           genreId: campaign.genreId || '',
           ages: campaign.ages || [],
           timeFrames: campaign.timeFrames || [],
-          estimatedIncomes: campaign.estimatedIncomes || [],
+          // estimatedIncomes: campaign.estimatedIncomes || [],
           budget: campaign.budget || '',
           startDate: campaign.startDate || '',
           endDate: campaign.endDate || '',
@@ -122,10 +122,10 @@ class CreateCampaign extends Component {
         this.setState({ agesList });
       });
 
-    this.getEstimatedIncomesSubscription = campaignStore
-      .subscribe('getEstimatedIncomes', (estimatedIncomesList) => {
-        this.setState({ estimatedIncomesList });
-      });
+    // this.getEstimatedIncomesSubscription = campaignStore
+    //   .subscribe('getEstimatedIncomes', (estimatedIncomesList) => {
+    //     this.setState({ estimatedIncomesList });
+    //   });
 
     this.getTimeframesSubscription = campaignStore
       .subscribe('getTimeFrames', (timeFramesList) => {
@@ -164,9 +164,9 @@ class CreateCampaign extends Component {
       CreateCampaignActions.getAges();
     }
 
-    if (Array.isArray(campaignState.getEstimatedIncomes) === false || campaignState.getEstimatedIncomes.length === 0) {
-      CreateCampaignActions.getEstimatedIncomes();
-    }
+    // if (Array.isArray(campaignState.getEstimatedIncomes) === false || campaignState.getEstimatedIncomes.length === 0) {
+    //   CreateCampaignActions.getEstimatedIncomes();
+    // }
 
     if (Array.isArray(campaignState.getTimeFrames) === false || campaignState.getTimeFrames.length === 0) {
       CreateCampaignActions.getTimeFrames();
@@ -180,7 +180,7 @@ class CreateCampaign extends Component {
     this.activateCampaignSubscription.unsubscribe();
     this.getGenresSubscription.unsubscribe();
     this.getAgesSubscription.unsubscribe();
-    this.getEstimatedIncomesSubscription.unsubscribe();
+    // this.getEstimatedIncomesSubscription.unsubscribe();
     this.getTimeframesSubscription.unsubscribe();
     this.campaignStoreError.unsubscribe();
     this.changeAccountSubscription.unsubscribe();
@@ -264,6 +264,7 @@ class CreateCampaign extends Component {
                 </Label>
             </FormGroup>)}
           </FormGroup>
+            <div className="divider-select mt-3 mb-3"></div>
             <h4 className="mt-3">
               { t('CREATE_CAMPAIGN.age') } {' '}
               {(this.state.agesList.length && (this.state.agesList.length === this.state.ages.length)) ?
@@ -288,7 +289,7 @@ class CreateCampaign extends Component {
                 </Label>
               </AvGroup>)
             })}
-            <div className="divider-select mt-3 mb-3"></div>
+            {/* <div className="divider-select mt-3 mb-3"></div>
             <h4>
               { t('CREATE_CAMPAIGN.income') }
               {(this.state.estimatedIncomesList.length && (this.state.estimatedIncomesList.length === this.state.estimatedIncomes.length)) ?
@@ -308,7 +309,7 @@ class CreateCampaign extends Component {
                   {`$${income.minValue}`} {' - '} {`$${income.maxValue}`}
                 </Label>
              </AvGroup>)
-            })}
+            })} */}
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
               <p className="title-create">{ t('CREATE_CAMPAIGN.budgetAndProgramming') }</p>
             </Col>
@@ -384,14 +385,14 @@ class CreateCampaign extends Component {
                  {age.minValue} {' - '} {age.maxValue}
                </Badge>)}</span>
             </p>
-            <p className="title-create-show">
+            {/* <p className="title-create-show">
               { t('CREATE_CAMPAIGN.income') } {': '}
               <span className="subtitle-create-show">{(this.state.estimatedIncomes.length > 0) &&
                 this.filterUnChecked('estimatedIncomesList', 'estimatedIncomes')
-               .map((income) => <Badge color="secondary" className="mb-2 mr-2" key={income.id}>
+                .map((income) => <Badge color="secondary" className="mb-2 mr-2" key={income.id}>
                  {`$${income.minValue}`} {' - '} {`$${income.maxValue}`}
                </Badge>)}</span>
-            </p>
+            </p> */}
             <p className="title-create-show">
               { t('CREATE_CAMPAIGN.budget') } {': '} <span className="subtitle-create-show">{this.state.budget}</span>
             </p>
@@ -561,7 +562,7 @@ class CreateCampaign extends Component {
       this.state.messageDescription || null,
       parseInt(this.state.genreId, 10) || null,
       JSON.stringify(this.state.ages.map(Number)),
-      JSON.stringify(this.state.estimatedIncomes.map(Number)),
+      // JSON.stringify(this.state.estimatedIncomes.map(Number)),
       parseFloat(this.state.budget) || null,
       this.state.startDate || null,
       this.state.endDate || null,
@@ -583,7 +584,7 @@ class CreateCampaign extends Component {
       this.state.messageDescription || null,
       parseInt(this.state.genreId, 10) || null,
       JSON.stringify(this.state.ages.map(Number)),
-      JSON.stringify(this.state.estimatedIncomes.map(Number)),
+      // JSON.stringify(this.state.estimatedIncomes.map(Number)),
       parseFloat(this.state.budget) || null,
       this.state.startDate || null,
       this.state.endDate || null,
@@ -620,7 +621,7 @@ class CreateCampaign extends Component {
       campaign.messageDescription || null,
       parseInt(campaign.genreId, 10) || null,
       JSON.stringify((campaign.ages || []).map(Number)),
-      JSON.stringify((campaign.estimatedIncomes || []).map(Number)),
+      // JSON.stringify((campaign.estimatedIncomes || []).map(Number)),
       parseFloat(campaign.budget) || null,
       campaign.startDate || null,
       campaign.endDate || null,
