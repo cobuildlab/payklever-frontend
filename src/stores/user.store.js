@@ -6,9 +6,15 @@ class UserStore extends Flux.DashStore {
 
     /**
      * Notifies when the user's list was loaded
-     * @param {Array}  users the payments list
+     * @param {Array}  users the users list
      */
     this.addEvent('getUsers');
+
+    /**
+     * Notifies when a user was loaded
+     * @param {object}  user
+     */
+    this.addEvent('getUser');
 
     /**
      * Error handler

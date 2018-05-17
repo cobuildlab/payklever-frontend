@@ -293,5 +293,6 @@ export default {
   CLIENT_DETAILS: {
     clientDetails: 'Detalles del Cliente',
     accounts: 'Cuentas',
+    loadingClient: 'Cargando Cliente',
   },
 }

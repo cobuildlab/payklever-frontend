@@ -6,11 +6,10 @@ import {
 } from "react-router-dom";
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { SubNav } from '../../components';
+import { SubNav, Loading } from '../../components';
 import {
   I18n
 } from 'react-i18next';
-// import { Clients, Campaigns, Messages } from '../';
 import {
   Container,
   Col,
@@ -22,8 +21,9 @@ import {
   Table,
 } from 'reactstrap';
 import { Avatar } from '../../../assets';
+import { userStore, accountStore } from '../../../stores';
+import * as ClientDetailsActions from './client-details.actions';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { RingLoader } from 'react-spinners';
 
 class ClientDetails extends Component {
   constructor(props) {
@@ -31,37 +31,69 @@ class ClientDetails extends Component {
 
     this.state = {
       loading: false,
-      client: {
-        firstName: 'Jose Agustin',
-        lastName: 'Villalobos Vargas',
-        email: 'jose@example.com'
-      },
-      accounts: [{
-        name: 'Account2',
-        location: 'location of the account1',
-        id: '1',
-      },{
-        name: 'Account2',
-        location: 'location of the account2',
-        id: '2',
-      }],
+      loadingI18n: '',
+      userId: props.match.params.userId || '',
+      user: {},
+      accounts: [],
     };
+  }
+
+  componentDidMount() {
+    this.getUserSubscription = userStore
+      .subscribe('getUser', (user) => {
+        this.setState({ user });
+        this.isLoading(false);
+      });
+
+    this.getAccountsSubscription = accountStore
+      .subscribe('getAccounts', (accounts) => {
+        this.setState({ accounts });
+      });
+
+    this.userStoreError = userStore
+      .subscribe('UserStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+
+    this.accountStoreError = accountStore
+      .subscribe('AccountStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+
+    setTimeout(() => {
+      this.isLoading(true, 'CLIENT_DETAILS.loadingClient');
+      ClientDetailsActions.getUser(this.state.userId);
+      // TODO: getAccounts
+    });
+  }
+
+  componentWillUnmount() {
+    this.getUserSubscription.unsubscribe();
+    this.getAccountsSubscription.unsubscribe();
+    this.userStoreError.unsubscribe();
+    this.accountStoreError.unsubscribe();
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
       <SubNav backRoute="/admin/campaign-manager/clients" subNavTitle={t('CLIENT_DETAILS.clientDetails')}></SubNav>
 
+      <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
+
       <Container>
         <Media className="mt-5">
-          <Media left href="#">
-            <Media className="App-img-media-item" style={{ backgroundImage: `url(${ Avatar })`}}/>
+          <Media left>
+            <Media className="App-img-media-item" style={{ backgroundImage: `url(${ this.state.user.profileUrl || Avatar })`}}/>
           </Media>
           <Media body>
             <Media heading>
-              {this.state.client.firstName} {' '} {this.state.client.lastName}
+              {this.state.user.firstName} {' '} {this.state.user.lastName}
             </Media>
-            {this.state.client.email}
+            {this.state.user.email}
           </Media>
         </Media>
 
@@ -98,8 +130,11 @@ class ClientDetails extends Component {
     </div>)}</I18n>);
   }
 
-  isLoading = (isLoading) => {
-    this.setState({ loading: isLoading });
+  isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {
+    this.setState({
+      loadingI18n,
+      loading: isLoading
+    });
   }
 }
 export default ClientDetails;
