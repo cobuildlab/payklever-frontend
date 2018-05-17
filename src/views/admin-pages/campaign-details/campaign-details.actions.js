@@ -11,8 +11,8 @@ const getCampaign = (campaignId) => {
     });
 }
 
-const approveCampaign = (campaignId) => {
-  putData(`/campaign/${campaignId}/approve/`)
+const approveCampaign = (campaignId, msg) => {
+  putData(`/campaign/${campaignId}/approve/`, { msg })
     .then((data) => {
       Flux.dispatchEvent('approveCampaign', data);
     })
@@ -21,8 +21,8 @@ const approveCampaign = (campaignId) => {
     });
 }
 
-const rejectCampaign = (campaignId) => {
-  putData(`/campaign/${campaignId}/reject/`)
+const rejectCampaign = (campaignId, msg) => {
+  putData(`/campaign/${campaignId}/reject/`, { msg })
     .then((data) => {
       Flux.dispatchEvent('rejectCampaign', data);
     })
@@ -31,8 +31,8 @@ const rejectCampaign = (campaignId) => {
     });
 }
 
-const suspendCampaign = (campaignId) => {
-  putData(`/campaign/${campaignId}/suspend/`)
+const suspendCampaign = (campaignId, msg) => {
+  putData(`/campaign/${campaignId}/suspend/`, { msg })
     .then((data) => {
       Flux.dispatchEvent('suspendCampaign', data);
     })

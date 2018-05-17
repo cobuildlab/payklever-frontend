@@ -2,6 +2,7 @@ export default {
   APP: {
     youHaveLoggedOut: 'Has cerrado la sesión',
     invalidForm: 'Formulario inválido',
+    optionalMsg: 'Mensaje Opcional',
     accept: 'Aceptar',
     cancel: 'Cancelar',
   },
