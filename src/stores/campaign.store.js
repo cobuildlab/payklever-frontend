@@ -55,6 +55,11 @@ class CampaignStore extends Flux.DashStore {
     this.addEvent('pauseCampaign');
 
     /**
+     * Notifies when a campaign was duplicated
+     */
+    this.addEvent('duplicateCampaign');
+
+    /**
      * Genres list
      * @param {Array} genres the genres list
      */

@@ -28,6 +28,7 @@ class CampaignDetails extends Component {
       loadingI18n: '',
       campaignId: props.match.params.campaignId || '',
       campaign: {},
+      duplicateCampaignIsOpen: false,
       activateCampaignIsOpen: false,
       pauseCampaignIsOpen: false,
     };
@@ -56,6 +57,14 @@ class CampaignDetails extends Component {
         this.props.history.push(`/client/campaigns`);
       });
 
+    this.duplicateCampaignSubscription = campaignStore
+      .subscribe('duplicateCampaign', (campaign) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('CAMPAIGN_DETAILS.campaignDuplicated'));
+        this.props.history.push(`/client/create-campaign/${campaign.id}`);
+      });
+
     this.campaignStoreError = campaignStore
       .subscribe('CampaignStoreError', (err) => {
         this.isLoading(false);
@@ -73,14 +82,21 @@ class CampaignDetails extends Component {
     this.getCampaignSubscription.unsubscribe();
     this.activateCampaignSubscription.unsubscribe();
     this.pauseCampaignSubscription.unsubscribe();
+    this.duplicateCampaignSubscription.unsubscribe();
     this.campaignStoreError.unsubscribe();
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <SubNav backRoute="/client/campaigns" subNavTitle={this.state.campaign.name || ' '}></SubNav>
+      <SubNav backRoute="/client/campaigns" subNavTitle={this.state.campaign.name || ' '}
+      navItemHidden={(this.state.campaign.adminStatus === 'wa' || this.state.campaign.adminStatus === 'ap' || this.state.campaign.adminStatus === 'su')}
+      navItemTitle={t('CAMPAIGN_DETAILS.editCampaign')} navItemFunc={this.goToEditCampaign}
+      navItem2Title={t('CAMPAIGN_DETAILS.duplicateCampaign')} navItem2Func={this.duplicateCampaign}></SubNav>
 
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
+
+      <ModalConfirm isOpen={this.state.duplicateCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.duplicateHeader')} modalBody={t('CAMPAIGN_DETAILS.duplicateBody', { campaignName: this.state.campaign.name || ' ' } )}
+      acceptI18n="CAMPAIGN_DETAILS.duplicateCampaign" confirm={this.duplicateCampaign} />
 
       <ModalConfirm isOpen={this.state.activateCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.activateHeader')} modalBody={t('CAMPAIGN_DETAILS.activateBody', { campaignName: this.state.campaign.name || ' ' } )}
       acceptI18n="CAMPAIGN_DETAILS.activateCampaign" confirm={this.activateCampaign} />
@@ -135,6 +151,28 @@ class CampaignDetails extends Component {
       this.isLoading(true, 'CAMPAIGN_DETAILS.pausingCampaign');
       CampaignDetailsActions.pauseCampaign(this.state.campaign.id);
     }
+  }
+
+  /**
+   * toggles the duplicateCampaign modal and duplicate the campaign if you pass confirm = true
+   * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
+   * component only to duplicate the campaign
+   */
+  duplicateCampaign = (confirm = false) => {
+
+    this.setState({
+      duplicateCampaignIsOpen: !this.state.duplicateCampaignIsOpen,
+    });
+
+    if (confirm === true) {
+      this.isLoading(true, 'CAMPAIGN_DETAILS.duplicatingCampaign');
+      CampaignDetailsActions.duplicateCampaign(this.state.campaign.id);
+    }
+  }
+
+  goToEditCampaign = () => {
+    this.props.history
+      .push(`/client/create-campaign/${this.state.campaign.id}`);
   }
 
   isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {

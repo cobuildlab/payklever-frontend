@@ -282,6 +282,12 @@ export default {
     campaignSuspended: 'The Campaign was succesfully suspended',
     campaignPaused: 'The Campaign was succesfully paused',
     loadingCampaign: 'Loading Campaign',
+    editCampaign: 'Edit Campaign',
+    duplicateCampaign: 'Duplicate Campaign',
+    duplicateHeader: 'Duplicate Campaign?',
+    duplicateBody: 'Are you sure you want to duplicate the Campaign: {{campaignName}}?',
+    campaignDuplicated: 'The Campaign was succesfully duplicated',
+    duplicatingCampaign: 'Duplicating Campaign',
   },
   CLIENT_DETAILS: {
     clientDetails: 'Client details',

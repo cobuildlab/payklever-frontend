@@ -21,4 +21,14 @@ const pauseCampaign = (campaignId) => {
     });
 }
 
-export { getCampaign, pauseCampaign };
+const duplicateCampaign = (campaignId) => {
+  putData(`/campaign/${campaignId}/duplicate/`)
+    .then((campaign) => {
+      Flux.dispatchEvent('duplicateCampaign', campaign);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+export { getCampaign, pauseCampaign, duplicateCampaign };
