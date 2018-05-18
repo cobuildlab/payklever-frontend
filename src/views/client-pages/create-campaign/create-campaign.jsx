@@ -43,7 +43,7 @@ class CreateCampaign extends Component {
     this.state = {
       loading: false,
       loadingI18n: '',
-      canActivateCamapaign: false,
+      canRequestApproval: false,
       campaignId: props.match.params.campaignId || '',
       name: '',
       messageTitle: '',
@@ -83,7 +83,7 @@ class CreateCampaign extends Component {
         });
 
         this.isLoading(false);
-        this.canActivateCamapaign(campaign);
+        this.canRequestApproval(campaign);
       });
 
     this.createCampaignSubscription = campaignStore
@@ -93,7 +93,7 @@ class CreateCampaign extends Component {
         toast.success(i18next.t('CREATE_CAMPAIGN.campaignSaved'));
         this.setState({ campaignId: campaign.id });
         this.props.history.push(`/client/create-campaign/${campaign.id}`);
-        this.canActivateCamapaign(campaign);
+        this.canRequestApproval(campaign);
       });
 
     this.updateCampaignSubscription = campaignStore
@@ -101,11 +101,11 @@ class CreateCampaign extends Component {
         this.isLoading(false);
         toast.dismiss();
         toast.success(i18next.t('CREATE_CAMPAIGN.campaignSaved'));
-        this.canActivateCamapaign(campaign);
+        this.canRequestApproval(campaign);
       });
 
-    this.activateCampaignSubscription = campaignStore
-      .subscribe('activateCampaign', (campaign) => {
+    this.requestApprovalSubscription = campaignStore
+      .subscribe('requestApproval', (campaign) => {
         this.isLoading(false);
         toast.dismiss();
         toast.success(i18next.t('CREATE_CAMPAIGN.campaignActivated'));
@@ -177,7 +177,7 @@ class CreateCampaign extends Component {
     this.getCampaignSubscription.unsubscribe();
     this.createCampaignSubscription.unsubscribe();
     this.updateCampaignSubscription.unsubscribe();
-    this.activateCampaignSubscription.unsubscribe();
+    this.requestApprovalSubscription.unsubscribe();
     this.getGenresSubscription.unsubscribe();
     this.getAgesSubscription.unsubscribe();
     // this.getEstimatedIncomesSubscription.unsubscribe();
@@ -195,11 +195,11 @@ class CreateCampaign extends Component {
 
       <Container className="mt-4">
 
-        <CSSTransition in={ this.state.canActivateCamapaign } timeout={500} classNames="fade-in" unmountOnExit>
+        <CSSTransition in={ this.state.canRequestApproval } timeout={500} classNames="fade-in" unmountOnExit>
           <Alert className="text-center" color="success">
-            { t('CREATE_CAMPAIGN.canActivateCamapaign') }
-            <Button className="d-block mx-auto mt-4" color="success" type="button">
-                { t('CREATE_CAMPAIGN.activateCampaign') }
+            { t('CREATE_CAMPAIGN.canRequestApproval') }
+            <Button onClick={this.requestApproval} className="d-block mx-auto mt-4" color="success" type="button">
+                { t('CREATE_CAMPAIGN.requestApproval') }
             </Button>
           </Alert>
         </CSSTransition>
@@ -422,11 +422,11 @@ class CreateCampaign extends Component {
             </Button>
           </AvGroup>
 
-          <CSSTransition in={ this.state.canActivateCamapaign } timeout={500} classNames="fade-in" unmountOnExit>
+          <CSSTransition in={ this.state.canRequestApproval } timeout={500} classNames="fade-in" unmountOnExit>
             <Alert className="text-center" color="success">
-              { t('CREATE_CAMPAIGN.canActivateCamapaign') }
-              <Button onClick={this.activateCampaign} className="d-block mx-auto mt-4" color="success" type="button">
-                  { t('CREATE_CAMPAIGN.activateCampaign') }
+              { t('CREATE_CAMPAIGN.canRequestApproval') }
+              <Button onClick={this.requestApproval} className="d-block mx-auto mt-4" color="success" type="button">
+                  { t('CREATE_CAMPAIGN.requestApproval') }
               </Button>
             </Alert>
           </CSSTransition>
@@ -595,7 +595,7 @@ class CreateCampaign extends Component {
     CreateCampaignActions.updateCampaign(createCampaignForm, campaignId);
   }
 
-  canActivateCamapaign = (campaign) => {
+  canRequestApproval = (campaign) => {
     if (campaign.adminStatus !== 're' && campaign.adminStatus !== 'na') {
       toast.dismiss();
       toast.error(i18next.t('CREATE_CAMPAIGN.cannotEdit'));
@@ -611,7 +611,7 @@ class CreateCampaign extends Component {
       accountId = parseInt(campaign.Account.id, 10);
       paymediaId = parseInt(campaign.Account.Pay_medium.id, 10);
     } catch (err) {
-      this.setState({ canActivateCamapaign: false });
+      this.setState({ canRequestApproval: false });
       return;
     }
 
@@ -632,18 +632,18 @@ class CreateCampaign extends Component {
     try {
       activateCampaignValidator(createCampaignForm, paymediaId, campaignId);
 
-      this.setState({ canActivateCamapaign: true });
+      this.setState({ canRequestApproval: true });
     } catch (err) {
-      this.setState({ canActivateCamapaign: false });
+      this.setState({ canRequestApproval: false });
     }
   }
 
-  activateCampaign = () => {
-    this.isLoading(true, 'CREATE_CAMPAIGN.activatingCampaign');
+  requestApproval = () => {
+    this.isLoading(true, 'CREATE_CAMPAIGN.requestingApproval');
 
     const campaignId = parseInt(this.state.campaignId, 10);
 
-    CreateCampaignActions.activateCampaign(campaignId);
+    CreateCampaignActions.requestApproval(campaignId);
   }
 
   isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {

@@ -11,6 +11,16 @@ const getCampaign = (campaignId) => {
     });
 }
 
+const resumeCampaign = (campaignId) => {
+  putData(`/campaign/${campaignId}/resume/`)
+    .then((campaign) => {
+      Flux.dispatchEvent('resumeCampaign', campaign);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
 const pauseCampaign = (campaignId) => {
   putData(`/campaign/${campaignId}/pause/`)
     .then((campaign) => {
@@ -31,4 +41,4 @@ const duplicateCampaign = (campaignId) => {
     });
 }
 
-export { getCampaign, pauseCampaign, duplicateCampaign };
+export { getCampaign, resumeCampaign, pauseCampaign, duplicateCampaign };

@@ -16,7 +16,6 @@ import {
   Button,
 } from 'reactstrap';
 import { campaignStore } from '../../../stores';
-import * as CreateCampaignActions from '../create-campaign/create-campaign.actions';
 import * as CampaignDetailsActions from './campaign-details.actions';
 
 class CampaignDetails extends Component {
@@ -29,7 +28,7 @@ class CampaignDetails extends Component {
       campaignId: props.match.params.campaignId || '',
       campaign: {},
       duplicateCampaignIsOpen: false,
-      activateCampaignIsOpen: false,
+      resumeCampaignIsOpen: false,
       pauseCampaignIsOpen: false,
     };
   }
@@ -41,11 +40,11 @@ class CampaignDetails extends Component {
         this.isLoading(false);
       });
 
-    this.activateCampaignSubscription = campaignStore
-      .subscribe('activateCampaign', (campaign) => {
+    this.resumeCampaignSubscription = campaignStore
+      .subscribe('resumeCampaign', (campaign) => {
         this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('CREATE_CAMPAIGN.campaignActivated'));
+        toast.success(i18next.t('CREATE_CAMPAIGN.campaignResumed'));
         this.props.history.push(`/client/campaigns`);
       });
 
@@ -80,7 +79,7 @@ class CampaignDetails extends Component {
 
   componentWillUnmount() {
     this.getCampaignSubscription.unsubscribe();
-    this.activateCampaignSubscription.unsubscribe();
+    this.resumeCampaignSubscription.unsubscribe();
     this.pauseCampaignSubscription.unsubscribe();
     this.duplicateCampaignSubscription.unsubscribe();
     this.campaignStoreError.unsubscribe();
@@ -98,8 +97,8 @@ class CampaignDetails extends Component {
       <ModalConfirm isOpen={this.state.duplicateCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.duplicateHeader')} modalBody={t('CAMPAIGN_DETAILS.duplicateBody', { campaignName: this.state.campaign.name || ' ' } )}
       acceptI18n="CAMPAIGN_DETAILS.duplicateCampaign" confirm={this.duplicateCampaign} />
 
-      <ModalConfirm isOpen={this.state.activateCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.activateHeader')} modalBody={t('CAMPAIGN_DETAILS.activateBody', { campaignName: this.state.campaign.name || ' ' } )}
-      acceptI18n="CAMPAIGN_DETAILS.activateCampaign" confirm={this.activateCampaign} />
+      <ModalConfirm isOpen={this.state.resumeCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.resumeHeader')} modalBody={t('CAMPAIGN_DETAILS.resumeBody', { campaignName: this.state.campaign.name || ' ' } )}
+      acceptI18n="CAMPAIGN_DETAILS.resumeCampaign" confirm={this.resumeCampaign} />
 
       <ModalConfirm isOpen={this.state.pauseCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.pauseHeader')} modalBody={t('CAMPAIGN_DETAILS.pauseBody', { campaignName: this.state.campaign.name || ' ' })}
       acceptI18n="CAMPAIGN_DETAILS.pauseCampaign" confirm={this.pauseCampaign} />
@@ -108,9 +107,9 @@ class CampaignDetails extends Component {
 
       <Campaign campaign={this.state.campaign}></Campaign>
 
-      {((this.state.campaign.adminStatus === 'na' || this.state.campaign.adminStatus === 're' || this.state.campaign.adminStatus === 'ap') && this.state.campaign.status === 'ia') ?
-        <Button onClick={() => {this.activateCampaign(false)}} className="mx-auto d-block mt-5 mb-5" color="success" type="button">
-          { t('CAMPAIGN_DETAILS.activateCampaign') }
+      {(this.state.campaign.adminStatus === 'ap' && this.state.campaign.status === 'ia') ?
+        <Button onClick={() => {this.resumeCampaign(false)}} className="mx-auto d-block mt-5 mb-5" color="success" type="button">
+          { t('CAMPAIGN_DETAILS.resumeCampaign') }
         </Button>
       : null }
 
@@ -125,16 +124,16 @@ class CampaignDetails extends Component {
   }
 
   /**
-   * toggles the activateCampaign modal and activate the campaign if you pass confirm = true
+   * toggles the resumeCampaign modal and resume the campaign if you pass confirm = true
    * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
-   * component only to activate the campaign
+   * component only to resume the campaign
    */
-  activateCampaign = (confirm = false, campaign = undefined) => {
-    this.setState({ activateCampaignIsOpen: !this.state.activateCampaignIsOpen });
+  resumeCampaign = (confirm = false, campaign = undefined) => {
+    this.setState({ resumeCampaignIsOpen: !this.state.resumeCampaignIsOpen });
 
     if (confirm === true) {
-      this.isLoading(true, 'CAMPAIGN_DETAILS.activatingCampaign');
-      CreateCampaignActions.activateCampaign(this.state.campaign.id);
+      this.isLoading(true, 'CAMPAIGN_DETAILS.resumingCampaign');
+      CampaignDetailsActions.resumeCampaign(this.state.campaign.id);
     }
   }
 

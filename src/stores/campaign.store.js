@@ -29,10 +29,9 @@ class CampaignStore extends Flux.DashStore {
     this.addEvent('updateCampaign');
 
     /**
-     * Notifies when a campaign was activated
-     * @param {object} campaign the activated campaign
+     * Notifies after requestApproval call
      */
-    this.addEvent('activateCampaign');
+    this.addEvent('requestApproval');
 
     /**
      * Notifies when a campaign was approved
@@ -48,6 +47,11 @@ class CampaignStore extends Flux.DashStore {
      * Notifies when a campaign was suspended
      */
     this.addEvent('suspendCampaign');
+
+    /**
+     * Notifies when a campaign was resumed
+     */
+    this.addEvent('resumeCampaign');
 
     /**
      * Notifies when a campaign was paused

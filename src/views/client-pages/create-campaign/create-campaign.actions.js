@@ -35,8 +35,8 @@ const updateCampaign = (createCampaignForm: CreateCampaignForm, campaignId) => {
   }
 }
 
-const activateCampaign = (campaignId) => {
-  putData(`/campaign/${campaignId}/activate/`, {}, true)
+const requestApproval = (campaignId) => {
+  putData(`/campaign/${campaignId}/request-approval/`, {}, true)
     .then((res) => {
       Flux.dispatchEvent('activateCampaign', res);
     })
@@ -103,5 +103,5 @@ export {
   getEstimatedIncomes,
   getTimeFrames,
   updateCampaign,
-  activateCampaign,
+  requestApproval,
 };

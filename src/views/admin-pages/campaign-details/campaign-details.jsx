@@ -33,7 +33,6 @@ class CampaignDetails extends Component {
       loadingI18n: '',
       campaignId: props.match.params.campaignId || '',
       campaign: {},
-      activateCampaignIsOpen: false,
       suspendCampaignIsOpen: false,
       approveCampaignIsOpen: false,
       rejectCampaignIsOpen: false,
@@ -51,7 +50,7 @@ class CampaignDetails extends Component {
       .subscribe('approveCampaign', (data) => {
         this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('CLIENT_CAMPAIGNS.campaignApproved'));
+        toast.success(i18next.t('CAMPAIGN_DETAILS.campaignApproved'));
         this.props.history.push('/admin/campaign-manager/client-campaigns');
       });
 
@@ -59,7 +58,7 @@ class CampaignDetails extends Component {
       .subscribe('rejectCampaign', (data) => {
         this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('CLIENT_CAMPAIGNS.campaignRejected'));
+        toast.success(i18next.t('CAMPAIGN_DETAILS.campaignRejected'));
         this.props.history.push('/admin/campaign-manager/client-campaigns');
       });
 
@@ -67,7 +66,7 @@ class CampaignDetails extends Component {
       .subscribe('suspendCampaign', (data) => {
         this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('CLIENT_CAMPAIGNS.campaignSuspended'));
+        toast.success(i18next.t('CAMPAIGN_DETAILS.campaignSuspended'));
         this.props.history.push('/admin/campaign-manager/client-campaigns');
       });
 
@@ -98,15 +97,11 @@ class CampaignDetails extends Component {
 
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
-      <ModalConfirm isOpen={this.state.activateCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.activateHeader')} modalBody={t('CAMPAIGN_DETAILS.activateBody', { campaignName: this.state.campaign.name || ' ' } )}
-      acceptI18n="CAMPAIGN_DETAILS.activateCampaign"
-      inputLabel={t('APP.optionalMsg')} confirm={this.activateCampaign} />
+      <ModalConfirm isOpen={this.state.approveCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.approveHeader')} modalBody={t('CAMPAIGN_DETAILS.approveBody', { campaignName: this.state.campaign.name || ' ' } )} inputLabel={t('APP.optionalMsg')}
+      acceptI18n="CAMPAIGN_DETAILS.approveCampaign" confirm={this.approveCampaign} />
 
-      <ModalConfirm isOpen={this.state.approveCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.approveHeader')} modalBody={t('CLIENT_CAMPAIGNS.approveBody', { campaignName: this.state.campaign.name || ' ' } )} inputLabel={t('APP.optionalMsg')}
-      acceptI18n="CLIENT_CAMPAIGNS.approve" confirm={this.approveCampaign} />
-
-      <ModalConfirm isOpen={this.state.rejectCampaignIsOpen} modalHeader={t('CLIENT_CAMPAIGNS.rejectHeader')} modalBody={t('CLIENT_CAMPAIGNS.rejectBody', { campaignName: this.state.campaign.name || ' ' })} inputLabel={t('APP.optionalMsg')}
-      acceptI18n="CLIENT_CAMPAIGNS.reject" confirm={this.rejectCampaign} />
+      <ModalConfirm isOpen={this.state.rejectCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.rejectHeader')} modalBody={t('CAMPAIGN_DETAILS.rejectBody', { campaignName: this.state.campaign.name || ' ' })} inputLabel={t('APP.optionalMsg')}
+      acceptI18n="CAMPAIGN_DETAILS.rejectCampaign" confirm={this.rejectCampaign} />
 
       <ModalConfirm isOpen={this.state.suspendCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.suspendHeader')} modalBody={t('CAMPAIGN_DETAILS.suspendBody', { campaignName: this.state.campaign.name || ' ' })} inputLabel={t('APP.optionalMsg')}
       acceptI18n="CAMPAIGN_DETAILS.suspendCampaign" confirm={this.suspendCampaign} />
@@ -120,16 +115,9 @@ class CampaignDetails extends Component {
           <Button onClick={() => this.rejectCampaign(false)} className="mr-2" color="danger" type="button">
             { t('CAMPAIGN_DETAILS.rejectCampaign') }
           </Button>
-          {(this.state.campaign.adminStatus === 'wa') ?
-            <Button onClick={() => this.approveCampaign(false)} className="" color="success" type="button">
+          <Button onClick={() => this.approveCampaign(false)} className="" color="success" type="button">
               { t('CAMPAIGN_DETAILS.approveCampaign') }
-            </Button>
-          : null}
-          {(this.state.campaign.adminStatus === 'su') ?
-            <Button onClick={() => this.activateCampaign(false)} className="mx-auto d-block mt-5 mb-5" color="success" type="button">
-              { t('CAMPAIGN_DETAILS.activateCampaign') }
-            </Button>
-          : null }
+          </Button>
         </Col>
       : null }
 
@@ -144,20 +132,6 @@ class CampaignDetails extends Component {
   }
 
   /**
-   * toggles the activateCampaign modal and activate the campaign if you pass confirm = true
-   * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
-   * component only to activate the campaign
-   */
-  activateCampaign = (confirm = false, msg) => {
-    this.setState({ activateCampaignIsOpen: !this.state.activateCampaignIsOpen });
-
-    if (confirm === true) {
-      this.isLoading(true, 'CAMPAIGN_DETAILS.activatingCampaign');
-      CampaignDetailsActions.approveCampaign(this.state.campaign.id, msg);
-    }
-  }
-
-  /**
    * toggles the approveCampaign modal and approve the campaign if you pass confirm = true
    * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
    * component only to approve the campaign
@@ -166,7 +140,7 @@ class CampaignDetails extends Component {
     this.setState({ approveCampaignIsOpen: !this.state.approveCampaignIsOpen });
 
     if (confirm === true) {
-      this.isLoading(true, 'CLIENT_CAMPAIGNS.approvingCampaign');
+      this.isLoading(true, 'CAMPAIGN_DETAILS.approvingCampaign');
       CampaignDetailsActions.approveCampaign(this.state.campaign.id, msg);
     }
   }
@@ -181,7 +155,7 @@ class CampaignDetails extends Component {
     this.setState({ rejectCampaignIsOpen: !this.state.rejectCampaignIsOpen });
 
     if (confirm === true) {
-      this.isLoading(true, 'CLIENT_CAMPAIGNS.rejectingCampaign');
+      this.isLoading(true, 'CAMPAIGN_DETAILS.rejectingCampaign');
       CampaignDetailsActions.rejectCampaign(this.state.campaign.id, msg);
     }
   }
@@ -196,7 +170,7 @@ class CampaignDetails extends Component {
     this.setState({ suspendCampaignIsOpen: !this.state.suspendCampaignIsOpen });
 
     if (confirm === true) {
-      this.isLoading(true, 'CLIENT_CAMPAIGNS.suspendingCampaign');
+      this.isLoading(true, 'CAMPAIGN_DETAILS.suspendingCampaign');
       CampaignDetailsActions.suspendCampaign(this.state.campaign.id, msg);
     }
   }
