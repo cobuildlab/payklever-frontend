@@ -52,6 +52,13 @@ export default {
     signingUp: 'Signing Up',
     emailInUse: 'The Email is being used by another user',
   },
+  EDIT_PROFILE: {
+    profileUpdated: 'Profile succesfully updated!',
+    editProfile: 'Edit Profile',
+    updatingProfile: 'Updating Profile',
+    invalidUserId: 'Invalid UserId',
+    cancel: 'Cancel',
+  },
   PROFILE: {
     profile: 'Profile',
     editProfile: 'Edit Profile',
@@ -101,6 +108,7 @@ export default {
     createPayment: 'Create Payment Method',
     noPayment: 'You must have at least one Payment Method before you can create an Account',
     cancel: 'Cancel',
+    invalidAccountId: 'Invalid AccountId',
   },
   PAYMENT_METHODS: {
     createPayment: 'Create Payment Method',

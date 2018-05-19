@@ -52,6 +52,13 @@ export default {
     signingUp: 'Registrando Usuario',
     emailInUse: 'El Correo esta siendo usado por otro usuario',
   },
+  EDIT_PROFILE: {
+    profileUpdated: 'Perfil actualizado satisfactoriamente!',
+    editProfile: 'Editar Perfil',
+    updatingProfile: 'Actualizando Perfil',
+    invalidUserId: 'Usuario inválido',
+    cancel: 'Cancelar',
+  },
   PROFILE: {
     profile: 'Perfil',
     editProfile: 'Editar Perfil',
@@ -101,6 +108,7 @@ export default {
     createPayment: 'Crear Método de Pago',
     noPayment: 'Debes tener al menos un Método de Pago antes de poder crear una Cuenta',
     cancel: 'Cancelar',
+    invalidAccountId: 'Cuenta inválida',
   },
   PAYMENT_METHODS: {
     createPayment: 'Crear Método de Pago',

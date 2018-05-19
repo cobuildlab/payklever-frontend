@@ -26,6 +26,12 @@ class AuthStore extends Flux.DashStore {
     this.addEvent('signup');
 
     /**
+     * Notifies when a user updated his profile
+     * @param {object}  user the updated user
+     */
+    this.addEvent('editProfile');
+
+    /**
      * Error handler
      * @param {Error} err the error from the action
      */

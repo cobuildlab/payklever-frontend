@@ -43,7 +43,8 @@ class Profile extends Component {
     return (<I18n>{(t, { i18n }) => (
       <div>
         {/* link="/client/edit-profile" linkI18n="PROFILE.editProfile" */}
-        <SubNav backRoute="/client/campaigns" subNavTitle={t('PROFILE.profile')}></SubNav>
+        <SubNav backRoute="/client/campaigns" subNavTitle={t('PROFILE.profile')}
+        navItemTitle={t('PROFILE.editProfile')} navItemFunc={this.goToEditProfile}></SubNav>
 
        <Container className="mt-4">
          <Row>
@@ -85,6 +86,10 @@ class Profile extends Component {
        </Container>
       </div>
     )}</I18n>);
+  }
+
+  goToEditProfile = () => {
+    this.props.history.push(`/client/edit-profile`);
   }
 
   toggle() {
