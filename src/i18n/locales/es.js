@@ -161,6 +161,7 @@ export default {
     emptyBudget: 'Presupuesto requerido',
     invalidBudget: 'Presupuesto inválido',
     createCampaign: 'Crear Campaña',
+    editCampaign: 'Editar Campaña',
     name: 'Nombre de la Campaña',
     emptyName: `Nombre de la Campaña requerido`,
     emptyMessageTitle: `Título del mensaje requerido`,

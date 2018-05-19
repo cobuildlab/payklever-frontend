@@ -191,7 +191,7 @@ class CreateCampaign extends Component {
 
     <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
-      <SubNav backRoute="/client/campaigns" subNavTitle={t('CREATE_CAMPAIGN.createCampaign')}></SubNav>
+      <SubNav backRoute="/client/campaigns" subNavTitle={this.props.match.params.campaignId ? t('CREATE_CAMPAIGN.editCampaign') : t('CREATE_CAMPAIGN.createCampaign')}></SubNav>
 
       <Container className="mt-4">
 
