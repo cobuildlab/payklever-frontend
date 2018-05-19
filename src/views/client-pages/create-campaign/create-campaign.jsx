@@ -266,16 +266,9 @@ class CreateCampaign extends Component {
           </FormGroup>
             <div className="divider-select mt-3 mb-3"></div>
             <h4 className="mt-3">
-              { t('CREATE_CAMPAIGN.age') } {' '}
-              {(this.state.agesList.length && (this.state.agesList.length === this.state.ages.length)) ?
-              <Button size="sm" color="link" onClick={() => {this.unSelectAll('ages')}}>
-                { t('CREATE_CAMPAIGN.unSelectAll')}
-              </Button> :
-              <Button size="sm" color="link" onClick={() => {this.selectAll('agesList', 'ages')}}>
-                  { t('CREATE_CAMPAIGN.selectAll')}
-              </Button> }
+              { t('CREATE_CAMPAIGN.age') }
             </h4>
-            {this.state.agesList.map((age) => {
+            {this.state.agesList.map((age, index) => {
               const isChecked = this.isChecked(age.id, 'ages');
 
               return (<AvGroup key={age.id} inline check>
@@ -287,18 +280,24 @@ class CreateCampaign extends Component {
                     : null}
                   {age.maxValue}
                 </Label>
+                {(index === this.state.agesList.length - 1) ?
+                  <span>
+                  {(this.state.agesList.length && (this.state.agesList.length === this.state.ages.length)) ?
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={true} name="age" type="checkbox" onChange={() => {this.unSelectAll('ages')}} />
+                      { t('CREATE_CAMPAIGN.unSelectAll')}
+                    </Label> :
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={false} name="age" type="checkbox" onChange={() => {this.selectAll('agesList', 'ages')}} />
+                      { t('CREATE_CAMPAIGN.selectAll')}
+                    </Label> }
+                  </span>
+                : null }
               </AvGroup>)
             })}
             {/* <div className="divider-select mt-3 mb-3"></div>
             <h4>
               { t('CREATE_CAMPAIGN.income') }
-              {(this.state.estimatedIncomesList.length && (this.state.estimatedIncomesList.length === this.state.estimatedIncomes.length)) ?
-              <Button size="sm" color="link" onClick={() => {this.unSelectAll('estimatedIncomes')}}>
-                { t('CREATE_CAMPAIGN.unSelectAll')}
-              </Button> :
-              <Button size="sm" color="link" onClick={() => {this.selectAll('estimatedIncomesList', 'estimatedIncomes')}}>
-                  { t('CREATE_CAMPAIGN.selectAll')}
-              </Button> }
             </h4>
             {this.state.estimatedIncomesList.map((income) => {
               const isChecked = this.isChecked(income.id, 'estimatedIncomes');
@@ -308,6 +307,19 @@ class CreateCampaign extends Component {
                   <AvInput checked={isChecked} name="income" type="checkbox" onChange={(evt) => this.onCheckBoxChange(income.id, 'estimatedIncomes', evt)} />
                   {`$${income.minValue}`} {' - '} {`$${income.maxValue}`}
                 </Label>
+                {(index === this.state.estimatedIncomesList.length - 1) ?
+                  <span>
+                  {(this.state.estimatedIncomesList.length && (this.state.estimatedIncomesList.length === this.state.estimatedIncomes.length)) ?
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={true} name="income" type="checkbox" onChange={() => {this.unSelectAll('estimatedIncomes')}} />
+                      { t('CREATE_CAMPAIGN.unSelectAll')}
+                    </Label> :
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={false} name="income" type="checkbox" onChange={() => {this.selectAll('estimatedIncomesList', 'estimatedIncomes')}} />
+                      { t('CREATE_CAMPAIGN.selectAll')}
+                    </Label> }
+                  </span>
+                : null }
              </AvGroup>)
             })} */}
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
@@ -340,15 +352,8 @@ class CreateCampaign extends Component {
             <div className="divider-select mt-3 mb-3"></div>
             <h4>
               { t('CREATE_CAMPAIGN.hourHand') }
-              {(this.state.timeFramesList.length && (this.state.timeFramesList.length === this.state.timeFrames.length)) ?
-              <Button size="sm" color="link" onClick={() => {this.unSelectAll('timeFrames')}}>
-                { t('CREATE_CAMPAIGN.unSelectAll')}
-              </Button> :
-              <Button size="sm" color="link" onClick={() => {this.selectAll('timeFramesList', 'timeFrames')}}>
-                  { t('CREATE_CAMPAIGN.selectAll')}
-              </Button> }
             </h4>
-            {this.state.timeFramesList.map((timeFrame) => {
+            {this.state.timeFramesList.map((timeFrame, index) => {
               const isChecked = this.isChecked(timeFrame.id, 'timeFrames');
 
               return (<AvGroup key={timeFrame.id} inline check>
@@ -356,6 +361,19 @@ class CreateCampaign extends Component {
                   <AvInput checked={isChecked} name="timeFrame" type="checkbox" onChange={(evt) => this.onCheckBoxChange(timeFrame.id, 'timeFrames', evt)} />
                   {`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}
                 </Label>
+                {(index === this.state.timeFramesList.length - 1) ?
+                  <span>
+                  {(this.state.timeFramesList.length && (this.state.timeFramesList.length === this.state.timeFrames.length)) ?
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={true} name="timeFrame" type="checkbox" onChange={() => {this.unSelectAll('timeFrames')}} />
+                      { t('CREATE_CAMPAIGN.unSelectAll')}
+                    </Label> :
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={false} name="timeFrame" type="checkbox" onChange={() => {this.selectAll('timeFramesList', 'timeFrames')}} />
+                      { t('CREATE_CAMPAIGN.selectAll')}
+                    </Label> }
+                  </span>
+                : null }
               </AvGroup>)
             })}
         </Col>
