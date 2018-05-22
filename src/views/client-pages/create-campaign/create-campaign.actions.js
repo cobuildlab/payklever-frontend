@@ -38,7 +38,7 @@ const updateCampaign = (createCampaignForm: CreateCampaignForm, campaignId) => {
 const requestApproval = (campaignId) => {
   putData(`/campaign/${campaignId}/request-approval/`, {}, true)
     .then((res) => {
-      Flux.dispatchEvent('activateCampaign', res);
+      Flux.dispatchEvent('requestApproval', res);
     })
     .catch((err) => {
       Flux.dispatchEvent('CampaignStoreError', err);
