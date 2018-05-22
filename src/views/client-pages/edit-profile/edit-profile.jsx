@@ -32,8 +32,8 @@ class EditProfile extends Component {
       user: authStore.getUser(),
       loading: false,
       loadingI18n: '',
-      firstName: '',
-      lastName: '',
+      firstName: authStore.getUser().firstName || '',
+      lastName: authStore.getUser().lastName || '',
       password: '',
       repeatPassword: ''
     };
@@ -57,13 +57,6 @@ class EditProfile extends Component {
       this.isLoading(false);
       toast.dismiss();
       toast.error(err.message || i18next.t('FETCH.error'));
-    });
-
-    setTimeout(() => {
-      this.setState({
-        firstName: this.state.user.firstName,
-        lastName: this.state.user.lastName,
-      });
     });
   }
 
