@@ -7,6 +7,7 @@ import {
   EditAccount,
   CreatePayment,
   CreateCampaign,
+  EditProfile,
   Profile,
   CampaignDetails,
 } from './';
@@ -40,6 +41,7 @@ class ClientPages extends Component {
         <Route exact path="/client/create-campaign/:campaignId?" component={CreateCampaign}/>
         <Route exact path="/client/campaign-details/:campaignId" component={CampaignDetails}/>
         <Route exact path="/client/edit-account/:accountId" component={EditAccount}/>
+        <Route exact path="/client/edit-profile" component={EditProfile}/>
         <Route path="/client/profile" component={Profile}/>
       </div>
     );
