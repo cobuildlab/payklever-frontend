@@ -116,6 +116,11 @@ export default {
     user: 'Name and Surname',
     card: 'Credit Card',
     cancel: 'Cancel',
+    deletePayment: 'Delete Payment Method',
+    deletingPayment: 'Deleting Payment Method',
+    paymentDeleted: 'Payment Method succesfully deleted',
+    deleteHeader: 'Delete Payment Method?',
+    deleteBody: 'Are you sure you want to delete the Payment Method: {{cardNumber}}?',
   },
   CREATE_PAYMENT: {
     createPayment: 'Create Payment Method',

@@ -17,6 +17,11 @@ class PaymentStore extends Flux.DashStore {
     this.addEvent('createPayment');
 
     /**
+     * Notifies when a payment was deleted
+     */
+    this.addEvent('deletePayment');
+
+    /**
      * Error handler
      * @param {Error} err the error from the action
      */

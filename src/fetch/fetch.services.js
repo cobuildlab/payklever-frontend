@@ -81,6 +81,31 @@ export function getData(url, isAuth = true) {
   });
 }
 
+/**
+ * DELETE method fetch
+ * @param  {string}  url    Endpoint URL
+ * @param  {Boolean} isAuth true if api requires token, true by default
+ * @return {Promise}         the data from the endpoint
+ */
+export function deleteData(url, isAuth = true) {
+  return new Promise((resolve, reject) => {
+    checkConnection();
+
+    return fetch(`${API_URL}${url}`, {
+        headers: {
+          'Accept': 'application/json',
+          'Accept-Language': i18next.language,
+          'Content-Type': 'application/json',
+          'Authorization': (isAuth) ? `Token ${authStore.getToken()}` : '',
+        },
+        method: 'DELETE',
+      })
+      .then(checkStatus)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err));
+  });
+}
+
 /*
 check if there's internet connection
  */

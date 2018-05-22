@@ -116,6 +116,11 @@ export default {
     user: 'Nombre y Apellido',
     card: 'Tarjeta de Credito',
     cancel: 'Cancelar',
+    deletePayment: 'Eliminar Método de Pago',
+    deletingPayment: 'Eliminando Método de Pago',
+    paymentDeleted: 'Método de Pago eliminado satisfactoriamente',
+    deleteHeader: 'Eliminar Método de Pago?',
+    deleteBody: 'Estas seguro que deseas eliminar el Método de Pago: {{cardNumber}}?',
   },
   CREATE_PAYMENT: {
     createPayment: 'Crear Método de Pago',
