@@ -43,7 +43,7 @@ class CreateCampaign extends Component {
     this.state = {
       loading: false,
       loadingI18n: '',
-      canActivateCamapaign: false,
+      canRequestApproval: false,
       campaignId: props.match.params.campaignId || '',
       name: '',
       messageTitle: '',
@@ -83,7 +83,7 @@ class CreateCampaign extends Component {
         });
 
         this.isLoading(false);
-        this.canActivateCamapaign(campaign);
+        this.canRequestApproval(campaign);
       });
 
     this.createCampaignSubscription = campaignStore
@@ -93,7 +93,7 @@ class CreateCampaign extends Component {
         toast.success(i18next.t('CREATE_CAMPAIGN.campaignSaved'));
         this.setState({ campaignId: campaign.id });
         this.props.history.push(`/client/create-campaign/${campaign.id}`);
-        this.canActivateCamapaign(campaign);
+        this.canRequestApproval(campaign);
       });
 
     this.updateCampaignSubscription = campaignStore
@@ -101,11 +101,11 @@ class CreateCampaign extends Component {
         this.isLoading(false);
         toast.dismiss();
         toast.success(i18next.t('CREATE_CAMPAIGN.campaignSaved'));
-        this.canActivateCamapaign(campaign);
+        this.canRequestApproval(campaign);
       });
 
-    this.activateCampaignSubscription = campaignStore
-      .subscribe('activateCampaign', (campaign) => {
+    this.requestApprovalSubscription = campaignStore
+      .subscribe('requestApproval', (campaign) => {
         this.isLoading(false);
         toast.dismiss();
         toast.success(i18next.t('CREATE_CAMPAIGN.campaignActivated'));
@@ -177,7 +177,7 @@ class CreateCampaign extends Component {
     this.getCampaignSubscription.unsubscribe();
     this.createCampaignSubscription.unsubscribe();
     this.updateCampaignSubscription.unsubscribe();
-    this.activateCampaignSubscription.unsubscribe();
+    this.requestApprovalSubscription.unsubscribe();
     this.getGenresSubscription.unsubscribe();
     this.getAgesSubscription.unsubscribe();
     // this.getEstimatedIncomesSubscription.unsubscribe();
@@ -191,15 +191,15 @@ class CreateCampaign extends Component {
 
     <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
-      <SubNav backRoute="/client/campaigns" subNavTitle={t('CREATE_CAMPAIGN.createCampaign')}></SubNav>
+      <SubNav backRoute="/client/campaigns" subNavTitle={this.props.match.params.campaignId ? t('CREATE_CAMPAIGN.editCampaign') : t('CREATE_CAMPAIGN.createCampaign')}></SubNav>
 
       <Container className="mt-4">
 
-        <CSSTransition in={ this.state.canActivateCamapaign } timeout={500} classNames="fade-in" unmountOnExit>
+        <CSSTransition in={ this.state.canRequestApproval } timeout={500} classNames="fade-in" unmountOnExit>
           <Alert className="text-center" color="success">
-            { t('CREATE_CAMPAIGN.canActivateCamapaign') }
-            <Button className="d-block mx-auto mt-4" color="success" type="button">
-                { t('CREATE_CAMPAIGN.activateCampaign') }
+            { t('CREATE_CAMPAIGN.canRequestApproval') }
+            <Button onClick={this.requestApproval} className="d-block mx-auto mt-4" color="success" type="button">
+                { t('CREATE_CAMPAIGN.requestApproval') }
             </Button>
           </Alert>
         </CSSTransition>
@@ -266,16 +266,9 @@ class CreateCampaign extends Component {
           </FormGroup>
             <div className="divider-select mt-3 mb-3"></div>
             <h4 className="mt-3">
-              { t('CREATE_CAMPAIGN.age') } {' '}
-              {(this.state.agesList.length && (this.state.agesList.length === this.state.ages.length)) ?
-              <Button size="sm" color="link" onClick={() => {this.unSelectAll('ages')}}>
-                { t('CREATE_CAMPAIGN.unSelectAll')}
-              </Button> :
-              <Button size="sm" color="link" onClick={() => {this.selectAll('agesList', 'ages')}}>
-                  { t('CREATE_CAMPAIGN.selectAll')}
-              </Button> }
+              { t('CREATE_CAMPAIGN.age') }
             </h4>
-            {this.state.agesList.map((age) => {
+            {this.state.agesList.map((age, index) => {
               const isChecked = this.isChecked(age.id, 'ages');
 
               return (<AvGroup key={age.id} inline check>
@@ -287,18 +280,24 @@ class CreateCampaign extends Component {
                     : null}
                   {age.maxValue}
                 </Label>
+                {(index === this.state.agesList.length - 1) ?
+                  <span>
+                  {(this.state.agesList.length && (this.state.agesList.length === this.state.ages.length)) ?
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={true} name="age" type="checkbox" onChange={() => {this.unSelectAll('ages')}} />
+                      { t('CREATE_CAMPAIGN.unSelectAll')}
+                    </Label> :
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={false} name="age" type="checkbox" onChange={() => {this.selectAll('agesList', 'ages')}} />
+                      { t('CREATE_CAMPAIGN.selectAll')}
+                    </Label> }
+                  </span>
+                : null }
               </AvGroup>)
             })}
             {/* <div className="divider-select mt-3 mb-3"></div>
             <h4>
               { t('CREATE_CAMPAIGN.income') }
-              {(this.state.estimatedIncomesList.length && (this.state.estimatedIncomesList.length === this.state.estimatedIncomes.length)) ?
-              <Button size="sm" color="link" onClick={() => {this.unSelectAll('estimatedIncomes')}}>
-                { t('CREATE_CAMPAIGN.unSelectAll')}
-              </Button> :
-              <Button size="sm" color="link" onClick={() => {this.selectAll('estimatedIncomesList', 'estimatedIncomes')}}>
-                  { t('CREATE_CAMPAIGN.selectAll')}
-              </Button> }
             </h4>
             {this.state.estimatedIncomesList.map((income) => {
               const isChecked = this.isChecked(income.id, 'estimatedIncomes');
@@ -308,6 +307,19 @@ class CreateCampaign extends Component {
                   <AvInput checked={isChecked} name="income" type="checkbox" onChange={(evt) => this.onCheckBoxChange(income.id, 'estimatedIncomes', evt)} />
                   {`$${income.minValue}`} {' - '} {`$${income.maxValue}`}
                 </Label>
+                {(index === this.state.estimatedIncomesList.length - 1) ?
+                  <span>
+                  {(this.state.estimatedIncomesList.length && (this.state.estimatedIncomesList.length === this.state.estimatedIncomes.length)) ?
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={true} name="income" type="checkbox" onChange={() => {this.unSelectAll('estimatedIncomes')}} />
+                      { t('CREATE_CAMPAIGN.unSelectAll')}
+                    </Label> :
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={false} name="income" type="checkbox" onChange={() => {this.selectAll('estimatedIncomesList', 'estimatedIncomes')}} />
+                      { t('CREATE_CAMPAIGN.selectAll')}
+                    </Label> }
+                  </span>
+                : null }
              </AvGroup>)
             })} */}
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
@@ -340,15 +352,8 @@ class CreateCampaign extends Component {
             <div className="divider-select mt-3 mb-3"></div>
             <h4>
               { t('CREATE_CAMPAIGN.hourHand') }
-              {(this.state.timeFramesList.length && (this.state.timeFramesList.length === this.state.timeFrames.length)) ?
-              <Button size="sm" color="link" onClick={() => {this.unSelectAll('timeFrames')}}>
-                { t('CREATE_CAMPAIGN.unSelectAll')}
-              </Button> :
-              <Button size="sm" color="link" onClick={() => {this.selectAll('timeFramesList', 'timeFrames')}}>
-                  { t('CREATE_CAMPAIGN.selectAll')}
-              </Button> }
             </h4>
-            {this.state.timeFramesList.map((timeFrame) => {
+            {this.state.timeFramesList.map((timeFrame, index) => {
               const isChecked = this.isChecked(timeFrame.id, 'timeFrames');
 
               return (<AvGroup key={timeFrame.id} inline check>
@@ -356,6 +361,19 @@ class CreateCampaign extends Component {
                   <AvInput checked={isChecked} name="timeFrame" type="checkbox" onChange={(evt) => this.onCheckBoxChange(timeFrame.id, 'timeFrames', evt)} />
                   {`${timeFrame.minValue}:00`} {' - '} {`${timeFrame.maxValue}:00`}
                 </Label>
+                {(index === this.state.timeFramesList.length - 1) ?
+                  <span>
+                  {(this.state.timeFramesList.length && (this.state.timeFramesList.length === this.state.timeFrames.length)) ?
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={true} name="timeFrame" type="checkbox" onChange={() => {this.unSelectAll('timeFrames')}} />
+                      { t('CREATE_CAMPAIGN.unSelectAll')}
+                    </Label> :
+                    <Label className="mb-2 mr-4" check>
+                      <AvInput checked={false} name="timeFrame" type="checkbox" onChange={() => {this.selectAll('timeFramesList', 'timeFrames')}} />
+                      { t('CREATE_CAMPAIGN.selectAll')}
+                    </Label> }
+                  </span>
+                : null }
               </AvGroup>)
             })}
         </Col>
@@ -422,11 +440,11 @@ class CreateCampaign extends Component {
             </Button>
           </AvGroup>
 
-          <CSSTransition in={ this.state.canActivateCamapaign } timeout={500} classNames="fade-in" unmountOnExit>
+          <CSSTransition in={ this.state.canRequestApproval } timeout={500} classNames="fade-in" unmountOnExit>
             <Alert className="text-center" color="success">
-              { t('CREATE_CAMPAIGN.canActivateCamapaign') }
-              <Button onClick={this.activateCampaign} className="d-block mx-auto mt-4" color="success" type="button">
-                  { t('CREATE_CAMPAIGN.activateCampaign') }
+              { t('CREATE_CAMPAIGN.canRequestApproval') }
+              <Button onClick={this.requestApproval} className="d-block mx-auto mt-4" color="success" type="button">
+                  { t('CREATE_CAMPAIGN.requestApproval') }
               </Button>
             </Alert>
           </CSSTransition>
@@ -595,7 +613,7 @@ class CreateCampaign extends Component {
     CreateCampaignActions.updateCampaign(createCampaignForm, campaignId);
   }
 
-  canActivateCamapaign = (campaign) => {
+  canRequestApproval = (campaign) => {
     if (campaign.adminStatus !== 're' && campaign.adminStatus !== 'na') {
       toast.dismiss();
       toast.error(i18next.t('CREATE_CAMPAIGN.cannotEdit'));
@@ -611,7 +629,7 @@ class CreateCampaign extends Component {
       accountId = parseInt(campaign.Account.id, 10);
       paymediaId = parseInt(campaign.Account.Pay_medium.id, 10);
     } catch (err) {
-      this.setState({ canActivateCamapaign: false });
+      this.setState({ canRequestApproval: false });
       return;
     }
 
@@ -632,18 +650,18 @@ class CreateCampaign extends Component {
     try {
       activateCampaignValidator(createCampaignForm, paymediaId, campaignId);
 
-      this.setState({ canActivateCamapaign: true });
+      this.setState({ canRequestApproval: true });
     } catch (err) {
-      this.setState({ canActivateCamapaign: false });
+      this.setState({ canRequestApproval: false });
     }
   }
 
-  activateCampaign = () => {
-    this.isLoading(true, 'CREATE_CAMPAIGN.activatingCampaign');
+  requestApproval = () => {
+    this.isLoading(true, 'CREATE_CAMPAIGN.requestingApproval');
 
     const campaignId = parseInt(this.state.campaignId, 10);
 
-    CreateCampaignActions.activateCampaign(campaignId);
+    CreateCampaignActions.requestApproval(campaignId);
   }
 
   isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {
