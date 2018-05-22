@@ -1,8 +1,8 @@
 import Flux from '@4geeksacademy/react-flux-dash';
-import { getData } from '../../../fetch';
+import { getData, deleteData } from '../../../fetch';
 
 const getPaymentMethods = () => {
-  getData('/pay-media/', true)
+  getData('/pay-media/')
     .then((paymentMethods) => {
       Flux.dispatchEvent('getPayments', paymentMethods);
     })
@@ -11,4 +11,14 @@ const getPaymentMethods = () => {
     });;
 }
 
-export { getPaymentMethods };
+const deletePayment = (payMediaId) => {
+  deleteData(`/pay-media/${payMediaId}/`)
+    .then((res) => {
+      Flux.dispatchEvent('deletePayment', res);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('PaymentStoreError', err);
+    });;
+}
+
+export { getPaymentMethods, deletePayment };

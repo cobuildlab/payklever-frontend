@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import {
   faTimes,
-  faEdit
 } from '@fortawesome/fontawesome-free-solid';
 import {
   I18n
@@ -15,7 +14,7 @@ import {
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Loading } from '../../components';
+import { Loading, ModalConfirm } from '../../components';
 import { Link } from "react-router-dom";
 import { paymentStore } from '../../../stores';
 import * as PaymentMethodsActions from './payment-methods.actions';
@@ -25,11 +24,12 @@ class PaymentMethods extends Component {
     super(props);
 
     this.state = {
-      loading: true,
-      paymentMethods: []
+      loading: false,
+      loadingI18n: '',
+      paymentMethods: [],
+      selectedPayment: {},
+      deletePaymentIsOpen: false,
     };
-
-    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +39,14 @@ class PaymentMethods extends Component {
         this.isLoading(false);
       });
 
+    this.deletePaymentSubscription = paymentStore
+      .subscribe('deletePayment', (res) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.success(i18next.t('PAYMENT_METHODS.paymentDeleted'));
+        this.reloadPayments();
+      });
+
     this.paymentStoreError = paymentStore
       .subscribe('PaymentStoreError', (err) => {
         this.isLoading(false);
@@ -46,11 +54,12 @@ class PaymentMethods extends Component {
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-    PaymentMethodsActions.getPaymentMethods();
+    this.reloadPayments();
   }
 
   componentWillUnmount() {
     this.getPaymentsSubscription.unsubscribe();
+    this.deletePaymentSubscription.unsubscribe();
     this.paymentStoreError.unsubscribe();
   }
 
@@ -58,7 +67,10 @@ class PaymentMethods extends Component {
     return (<I18n>{(t, { i18n }) => (
       <div>
 
-        <Loading isLoading={this.state.loading} loadingMessage={ t('PAYMENT_METHODS.loadingPayments') }></Loading>
+        <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
+
+        <ModalConfirm isOpen={this.state.deletePaymentIsOpen} modalHeader={t('PAYMENT_METHODS.deleteHeader')} modalBody={t('PAYMENT_METHODS.deleteBody', { cardNumber: this.state.selectedPayment.cardNumber || ' ' } )}
+        acceptI18n="PAYMENT_METHODS.deletePayment" confirm={this.deletePayment} />
 
         <Container className="mt-5">
         <Table>
@@ -81,7 +93,7 @@ class PaymentMethods extends Component {
                   {paymentMethod.cardNumber}
                 </td>
                 <td className="text-right">
-                  <Button color="danger" size="sm">
+                  <Button onClick={() => this.deletePayment(false, paymentMethod)} color="danger" size="sm">
                     <FontAwesomeIcon icon={faTimes}/>
                   </Button>
                 </td>
@@ -102,8 +114,35 @@ class PaymentMethods extends Component {
     )}</I18n>);
   }
 
-  isLoading(isLoading) {
-    this.setState({ loading: isLoading });
+  /**
+   * toggles the deletePayment modal and delete the payment if you pass confirm = true
+   * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
+   * component only to delete the payment
+   * @param  {[type]}  [payment=undefined] to set the last selected
+   *  paymentMethod,
+   * pass the paymentMethod from the paymentMethod's list
+   */
+  deletePayment = (confirm = false, paymentMethod = undefined) => {
+    if (paymentMethod) this.setState({ selectedPayment: paymentMethod });
+
+    this.setState({ deletePaymentIsOpen: !this.state.deletePaymentIsOpen });
+
+    if (confirm === true) {
+      this.isLoading(true, 'PAYMENT_METHODS.deletingPayment');
+      PaymentMethodsActions.deletePayment(this.state.selectedPayment.id);
+    }
+  }
+
+  reloadPayments = () => {
+    this.isLoading(true, 'PAYMENT_METHODS.loadingPayments')
+    PaymentMethodsActions.getPaymentMethods();
+  }
+
+  isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {
+    this.setState({
+      loadingI18n,
+      loading: isLoading
+    });
   }
 }
 
