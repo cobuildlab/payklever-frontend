@@ -119,7 +119,8 @@ class MainNav extends Component {
                  <DropdownMenu className="m-0 p-0" right>
                    {this.state.accounts.map((account, index) => <div key={account.id}>
                      <DropdownItem
-                     onClick={() => {this.changeAccount(account)}} className={ (this.state.account.id === account.id) ? "header-dropdown" : "sub-header-dropdown"}>
+                     onClick={() => {this.changeAccount(account)}} className={ (this.state.account.id === account.id) ? "App-cursor-pointer header-dropdown" :
+                     "App-cursor-pointer sub-header-dropdown"}>
                    <Media>
                       <Media left>
                         <div className="img-account" style={{ backgroundImage: `url(${account.avatar || Avatar} )`}}></div>
@@ -150,7 +151,7 @@ class MainNav extends Component {
                    {(this.state.user.isAdmin === false) ?
                    <DropdownItem divider />
                    : null}
-                   <DropdownItem onClick={this.logout}>
+                   <DropdownItem className="App-cursor-pointer" onClick={this.logout}>
                      { t('MAIN_NAV.logout') }
                    </DropdownItem>
                  </DropdownMenu>

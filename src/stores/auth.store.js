@@ -32,6 +32,11 @@ class AuthStore extends Flux.DashStore {
     this.addEvent('editProfile');
 
     /**
+     * Notifies when a user updated his photo
+     */
+    this.addEvent('editPhoto');
+
+    /**
      * Error handler
      * @param {Error} err the error from the action
      */
