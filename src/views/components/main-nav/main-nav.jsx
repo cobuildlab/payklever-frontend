@@ -110,7 +110,7 @@ class MainNav extends Component {
                <CSSTransition in={this.state.accounts.length > 0} timeout={500} classNames="fade-in" unmountOnExit>
                <Dropdown isOpen={this.state.accountsOpen} toggle={this.toggleAccounts} nav inNavbar>
                  <DropdownToggle onClick={() => this.toggleAccounts} nav>
-                   <div style={{ backgroundImage: `url(${ Avatar })`}} className="avatar">
+                   <div style={{ backgroundImage: `url(${ this.state.account.photoUrl || Avatar })`}} className="avatar">
                    </div>
                    <div style={{ backgroundImage: `url(${ GreenLogo })`}} className="camp">
                    </div>
@@ -123,7 +123,7 @@ class MainNav extends Component {
                      "App-cursor-pointer sub-header-dropdown"}>
                    <Media>
                       <Media left>
-                        <div className="img-account" style={{ backgroundImage: `url(${account.avatar || Avatar} )`}}></div>
+                        <div className="img-account" style={{ backgroundImage: `url(${account.photoUrl || Avatar} )`}}></div>
                       </Media>
                       <Media body>
                         <p className="mt-3">{ account.name }</p>
