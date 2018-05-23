@@ -11,6 +11,7 @@ export default {
     wa: 'Esperando aprobación',
     na: 'Borrador',
     re: 'Rechazada',
+    su: 'Suspendida',
   },
   CAMPAIGN_USER_STATUS: {
     ac: 'Activa',
