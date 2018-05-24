@@ -29,6 +29,16 @@ class AccountStore extends Flux.DashStore {
     this.addEvent('editAccount');
 
     /**
+     * Notifies when a user updated his photo
+     */
+    this.addEvent('editAccountPhoto');
+
+    /**
+     * Edit photo error handler
+     */
+    this.addEvent('editAccountPhotoError');
+
+    /**
      * Notifies when the account was changed
      * @param {object} account the new account
      */
