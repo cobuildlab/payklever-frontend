@@ -106,6 +106,31 @@ export function deleteData(url, isAuth = true) {
   });
 }
 
+/**
+ * POST method fetch (multipart/form-data)
+ * @param  {string}  url    Endpoint URL
+ * @param  {Boolean} isAuth true if api requires token, true by default
+ * @return {Promise}         the data from the endpoint
+ */
+export function postFormData(url, formData, isAuth = true) {
+  return new Promise((resolve, reject) => {
+    checkConnection();
+
+    return fetch(`${API_URL}${url}`, {
+        body: formData,
+        headers: {
+          'Accept': 'application/json',
+          'Accept-Language': i18next.language,
+          'Authorization': (isAuth) ? `Token ${authStore.getToken()}` : '',
+        },
+        method: 'POST',
+      })
+      .then(checkStatus)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err));
+  });
+}
+
 /*
 check if there's internet connection
  */

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { SubNav, Loading } from '../../components';
 import { CreateAccountForm } from '../create-account/create-account.classes';
-import * as EditAccountActions from './edit-account.actions';
+import * as editAccountActions from './edit-account.actions';
 import * as PaymentMethodsActions from '../payment-methods/payment-methods.actions';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
+import { Photo } from '../../../assets';
 import { accountStore, paymentStore } from '../../../stores';
 import { createAccountAvForm } from '../create-account/create-account.validators';
 import {
@@ -18,7 +19,7 @@ import {
   Label,
   FormGroup,
   Input,
-  Alert,
+  Media,
 } from 'reactstrap';
 import {
   AvForm,
@@ -49,6 +50,9 @@ class EditAccount extends Component {
       latitude: null,
       longitude: null,
       paymentMethods: [],
+      photoUrl: null,
+      imagePath: '',
+      photoFormData: {},
     };
   }
 
@@ -57,10 +61,20 @@ class EditAccount extends Component {
 
     this.editAccountSubscription = accountStore
       .subscribe('editAccount', (account) => {
-        this.isLoading(false);
+        if (this.state.imagePath) {
+          this.uploadPhoto(account.id);
+        } else this.accountUpdated();
+      });
+
+    this.editAccountPhotoSubscription = accountStore
+      .subscribe('editAccountPhoto', (account) => {
+        this.accountUpdated();
+      });
+
+    this.editAccountPhotoError = accountStore
+      .subscribe('editAccountPhotoError', (err) => {
         toast.dismiss();
-        toast.success(i18next.t('CREATE_ACCOUNT.accountUpdated'));
-        this.props.history.push('/client/profile/accounts');
+        toast.error(err.message || i18next.t('FETCH.error'));
       });
 
     this.getAccountSubscription = accountStore
@@ -77,6 +91,7 @@ class EditAccount extends Component {
           zipCode: account.zipCode || '',
           latitude: account.latitude || null,
           longitude: account.longitude || null,
+          photoUrl: account.photoUrl || null,
         });
       });
 
@@ -100,13 +115,15 @@ class EditAccount extends Component {
 
     setTimeout(() => {
       this.isLoading(true, 'CREATE_ACCOUNT.loadingAccount');
-      EditAccountActions.getAccount(this.state.accountId);
+      editAccountActions.getAccount(this.state.accountId);
       PaymentMethodsActions.getPaymentMethods();
     });
   }
 
   componentWillUnmount() {
     this.editAccountSubscription.unsubscribe();
+    this.editAccountPhotoSubscription.unsubscribe();
+    this.editAccountPhotoError.unsubscribe();
     this.getAccountSubscription.unsubscribe();
     this.accountStoreError.unsubscribe();
     this.getPaymentsSubscription.unsubscribe();
@@ -126,6 +143,19 @@ class EditAccount extends Component {
                 size: 6,
                 offset: 3
               }}>
+
+              <Col className="text-center"  md={{size: 12,}}>
+                <Media>
+                    <Media left className="mx-auto d-block mt-4 mb-2">
+                      <form id="photoForm">
+                        <label title={ t('PROFILE.changePhoto') } className="img-profile App-cursor-pointer" style={{ backgroundImage: `url(${ this.state.imagePath || this.state.photoUrl || Photo })`, margin: 0 }}>
+                          <input type="file" name="photo" onChange={(e) => this.handleFile(e)} accept="image/jpeg, image/png"  className="invisible"/>
+                        </label>
+                      </form>
+                    </Media>
+                </Media>
+              </Col>
+
           <AvForm onValidSubmit={(evt) => this.editAccount(evt)} noValidate>
             <AvGroup>
               <Label for="name">{ t('CREATE_ACCOUNT.accountName') }</Label>
@@ -208,7 +238,36 @@ class EditAccount extends Component {
       this.state.longitude,
     );
 
-    EditAccountActions.editAccount(createAccountForm, accountId);
+    editAccountActions.editAccount(createAccountForm, accountId);
+  }
+
+  handleFile = (event) => {
+    if (!event.target.files.length) return;
+
+    const file = event.target.files[0];
+    const image = new Image();
+    const form = document.getElementById("photoForm");
+    const formData = new FormData(form);
+    event.target.value = '';
+    image.src = URL.createObjectURL(file);
+    image.onload = () => {
+      this.setState({
+        imagePath: image.src,
+        photoFormData: formData,
+      });
+    };
+  }
+
+  uploadPhoto = (accountId) => {
+    const accountIdInt = parseInt(accountId, 10);
+    editAccountActions.editPhoto(this.state.photoFormData, accountIdInt);
+  }
+
+  accountUpdated = (photoError = false) => {
+    this.isLoading(false);
+    toast.dismiss();
+    toast.success(i18next.t('CREATE_ACCOUNT.accountUpdated'));
+    this.props.history.push('/client/profile/accounts');
   }
 
   handleKeyPress(event) {

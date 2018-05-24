@@ -149,6 +149,15 @@ a {
   height: 60px;
   margin-right: 10px;
 }
+.img-account-list{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #fbfbfb;
+  border-radius: 100px;
+  width: 60px;
+  height: 60px;
+}
 .form-group {
     margin-bottom: 0.5rem !important;
 }

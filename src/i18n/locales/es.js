@@ -67,6 +67,10 @@ export default {
     email: 'Correo',
     paymentMethods: 'Métodos de Pago',
     accounts: 'Cuentas',
+    uploadingPhoto: 'Subiendo Foto',
+    photoUploaded: 'Foto de perfil actualizada satisfactoriamente!',
+    invalidPhoto: 'Foto inválida: Solo JPG o PNG',
+    changePhoto: 'Cambiar Foto',
   },
   ACCOUNTS: {
     cancel: 'Cancelar',

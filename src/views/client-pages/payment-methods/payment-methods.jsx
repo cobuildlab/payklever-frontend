@@ -74,23 +74,18 @@ class PaymentMethods extends Component {
 
         <Container className="mt-5">
         <Table>
-          <thead>
-            <tr>
-              <th>{ t('PAYMENT_METHODS.user') }</th>
-            <th>{ t('PAYMENT_METHODS.card') }</th>
-              <th> </th>
-            </tr>
-          </thead>
            <tbody>
             <TransitionGroup component={null}>
             { this.state.paymentMethods.map((paymentMethod, index) =>
               <CSSTransition key={paymentMethod.id} timeout={500} classNames="fade-in">
               <tr>
                 <td>
-                  {paymentMethod.firstName} {' '} {paymentMethod.lastName}
+                  <p>
+                    {paymentMethod.firstName} {' '} {paymentMethod.lastName}
+                  </p>
                 </td>
                 <td>
-                  {paymentMethod.cardNumber}
+                  <p>{paymentMethod.cardNumber}</p>
                 </td>
                 <td className="text-right">
                   <Button onClick={() => this.deletePayment(false, paymentMethod)} color="danger" size="sm">

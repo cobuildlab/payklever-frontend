@@ -14,7 +14,9 @@ import {
   ButtonGroup,
   Col,
   Row,
+  Media,
 } from 'reactstrap';
+import { Avatar } from '../../../assets';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
@@ -68,20 +70,19 @@ class Accounts extends Component {
 
         <Container className="mt-5">
           <Table>
-            <thead>
-              <tr>
-                <th>{ t('ACCOUNTS.name')}</th>
-                <th>{ t('ACCOUNTS.status')}</th>
-                <th> </th>
-              </tr>
-            </thead>
              <tbody>
               <TransitionGroup component={null}>
               { this.state.accounts.map((account) =>
                 <CSSTransition key={account.id} timeout={500} classNames="fade-in">
                 <tr>
-                  <td>{account.name}</td>
-                  <td> </td>
+                  <td>
+                    <div style={{ backgroundImage: `url(${ account.photoUrl || Avatar })`}} className="img-account-list">
+                    </div>
+                  </td>
+                  <td>
+                    <h5>{account.name}</h5>
+                    <p>{account.location}</p>
+                  </td>
                   <td className="text-right">
                     {/* <Button color="danger" size="sm">
                       <FontAwesomeIcon icon={faTimes}/>

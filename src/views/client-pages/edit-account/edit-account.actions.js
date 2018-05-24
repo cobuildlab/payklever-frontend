@@ -1,7 +1,7 @@
 import Flux from '@4geeksacademy/react-flux-dash';
-import { putData, getData } from '../../../fetch';
+import { putData, getData, postFormData } from '../../../fetch';
 import { CreateAccountForm } from '../create-account/create-account.classes';
-import { editAccountValidator } from './edit-account.validators';
+import { editAccountValidator, editPhotoValidator } from './edit-account.validators';
 
 const editAccount = (createAccountForm: CreateAccountForm, accountId) => {
   try {
@@ -19,6 +19,22 @@ const editAccount = (createAccountForm: CreateAccountForm, accountId) => {
   }
 }
 
+const editPhoto = (photoFormData, accountId) => {
+  try {
+    editPhotoValidator(photoFormData, accountId);
+
+    postFormData(`/account/${accountId}/account-picture/`, photoFormData)
+      .then((res) => {
+        Flux.dispatchEvent('editAccountPhoto', res);
+      })
+      .catch((err) => {
+        Flux.dispatchEvent('editAccountPhotoError', err);
+      });
+  } catch (err) {
+    Flux.dispatchEvent('editAccountPhotoError', err);
+  }
+}
+
 const getAccount = (accountId) => {
   getData(`/account/${accountId}/`)
     .then((account) => {
@@ -29,4 +45,4 @@ const getAccount = (accountId) => {
     });
 }
 
-export { editAccount, getAccount };
+export { editAccount, getAccount, editPhoto };

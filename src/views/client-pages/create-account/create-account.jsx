@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { SubNav, Loading } from '../../components';
 import { CreateAccountForm } from './create-account.classes';
 import * as createAccountActions from './create-account.actions';
+import * as editAccountActions from '../edit-account/edit-account.actions';
 import * as PaymentMethodsActions from '../payment-methods/payment-methods.actions';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
+import { Photo } from '../../../assets';
 import { accountStore, paymentStore } from '../../../stores';
 import { createAccountAvForm } from './create-account.validators';
 import {
@@ -18,7 +20,7 @@ import {
   Label,
   FormGroup,
   Input,
-  Alert,
+  Media,
 } from 'reactstrap';
 import {
   AvForm,
@@ -47,6 +49,8 @@ class CreateAccount extends Component {
       latitude: null,
       longitude: null,
       paymentMethods: [],
+      imagePath: '',
+      photoFormData: {},
     };
 
     this.isLoading = this.isLoading.bind(this);
@@ -57,10 +61,19 @@ class CreateAccount extends Component {
 
     this.createAccountSubscription = accountStore
       .subscribe('createAccount', (account) => {
-        this.isLoading(false);
-        toast.dismiss();
-        toast.success(i18next.t('CREATE_ACCOUNT.accountCreated'));
-        this.props.history.push('/client/profile/accounts');
+        if (this.state.imagePath) {
+          this.uploadPhoto(account.id);
+        } else this.accountCreated();
+      });
+
+    this.editAccountPhotoSubscription = accountStore
+      .subscribe('editAccountPhoto', (account) => {
+        this.accountCreated();
+      });
+
+    this.editAccountPhotoError = accountStore
+      .subscribe('editAccountPhotoError', (err) => {
+        this.accountCreated();
       });
 
     this.accountStoreError = accountStore
@@ -86,6 +99,8 @@ class CreateAccount extends Component {
 
   componentWillUnmount() {
     this.createAccountSubscription.unsubscribe();
+    this.editAccountPhotoSubscription.unsubscribe();
+    this.editAccountPhotoError.unsubscribe();
     this.accountStoreError.unsubscribe();
     this.getPaymentsSubscription.unsubscribe();
     this.paymentStoreError.unsubscribe();
@@ -104,6 +119,19 @@ class CreateAccount extends Component {
                 size: 6,
                 offset: 3
               }}>
+
+          <Col className="text-center"  md={{size: 12,}}>
+            <Media>
+                <Media left className="mx-auto d-block mt-4 mb-2">
+                  <form id="photoForm">
+                    <label title={ t('PROFILE.changePhoto') } className="img-profile App-cursor-pointer" style={{ backgroundImage: `url(${ this.state.imagePath || Photo })`, margin: 0 }}>
+                      <input type="file" name="photo" onChange={(e) => this.handleFile(e)} accept="image/jpeg, image/png"  className="invisible"/>
+                    </label>
+                  </form>
+                </Media>
+            </Media>
+          </Col>
+
           <AvForm onValidSubmit={(evt) => this.createAccount(evt)} noValidate>
             <AvGroup>
               <Label for="name">{ t('CREATE_ACCOUNT.accountName') }</Label>
@@ -188,6 +216,35 @@ class CreateAccount extends Component {
     createAccountActions.createAccount(createAccountForm);
   }
 
+  handleFile = (event) => {
+    if (!event.target.files.length) return;
+
+    const file = event.target.files[0];
+    const image = new Image();
+    const form = document.getElementById("photoForm");
+    const formData = new FormData(form);
+    event.target.value = '';
+    image.src = URL.createObjectURL(file);
+    image.onload = () => {
+      this.setState({
+        imagePath: image.src,
+        photoFormData: formData,
+      });
+    };
+  }
+
+  uploadPhoto = (accountId) => {
+    const accountIdInt = parseInt(accountId, 10);
+    editAccountActions.editPhoto(this.state.photoFormData, accountIdInt);
+  }
+
+  accountCreated = () => {
+    this.isLoading(false);
+    toast.dismiss();
+    toast.success(i18next.t('CREATE_ACCOUNT.accountCreated'));
+    this.props.history.push('/client/profile/accounts');
+  }
+
   handleKeyPress(event) {
     if (event.key === 'Enter') event.preventDefault();
   }
@@ -195,7 +252,7 @@ class CreateAccount extends Component {
   initAutocomplete() {
     autocomplete = new google.maps.places.Autocomplete(
       /** @type {!HTMLInputElement} */
-      (document.getElementById('autocomplete')), {types: ['address']});
+      (document.getElementById('autocomplete')), { types: ['address'] });
 
     autocomplete.addListener('place_changed', this.fillInAddress);
   }

@@ -110,7 +110,7 @@ class MainNav extends Component {
                <CSSTransition in={this.state.accounts.length > 0} timeout={500} classNames="fade-in" unmountOnExit>
                <Dropdown isOpen={this.state.accountsOpen} toggle={this.toggleAccounts} nav inNavbar>
                  <DropdownToggle onClick={() => this.toggleAccounts} nav>
-                   <div style={{ backgroundImage: `url(${ Avatar })`}} className="avatar">
+                   <div style={{ backgroundImage: `url(${ this.state.account.photoUrl || Avatar })`}} className="avatar">
                    </div>
                    <div style={{ backgroundImage: `url(${ GreenLogo })`}} className="camp">
                    </div>
@@ -119,10 +119,11 @@ class MainNav extends Component {
                  <DropdownMenu className="m-0 p-0" right>
                    {this.state.accounts.map((account, index) => <div key={account.id}>
                      <DropdownItem
-                     onClick={() => {this.changeAccount(account)}} className={ (this.state.account.id === account.id) ? "header-dropdown" : "sub-header-dropdown"}>
+                     onClick={() => {this.changeAccount(account)}} className={ (this.state.account.id === account.id) ? "App-cursor-pointer header-dropdown" :
+                     "App-cursor-pointer sub-header-dropdown"}>
                    <Media>
                       <Media left>
-                        <div className="img-account" style={{ backgroundImage: `url(${account.avatar || Avatar} )`}}></div>
+                        <div className="img-account" style={{ backgroundImage: `url(${account.photoUrl || Avatar} )`}}></div>
                       </Media>
                       <Media body>
                         <p className="mt-3">{ account.name }</p>
@@ -150,7 +151,7 @@ class MainNav extends Component {
                    {(this.state.user.isAdmin === false) ?
                    <DropdownItem divider />
                    : null}
-                   <DropdownItem onClick={this.logout}>
+                   <DropdownItem className="App-cursor-pointer" onClick={this.logout}>
                      { t('MAIN_NAV.logout') }
                    </DropdownItem>
                  </DropdownMenu>

@@ -14,4 +14,27 @@ const editAccountValidator = (createAccountForm: CreateAccountForm, accountId) =
   }
 }
 
-export { editAccountValidator };
+/**
+ * Edit the account's photo
+ * @param  {[type]} formData the photo
+ * @param  {[type]} account  the account's id
+ */
+const editPhotoValidator = (formData, accountId) => {
+  var formDataAsJson = {};
+
+  formData.forEach((value, key) => {
+    formDataAsJson[key] = value;
+  });
+
+  if (!formDataAsJson.photo || !formDataAsJson.photo.type ||
+    (formDataAsJson.photo.type !== 'image/jpeg' &&
+      formDataAsJson.photo.type !== 'image/png')) {
+    throw new Error(i18next.t('PROFILE.invalidPhoto'));
+  }
+
+  if (!utils.isValidInteger(accountId)) {
+    throw new Error(i18next.t('CREATE_ACCOUNT.invalidAccountId'));
+  }
+}
+
+export { editAccountValidator, editPhotoValidator };
