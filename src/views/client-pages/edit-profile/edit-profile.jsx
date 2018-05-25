@@ -6,7 +6,7 @@ import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { authStore } from '../../../stores';
 import { Link } from 'react-router-dom';
-import { Loading } from '../../components';
+import { Loading, SubNav } from '../../components';
 import {
   Container,
   Col,
@@ -68,6 +68,8 @@ class EditProfile extends Component {
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
+
+      <SubNav backRoute="/client/profile/accounts" subNavTitle={t('EDIT_PROFILE.editProfile')}></SubNav>
 
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 

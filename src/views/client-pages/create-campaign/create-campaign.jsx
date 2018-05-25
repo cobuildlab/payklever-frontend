@@ -108,7 +108,7 @@ class CreateCampaign extends Component {
       .subscribe('requestApproval', (campaign) => {
         this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('CREATE_CAMPAIGN.campaignActivated'));
+        toast.success(i18next.t('CREATE_CAMPAIGN.approvalRequested'));
         this.props.history.push(`/client/campaigns`);
       });
 

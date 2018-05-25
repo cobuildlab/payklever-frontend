@@ -98,7 +98,10 @@ class Profile extends Component {
                           { t('PROFILE.nameAndSurname') } { ':' }
                         </span>)}
                       </Media>
-                      {this.state.user.firstName &&(<span> {` ${this.state.user.firstName} ${this.state.user.lastName}`}</span>)}
+                      <span>
+                        {` ${this.state.user.firstName} ${this.state.user.lastName}`}
+                      </span>
+                      <p>{this.state.user.email}</p>
                     </Media>
                   </Media>
                </Container>
