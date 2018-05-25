@@ -111,7 +111,7 @@ class ClientDetails extends Component {
                 <td>
                   <Media>
                     <Media left href="#">
-                      <Media className="App-img-media-item" style={{ backgroundImage: `url(${ Avatar })`}}/>
+                      <Media className="App-img-media-item" style={{ backgroundImage: `url(${ account.photoUrl || Avatar })`}}/>
                     </Media>
                     <Media body>
                       <Media heading>
