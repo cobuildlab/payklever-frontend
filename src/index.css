@@ -1,15 +1,23 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 html {
-  height: 100%;
-  margin: 0;
+  position: relative;
+  min-height: 100%;
 }
 body {
-  margin: 0;
-  padding: 0;
+  margin-bottom: 40px;
   font-family: 'Roboto Condensed', sans-serif;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   background-color: #fbfbfb;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 40;
+  line-height: 40px; /* Vertically center the text there */
+  background-color: #74c044;
 }
 .card {
     position: relative;

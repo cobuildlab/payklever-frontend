@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from "react-router-dom";
-import { MainNav } from '../components';
+import { MainNav, Footer } from '../components';
 import {
   Campaigns,
   CreateAccount,
@@ -43,6 +43,8 @@ class ClientPages extends Component {
         <Route exact path="/client/edit-account/:accountId" component={EditAccount}/>
         <Route exact path="/client/edit-profile" component={EditProfile}/>
         <Route path="/client/profile" component={Profile}/>
+
+        <Footer></Footer>
       </div>
     );
   }

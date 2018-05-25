@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from "react-router-dom";
-import { MainNav } from '../components';
-import {
-  Navbar,
-  NavbarBrand
-} from 'reactstrap';
+import { MainNav, Footer } from '../components';
 import {
   CampaignManager,
   CampaignDetails,
@@ -23,6 +19,8 @@ class AdminPages extends Component {
       <Route path="/admin/campaign-manager" component={CampaignManager}/>
       <Route exact path="/admin/campaign-details/:campaignId" component={CampaignDetails}/>
       <Route exact path="/admin/client-details/:userId" component={ClientDetails}/>
+
+      <Footer></Footer>
     </div>
     );
   }
