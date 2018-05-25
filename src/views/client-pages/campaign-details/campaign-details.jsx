@@ -88,7 +88,7 @@ class CampaignDetails extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
       <SubNav backRoute="/client/campaigns" subNavTitle={this.state.campaign.name || ' '}
-      navItemHidden={(this.state.campaign.adminStatus === 'wa' || this.state.campaign.adminStatus === 'ap' || this.state.campaign.adminStatus === 'su')}
+      navItemHidden={(this.state.campaign.adminStatus !== 're' && this.state.campaign.adminStatus !== 'na')}
       navItemTitle={t('CAMPAIGN_DETAILS.editCampaign')} navItemFunc={this.goToEditCampaign}
       navItem2Title={t('CAMPAIGN_DETAILS.duplicateCampaign')} navItem2Func={this.duplicateCampaign}></SubNav>
 

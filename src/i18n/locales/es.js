@@ -228,7 +228,7 @@ export default {
     to: 'a',
     requestApproval: 'Solicitar Aprobación',
     requestingApproval: 'Solicitando Aprobación',
-    approvalRequested: 'Solicitud de aprobación enviada, por favor espera que nuestros administradores hagan la revisión de la misma!',
+    approvalRequested: 'Solicitud de aprobación enviada, por favor espera que nuestros administradores hagan la revisión de la campaña!',
     resumeCampaign: 'Reanudar Campaña',
     resumingCampaign: 'Reanudando Campaña',
     canRequestApproval: '¡Tu Campaña esta lista! Ya puedes solicitar nuestra aprobación para publicarla',

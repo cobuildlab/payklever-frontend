@@ -228,7 +228,7 @@ export default {
     to: 'to',
     requestApproval: 'Request Approval',
     requestingApproval: 'Requesting Approval',
-    approvalRequested: 'Request for approval sent, please wait for our administrators to review it!',
+    approvalRequested: 'Request for approval sent, please wait for our administrators to review the campaign!',
     resumeCampaign: 'Resume Campaign',
     resumingCampaign: 'Resuming Campaign',
     canRequestApproval: 'Your Campaign is ready! You can request our approval to publish it',
