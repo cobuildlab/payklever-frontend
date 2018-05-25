@@ -67,6 +67,11 @@ class MainNav extends Component {
         this.setState({ account });
       });
 
+    this.setUserSubscription = authStore
+      .subscribe('setUser', (user) => {
+        this.setState({ user });
+      });
+
     this.accountStoreError = accountStore
       .subscribe('AccountStoreError', (err) => {
         this.isLoading(false);
@@ -82,6 +87,7 @@ class MainNav extends Component {
   componentWillUnmount() {
     this.getAccountsSubscription.unsubscribe();
     this.changeAccountSubscription.unsubscribe();
+    this.setUserSubscription.unsubscribe();
     this.accountStoreError.unsubscribe();
   }
 
@@ -112,7 +118,7 @@ class MainNav extends Component {
                  <DropdownToggle onClick={() => this.toggleAccounts} nav>
                    <div style={{ backgroundImage: `url(${ this.state.account.photoUrl || Avatar })`}} className="avatar">
                    </div>
-                   <div style={{ backgroundImage: `url(${ GreenLogo })`}} className="camp">
+                   <div style={{ backgroundImage: `url(${ this.state.user.profileUrl || GreenLogo })`}} className="camp">
                    </div>
                  </DropdownToggle>
 
