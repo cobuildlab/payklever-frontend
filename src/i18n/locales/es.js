@@ -234,6 +234,8 @@ export default {
     canRequestApproval: '¡Tu Campaña esta lista! Ya puedes solicitar nuestra aprobación para publicarla',
     loadingCampaign: 'Cargando Campaña',
     cannotEdit: 'Solo las campañas en estatus Borrador o Rechazadas pueden editarse',
+    paymentRequired: 'Método de Pago requerido',
+    mustHavePayment: 'Tu cuenta debe tener un método de pago para poder publicar la campaña',
   },
   MAIN_NAV: {
     logout: 'Cerrar Sesión',

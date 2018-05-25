@@ -234,6 +234,8 @@ export default {
     canRequestApproval: 'Your Campaign is ready! You can request our approval to publish it',
     loadingCampaign: 'Loading Campaign',
     cannotEdit: 'Only Draft and Rejected campaigns can be updated',
+    paymentRequired: 'Payment Method required',
+    mustHavePayment: 'Your account must have a payment method in order to publish the campaign',
   },
   MAIN_NAV: {
     logout: 'Log Out',
