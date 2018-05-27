@@ -3,6 +3,7 @@ import {
   Route,
   Link,
   Redirect,
+  Switch,
 } from "react-router-dom";
 import {
   I18n
@@ -38,8 +39,13 @@ class CampaignManager extends Component {
            </NavLink>
          </NavItem>
        </Nav>
-        <Route exact path="/admin/campaign-manager/clients" component={Clients}/>
-        <Route exact path="/admin/campaign-manager/client-campaigns" component={ClientCampaigns}/>
+
+        <Switch>
+          <Route exact path="/admin/campaign-manager/clients" component={Clients}/>
+          <Route exact path="/admin/campaign-manager/client-campaigns" component={ClientCampaigns}/>
+          <Redirect to='/admin/campaign-manager/client-campaigns'/>
+        </Switch>
+
       </Container>
     )}</I18n>);
   }

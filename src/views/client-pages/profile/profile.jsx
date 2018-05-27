@@ -8,6 +8,7 @@ import {
   Route,
   Link,
   Redirect,
+  Switch,
 } from "react-router-dom";
 import {
   I18n
@@ -120,8 +121,13 @@ class Profile extends Component {
             </NavLink>
           </NavItem>
         </Nav>
-         <Route exact path="/client/profile/accounts" component={Accounts}/>
-         <Route exact path="/client/profile/payment-methods" component={PaymentMethods}/>
+
+        <Switch>
+          <Route exact path="/client/profile/accounts" component={Accounts}/>
+          <Route exact path="/client/profile/payment-methods" component={PaymentMethods}/>
+          <Redirect to='/client/profile/accounts'/>
+        </Switch>
+
        </Container>
       </div>
     )}</I18n>);

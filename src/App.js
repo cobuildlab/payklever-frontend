@@ -8,6 +8,7 @@ import {
 } from './stores';
 import {
   Redirect,
+  Switch,
 } from 'react-router-dom';
 import {
   Login,
@@ -48,10 +49,13 @@ class App extends Component {
     return (
       <div>
         <ToastContainer/>
-        <NotAuthRoute exact path="/signup" component={Signup}/>
-        <NotAuthRoute exact path="/login" component={Login}/>
-        <AdminRoute path="/admin" component={AdminPages}/>
-        <ClientRoute path="/client" component={ClientPages}/>
+        <Switch>
+          <NotAuthRoute exact path="/signup" component={Signup}/>
+          <NotAuthRoute exact path="/login" component={Login}/>
+          <AdminRoute path="/admin" component={AdminPages}/>
+          <ClientRoute path="/client" component={ClientPages}/>
+          <Redirect to='/client'/>
+        </Switch>
       </div>
     );
   }

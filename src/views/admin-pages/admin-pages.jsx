@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import { MainNav, Footer } from '../components';
 import {
   CampaignManager,
@@ -16,9 +16,13 @@ class AdminPages extends Component {
     return (
       <div>
       <MainNav></MainNav>
-      <Route path="/admin/campaign-manager" component={CampaignManager}/>
-      <Route exact path="/admin/campaign-details/:campaignId" component={CampaignDetails}/>
-      <Route exact path="/admin/client-details/:userId" component={ClientDetails}/>
+
+      <Switch>
+        <Route path="/admin/campaign-manager" component={CampaignManager}/>
+        <Route exact path="/admin/campaign-details/:campaignId" component={CampaignDetails}/>
+        <Route exact path="/admin/client-details/:userId" component={ClientDetails}/>
+        <Redirect to='/admin/campaign-manager'/>
+      </Switch>
 
       <Footer></Footer>
     </div>

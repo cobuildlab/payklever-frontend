@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import { MainNav, Footer } from '../components';
 import {
   Campaigns,
@@ -35,14 +35,17 @@ class ClientPages extends Component {
       <div>
         <MainNav></MainNav>
 
-        <Route exact path="/client/campaigns" component={Campaigns}/>
-        <Route exact path="/client/create-account" component={CreateAccount}/>
-        <Route exact path="/client/create-payment" component={CreatePayment}/>
-        <Route exact path="/client/create-campaign/:campaignId?" component={CreateCampaign}/>
-        <Route exact path="/client/campaign-details/:campaignId" component={CampaignDetails}/>
-        <Route exact path="/client/edit-account/:accountId" component={EditAccount}/>
-        <Route exact path="/client/edit-profile" component={EditProfile}/>
-        <Route path="/client/profile" component={Profile}/>
+        <Switch>
+          <Route exact path="/client/campaigns" component={Campaigns}/>
+          <Route exact path="/client/create-account" component={CreateAccount}/>
+          <Route exact path="/client/create-payment" component={CreatePayment}/>
+          <Route exact path="/client/create-campaign/:campaignId?" component={CreateCampaign}/>
+          <Route exact path="/client/campaign-details/:campaignId" component={CampaignDetails}/>
+          <Route exact path="/client/edit-account/:accountId" component={EditAccount}/>
+          <Route exact path="/client/edit-profile" component={EditProfile}/>
+          <Route path="/client/profile" component={Profile}/>
+          <Redirect to='/client/campaigns'/>
+        </Switch>
 
         <Footer></Footer>
       </div>
