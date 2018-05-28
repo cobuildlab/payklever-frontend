@@ -44,7 +44,7 @@ class CampaignDetails extends Component {
       .subscribe('resumeCampaign', (campaign) => {
         this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('CREATE_CAMPAIGN.campaignResumed'));
+        toast.success(i18next.t('CAMPAIGN_DETAILS.campaignResumed'));
         this.props.history.push(`/client/campaigns`);
       });
 

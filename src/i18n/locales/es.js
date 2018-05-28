@@ -312,6 +312,7 @@ export default {
     rejectingCampaign: 'Rechazando Campaña',
     campaignApproved: 'La Campaña fue aprobada satisfactoriamente',
     campaignRejected: 'La Campaña fue rechazada satisfactoriamente',
+    campaignResumed: 'La Campaña fue reanudada satisfactoriamente',
   },
   CLIENT_DETAILS: {
     clientDetails: 'Detalles del Cliente',
