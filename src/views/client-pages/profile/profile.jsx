@@ -94,15 +94,20 @@ class Profile extends Component {
                       <Media  className="mr-3" alt="Profile" />
                       </Media>
                     <Media className="mt-3" body>
-                      <Media heading>
-                        {this.state.user.firstName && (<span>
-                          { t('PROFILE.nameAndSurname') } { ':' }
-                        </span>)}
+                      <Media heading style={{margin: 0}}>
+                        <span>
+                          { `${t('PROFILE.nameAndSurname')}:` }
+                        </span>
                       </Media>
                       <span>
                         {` ${this.state.user.firstName} ${this.state.user.lastName}`}
                       </span>
-                      <p>{this.state.user.email}</p>
+                      <Media heading style={{margin: 0}}>
+                        <span>
+                          { `${t('PROFILE.email')}:` }
+                        </span>
+                      </Media>
+                      <span>{this.state.user.email}</span>
                     </Media>
                   </Media>
                </Container>
