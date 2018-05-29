@@ -178,10 +178,10 @@ class EditAccount extends Component {
                 { t('CREATE_ACCOUNT.selectPaymentMethod') }
               </AvFeedback>
             </AvGroup>
-            <FormGroup>
+            {/* <FormGroup>
               <Label for="autocomplete">{ t('CREATE_ACCOUNT.location') }</Label>
               <Input onKeyPress={this.handleKeyPress} type="text" id="autocomplete" placeholder={ t('CREATE_ACCOUNT.location') }/>
-            </FormGroup>
+            </FormGroup> */}
             <AvGroup>
               <Label for="city">{ t('CREATE_ACCOUNT.city') }</Label>
               <AvInput disabled value={this.state.city} type="text" name="city" id="autocomplete" placeholder={ t('CREATE_ACCOUNT.city') } required/>
