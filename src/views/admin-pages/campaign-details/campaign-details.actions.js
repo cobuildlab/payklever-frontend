@@ -11,8 +11,8 @@ const getCampaign = (campaignId) => {
     });
 }
 
-const approveCampaign = (campaignId, msg) => {
-  putData(`/campaign/${campaignId}/approve/`, { msg })
+const approveCampaign = (campaignId) => {
+  putData(`/campaign/${campaignId}/approve/`)
     .then((data) => {
       Flux.dispatchEvent('approveCampaign', data);
     })

@@ -97,7 +97,7 @@ class CampaignDetails extends Component {
 
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
-      <ModalConfirm isOpen={this.state.approveCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.approveHeader')} modalBody={t('CAMPAIGN_DETAILS.approveBody', { campaignName: this.state.campaign.name || ' ' } )} inputLabel={t('APP.optionalMsg')}
+      <ModalConfirm isOpen={this.state.approveCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.approveHeader')} modalBody={t('CAMPAIGN_DETAILS.approveBody', { campaignName: this.state.campaign.name || ' ' } )}
       acceptI18n="CAMPAIGN_DETAILS.approveCampaign" confirm={this.approveCampaign} />
 
       <ModalConfirm isOpen={this.state.rejectCampaignIsOpen} modalHeader={t('CAMPAIGN_DETAILS.rejectHeader')} modalBody={t('CAMPAIGN_DETAILS.rejectBody', { campaignName: this.state.campaign.name || ' ' })} inputLabel={t('APP.optionalMsg')}
@@ -136,12 +136,12 @@ class CampaignDetails extends Component {
    * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
    * component only to approve the campaign
    */
-  approveCampaign = (confirm = false, msg) => {
+  approveCampaign = (confirm = false) => {
     this.setState({ approveCampaignIsOpen: !this.state.approveCampaignIsOpen });
 
     if (confirm === true) {
       this.isLoading(true, 'CAMPAIGN_DETAILS.approvingCampaign');
-      CampaignDetailsActions.approveCampaign(this.state.campaign.id, msg);
+      CampaignDetailsActions.approveCampaign(this.state.campaign.id);
     }
   }
 
