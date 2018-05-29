@@ -50,7 +50,7 @@ class Profile extends Component {
 
     this.setUserSubscription = authStore
       .subscribe('setUser', (user) => {
-        this.setState({ user });
+        if (user) this.setState({ user });
       });
 
     this.authStoreError = authStore.subscribe('AuthStoreError', (err) => {

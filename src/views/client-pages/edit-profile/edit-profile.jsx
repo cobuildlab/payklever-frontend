@@ -50,7 +50,7 @@ class EditProfile extends Component {
 
     this.setUserSubscription = authStore
       .subscribe('setUser', (user) => {
-        this.props.history.push('/client/profile/accounts');
+        if (user) this.props.history.push('/client/profile/accounts');
       });
 
     this.authStoreError = authStore.subscribe('AuthStoreError', (err) => {

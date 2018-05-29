@@ -69,7 +69,7 @@ class MainNav extends Component {
 
     this.setUserSubscription = authStore
       .subscribe('setUser', (user) => {
-        this.setState({ user });
+        if (user) this.setState({ user });
       });
 
     this.accountStoreError = accountStore
