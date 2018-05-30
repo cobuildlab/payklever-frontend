@@ -1,13 +1,53 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
-
-class CampaignManager extends Flux.View {
+import React, { Component } from 'react';
+import {
+  Route,
+  Link,
+  Redirect,
+  Switch,
+} from "react-router-dom";
+import {
+  I18n
+} from 'react-i18next';
+import { Clients, ClientCampaigns } from '../';
+import {
+  Container,
+  Col,
+  Row,
+  Nav,
+  NavLink,
+  NavItem,
+  Media,
+} from 'reactstrap';
+class CampaignManager extends Component {
   render() {
-    return (
-      <div>
-        CamPaignManager View
-      </div>
-    );
+    if (this.props.match.isExact) {
+      return <Redirect to="/admin/campaign-manager/client-campaigns" />
+    }
+
+    return (<I18n>{(t, { i18n }) => (
+
+      <Container>
+        <Nav tabs className="nav mt-5">
+         <NavItem className="App-tabs-50">
+           <NavLink tag={Link} to="/admin/campaign-manager/client-campaigns" active={(this.props.location.pathname === '/admin/campaign-manager/client-campaigns')}>
+             { t('CAMPAIGN_MANAGER.campaign') }
+           </NavLink>
+         </NavItem>
+         <NavItem className="App-tabs-50">
+           <NavLink tag={Link} to="/admin/campaign-manager/clients" active={(this.props.location.pathname === '/admin/campaign-manager/clients')}>
+             { t('CAMPAIGN_MANAGER.client') }
+           </NavLink>
+         </NavItem>
+       </Nav>
+
+        <Switch>
+          <Route exact path="/admin/campaign-manager/clients" component={Clients}/>
+          <Route exact path="/admin/campaign-manager/client-campaigns" component={ClientCampaigns}/>
+          <Redirect to='/admin/campaign-manager/client-campaigns'/>
+        </Switch>
+
+      </Container>
+    )}</I18n>);
   }
 }
 

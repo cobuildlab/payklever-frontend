@@ -3,14 +3,14 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import { AuthStore } from '../../../stores';
+import { authStore } from '../../../stores';
 
 const AdminRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    (AuthStore.isAdmin() === true && AuthStore.isAuthenticated() === true)
+    (authStore.isAdmin() === true && authStore.isAuthenticated() === true)
     ? <Component {...props} /> :
-    ((AuthStore.isAdmin() === true && AuthStore.isAuthenticated() === false) ||
-    (AuthStore.isAdmin() === false && AuthStore.isAuthenticated() === false) )
+    ((authStore.isAdmin() === true && authStore.isAuthenticated() === false) ||
+    (authStore.isAdmin() === false && authStore.isAuthenticated() === false) )
     ? <Redirect to={{
         pathname: '/login',
         state: { from: props.location }

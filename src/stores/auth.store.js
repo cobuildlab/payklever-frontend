@@ -1,35 +1,58 @@
 import Flux from '@4geeksacademy/react-flux-dash';
 
-class AuthStore extends Flux.Store {
+class AuthStore extends Flux.DashStore {
   constructor() {
     super();
-    this.state = {
-      user: {},
-    }
-  }
 
-  _setUser(user) {
-    localStorage.setItem('user', JSON.stringify(user));
+    /**
+     * Set the session's user
+     * @param {object || undefined}  user undefined to delete user from
+     * localStorage & logout
+     */
+    this.addEvent('setUser', (user) => {
+      if (JSON.stringify(user) !== '{}' && user !== undefined) {
+        localStorage.setItem('user', JSON.stringify(user));
+      } else if (user === undefined) {
+        localStorage.removeItem('user');
+      }
 
-    this.setStoreState({
-      user: user,
-    }).emit('USER_ADDED');
-  }
+      return user;
+    });
 
-  _removeUser() {
-    localStorage.removeItem('user');
+    /**
+     * Notifies when a user has signep up
+     * @param {object}  user the registered user
+     */
+    this.addEvent('signup');
 
-    this.setStoreState({
-      user: {},
-    }).emit('USER_REMOVED');
+    /**
+     * Notifies when a user updated his profile
+     * @param {object}  user the updated user
+     */
+    this.addEvent('editProfile');
+
+    /**
+     * Notifies when a user updated his photo
+     */
+    this.addEvent('editPhoto');
+
+    /**
+     * Error handler
+     * @param {Error} err the error from the action
+     */
+    this.addEvent('AuthStoreError');
   }
 
   getUser() {
-    return this.state.user;
+    const user = this.getState('setUser') || {};
+
+    return user;
   }
 
   getToken() {
-    return this.state.user.token;
+    const user = this.getState('setUser') || {};
+
+    return user.token;
   }
 
   getCachedUser() {
@@ -39,15 +62,21 @@ class AuthStore extends Flux.Store {
 
 
   isAuthenticated() {
-    return (typeof this.state.user.token === 'string');
+    const user = this.getState('setUser') || {};
+
+    return (typeof user.token === 'string');
   }
 
   isAdmin() {
-    return (this.state.user.isAdmin === true);
+    const user = this.getState('setUser') || {};
+
+    return (user.isAdmin === true);
   }
 
   isClient() {
-    return (this.state.user.isAdmin === false);
+    const user = this.getState('setUser') || {};
+
+    return (user.isAdmin === false);
   }
 }
 

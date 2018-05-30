@@ -1,13 +1,22 @@
 import Flux from '@4geeksacademy/react-flux-dash';
 import { postData } from '../../../fetch';
 import { CreatePaymentForm } from './create-payment.classes';
+import { createPaymentValidator } from './create-payment.validators';
 
-class CreatePaymentActions extends Flux.Action {
-  createPayment(createPaymentForm: CreatePaymentForm) {
-    return postData('/pay-media/', createPaymentForm, true);
+const createPayment = (createPaymentForm: CreatePaymentForm) => {
+  try {
+    createPaymentValidator(createPaymentForm);
+
+    postData('/pay-media/', createPaymentForm, true)
+      .then((res) => {
+        Flux.dispatchEvent('createPayment', res);
+      })
+      .catch((err) => {
+        Flux.dispatchEvent('PaymentStoreError', err);
+      });
+  } catch (err) {
+    Flux.dispatchEvent('PaymentStoreError', err);
   }
 }
 
-const createPaymentActions = new CreatePaymentActions();
-
-export default createPaymentActions;
+export { createPayment };

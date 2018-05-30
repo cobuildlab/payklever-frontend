@@ -1,11 +1,11 @@
 import Flux from '@4geeksacademy/react-flux-dash';
 
-class MainNavActions extends Flux.Action {
-  logout() {
-    this.dispatch('AuthStore.removeUser');
-  }
+const logout = () => {
+  Flux.dispatchEvent('setUser', undefined);
 }
 
-const mainNavActions = new MainNavActions();
+const changeAccount = (account) => {
+  Flux.dispatchEvent('changeAccount', account);
+}
 
-export default mainNavActions;
+export { logout, changeAccount };

@@ -1,83 +1,226 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
+import React, { Component } from 'react';
 import {
   I18n
 } from 'react-i18next';
+import { i18next } from '../../../i18n';
+import { toast } from 'react-toastify';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faTimes, faEdit } from '@fortawesome/fontawesome-free-solid';
 import {
   Container,
   Table,
   Button,
   Nav,
-NavItem,
-NavLink,
+  NavItem,
+  NavLink,
+  Col,
+  Row,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  UncontrolledDropdown,
+  InputGroup,
+  InputGroupAddon,
+  Input,
 } from 'reactstrap';
 import {
   Link
 } from "react-router-dom";
-import CampaignsActions from './campaigns.actions';
-import { SubNav } from '../../components';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import * as CampaignsActions from './campaigns.actions';
+import { campaignStore, accountStore } from '../../../stores';
+import { Loading } from '../../components';
 
-class Campaigns extends Flux.View {
+class Campaigns extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      campaigns: [{
-        id: 1,
-        name:  'campaign',
-        title: 'title',
-      }, {
-        id: 2,
-        name:  'campaign2',
-        title: 'title2',
-      }],
+      loading: false,
+      campaigns: [],
     };
+
+    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
-    CampaignsActions.getCampaigns()
-      .then((campaigns) => {
-        this.setState({
-          campaigns,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+    this.getCampaignsSubscription = campaignStore
+      .subscribe('getCampaigns', (campaigns) => {
+        this.setState({ campaigns });
+        this.isLoading(false);
+      });
+
+    this.changeAccountSubscription = accountStore
+      .subscribe('changeAccount', (account) => {
+        if (this.state.campaigns.length === 0) this.isLoading(true);
+        CampaignsActions.getCampaigns(account.id);
+      });
+
+    this.campaignStoreError = campaignStore
+      .subscribe('CampaignStoreError', (err) => {
+        this.isLoading(false);
+        toast.dismiss();
+        toast.error(err.message || i18next.t('FETCH.error'));
+      });
+
+    const account = accountStore.getAccount();
+    if (account.id) {
+      this.isLoading(true);
+      CampaignsActions.getCampaigns(account.id);
+    }
+  }
+
+  componentWillUnmount() {
+    this.getCampaignsSubscription.unsubscribe();
+    this.changeAccountSubscription.unsubscribe();
+    this.campaignStoreError.unsubscribe();
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (
       <div>
-      <SubNav link="/client/create-campaign" linkI18n="CAMPAIGNS.createCampaign" titleI18n="CAMPAIGNS.campaigns"></SubNav>
 
-       <Container className="mt-4">
-         <Nav tabs className="nav justify-content-center mt-4">
+      <Loading isLoading={this.state.loading} loadingMessage={ t('CAMPAIGNS.loadingCampaigns') }></Loading>
+
+       <Container className="mt-4 p-0">
+         <Nav className="nav mt-5 mb-3 p-0 d-flex justify-content-end">
           <NavItem>
-            <NavLink active={true}>
-              { t('CAMPAIGNS.campaigns') }
-            </NavLink>
+            {/* <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Options
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  Option 1
+                </DropdownItem>
+                <DropdownItem>
+                  Option 2
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  Reset
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </NavItem>
+          <NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Options
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  Option 1
+                </DropdownItem>
+                <DropdownItem>
+                  Option 2
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  Reset
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </NavItem>
+          <NavItem>
+          <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret>
+              Options
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem>
+                Option 1
+              </DropdownItem>
+              <DropdownItem>
+                Option 2
+              </DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem>
+                Reset
+              </DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+          </NavItem>
+          <InputGroup>
+           <Input/>
+           <InputGroupAddon addonType="append">
+             <Button color="secondary">S</Button>
+           </InputGroupAddon>
+         </InputGroup> */}
+          <Link to="/client/create-campaign/">
+            <Button color="primary">{ t('CAMPAIGNS.createCampaign') }</Button>
+          </Link>
+        </NavItem>
         </Nav>
-
+        {/* <Row className="cant-data mb-5 d-flex justify-content-center">
+          <Col md={{size: 2,}}>
+            <p className="text-center mb-0">Conversion</p>
+            <h1 className="text-center">99</h1>
+          </Col>
+          <Col md={{size: 2,}}>
+            <p className="text-center mb-0">Lead</p>
+            <h1 className="text-center">99</h1>
+          </Col>
+          <Col md={{size: 2,}}>
+            <p className="text-center mb-0">Impressions</p>
+            <h1 className="text-center">99</h1>
+          </Col>
+          <Col md={{size: 2,}}>
+            <p className="text-center mb-0">Click</p>
+            <h1 className="text-center">99</h1>
+          </Col>
+          <Col md={{size: 2,}}>
+            <p className="text-center mb-0">Total Spend</p>
+            <h1 className="text-center">99</h1>
+          </Col>
+        </Row> */}
+          <h1 className="text-center mb-4">{ t('CAMPAIGNS.campaigns') }</h1>
          <Table>
             <thead>
               <tr>
                 <th>{ t('CAMPAIGNS.name') }</th>
                 <th>{ t('CAMPAIGNS.title') }</th>
+                <th>{ t('CAMPAIGNS.status') }</th>
+                <th>{ t('CAMPAIGNS.adminStatus') }</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
+            <TransitionGroup component={null}>
              { this.state.campaigns.map((campaign) =>
-             <tr key={campaign.id}>
-               <td>{campaign.name}</td>
-               <td>{campaign.title}</td>
-             </tr> )}
+               <CSSTransition key={campaign.id} timeout={500} classNames="fade-in">
+                 <tr>
+                   <td>
+                     <Link to={`/client/campaign-details/${campaign.id}`}>
+                        {campaign.name}
+                     </Link>
+                   </td>
+                   <td>{campaign.messageTitle}</td>
+                   <td>{t(`CAMPAIGN_USER_STATUS.${campaign.status}`)}</td>
+                   <td>{t(`CAMPAIGN_ADMIN_STATUS.${campaign.adminStatus}`)}</td>
+                   <td className="text-right">
+                     {(campaign.adminStatus === 'na' ||
+                      campaign.adminStatus === 're') ? (
+                      <Link to={`/client/create-campaign/${campaign.id}`}>
+                        <Button title={t('CAMPAIGNS.editCampaign')} color="primary" size="sm">
+                        <FontAwesomeIcon icon={faEdit}/>
+                        </Button>
+                      </Link>
+                     ) : null}
+                   </td>
+                 </tr>
+               </CSSTransition>)}
+            </TransitionGroup>
            </tbody>
          </Table>
        </Container>
       </div>
     )}</I18n>);
+  }
+
+  isLoading(isLoading) {
+    this.setState({ loading: isLoading });
   }
 }
 

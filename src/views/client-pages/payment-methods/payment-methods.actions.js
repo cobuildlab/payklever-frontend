@@ -1,12 +1,24 @@
 import Flux from '@4geeksacademy/react-flux-dash';
-import { getData } from '../../../fetch';
+import { getData, deleteData } from '../../../fetch';
 
-class PaymentMethodsActions extends Flux.Action {
-  getPaymentMethods() {
-    return getData('/pay-media/', true);
-  }
+const getPaymentMethods = () => {
+  getData('/pay-media/')
+    .then((paymentMethods) => {
+      Flux.dispatchEvent('getPayments', paymentMethods);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('PaymentStoreError', err);
+    });;
 }
 
-const paymentMethodsActions = new PaymentMethodsActions();
+const deletePayment = (payMediaId) => {
+  deleteData(`/pay-media/${payMediaId}/`)
+    .then((res) => {
+      Flux.dispatchEvent('deletePayment', res);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('PaymentStoreError', err);
+    });;
+}
 
-export default paymentMethodsActions;
+export { getPaymentMethods, deletePayment };

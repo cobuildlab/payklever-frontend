@@ -3,11 +3,11 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import { AuthStore } from '../../../stores';
+import { authStore } from '../../../stores';
 
 const NotAuthRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    (AuthStore.isAuthenticated() === false)
+    (authStore.isAuthenticated() === false)
     ? <Component {...props} /> :
     <Redirect to={{
         pathname: '/client',

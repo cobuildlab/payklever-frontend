@@ -1,12 +1,14 @@
 import Flux from '@4geeksacademy/react-flux-dash';
 import { getData } from '../../../fetch';
 
-class Campaigns extends Flux.Action {
-  getCampaigns() {
-    return getData('/campaign/', true);
-  }
+const getCampaigns = (accountId) => {
+  getData(`/campaign/?accountId=${accountId}`)
+    .then((campaigns) => {
+      Flux.dispatchEvent('getCampaigns', campaigns);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
 }
 
-const campaigns = new Campaigns();
-
-export default campaigns;
+export { getCampaigns };

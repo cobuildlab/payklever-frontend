@@ -1,12 +1,14 @@
-import React from 'react';
-import Flux from '@4geeksacademy/react-flux-dash';
-import appActions from './App.actions';
+import React, { Component } from 'react';
+import * as appActions from './App.actions';
+import { i18next } from './i18n';
+import { toast, ToastContainer } from 'react-toastify';
 import './App.css';
 import {
-  AuthStore
+  authStore
 } from './stores';
 import {
   Redirect,
+  Switch,
 } from 'react-router-dom';
 import {
   Login,
@@ -18,14 +20,25 @@ import {
   ClientRoute,
 } from './views';
 
-class App extends Flux.View {
+class App extends Component {
   constructor(props) {
     super(props);
     this.getCachedUser();
+  }
 
-    this.bindStore(AuthStore, 'USER_REMOVED', function() {
-      props.history.push('/login');
+  componentDidMount() {
+    this.setUser = authStore.subscribe('setUser', (user) => {
+        if (!user) {
+          toast.dismiss();
+          toast.success(i18next.t('APP.youHaveLoggedOut'));
+          this.deleteAccounts();
+          this.props.history.push('/login');
+        }
     });
+  }
+
+  componentWillUnmount() {
+    this.setUser.unsubscribe();
   }
 
   render() {
@@ -35,16 +48,26 @@ class App extends Flux.View {
 
     return (
       <div>
-        <NotAuthRoute exact path="/signup" component={Signup}/>
-        <NotAuthRoute exact path="/login" component={Login}/>
-        <AdminRoute path="/admin" component={AdminPages}/>
-        <ClientRoute path="/client" component={ClientPages}/>
+        <ToastContainer/>
+        <Switch>
+          <NotAuthRoute exact path="/signup" component={Signup}/>
+          <NotAuthRoute exact path="/login" component={Login}/>
+          <AdminRoute path="/admin" component={AdminPages}/>
+          <ClientRoute path="/client" component={ClientPages}/>
+          <Redirect to='/client'/>
+        </Switch>
       </div>
     );
   }
 
+  deleteAccounts() {
+    setTimeout(() => {
+      appActions.deleteAccounts();
+    })
+  }
+
   getCachedUser() {
-    const cachedUser = AuthStore.getCachedUser();
+    const cachedUser = authStore.getCachedUser();
 
     if (cachedUser.token) appActions.setCachedUser(cachedUser);
   }

@@ -1,18 +1,23 @@
 import Flux from '@4geeksacademy/react-flux-dash';
-import { postData } from '../../fetch';
+import {
+  postData
+} from '../../fetch';
+import { loginValidator } from './login.validators';
 
-class LoginActions extends Flux.Action {
-  login(loginForm) {
-    return postData('/auth/login', loginForm, false)
-    .then((res) => {
-      this.dispatch('AuthStore.setUser', res);
-    })
-    .catch((err) => {
-      console.log('loginError', err);
-    })
+const login = (email, password) => {
+  try {
+    loginValidator(email, password);
+
+    postData('/auth/login', { email: email, password: password }, false)
+      .then((res) => {
+        Flux.dispatchEvent('setUser', res);
+      })
+      .catch((err) => {
+        Flux.dispatchEvent('AuthStoreError', err);
+      });
+  } catch (err) {
+    Flux.dispatchEvent('AuthStoreError', err);
   }
 }
 
-const loginActions = new LoginActions();
-
-export default loginActions;
+export { login };
