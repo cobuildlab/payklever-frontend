@@ -13,19 +13,16 @@ import {
 } from './';
 
 class ClientPages extends Component {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    // shows the tidio chat
+    document.getElementById("hide-tidio-chat").disabled = true;
+  }
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
+  componentWillUnmount() {
+    // hides the tidio chat
+    document.getElementById("hide-tidio-chat").disabled = false;
   }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
+
   render() {
     if (this.props.match.isExact) {
       return <Redirect to="/client/campaigns" />

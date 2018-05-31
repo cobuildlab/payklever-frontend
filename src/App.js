@@ -19,22 +19,41 @@ import {
   AdminRoute,
   ClientRoute,
 } from './views';
+const tidioChatApi = window.tidioChatApi;
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.getCachedUser();
+    this.state = {
+      user: {},
+    }
+
+    props.history.listen((location, action) => {
+      const currentRoute = `Route: ${location.pathname}`;
+      this.setTidiotags([currentRoute]);
+    });
   }
 
   componentDidMount() {
     this.setUser = authStore.subscribe('setUser', (user) => {
-        if (!user) {
-          toast.dismiss();
-          toast.success(i18next.t('APP.youHaveLoggedOut'));
-          this.deleteAccounts();
-          this.props.history.push('/login');
-        }
+      if (!user) {
+        toast.dismiss();
+        toast.success(i18next.t('APP.youHaveLoggedOut'));
+        this.deleteAccounts();
+        this.props.history.push('/login');
+      } else {
+        this.setState({ user });
+        this.setTidioUser(this.state.user);
+      }
     });
+
+    tidioChatApi.on('ready', () => {
+      this.setTidioUser(this.state.user);
+    });
+
+    this.getCachedUser();
+
+    document.tidioChatLang = i18next.language.split('-')[0];
   }
 
   componentWillUnmount() {
@@ -70,6 +89,22 @@ class App extends Component {
     const cachedUser = authStore.getCachedUser();
 
     if (cachedUser.token) appActions.setCachedUser(cachedUser);
+  }
+
+  setTidioUser = (user) => {
+    if (!user.id) return;
+
+    tidioChatApi.setVisitorData({
+      distinct_id: user.id,
+      email: user.email,
+      name: `${user.firstName} ${user.lastName}`,
+    });
+  }
+
+  setTidiotags = (tags) => {
+    tidioChatApi.setVisitorData({
+      tags: tags,
+    });
   }
 }
 
