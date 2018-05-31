@@ -30,7 +30,7 @@ class App extends Component {
 
     props.history.listen((location, action) => {
       const currentRoute = `Route: ${location.pathname}`;
-      this.setTidiotags([currentRoute]);
+      this.setTidiotags([currentRoute], this.state.user);
     });
   }
 
@@ -92,7 +92,7 @@ class App extends Component {
   }
 
   setTidioUser = (user) => {
-    if (!user.id) return;
+    if (!user.id || user.isAdmin === true) return;
 
     tidioChatApi.setVisitorData({
       distinct_id: user.id,
@@ -101,7 +101,9 @@ class App extends Component {
     });
   }
 
-  setTidiotags = (tags) => {
+  setTidiotags = (tags, user) => {
+    if (!user.id || user.isAdmin === true) return;
+
     tidioChatApi.setVisitorData({
       tags: tags,
     });
