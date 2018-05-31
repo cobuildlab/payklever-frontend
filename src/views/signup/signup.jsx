@@ -90,16 +90,17 @@ class Signup extends Component {
         <Col className="mt-5 mb-5 text-center"  md={{size: 12,}}>
           <img src={WhiteLogo} className="img-fluid signup-logo" alt="payklever"/>
         </Col>
-        <Row>
+        {/* <Row>
           <Col md={{
               size: 4,
               offset: 2
             }}>
             <h2 className="text-left title">Ambitioni dedisse scripsisse iudicaretur.</h2>
           <p className="text-left subTitle">Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium purus sit amet fermentum. Donec sed odio operae, eu vulputate felis rhoncus. Praeterea iter est quasdam res quas ex communi. At nos hinc posthac, sitientis piros Afros. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Cras mattis iudicium purus sit amet fermentum.</p>
-          </Col>
+          </Col> */}
           <Col md={{
-              size: 5
+              size: 6,
+              offset: 3,
             }}>
             <Card>
               <CardBody>
@@ -146,7 +147,7 @@ class Signup extends Component {
               </CardBody>
             </Card>
           </Col>
-        </Row>
+        {/* </Row> */}
       </Row>
     </Container>)}</I18n>)
   }
