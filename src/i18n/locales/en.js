@@ -16,7 +16,7 @@ export default {
   CAMPAIGN_USER_STATUS: {
     ac: 'Active',
     ia: 'Paused',
-    de: 'deleted',
+    de: 'Deleted',
   },
   LOGIN: {
     login: 'Log In',
@@ -260,7 +260,7 @@ export default {
   CLIENT_CAMPAIGNS: {
     campaignName: 'Campaign name',
     messageTitle: 'Message Title',
-    status: 'status',
+    status: 'Status',
     adminStatus: 'Admin Status',
     loadingCampaigns: 'Loading Campaigns',
   },
@@ -278,7 +278,7 @@ export default {
     matchedAudiences: 'Matched Audiences',
     budget: 'Budget',
     startDate: 'Start date',
-    endDate: 'stop Date',
+    endDate: 'Stop date',
     approveCampaign: 'Approve Campaign',
     rejectCampaign: 'Reject Campaign',
     suspendCampaign: 'Suspend',
