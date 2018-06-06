@@ -53,6 +53,13 @@ export default {
     signingUp: 'Signing Up',
     emailInUse: 'The email is being used by another user',
   },
+  RECOVER_PASSWORD: {
+    recoverPassword: 'Recover password',
+    submitEmail: 'Submit email',
+    submittingEmail: 'Submitting email',
+    emailSubmitted: 'An email has been sent with the instructions to reset your password',
+    resetPassword: 'Already have a code? Reset your password',
+  },
   EDIT_PROFILE: {
     profileUpdated: 'Profile successfully updated!',
     editProfile: 'Edit profile',

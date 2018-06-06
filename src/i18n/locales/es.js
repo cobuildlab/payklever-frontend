@@ -53,6 +53,13 @@ export default {
     signingUp: 'Registrando usuario',
     emailInUse: 'El correo esta siendo usado por otro usuario',
   },
+  RECOVER_PASSWORD: {
+    recoverPassword: 'Recuperar contraseña',
+    submitEmail: 'Enviar correo',
+    submittingEmail: 'Enviando el correo',
+    emailSubmitted: 'Se ha enviado un correo electrónico con las instrucciones para restablecer tu contraseña',
+    resetPassword: '¿Ya tienes un código? Restablece tu contraseña'
+  },
   EDIT_PROFILE: {
     profileUpdated: 'Perfil actualizado satisfactoriamente!',
     editProfile: 'Editar perfil',

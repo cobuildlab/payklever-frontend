@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { I18n } from 'react-i18next';
 import { i18next } from '../../i18n';
 import { toast } from 'react-toastify';
-import * as loginActions from './login.actions';
-import './login.css';
+import * as recoverPasswordActions from './recover-password.actions';
+import './recover-password.css';
 import { Link } from 'react-router-dom';
 import { Loading } from '../components';
 import {
@@ -27,7 +27,7 @@ import {
   AvFeedback,
 } from 'availity-reactstrap-validation';
 
-class Login extends Component {
+class RecoverPassword extends Component {
 
   constructor(props) {
     super(props);
@@ -35,21 +35,19 @@ class Login extends Component {
     this.state = {
       loading: false,
       email: '',
-      password: '',
     };
 
     this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
-    this.setUserSubscription = authStore.subscribe('setUser', (user) => {
-      this.isLoading(false);
-      if (user) {
+    this.recoverPasswordSubscription = authStore
+      .subscribe('recoverPassword', (res) => {
+        this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('LOGIN.youHaveLoggedIn'));
-        this.props.history.push('/client');
-      }
-    });
+        toast.success(i18next.t('RECOVER_PASSWORD.emailSubmitted'));
+        this.props.history.push(`/login`);
+      });
 
     this.authStoreError = authStore.subscribe('AuthStoreError', (err) => {
       this.isLoading(false);
@@ -65,7 +63,7 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
-    this.setUserSubscription.unsubscribe();
+    this.recoverPasswordSubscription.unsubscribe();
     this.authStoreError.unsubscribe();
 
     document.body.style.backgroundImage = '';
@@ -79,7 +77,7 @@ class Login extends Component {
     return (
       <I18n>{(t, { i18n }) => (<Container>
 
-      <Loading isLoading={this.state.loading} loadingMessage={ t('LOGIN.loggingIn') }></Loading>
+      <Loading isLoading={this.state.loading} loadingMessage={ t('RECOVER_PASSWORD.submittingEmail') }></Loading>
 
       <Row className="mt-2 mb-5">
         <Col className="mt-5 mb-5 text-center"  md={{size: 12,}}>
@@ -101,7 +99,7 @@ class Login extends Component {
             <Card>
               <CardBody>
                 <CardTitle tag="h1" className="text-center">
-                  { t('LOGIN.login') }
+                  { t('RECOVER_PASSWORD.recoverPassword') }
                 </CardTitle>
                 <AvForm onValidSubmit={(evt) => this.login(evt)} noValidate>
                   <AvGroup>
@@ -109,21 +107,12 @@ class Login extends Component {
                     <AvFeedback>{ t('LOGIN.invalidEmail') }</AvFeedback>
                   </AvGroup>
                   <AvGroup>
-                    <AvInput type="password" name="password" id="password" placeholder={ t('LOGIN.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} required/>
-                    <AvFeedback>{ t('LOGIN.emptyPassword') }</AvFeedback>
+                    <Button color="primary" type="submit" size="lg" block>{ t('RECOVER_PASSWORD.submitEmail') }</Button>
                   </AvGroup>
                   <AvGroup>
-                    <Button color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
-                  </AvGroup>
-                  <AvGroup>
-                    <Link to="/recover-password" className="recover">
+                    <Link to="/reset-password/" className="recover">
                       <p className="text-center">
-                        { t('LOGIN.recoverPassword') }
-                      </p>
-                    </Link>
-                    <Link to="/signup" className="recover">
-                      <p className="text-center">
-                        { t('LOGIN.register') }
+                        { t('RECOVER_PASSWORD.resetPassword') }
                       </p>
                     </Link>
                   </AvGroup>
@@ -139,7 +128,7 @@ class Login extends Component {
   login(evt) {
     this.isLoading(true);
 
-    loginActions.login(this.state.email, this.state.password);
+    recoverPasswordActions.recoverPassword(this.state.email);
   }
 
   isLoading(isLoading) {
@@ -147,4 +136,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default RecoverPassword;
