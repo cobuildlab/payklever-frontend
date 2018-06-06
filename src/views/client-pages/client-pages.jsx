@@ -13,19 +13,6 @@ import {
 } from './';
 
 class ClientPages extends Component {
-  constructor(props) {
-    super(props);
-
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
   render() {
     if (this.props.match.isExact) {
       return <Redirect to="/client/campaigns" />

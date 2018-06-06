@@ -1,0 +1,4 @@
+/* hidden by default, disable this css to show the tidio chat */
+#tidio-chat {
+  display: none;
+}
