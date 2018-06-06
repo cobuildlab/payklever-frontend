@@ -92,7 +92,7 @@ class App extends Component {
   }
 
   setTidioUser = (user) => {
-    if (!user.id || user.isAdmin === true) return;
+    if (!user.id) return;
 
     tidioChatApi.setVisitorData({
       distinct_id: user.id,
@@ -102,7 +102,7 @@ class App extends Component {
   }
 
   setTidiotags = (tags, user) => {
-    if (!user.id || user.isAdmin === true) return;
+    if (!user.id) return;
 
     tidioChatApi.setVisitorData({
       tags: tags,
