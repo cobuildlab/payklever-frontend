@@ -118,7 +118,7 @@ class Login extends Component {
                   <AvGroup>
                     <Link to="/recover-password" className="recover">
                       <p className="text-center">
-                        { t('LOGIN.recoverPassword') }
+                        { t('LOGIN.forgotPassword') }
                       </p>
                     </Link>
                     <Link to="/signup" className="recover">

@@ -24,6 +24,7 @@ export default {
     password: 'Password',
     register: 'You do not have an account? Sign Up',
     recoverPassword: 'Recover password',
+    forgotPassword: 'Forgot your password?',
     invalidEmail: 'Invalid email',
     emptyEmail: 'Empty email',
     passwordRequired: 'Password required',
@@ -59,6 +60,14 @@ export default {
     submittingEmail: 'Submitting email',
     emailSubmitted: 'An email has been sent with the instructions to reset your password',
     resetPassword: 'Already have a code? Reset your password',
+  },
+  RESET_PASSWORD: {
+    resetPassword: 'Reset password',
+    code: 'Code',
+    emptyCode: 'Code required',
+    dontHaveCode: 'Dont have a code?',
+    resettingPassword: 'Resetting password',
+    passwordChanged: 'Password succesgully changed!'
   },
   EDIT_PROFILE: {
     profileUpdated: 'Profile successfully updated!',

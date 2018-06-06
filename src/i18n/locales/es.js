@@ -24,6 +24,7 @@ export default {
     password: 'Contraseña',
     register: '¿No tienes cuenta? Registrate',
     recoverPassword: 'Recuperar contraseña',
+    forgotPassword: '¿Olvidaste tu contraseña?',
     invalidEmail: 'Email inválido',
     emptyEmail: 'Correo requerido',
     emptyPassword: 'Contraseña requerida',
@@ -56,9 +57,17 @@ export default {
   RECOVER_PASSWORD: {
     recoverPassword: 'Recuperar contraseña',
     submitEmail: 'Enviar correo',
-    submittingEmail: 'Enviando el correo',
+    submittingEmail: 'Enviando correo',
     emailSubmitted: 'Se ha enviado un correo electrónico con las instrucciones para restablecer tu contraseña',
-    resetPassword: '¿Ya tienes un código? Restablece tu contraseña'
+    resetPassword: '¿Ya tienes un código? Restablece tu contraseña',
+  },
+  RESET_PASSWORD: {
+    resetPassword: 'Restablecer contraseña',
+    code: 'Código',
+    emptyCode: 'Código requerido',
+    dontHaveCode: '¿No tienes un código?',
+    resettingPassword: 'Restableciendo contraseña',
+    passwordChanged: 'Contraseña restablecida satisfactoriamente!'
   },
   EDIT_PROFILE: {
     profileUpdated: 'Perfil actualizado satisfactoriamente!',

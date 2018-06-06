@@ -41,6 +41,10 @@ class AuthStore extends Flux.DashStore {
      */
     this.addEvent('recoverPassword');
 
+    /**
+     * Notifies when a user submit reset his password
+     */
+    this.addEvent('resetPassword');
 
     /**
      * Error handler
