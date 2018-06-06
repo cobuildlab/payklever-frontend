@@ -13,16 +13,6 @@ import {
 } from './';
 
 class ClientPages extends Component {
-  componentDidMount() {
-    // shows the tidio chat
-    document.getElementById("hide-tidio-chat").disabled = true;
-  }
-
-  componentWillUnmount() {
-    // hides the tidio chat
-    document.getElementById("hide-tidio-chat").disabled = false;
-  }
-
   render() {
     if (this.props.match.isExact) {
       return <Redirect to="/client/campaigns" />
