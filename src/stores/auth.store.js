@@ -37,6 +37,16 @@ class AuthStore extends Flux.DashStore {
     this.addEvent('editPhoto');
 
     /**
+     * Notifies when a user submit his email to recover password
+     */
+    this.addEvent('recoverPassword');
+
+    /**
+     * Notifies when a user submit reset his password
+     */
+    this.addEvent('resetPassword');
+
+    /**
      * Error handler
      * @param {Error} err the error from the action
      */

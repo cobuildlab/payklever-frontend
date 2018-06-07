@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { I18n } from 'react-i18next';
 import { i18next } from '../../i18n';
 import { toast } from 'react-toastify';
-import * as loginActions from './login.actions';
-import './login.css';
+import * as resetPasswordActions from './reset-password.actions';
+import './reset-password.css';
 import { Link } from 'react-router-dom';
 import { Loading } from '../components';
 import {
@@ -26,30 +26,31 @@ import {
   AvInput,
   AvFeedback,
 } from 'availity-reactstrap-validation';
+import { signupAvForm } from '../signup/signup.validators';
 
-class Login extends Component {
+class RecoverPassword extends Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
       loading: false,
-      email: '',
+      code: props.match.params.code || '',
       password: '',
+      repeatPassword: '',
     };
 
     this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
-    this.setUserSubscription = authStore.subscribe('setUser', (user) => {
-      this.isLoading(false);
-      if (user) {
+    this.resetPasswordSubscription = authStore
+      .subscribe('resetPassword', (res) => {
+        this.isLoading(false);
         toast.dismiss();
-        toast.success(i18next.t('LOGIN.youHaveLoggedIn'));
-        this.props.history.push('/client');
-      }
-    });
+        toast.success(i18next.t('RESET_PASSWORD.passwordChanged'));
+        this.props.history.push(`/login`);
+      });
 
     this.authStoreError = authStore.subscribe('AuthStoreError', (err) => {
       this.isLoading(false);
@@ -65,7 +66,7 @@ class Login extends Component {
   }
 
   componentWillUnmount() {
-    this.setUserSubscription.unsubscribe();
+    this.resetPasswordSubscription.unsubscribe();
     this.authStoreError.unsubscribe();
 
     document.body.style.backgroundImage = '';
@@ -79,7 +80,7 @@ class Login extends Component {
     return (
       <I18n>{(t, { i18n }) => (<Container>
 
-      <Loading isLoading={this.state.loading} loadingMessage={ t('LOGIN.loggingIn') }></Loading>
+      <Loading isLoading={this.state.loading} loadingMessage={ t('RESET_PASSWORD.resettingPassword') }></Loading>
 
       <Row className="mt-2 mb-5">
         <Col className="mt-5 mb-5 text-center"  md={{size: 12,}}>
@@ -100,30 +101,34 @@ class Login extends Component {
             }}>
             <Card>
               <CardBody>
-                <CardTitle tag="h1" className="text-center">
-                  { t('LOGIN.login') }
+                <CardTitle tag="h2" className="text-center">
+                  { t('RESET_PASSWORD.resetPassword') }
                 </CardTitle>
-                <AvForm onValidSubmit={(evt) => this.login(evt)} noValidate>
+                <AvForm onValidSubmit={(evt) => this.resetPassword(evt)} noValidate>
                   <AvGroup>
-                    <AvInput type="email" name="email" id="email" placeholder={ t('LOGIN.email') } value={this.state.email} onChange={(evt) => this.setState({email: evt.target.value})} required/>
-                    <AvFeedback>{ t('LOGIN.invalidEmail') }</AvFeedback>
+                    <AvInput type="text" name="code" id="password" placeholder={ t('RESET_PASSWORD.code') } value={this.state.code} onChange={(evt) => this.setState({code: evt.target.value})} required/>
+                    <AvFeedback>{ t('RESET_PASSWORD.emptyCode') }</AvFeedback>
                   </AvGroup>
                   <AvGroup>
-                    <AvInput type="password" name="password" id="password" placeholder={ t('LOGIN.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} required/>
-                    <AvFeedback>{ t('LOGIN.emptyPassword') }</AvFeedback>
+                    <AvInput type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} validate={signupAvForm.password}/>
+                    <AvFeedback>{ t('SIGNUP.invalidPassword') }</AvFeedback>
                   </AvGroup>
                   <AvGroup>
-                    <Button color="primary" type="submit" size="lg" block>{ t('LOGIN.login') }</Button>
+                    <AvInput type="password" name="repeatPassword" id="repeatPassword" placeholder={ t('SIGNUP.repeatPassword') } value={this.state.repeatPassword}  onChange={(evt) => this.setState({repeatPassword: evt.target.value})} validate={signupAvForm.repeatPassword}/>
+                    <AvFeedback>{ t('SIGNUP.passwordNotMatch') }</AvFeedback>
+                  </AvGroup>
+                  <AvGroup>
+                    <Button color="primary" type="submit" size="lg" block>{ t('RESET_PASSWORD.resetPassword') }</Button>
                   </AvGroup>
                   <AvGroup>
                     <Link to="/recover-password" className="recover">
                       <p className="text-center">
-                        { t('LOGIN.forgotPassword') }
+                        { t('RESET_PASSWORD.dontHaveCode') }
                       </p>
                     </Link>
-                    <Link to="/signup" className="recover">
+                    <Link to="/login" className="recover">
                       <p className="text-center">
-                        { t('LOGIN.register') }
+                        { t('LOGIN.login') }
                       </p>
                     </Link>
                   </AvGroup>
@@ -136,10 +141,10 @@ class Login extends Component {
     </Container> )}</I18n>)
   }
 
-  login(evt) {
+  resetPassword(evt) {
     this.isLoading(true);
 
-    loginActions.login(this.state.email, this.state.password);
+    resetPasswordActions.resetPassword(this.state.password, this.state.repeatPassword, this.state.code);
   }
 
   isLoading(isLoading) {
@@ -147,4 +152,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default RecoverPassword;

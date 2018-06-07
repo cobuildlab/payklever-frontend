@@ -13,6 +13,8 @@ import {
 import {
   Login,
   Signup,
+  RecoverPassword,
+  ResetPassword,
   AdminPages,
   ClientPages,
   NotAuthRoute,
@@ -71,6 +73,8 @@ class App extends Component {
         <Switch>
           <NotAuthRoute exact path="/signup" component={Signup}/>
           <NotAuthRoute exact path="/login" component={Login}/>
+          <NotAuthRoute exact path="/recover-password" component={RecoverPassword}/>
+          <NotAuthRoute exact path="/reset-password/:code?" component={ResetPassword}/>
           <AdminRoute path="/admin" component={AdminPages}/>
           <ClientRoute path="/client" component={ClientPages}/>
           <Redirect to='/client'/>
