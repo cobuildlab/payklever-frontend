@@ -89,7 +89,7 @@ const createPaymentAvForm = {
   cardNumber: {
     required: true,
     number: true,
-    minLength: { value: 16 },
+    minLength: { value: 13 },
     maxLength: { value: 16 },
   },
   expireMonth: {
