@@ -110,11 +110,6 @@ class RecoverPassword extends Component {
                     <Button color="primary" type="submit" size="lg" block>{ t('RECOVER_PASSWORD.submitEmail') }</Button>
                   </AvGroup>
                   <AvGroup>
-                    <Link to="/reset-password/" className="recover">
-                      <p className="text-center">
-                        { t('RECOVER_PASSWORD.resetPassword') }
-                      </p>
-                    </Link>
                     <Link to="/login" className="recover">
                       <p className="text-center">
                         { t('LOGIN.login') }

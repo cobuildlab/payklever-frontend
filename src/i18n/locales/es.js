@@ -62,12 +62,12 @@ export default {
     resetPassword: '¿Ya tienes un código? Restablece tu contraseña',
   },
   RESET_PASSWORD: {
+    newPassword: 'Nueva contraseña',
     resetPassword: 'Restablecer contraseña',
     code: 'Código',
     emptyCode: 'Código requerido',
-    dontHaveCode: '¿No tienes un código?',
     resettingPassword: 'Restableciendo contraseña',
-    passwordChanged: 'Contraseña restablecida satisfactoriamente!'
+    passwordChanged: 'Contraseña restablecida satisfactoriamente!',
   },
   EDIT_PROFILE: {
     profileUpdated: 'Perfil actualizado satisfactoriamente!',

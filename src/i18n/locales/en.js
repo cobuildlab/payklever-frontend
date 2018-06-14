@@ -62,12 +62,12 @@ export default {
     resetPassword: 'Already have a code? Reset your password',
   },
   RESET_PASSWORD: {
+    newPassword: 'New password',
     resetPassword: 'Reset password',
     code: 'Code',
     emptyCode: 'Code required',
-    dontHaveCode: 'Dont have a code?',
     resettingPassword: 'Resetting password',
-    passwordChanged: 'Password succesgully changed!'
+    passwordChanged: 'Password succesgully changed!',
   },
   EDIT_PROFILE: {
     profileUpdated: 'Profile successfully updated!',
