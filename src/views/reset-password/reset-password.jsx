@@ -106,11 +106,7 @@ class RecoverPassword extends Component {
                 </CardTitle>
                 <AvForm onValidSubmit={(evt) => this.resetPassword(evt)} noValidate>
                   <AvGroup>
-                    <AvInput type="text" name="code" id="password" placeholder={ t('RESET_PASSWORD.code') } value={this.state.code} onChange={(evt) => this.setState({code: evt.target.value})} required/>
-                    <AvFeedback>{ t('RESET_PASSWORD.emptyCode') }</AvFeedback>
-                  </AvGroup>
-                  <AvGroup>
-                    <AvInput type="password" name="password" id="password" placeholder={ t('SIGNUP.password') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} validate={signupAvForm.password}/>
+                    <AvInput type="password" name="password" id="password" placeholder={ t('RESET_PASSWORD.newPassword') } value={this.state.password} onChange={(evt) => this.setState({password: evt.target.value})} validate={signupAvForm.password}/>
                     <AvFeedback>{ t('SIGNUP.invalidPassword') }</AvFeedback>
                   </AvGroup>
                   <AvGroup>
@@ -121,11 +117,6 @@ class RecoverPassword extends Component {
                     <Button color="primary" type="submit" size="lg" block>{ t('RESET_PASSWORD.resetPassword') }</Button>
                   </AvGroup>
                   <AvGroup>
-                    <Link to="/recover-password" className="recover">
-                      <p className="text-center">
-                        { t('RESET_PASSWORD.dontHaveCode') }
-                      </p>
-                    </Link>
                     <Link to="/login" className="recover">
                       <p className="text-center">
                         { t('LOGIN.login') }

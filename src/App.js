@@ -74,7 +74,7 @@ class App extends Component {
           <NotAuthRoute exact path="/signup" component={Signup}/>
           <NotAuthRoute exact path="/login" component={Login}/>
           <NotAuthRoute exact path="/recover-password" component={RecoverPassword}/>
-          <NotAuthRoute exact path="/reset-password/:code?" component={ResetPassword}/>
+          <NotAuthRoute exact path="/reset-password/:code" component={ResetPassword}/>
           <AdminRoute path="/admin" component={AdminPages}/>
           <ClientRoute path="/client" component={ClientPages}/>
           <Redirect to='/client'/>
