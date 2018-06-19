@@ -30,6 +30,8 @@ export default {
     emptyPassword: 'Password required',
     youHaveLoggedIn: 'You have logged in!',
     loggingIn: 'Logging In',
+    emailConfirmed: 'Your email was succesfully confirmed',
+    emailConfirmedError: 'Error trying to confirm the email, please try again',
   },
   SIGNUP: {
     signup: 'Sign Up',
@@ -67,7 +69,7 @@ export default {
     code: 'Code',
     emptyCode: 'Code required',
     resettingPassword: 'Resetting password',
-    passwordChanged: 'Password succesgully changed!',
+    passwordChanged: 'Password succesfully changed!',
   },
   EDIT_PROFILE: {
     profileUpdated: 'Profile successfully updated!',

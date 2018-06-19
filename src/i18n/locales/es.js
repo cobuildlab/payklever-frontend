@@ -30,6 +30,8 @@ export default {
     emptyPassword: 'Contraseña requerida',
     youHaveLoggedIn: 'Has iniciado sesión!',
     loggingIn: 'Iniciando sesión',
+    emailConfirmed: 'Tu correo fue confirmado satisfactoriamente',
+    emailConfirmedError: 'Error al intentar confirmar el correo, por favor intenta nuevamente',
   },
   SIGNUP: {
     signup: 'Registrarse',
