@@ -66,12 +66,12 @@ class Login extends Component {
     setTimeout(() => {
       if (this.props.location.pathname === '/login/email-confirmation') {
         toast.dismiss();
-        toast.success(i18next.t('LOGIN.emailConfirmed'));
+        toast.success(i18next.t('LOGIN.emailConfirmed'), { autoClose: 10000 });
       }
 
       if (this.props.location.pathname === '/login/email-confirmation-error') {
         toast.dismiss();
-        toast.error(i18next.t('LOGIN.emailConfirmedError'));
+        toast.error(i18next.t('LOGIN.emailConfirmedError'), { autoClose: 10000 });
       }
     }, 2000);
   }
