@@ -53,7 +53,7 @@ class App extends Component {
       this.setTidioUser(this.state.user);
     });
 
-    this.getCachedUser();
+    this.checkStartRute();
 
     document.tidioChatLang = i18next.language.split('-')[0];
   }
@@ -91,10 +91,20 @@ class App extends Component {
     })
   }
 
-  getCachedUser() {
-    const cachedUser = authStore.getCachedUser();
+  /*
+  checks the start page's route on first load to get the cached user or to remove it from localStorage
+   */
+  checkStartRute = () => {
+    if (this.props.location.pathname === '/login/email-confirmation' || this.props.location.pathname === '/login/email-confirmation-error' ||
+      this.props.location.pathname.includes('/reset-password/')) {
+      // remove session for these routes on page start or reload
+      authStore.deleteCachedUser();
+    } else {
+      // get the user from localStorage
+      const cachedUser = authStore.getCachedUser();
 
-    if (cachedUser.token) appActions.setCachedUser(cachedUser);
+      if (cachedUser.token) appActions.setCachedUser(cachedUser);
+    }
   }
 
   setTidioUser = (user) => {

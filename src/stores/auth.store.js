@@ -70,6 +70,9 @@ class AuthStore extends Flux.DashStore {
       JSON.parse(localStorage.getItem('user')) : {}
   }
 
+  deleteCachedUser() {
+    localStorage.removeItem('user');
+  }
 
   isAuthenticated() {
     const user = this.getState('setUser') || {};

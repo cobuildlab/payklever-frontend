@@ -63,15 +63,17 @@ class Login extends Component {
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundAttachment = 'fixed';
 
-    if (this.props.location.pathname === '/login/email-confirmation') {
-      toast.dismiss();
-      toast.success(i18next.t('LOGIN.emailConfirmed'));
-    }
+    setTimeout(() => {
+      if (this.props.location.pathname === '/login/email-confirmation') {
+        toast.dismiss();
+        toast.success(i18next.t('LOGIN.emailConfirmed'));
+      }
 
-    if (this.props.location.pathname === '/login/email-confirmation-error') {
-      toast.dismiss();
-      toast.error(i18next.t('LOGIN.emailConfirmedError'));
-    }
+      if (this.props.location.pathname === '/login/email-confirmation-error') {
+        toast.dismiss();
+        toast.error(i18next.t('LOGIN.emailConfirmedError'));
+      }
+    }, 2000);
   }
 
   componentWillUnmount() {
