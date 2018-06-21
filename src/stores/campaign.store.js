@@ -17,6 +17,12 @@ class CampaignStore extends Flux.DashStore {
     this.addEvent('getCampaign');
 
     /**
+     * Notifies when the campaign's statistics was loaded
+     * @param {object} statistics the campaign's statistics
+     */
+    this.addEvent('getCampaignStatistics');
+
+    /**
      * Notifies when a campaign was created
      * @param {object} campaign the created campaign
      */

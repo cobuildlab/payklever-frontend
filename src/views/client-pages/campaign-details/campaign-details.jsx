@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import {
-  Route,
-  Link,
-  Redirect,
-} from "react-router-dom";
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { SubNav, Campaign, Loading, ModalConfirm } from '../../components';
+import { SubNav, Campaign, Loading, ModalConfirm, LineChart } from '../../components';
 import {
   I18n
 } from 'react-i18next';
@@ -14,6 +9,9 @@ import {
   Container,
   Col,
   Button,
+  Input,
+  Form,
+  FormGroup,
 } from 'reactstrap';
 import { campaignStore } from '../../../stores';
 import * as CampaignDetailsActions from './campaign-details.actions';
@@ -27,6 +25,9 @@ class CampaignDetails extends Component {
       loadingI18n: '',
       campaignId: props.match.params.campaignId || '',
       campaign: {},
+      chartData: {},
+      days: 7,
+      daysList: [7, 30, 90],
       duplicateCampaignIsOpen: false,
       resumeCampaignIsOpen: false,
       pauseCampaignIsOpen: false,
@@ -37,6 +38,40 @@ class CampaignDetails extends Component {
     this.getCampaignSubscription = campaignStore
       .subscribe('getCampaign', (campaign) => {
         this.setState({ campaign });
+        this.isLoading(false);
+      });
+
+    this.getCampaignStatisticsSubscription = campaignStore
+      .subscribe('getCampaignStatistics', (statistics) => {
+        const smsSentTotalCount = statistics
+          .smsSentCount.reduce((a, b) => a + b.count, 0);
+        const smsToBeSentTotalCount = statistics
+          .smsToBeSentCount.reduce((a, b) => a + b.count, 0);
+        const smsErrorsTotalCount = statistics
+          .smsErrorsCount.reduce((a, b) => a + b.count, 0);
+
+        const chartData = {
+          labels: statistics.smsSentCount.map((smsSent) => smsSent.day),
+          datasets: [{
+            label: i18next.t('STATISTICS.smsSentCount', { count: smsSentTotalCount }),
+            data: statistics.smsSentCount.map((smsSent) => smsSent.count),
+            borderColor: '#74c044',
+            backgroundColor: 'transparent',
+          }, {
+            label: i18next.t('STATISTICS.smsToBeSentCount', { count: smsToBeSentTotalCount }),
+            data: statistics.smsToBeSentCount.map((smsToBeSent) => smsToBeSent.count),
+            borderColor: '#007bff',
+            backgroundColor: 'transparent',
+          }, {
+            label: i18next.t('STATISTICS.smsErrorsCount', { count: smsErrorsTotalCount }),
+            data: statistics.smsErrorsCount.map((smsErrors) => smsErrors.count),
+            borderColor: '#dc3545',
+            backgroundColor: 'transparent',
+          }, ],
+        }
+
+        this.setState({ chartData });
+
         this.isLoading(false);
       });
 
@@ -74,11 +109,13 @@ class CampaignDetails extends Component {
     setTimeout(() => {
       this.isLoading(true, 'CAMPAIGN_DETAILS.loadingCampaign');
       CampaignDetailsActions.getCampaign(this.state.campaignId);
+      CampaignDetailsActions.getCampaignStatistics(this.state.campaignId, this.state.days);
     });
   }
 
   componentWillUnmount() {
     this.getCampaignSubscription.unsubscribe();
+    this.getCampaignStatisticsSubscription.unsubscribe();
     this.resumeCampaignSubscription.unsubscribe();
     this.pauseCampaignSubscription.unsubscribe();
     this.duplicateCampaignSubscription.unsubscribe();
@@ -107,6 +144,19 @@ class CampaignDetails extends Component {
 
       <Campaign campaign={this.state.campaign}></Campaign>
 
+      <Form className="mt-3" inline hidden={!Array.isArray(this.state.chartData.datasets)}>
+        <FormGroup>
+          <Input onChange={(evt) => this.onDaysChange(evt)} value={this.state.days} type="select" name="days">
+            {this.state.daysList.map((day, index) =>
+              <option key={index} value={day}>
+                { t('STATISTICS.lastCountDays', { days: day }) }
+              </option>
+            )}
+          </Input>
+        </FormGroup>
+      </Form>
+      <LineChart data={this.state.chartData}></LineChart>
+
       {(this.state.campaign.adminStatus === 'ap' && this.state.campaign.status === 'ia') ?
         <Button onClick={() => {this.resumeCampaign(false)}} className="mx-auto d-block mt-5 mb-5" color="success" type="button">
           { t('CAMPAIGN_DETAILS.resumeCampaign') }
@@ -121,6 +171,16 @@ class CampaignDetails extends Component {
 
       </Container>
     </div>)}</I18n>);
+  }
+
+  onDaysChange = (evt) => {
+    this.setState({ days: evt.target.value });
+    this.reloadStats(evt.target.value);
+  }
+
+  reloadStats = (days) => {
+    this.isLoading(true, 'CAMPAIGN_DETAILS.loadingCampaignStatistics');
+    CampaignDetailsActions.getCampaignStatistics(this.state.campaignId, days);
   }
 
   /**

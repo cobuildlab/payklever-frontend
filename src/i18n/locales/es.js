@@ -332,6 +332,12 @@ export default {
     campaignRejected: 'La campaña fue rechazada satisfactoriamente',
     campaignResumed: 'La campaña fue reanudada satisfactoriamente',
   },
+  STATISTICS: {
+    lastCountDays: 'Últimos {{days}} días',
+    smsSentCount: 'Mensajes enviados ({{count}})',
+    smsToBeSentCount: 'Mensajes para ser enviados ({{count}})',
+    smsErrorsCount: 'Mensajes fallidos ({{count}})',
+  },
   CLIENT_DETAILS: {
     clientDetails: 'Detalles del cliente',
     accounts: 'Cuentas',
