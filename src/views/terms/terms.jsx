@@ -70,8 +70,8 @@ class Login extends Component {
       <p style={{textAlign: 'justify', background: 'white', margin: '0cm 0cm 6.75pt 0cm'}}><strong><span style={{color: '#474747'}}>MODIFICATIONS TO THE SERVICE &amp; DEVICES</span></strong></p>
       <p style={{textAlign: 'justify', background: 'white', margin: '0cm 0cm 6.75pt 0cm'}}><span style={{color: '#474747'}}>Payklever may, either partially or in its entirety and without being obligated to provide prior notice – modify, adapt or change the Software, the Service's features, the Devices, user interface and design, the extent and availability of the contents in the Service and any other aspect related to the Service. You will have no claim, complaint or demand against Payklever for applying such changes or for failures incidental to such changes.</span></p>
       <p style={{textAlign: 'justify', background: 'white', margin: '0cm 0cm 6.75pt 0cm'}}><span style={{color: '#474747'}}>Partners must grant Payklever, its affiliates and its contractors non-revocable access to its property to install, service and maintain Partner Devices. Payklever will make all reasonable efforts to inform users of a software update that may prevent users from using the Service. Payklever will provide routine maintenance on the Service which may inadvertently cause the Service to be inaccessible. You hereby agree to hold Payklever harmless for all interruptions its Service may cause your operations.</span></p>
-      <p><span style={{fontFamily: '"Times New Roman",'}}>&nbsp;</span></p>
-      <p><strong><span style={{fontFamily: '"Times New Roman",'}}>TERMS SPECIFIC TO ADVERTISERS</span></strong></p>
+      <p><span style={{}}>&nbsp;</span></p>
+      <p><strong><span style={{}}>TERMS SPECIFIC TO ADVERTISERS</span></strong></p>
       <p style={{background: 'white'}}><span style={{color: '#333333'}}>These Payklever Advertising Terms and Conditions (the "<strong>Ad</strong><strong>&nbsp;Terms</strong>") are entered into by Payklever and businesses placing Ads (“Advertisers”) with the Service. The Terms shall apply to all matters not specifically addressed in the Ad Terms.</span></p>
       <p style={{background: 'white'}}><span style={{color: '#333333'}}>These Ad Terms are what govern your use and purchase of any advertising space from Payklever for use and display of your advertising materials and related technology on the Service.</span></p>
       <p style={{background: 'white'}}><span style={{color: '#333333'}}>Personal data used in connection with the Service is controlled and processed by Payklever according to these Ad Terms, the Terms, and the Privacy Policy. </span></p>
@@ -121,7 +121,7 @@ class Login extends Component {
       <p style={{background: 'white'}}><u><span style={{color: '#333333'}}>Force Majeure</span></u><u><span style={{color: '#333333'}}>.</span></u><span style={{color: '#333333'}}> Except for payment obligations, no party or its affiliates is liable for inadequate performance to the extent caused by a condition that was beyond its reasonable control.</span></p>
       <p style={{background: 'white'}}><u><span style={{color: '#333333'}}>No Waiver</span></u><span style={{color: '#333333'}}>. Neither party will be treated as having waived any rights by not exercising (or delaying the exercise of) any rights under the Terms.</span></p>
       <p style={{background: 'white'}}><u><span style={{color: '#333333'}}>Severability</span></u><span style={{color: '#333333'}}>. If any provision of the Terms is found unenforceable, the remaining Terms will remain in full force and effect.</span></p>
-      <p><strong><span style={{fontFamily: '"Times New Roman",'}}>&nbsp;</span></strong></p>
+      <p><strong><span style={{}}>&nbsp;</span></strong></p>
       <p>&nbsp;</p>
 
 
