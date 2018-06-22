@@ -129,7 +129,7 @@ class Signup extends Component {
                   <AvGroup check className="mt-2 mb-2">
                     <Label check>
                       <AvInput className="terminos" type="checkbox" name="checkbox" validate={signupAvForm.privacyPolicy}/>
-                      {' '} <a href="#">{ t('SIGNUP.privacyPolicy') }</a>
+                      {' '} <Link to="/terms-privacy/terms" target="_blank">{ t('SIGNUP.privacyPolicy') }</Link>
                       <AvFeedback>{ t('SIGNUP.acceptPrivacy') }</AvFeedback>
                     </Label>
                   </AvGroup>

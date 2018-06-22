@@ -9,10 +9,12 @@ import {
 import {
   Redirect,
   Switch,
+  Route,
 } from 'react-router-dom';
 import {
   Login,
   Signup,
+  TermsPrivacy,
   RecoverPassword,
   ResetPassword,
   AdminPages,
@@ -69,6 +71,7 @@ class App extends Component {
       <div>
         <ToastContainer/>
         <Switch>
+          <Route path="/terms-privacy" component={TermsPrivacy}></Route>
           <NotAuthRoute exact path="/signup" component={Signup}/>
           <NotAuthRoute exact path="/login" component={Login}/>
           <NotAuthRoute exact path="/login/email-confirmation" component={Login}/>

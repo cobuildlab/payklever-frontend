@@ -56,6 +56,12 @@ export default {
     signingUp: 'Registrando usuario',
     emailInUse: 'El correo esta siendo usado por otro usuario',
   },
+  TERMS: {
+    terms: 'Términos y Condiciones',
+  },
+  PRIVACY_POLICY: {
+    privacyPolicy: 'Políticas de Privacidad',
+  },
   RECOVER_PASSWORD: {
     recoverPassword: 'Recuperar contraseña',
     submitEmail: 'Enviar correo',

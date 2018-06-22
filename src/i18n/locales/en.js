@@ -56,6 +56,12 @@ export default {
     signingUp: 'Signing Up',
     emailInUse: 'The email is being used by another user',
   },
+  TERMS: {
+    terms: 'Terms and Conditions',
+  },
+  PRIVACY_POLICY: {
+    privacyPolicy: 'Privacy Policy',
+  },
   RECOVER_PASSWORD: {
     recoverPassword: 'Recover password',
     submitEmail: 'Submit email',
