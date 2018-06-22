@@ -55,8 +55,8 @@ class Campaigns extends Component {
         this.isLoading(false);
       });
 
-    this.getCampaignStatisticsSubscription = campaignStore
-      .subscribe('getCampaignStatistics', (chartData) => {
+    this.getAccountStatisticsSubscription = campaignStore
+      .subscribe('getAccountStatistics', (chartData) => {
         this.setState({ chartData });
         this.isLoading(false);
       });
@@ -85,7 +85,7 @@ class Campaigns extends Component {
 
   componentWillUnmount() {
     this.getCampaignsSubscription.unsubscribe();
-    this.getCampaignStatisticsSubscription.unsubscribe();
+    this.getAccountStatisticsSubscription.unsubscribe();
     this.changeAccountSubscription.unsubscribe();
     this.campaignStoreError.unsubscribe();
   }

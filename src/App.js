@@ -27,7 +27,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
+      user: this.checkStartRute(),
     }
 
     props.history.listen((location, action) => {
@@ -52,8 +52,6 @@ class App extends Component {
     tidioChatApi.on('ready', () => {
       this.setTidioUser(this.state.user);
     });
-
-    this.checkStartRute();
 
     document.tidioChatLang = i18next.language.split('-')[0];
   }
@@ -94,17 +92,18 @@ class App extends Component {
   /*
   checks the start page's route on first load to get the cached user or to remove it from localStorage
    */
-  checkStartRute = () => {
+  checkStartRute() {
     if (this.props.location.pathname === '/login/email-confirmation' || this.props.location.pathname === '/login/email-confirmation-error' ||
       this.props.location.pathname.includes('/reset-password/')) {
       // remove session for these routes on page start or reload
       authStore.deleteCachedUser();
-    } else {
-      // get the user from localStorage
-      const cachedUser = authStore.getCachedUser();
-
-      if (cachedUser.token) appActions.setCachedUser(cachedUser);
+      return {};
     }
+
+    // get the user from localStorage
+    const cachedUser = authStore.getCachedUser();
+    if (cachedUser.token) appActions.setCachedUser(cachedUser);
+    return cachedUser || {};
   }
 
   setTidioUser = (user) => {
