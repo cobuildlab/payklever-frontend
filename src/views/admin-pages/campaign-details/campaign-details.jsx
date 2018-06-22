@@ -45,36 +45,8 @@ class CampaignDetails extends Component {
       });
 
     this.getCampaignStatisticsSubscription = campaignStore
-      .subscribe('getCampaignStatistics', (statistics) => {
-        const smsSentTotalCount = statistics
-          .smsSentCount.reduce((a, b) => a + b.count, 0);
-        const smsToBeSentTotalCount = statistics
-          .smsToBeSentCount.reduce((a, b) => a + b.count, 0);
-        const smsErrorsTotalCount = statistics
-          .smsErrorsCount.reduce((a, b) => a + b.count, 0);
-
-        const chartData = {
-          labels: statistics.smsSentCount.map((smsSent) => smsSent.day),
-          datasets: [{
-            label: i18next.t('STATISTICS.smsSentCount', { count: smsSentTotalCount }),
-            data: statistics.smsSentCount.map((smsSent) => smsSent.count),
-            borderColor: '#74c044',
-            backgroundColor: 'transparent',
-          }, {
-            label: i18next.t('STATISTICS.smsToBeSentCount', { count: smsToBeSentTotalCount }),
-            data: statistics.smsToBeSentCount.map((smsToBeSent) => smsToBeSent.count),
-            borderColor: '#007bff',
-            backgroundColor: 'transparent',
-          }, {
-            label: i18next.t('STATISTICS.smsErrorsCount', { count: smsErrorsTotalCount }),
-            data: statistics.smsErrorsCount.map((smsErrors) => smsErrors.count),
-            borderColor: '#dc3545',
-            backgroundColor: 'transparent',
-          }, ],
-        }
-
+      .subscribe('getCampaignStatistics', (chartData) => {
         this.setState({ chartData });
-
         this.isLoading(false);
       });
 
@@ -112,6 +84,7 @@ class CampaignDetails extends Component {
     setTimeout(() => {
       this.isLoading(true, 'CAMPAIGN_DETAILS.loadingCampaign');
       CampaignDetailsActions.getCampaign(this.state.campaignId);
+      CampaignDetailsActions.getCampaignStatistics(this.state.campaignId, this.state.days);
     });
   }
 
@@ -183,7 +156,7 @@ class CampaignDetails extends Component {
   }
 
   reloadStats = (days) => {
-    this.isLoading(true, 'CAMPAIGN_DETAILS.loadingCampaignStatistics');
+    this.isLoading(true, 'STATISTICS.loadingStatistics');
     CampaignDetailsActions.getCampaignStatistics(this.state.campaignId, days);
   }
 

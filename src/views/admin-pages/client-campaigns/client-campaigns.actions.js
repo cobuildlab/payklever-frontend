@@ -31,4 +31,14 @@ const rejectCampaign = (campaignId) => {
     });
 }
 
-export { getCampaigns, approveCampaign, rejectCampaign };
+const getStatistics = (days) => {
+  getData(`/statistics/?days=${days}`)
+    .then((campaign) => {
+      Flux.dispatchEvent('getCampaignStatistics', campaign);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+export { getCampaigns, getStatistics, approveCampaign, rejectCampaign };

@@ -337,6 +337,7 @@ export default {
     smsSentCount: 'Sent Messages ({{count}})',
     smsToBeSentCount: 'Messages to be sent ({{count}})',
     smsErrorsCount: 'Failed messages ({{count}})',
+    loadingStatistics: 'Loading statistics',
   },
   CLIENT_DETAILS: {
     clientDetails: 'Client details',
