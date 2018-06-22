@@ -11,4 +11,14 @@ const getCampaigns = (accountId) => {
     });
 }
 
-export { getCampaigns };
+const getAccountStatistics = (accountId, days) => {
+  getData(`/statistics/account/${accountId}?days=${days}`)
+    .then((campaign) => {
+      Flux.dispatchEvent('getAccountStatistics', campaign);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+export { getCampaigns, getAccountStatistics };

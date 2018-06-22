@@ -7,3 +7,4 @@ export { ModalConfirm } from './modal-confirm';
 export { Loading } from './loading';
 export { Campaign } from './campaign';
 export { Footer } from './footer';
+export { LineChart } from './line-chart';

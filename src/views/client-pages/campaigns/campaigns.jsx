@@ -23,6 +23,8 @@ import {
   InputGroup,
   InputGroupAddon,
   Input,
+  Form,
+  FormGroup,
 } from 'reactstrap';
 import {
   Link
@@ -30,7 +32,7 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import * as CampaignsActions from './campaigns.actions';
 import { campaignStore, accountStore } from '../../../stores';
-import { Loading } from '../../components';
+import { Loading, LineChart } from '../../components';
 
 class Campaigns extends Component {
   constructor(props) {
@@ -38,10 +40,12 @@ class Campaigns extends Component {
 
     this.state = {
       loading: false,
+      loadingI18n: '',
       campaigns: [],
+      chartData: {},
+      days: 7,
+      daysList: [7, 30, 90],
     };
-
-    this.isLoading = this.isLoading.bind(this);
   }
 
   componentDidMount() {
@@ -51,10 +55,17 @@ class Campaigns extends Component {
         this.isLoading(false);
       });
 
+    this.getAccountStatisticsSubscription = campaignStore
+      .subscribe('getAccountStatistics', (chartData) => {
+        this.setState({ chartData });
+        this.isLoading(false);
+      });
+
     this.changeAccountSubscription = accountStore
       .subscribe('changeAccount', (account) => {
-        if (this.state.campaigns.length === 0) this.isLoading(true);
+        this.isLoading(true, 'CAMPAIGNS.loadingCampaigns');
         CampaignsActions.getCampaigns(account.id);
+        CampaignsActions.getAccountStatistics(account.id, this.state.days);
       });
 
     this.campaignStoreError = campaignStore
@@ -66,13 +77,15 @@ class Campaigns extends Component {
 
     const account = accountStore.getAccount();
     if (account.id) {
-      this.isLoading(true);
+      this.isLoading(true, 'CAMPAIGNS.loadingCampaigns');
       CampaignsActions.getCampaigns(account.id);
+      CampaignsActions.getAccountStatistics(account.id, this.state.days);
     }
   }
 
   componentWillUnmount() {
     this.getCampaignsSubscription.unsubscribe();
+    this.getAccountStatisticsSubscription.unsubscribe();
     this.changeAccountSubscription.unsubscribe();
     this.campaignStoreError.unsubscribe();
   }
@@ -81,7 +94,7 @@ class Campaigns extends Component {
     return (<I18n>{(t, { i18n }) => (
       <div>
 
-      <Loading isLoading={this.state.loading} loadingMessage={ t('CAMPAIGNS.loadingCampaigns') }></Loading>
+      <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
        <Container className="mt-4 p-0">
          <Nav className="nav mt-5 mb-3 p-0 d-flex justify-content-end">
@@ -175,7 +188,21 @@ class Campaigns extends Component {
             <h1 className="text-center">99</h1>
           </Col>
         </Row> */}
-          <h1 className="text-center mb-4">{ t('CAMPAIGNS.campaigns') }</h1>
+
+        <Form className="mt-3" inline hidden={!Array.isArray(this.state.chartData.datasets)}>
+          <FormGroup>
+            <Input onChange={(evt) => this.onDaysChange(evt)} value={this.state.days} type="select" name="days">
+              {this.state.daysList.map((day, index) =>
+                <option key={index} value={day}>
+                  { t('STATISTICS.lastCountDays', { days: day }) }
+                </option>
+              )}
+            </Input>
+          </FormGroup>
+        </Form>
+        <LineChart data={this.state.chartData}></LineChart>
+
+          <h1 className="text-center mt-4 mb-4">{ t('CAMPAIGNS.campaigns') }</h1>
          <Table>
             <thead>
               <tr>
@@ -219,8 +246,24 @@ class Campaigns extends Component {
     )}</I18n>);
   }
 
-  isLoading(isLoading) {
-    this.setState({ loading: isLoading });
+  onDaysChange = (evt) => {
+    this.setState({ days: evt.target.value });
+    this.reloadStats(evt.target.value);
+  }
+
+  reloadStats = (days) => {
+    const account = accountStore.getAccount();
+    if (account.id) {
+      this.isLoading(true, 'STATISTICS.loadingStatistics');
+      CampaignsActions.getAccountStatistics(account.id, days);
+    }
+  }
+
+  isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {
+    this.setState({
+      loadingI18n,
+      loading: isLoading
+    });
   }
 }
 

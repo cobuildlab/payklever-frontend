@@ -1,5 +1,8 @@
 export { Login } from './login';
 export { Signup } from './signup';
+export { Terms } from './terms';
+export { PrivacyPolicy } from './privacy-policy';
+export { TermsPrivacy } from './terms-privacy';
 export { RecoverPassword } from './recover-password';
 export { ResetPassword } from './reset-password';
 export { AdminPages } from './admin-pages';

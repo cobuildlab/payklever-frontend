@@ -4,11 +4,6 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-// import {
-//   faClipboardCheck,
-//   faBan,
-// } from '@fortawesome/fontawesome-free-solid';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
 import { campaignStore } from '../../../stores';
@@ -22,9 +17,12 @@ import {
   Row,
   Button,
   Table,
+  Form,
+  FormGroup,
+  Input,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { ModalConfirm, Loading } from '../../components';
+import { ModalConfirm, Loading, LineChart } from '../../components';
 
 class ClientCampaigns extends Component {
   constructor(props) {
@@ -35,6 +33,9 @@ class ClientCampaigns extends Component {
       loadingI18n: '',
       campaigns: [],
       selectedCampaign: {},
+      chartData: {},
+      days: 7,
+      daysList: [7, 30, 90],
       approveCampaignIsOpen: false,
       rejectCampaignIsOpen: false,
     };
@@ -44,6 +45,12 @@ class ClientCampaigns extends Component {
     this.getCampaignsSubscription = campaignStore
       .subscribe('getCampaigns', (campaigns) => {
         this.setState({ campaigns });
+        this.isLoading(false);
+      });
+
+    this.getCampaignStatisticsSubscription = campaignStore
+      .subscribe('getCampaignStatistics', (chartData) => {
+        this.setState({ chartData });
         this.isLoading(false);
       });
 
@@ -72,10 +79,12 @@ class ClientCampaigns extends Component {
 
     this.isLoading(true, 'CLIENT_CAMPAIGNS.loadingCampaigns');
     ClientCampaignsActions.getCampaigns();
+    ClientCampaignsActions.getStatistics(this.state.days);
   }
 
   componentWillUnmount() {
     this.getCampaignsSubscription.unsubscribe();
+    this.getCampaignStatisticsSubscription.unsubscribe();
     this.approveCampaignSubscription.unsubscribe();
     this.rejectCampaignSubscription.unsubscribe();
     this.campaignStoreError.unsubscribe();
@@ -92,6 +101,19 @@ class ClientCampaigns extends Component {
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
       <Container className="p-0">
+        <Form className="mt-5" inline hidden={!Array.isArray(this.state.chartData.datasets)}>
+          <FormGroup>
+            <Input onChange={(evt) => this.onDaysChange(evt)} value={this.state.days} type="select" name="days">
+              {this.state.daysList.map((day, index) =>
+                <option key={index} value={day}>
+                  { t('STATISTICS.lastCountDays', { days: day }) }
+                </option>
+              )}
+            </Input>
+          </FormGroup>
+        </Form>
+        <LineChart data={this.state.chartData}></LineChart>
+
         <Table hover className="mt-5">
         <thead>
           <tr>
@@ -133,6 +155,16 @@ class ClientCampaigns extends Component {
       </Table>
       </Container>
     </div>)}</I18n>);
+  }
+
+  onDaysChange = (evt) => {
+    this.setState({ days: evt.target.value });
+    this.reloadStats(evt.target.value);
+  }
+
+  reloadStats = (days) => {
+    this.isLoading(true, 'STATISTICS.loadingStatistics');
+    ClientCampaignsActions.getStatistics(days);
   }
 
   /**

@@ -56,6 +56,12 @@ export default {
     signingUp: 'Signing Up',
     emailInUse: 'The email is being used by another user',
   },
+  TERMS: {
+    terms: 'Terms and Conditions',
+  },
+  PRIVACY_POLICY: {
+    privacyPolicy: 'Privacy Policy',
+  },
   RECOVER_PASSWORD: {
     recoverPassword: 'Recover password',
     submitEmail: 'Submit email',
@@ -331,6 +337,13 @@ export default {
     campaignApproved: 'The campaign was successfully approved',
     campaignRejected: 'The campaign was successfully rejected',
     campaignResumed: 'The campaign was successfully resumed',
+  },
+  STATISTICS: {
+    lastCountDays: 'Last {{days}} days',
+    smsSentCount: 'Sent Messages ({{count}})',
+    smsToBeSentCount: 'Messages to be sent ({{count}})',
+    smsErrorsCount: 'Failed messages ({{count}})',
+    loadingStatistics: 'Loading statistics',
   },
   CLIENT_DETAILS: {
     clientDetails: 'Client details',

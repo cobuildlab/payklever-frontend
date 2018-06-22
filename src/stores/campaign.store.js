@@ -1,4 +1,5 @@
 import Flux from '@4geeksacademy/react-flux-dash';
+import { i18next } from '../i18n';
 
 class CampaignStore extends Flux.DashStore {
   constructor() {
@@ -15,6 +16,60 @@ class CampaignStore extends Flux.DashStore {
      * @param {object} campaign the campaign
      */
     this.addEvent('getCampaign');
+
+    const formatCampaignStatistics = (statistics) => {
+      if (JSON.stringify(statistics) === '{}' || !statistics ||
+        !Array.isArray(statistics.smsSentCount) ||
+        !Array.isArray(statistics.smsToBeSentCount) ||
+        !Array.isArray(statistics.smsErrorsCount)) {
+        return {};
+      }
+
+      const smsSentTotalCount = statistics
+        .smsSentCount.reduce((a, b) => a + b.count, 0);
+      const smsToBeSentTotalCount = statistics
+        .smsToBeSentCount.reduce((a, b) => a + b.count, 0);
+      const smsErrorsTotalCount = statistics
+        .smsErrorsCount.reduce((a, b) => a + b.count, 0);
+
+      const chartData = {
+        labels: statistics.smsSentCount.map((smsSent) => smsSent.day),
+        datasets: [{
+          label: i18next.t('STATISTICS.smsSentCount', { count: smsSentTotalCount }),
+          data: statistics.smsSentCount.map((smsSent) => smsSent.count),
+          borderColor: '#74c044',
+          backgroundColor: 'transparent',
+        }, {
+          label: i18next.t('STATISTICS.smsToBeSentCount', { count: smsToBeSentTotalCount }),
+          data: statistics.smsToBeSentCount.map((smsToBeSent) => smsToBeSent.count),
+          borderColor: '#007bff',
+          backgroundColor: 'transparent',
+        }, {
+          label: i18next.t('STATISTICS.smsErrorsCount', { count: smsErrorsTotalCount }),
+          data: statistics.smsErrorsCount.map((smsErrors) => smsErrors.count),
+          borderColor: '#dc3545',
+          backgroundColor: 'transparent',
+        }, ],
+      }
+
+      return chartData;
+    }
+
+    /**
+     * Notifies when the campaign's statistics was loaded
+     * @param {object} statistics the campaign's statistics
+     */
+    this.addEvent('getCampaignStatistics', (statistics) => {
+      return formatCampaignStatistics(statistics);
+    });
+
+    /**
+     * Notifies when the account's campaigns statistics was loaded
+     * @param {object} statistics the campaign's statistics
+     */
+    this.addEvent('getAccountStatistics', (statistics) => {
+      return formatCampaignStatistics(statistics);
+    });
 
     /**
      * Notifies when a campaign was created

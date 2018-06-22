@@ -56,6 +56,12 @@ export default {
     signingUp: 'Registrando usuario',
     emailInUse: 'El correo esta siendo usado por otro usuario',
   },
+  TERMS: {
+    terms: 'Términos y Condiciones',
+  },
+  PRIVACY_POLICY: {
+    privacyPolicy: 'Políticas de Privacidad',
+  },
   RECOVER_PASSWORD: {
     recoverPassword: 'Recuperar contraseña',
     submitEmail: 'Enviar correo',
@@ -331,6 +337,13 @@ export default {
     campaignApproved: 'La campaña fue aprobada satisfactoriamente',
     campaignRejected: 'La campaña fue rechazada satisfactoriamente',
     campaignResumed: 'La campaña fue reanudada satisfactoriamente',
+  },
+  STATISTICS: {
+    lastCountDays: 'Últimos {{days}} días',
+    smsSentCount: 'Mensajes enviados ({{count}})',
+    smsToBeSentCount: 'Mensajes para ser enviados ({{count}})',
+    smsErrorsCount: 'Mensajes fallidos ({{count}})',
+    loadingStatistics: 'Cargando estadísticas',
   },
   CLIENT_DETAILS: {
     clientDetails: 'Detalles del cliente',
