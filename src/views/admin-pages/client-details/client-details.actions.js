@@ -11,4 +11,14 @@ const getUser = (userId) => {
     });
 }
 
-export { getUser };
+const getUserAccounts = (userId) => {
+  getData(`/account/user/${userId}`)
+    .then((accounts) => {
+      Flux.dispatchEvent('getUserAccounts', accounts);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('UserStoreError', err);
+    });
+}
+
+export { getUser, getUserAccounts };
