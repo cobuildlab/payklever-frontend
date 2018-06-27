@@ -19,6 +19,10 @@ body {
   line-height: 40px; /* Vertically center the text there */
   background-color: #74c044;
 }
+.page-item.active .page-link {
+  background-color: #74c044 !important;
+  border-color: #74c044 !important;
+}
 .card {
     position: relative;
     display: -ms-flexbox;
