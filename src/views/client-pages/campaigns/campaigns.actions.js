@@ -1,8 +1,8 @@
 import Flux from '@4geeksacademy/react-flux-dash';
 import { getData } from '../../../fetch';
 
-const getCampaigns = (accountId) => {
-  getData(`/campaign/?accountId=${accountId}`)
+const getCampaigns = (accountId, page) => {
+  getData(`/campaign/paged?accountId=${accountId}&page=${page}`)
     .then((campaigns) => {
       Flux.dispatchEvent('getCampaigns', campaigns);
     })

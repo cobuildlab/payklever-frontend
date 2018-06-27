@@ -22,7 +22,7 @@ import {
   Input,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { ModalConfirm, Loading, LineChart } from '../../components';
+import { ModalConfirm, Loading, LineChart, PaginationComponent } from '../../components';
 
 class ClientCampaigns extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class ClientCampaigns extends Component {
     this.state = {
       loading: false,
       loadingI18n: '',
-      campaigns: [],
+      campaigns: {},
       selectedCampaign: {},
       chartData: {},
       days: 7,
@@ -78,7 +78,7 @@ class ClientCampaigns extends Component {
       });
 
     this.isLoading(true, 'CLIENT_CAMPAIGNS.loadingCampaigns');
-    ClientCampaignsActions.getCampaigns();
+    ClientCampaignsActions.getCampaigns(0);
     ClientCampaignsActions.getStatistics(this.state.days);
   }
 
@@ -126,8 +126,8 @@ class ClientCampaigns extends Component {
         </thead>
         <tbody>
           <TransitionGroup component={null}>
-           { this.state.campaigns.map((campaign) =>
-             <CSSTransition key={campaign.id} timeout={500} classNames="fade-in">
+           { (this.state.campaigns.rows && this.state.campaigns.rows.length) ? this.state.campaigns.rows.map((campaign) =>
+             <CSSTransition key={campaign.id} timeout={500} classNames="fade-in-change">
                <tr>
                  <td>
                    <Link to={`/admin/campaign-details/${campaign.id}`}>
@@ -149,12 +149,21 @@ class ClientCampaigns extends Component {
                  : null }
                  </td> */}
                </tr>
-             </CSSTransition>)}
+             </CSSTransition>)
+            : null }
           </TransitionGroup>
         </tbody>
       </Table>
+
+      <PaginationComponent pages={this.state.campaigns.pages} page={this.state.campaigns.page} onPageChange={this.reloadCampaigns}></PaginationComponent>
+
       </Container>
     </div>)}</I18n>);
+  }
+
+  reloadCampaigns = (page) => {
+    this.isLoading(true, 'CLIENT_CAMPAIGNS.loadingCampaigns');
+    ClientCampaignsActions.getCampaigns(page);
   }
 
   onDaysChange = (evt) => {

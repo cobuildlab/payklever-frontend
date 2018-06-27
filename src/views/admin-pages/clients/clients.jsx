@@ -23,7 +23,7 @@ import {
   Button,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Loading } from '../../components';
+import { Loading, PaginationComponent } from '../../components';
 
 class Clients extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class Clients extends Component {
 
     this.state = {
       loading: true,
-      clients: [],
+      clients: {},
     };
   }
 
@@ -49,7 +49,7 @@ class Clients extends Component {
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-    ClientsActions.getUsers();
+    ClientsActions.getUsers(0);
   }
 
   componentWillUnmount() {
@@ -73,8 +73,8 @@ class Clients extends Component {
         </thead>
         <tbody>
           <TransitionGroup component={null}>
-           { this.state.clients.map((client) =>
-             <CSSTransition key={client.id} timeout={500} classNames="fade-in">
+           { (this.state.clients.rows && this.state.clients.rows.length) ? this.state.clients.rows.map((client) =>
+             <CSSTransition key={client.id} timeout={500} classNames="fade-in-change">
                <tr>
                  <td>
                    <Link to={`/admin/client-details/${client.id}`}>
@@ -84,12 +84,21 @@ class Clients extends Component {
                  <td>{client.lastName}</td>
                  <td>{client.email}</td>
                </tr>
-             </CSSTransition>)}
+             </CSSTransition>)
+           : null }
           </TransitionGroup>
         </tbody>
       </Table>
+
+      <PaginationComponent pages={this.state.clients.pages} page={this.state.clients.page} onPageChange={this.reloadClients}></PaginationComponent>
+
       </Container>
     </div>)}</I18n>);
+  }
+
+  reloadClients = (page) => {
+    this.isLoading(true);
+    ClientsActions.getUsers(page);
   }
 
   isLoading = (isLoading) => {

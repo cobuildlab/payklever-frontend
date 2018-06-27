@@ -32,7 +32,7 @@ import {
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import * as CampaignsActions from './campaigns.actions';
 import { campaignStore, accountStore } from '../../../stores';
-import { Loading, LineChart } from '../../components';
+import { Loading, LineChart, PaginationComponent } from '../../components';
 
 class Campaigns extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class Campaigns extends Component {
     this.state = {
       loading: false,
       loadingI18n: '',
-      campaigns: [],
+      campaigns: {},
       chartData: {},
       days: 7,
       daysList: [7, 30, 90],
@@ -64,7 +64,7 @@ class Campaigns extends Component {
     this.changeAccountSubscription = accountStore
       .subscribe('changeAccount', (account) => {
         this.isLoading(true, 'CAMPAIGNS.loadingCampaigns');
-        CampaignsActions.getCampaigns(account.id);
+        CampaignsActions.getCampaigns(account.id, 0);
         CampaignsActions.getAccountStatistics(account.id, this.state.days);
       });
 
@@ -78,7 +78,7 @@ class Campaigns extends Component {
     const account = accountStore.getAccount();
     if (account.id) {
       this.isLoading(true, 'CAMPAIGNS.loadingCampaigns');
-      CampaignsActions.getCampaigns(account.id);
+      CampaignsActions.getCampaigns(account.id, 0);
       CampaignsActions.getAccountStatistics(account.id, this.state.days);
     }
   }
@@ -215,8 +215,8 @@ class Campaigns extends Component {
             </thead>
             <tbody>
             <TransitionGroup component={null}>
-             { this.state.campaigns.map((campaign) =>
-               <CSSTransition key={campaign.id} timeout={500} classNames="fade-in">
+             { (this.state.campaigns.rows && this.state.campaigns.rows.length) ? this.state.campaigns.rows.map((campaign) =>
+               <CSSTransition key={campaign.id} timeout={500} classNames="fade-in-change">
                  <tr>
                    <td>
                      <Link to={`/client/campaign-details/${campaign.id}`}>
@@ -237,13 +237,25 @@ class Campaigns extends Component {
                      ) : null}
                    </td>
                  </tr>
-               </CSSTransition>)}
+               </CSSTransition>)
+             : null }
             </TransitionGroup>
            </tbody>
          </Table>
+
+         <PaginationComponent pages={this.state.campaigns.pages} page={this.state.campaigns.page} onPageChange={this.reloadCampaigns}></PaginationComponent>
+
        </Container>
       </div>
     )}</I18n>);
+  }
+
+  reloadCampaigns = (page) => {
+    const account = accountStore.getAccount();
+    if (account.id) {
+      this.isLoading(true, 'CAMPAIGNS.loadingCampaigns');
+      CampaignsActions.getCampaigns(account.id, page);
+    }
   }
 
   onDaysChange = (evt) => {
