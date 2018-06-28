@@ -45,8 +45,8 @@ class ClientDetails extends Component {
         this.isLoading(false);
       });
 
-    this.getAccountsSubscription = accountStore
-      .subscribe('getAccounts', (accounts) => {
+    this.getUserAccountsSubscription = accountStore
+      .subscribe('getUserAccounts', (accounts) => {
         this.setState({ accounts });
       });
 
@@ -67,13 +67,13 @@ class ClientDetails extends Component {
     setTimeout(() => {
       this.isLoading(true, 'CLIENT_DETAILS.loadingClient');
       ClientDetailsActions.getUser(this.state.userId);
-      // TODO: getAccounts
+      ClientDetailsActions.getUserAccounts(this.state.userId);
     });
   }
 
   componentWillUnmount() {
     this.getUserSubscription.unsubscribe();
-    this.getAccountsSubscription.unsubscribe();
+    this.getUserAccountsSubscription.unsubscribe();
     this.userStoreError.unsubscribe();
     this.accountStoreError.unsubscribe();
   }
@@ -110,7 +110,7 @@ class ClientDetails extends Component {
               <tr>
                 <td>
                   <Media>
-                    <Media left href="#">
+                    <Media left>
                       <Media className="App-img-media-item" style={{ backgroundImage: `url(${ account.photoUrl || Avatar })`}}/>
                     </Media>
                     <Media body>

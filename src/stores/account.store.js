@@ -11,6 +11,12 @@ class AccountStore extends Flux.DashStore {
     this.addEvent('getAccounts');
 
     /**
+     * Notifies when the user's account list was loaded (for admin)
+     * @param {Array}  accounts the account list
+     */
+    this.addEvent('getUserAccounts');
+
+    /**
      * Notifies when an account was loaded
      * @param {object}  account the account
      */
