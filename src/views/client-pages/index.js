@@ -9,3 +9,4 @@ export { EditProfile } from './edit-profile';
 export { CreatePayment } from './create-payment';
 export { CreateCampaign } from './create-campaign';
 export { CampaignDetails } from './campaign-details';
+export { Invoices } from './invoices';

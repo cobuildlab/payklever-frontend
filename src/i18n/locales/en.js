@@ -12,6 +12,7 @@ export default {
     na: 'Draft',
     re: 'Rejected',
     su: 'Suspended',
+    fi: 'Finished',
   },
   CAMPAIGN_USER_STATUS: {
     ac: 'Active',
@@ -349,5 +350,14 @@ export default {
     clientDetails: 'Client details',
     accounts: 'Accounts',
     loadingClient: 'Loading client',
+  },
+  INVOICES: {
+    invoices: 'Invoices',
+    smsSent: 'Sent messages',
+    smsPrice: 'Sms price',
+    tax: 'Tax',
+    subTotal: 'Sub total',
+    total: 'Total',
+    loadingInvoices: 'Loading invoices',
   },
 }
