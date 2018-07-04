@@ -9,3 +9,4 @@ export { Campaign } from './campaign';
 export { Footer } from './footer';
 export { LineChart } from './line-chart';
 export { PaginationComponent } from './pagination';
+export { Invoice } from './invoice';

@@ -96,6 +96,7 @@ export default {
     photoUploaded: 'Foto de perfil actualizada satisfactoriamente!',
     invalidPhoto: 'Foto inválida: Solo JPG o PNG',
     changePhoto: 'Cambiar foto',
+    invoices: 'Facturas',
   },
   ACCOUNTS: {
     cancel: 'Cancelar',
@@ -358,6 +359,14 @@ export default {
     tax: 'Impuesto',
     subTotal: 'Sub total',
     total: 'Total',
+    campaignId: 'Id de la campaña',
     loadingInvoices: 'Cargando Facturas',
+  },
+  INVOICE_DETAILS: {
+    invoiceDetails: 'Detalles de la factura',
+    campaignInfo: 'Información de la campaña',
+    smsInfo: 'Información de los mensajes',
+    cardInfo: 'Información de la tarjeta',
+    loadingInvoice: 'Cargando Factura',
   },
 }

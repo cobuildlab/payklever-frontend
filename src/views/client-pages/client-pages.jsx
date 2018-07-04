@@ -10,7 +10,7 @@ import {
   EditProfile,
   Profile,
   CampaignDetails,
-  Invoices,
+  InvoiceDetails,
 } from './';
 
 class ClientPages extends Component {
@@ -32,7 +32,7 @@ class ClientPages extends Component {
           <Route exact path="/client/edit-account/:accountId" component={EditAccount}/>
           <Route exact path="/client/edit-profile" component={EditProfile}/>
           <Route path="/client/profile" component={Profile}/>
-          <Route exact path="/client/invoices" component={Invoices}/>
+          <Route exact path="/client/invoice-details/:invoiceId" component={InvoiceDetails}/>
           <Redirect to='/client/campaigns'/>
         </Switch>
 

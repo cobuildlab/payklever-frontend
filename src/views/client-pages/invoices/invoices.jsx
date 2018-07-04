@@ -16,7 +16,7 @@ import * as invoicesActions from './invoices.actions';
 import { invoiceStore, accountStore } from '../../../stores';
 import { Loading, PaginationComponent } from '../../components';
 
-class Campaigns extends Component {
+class Invoices extends Component {
   constructor(props) {
     super(props);
 
@@ -63,11 +63,10 @@ class Campaigns extends Component {
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
        <Container className="mt-4 p-0">
-
-          <h1 className="text-center mt-4 mb-4">{ t('INVOICES.invoices') }</h1>
          <Table hover>
             <thead>
               <tr>
+                <th>{ t('INVOICES.campaignId') }</th>
                 <th>{ t('INVOICES.smsSent') }</th>
                 <th>{ t('INVOICES.smsPrice') }</th>
                 <th>{ t('INVOICES.tax') }</th>
@@ -80,6 +79,7 @@ class Campaigns extends Component {
              { (this.state.invoices.rows && this.state.invoices.rows.length) ? this.state.invoices.rows.map((invoice) =>
                <CSSTransition key={invoice.id} timeout={500} classNames="fade-in-change">
                  <tr className="App-cursor-pointer" onClick={() => this.goToInvoiceDetails(invoice.id)}>
+                   <td>{invoice.campaignId}</td>
                    <td>{invoice.smsSent}</td>
                    <td>{`$${invoice.smsPrice}`}</td>
                    <td>{`$${invoice.tax}`}</td>
@@ -102,7 +102,7 @@ class Campaigns extends Component {
   reloadInvoices = (page) => {
     const account = accountStore.getAccount();
     if (account.id) {
-      this.isLoading(true, 'CAMPAIGNS.loadingInvoices');
+      this.isLoading(true, 'INVOICES.loadingInvoices');
       invoicesActions.getInvoices(account.id, page);
     }
   }
@@ -119,4 +119,4 @@ class Campaigns extends Component {
   }
 }
 
-export default Campaigns;
+export default Invoices;

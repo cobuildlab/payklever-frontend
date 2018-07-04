@@ -96,6 +96,7 @@ export default {
     photoUploaded: `Profile's photo successfully updated!`,
     invalidPhoto: 'Invalid photo: JPG or PNG only',
     changePhoto: 'Change photo',
+    invoices: 'Invoices',
   },
   ACCOUNTS: {
     cancel: 'Cancel',
@@ -353,11 +354,19 @@ export default {
   },
   INVOICES: {
     invoices: 'Invoices',
-    smsSent: 'Sent messages',
+    smsSent: 'Sent sms',
     smsPrice: 'Sms price',
     tax: 'Tax',
     subTotal: 'Sub total',
     total: 'Total',
+    campaignId: 'Campaign Id',
     loadingInvoices: 'Loading invoices',
+  },
+  INVOICE_DETAILS: {
+    invoiceDetails: 'Invoice Details',
+    campaignInfo: 'Campaign information',
+    smsInfo: 'Sms information',
+    cardInfo: 'Card info',
+    loadingInvoice: 'Loading Invoice',
   },
 }

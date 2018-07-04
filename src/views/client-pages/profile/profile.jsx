@@ -3,7 +3,7 @@ import { SubNav, Loading } from '../../components';
 import {
   authStore,
 } from '../../../stores';
-import { Accounts, PaymentMethods } from '../';
+import { Accounts, PaymentMethods, Invoices } from '../';
 import {
   Route,
   Link,
@@ -115,14 +115,19 @@ class Profile extends Component {
            </Col>
          </Row>
          <Nav tabs className="nav mt-4">
-          <NavItem className="App-tabs-50">
+          <NavItem className="App-tabs-33">
             <NavLink tag={Link} to="/client/profile/accounts" active={(this.props.location.pathname === '/client/profile/accounts')}>
               { t('PROFILE.accounts') }
             </NavLink>
           </NavItem>
-          <NavItem className="App-tabs-50">
+          <NavItem className="App-tabs-33">
             <NavLink tag={Link} to="/client/profile/payment-methods" active={(this.props.location.pathname === '/client/profile/payment-methods')}>
               { t('PROFILE.paymentMethods') }
+            </NavLink>
+          </NavItem>
+          <NavItem className="App-tabs-33">
+            <NavLink tag={Link} to="/client/profile/invoices" active={(this.props.location.pathname === '/client/profile/invoices')}>
+              { t('PROFILE.invoices') }
             </NavLink>
           </NavItem>
         </Nav>
@@ -130,6 +135,7 @@ class Profile extends Component {
         <Switch>
           <Route exact path="/client/profile/accounts" component={Accounts}/>
           <Route exact path="/client/profile/payment-methods" component={PaymentMethods}/>
+          <Route exact path="/client/profile/invoices" component={Invoices}/>
           <Redirect to='/client/profile/accounts'/>
         </Switch>
 
