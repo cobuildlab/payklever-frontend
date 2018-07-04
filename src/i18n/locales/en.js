@@ -288,6 +288,7 @@ export default {
     messageTitle: 'Message title',
     status: 'Status',
     adminStatus: 'Admin status',
+    adminStatusFilter: 'Filter by admin status',
     loadingCampaigns: 'Loading campaigns',
   },
   CAMPAIGN_DETAILS: {

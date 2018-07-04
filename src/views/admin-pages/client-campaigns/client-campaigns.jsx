@@ -20,6 +20,7 @@ import {
   Form,
   FormGroup,
   Input,
+  Label,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { ModalConfirm, Loading, LineChart, PaginationComponent } from '../../components';
@@ -36,6 +37,29 @@ class ClientCampaigns extends Component {
       chartData: {},
       days: 7,
       daysList: [7, 30, 90],
+      adminStatuses: [{
+        value: '',
+        text: i18next.t(`CREATE_CAMPAIGN.all`),
+      }, {
+        value: 'ap',
+        text: i18next.t(`CAMPAIGN_ADMIN_STATUS.ap`),
+      }, {
+        value: 'wa',
+        text: i18next.t(`CAMPAIGN_ADMIN_STATUS.wa`),
+      }, {
+        value: 'na',
+        text: i18next.t(`CAMPAIGN_ADMIN_STATUS.na`),
+      }, {
+        value: 're',
+        text: i18next.t(`CAMPAIGN_ADMIN_STATUS.re`),
+      }, {
+        value: 'su',
+        text: i18next.t(`CAMPAIGN_ADMIN_STATUS.su`),
+      }, {
+        value: 'fi',
+        text: i18next.t(`CAMPAIGN_ADMIN_STATUS.fi`),
+      }],
+      adminStatusFilter: 'wa',
       approveCampaignIsOpen: false,
       rejectCampaignIsOpen: false,
     };
@@ -59,7 +83,7 @@ class ClientCampaigns extends Component {
         this.isLoading(false);
         toast.dismiss();
         toast.success(i18next.t('CLIENT_CAMPAIGNS.campaignApproved'));
-        ClientCampaignsActions.getCampaigns();
+        this.reloadCampaigns(0);
       });
 
     this.rejectCampaignSubscription = campaignStore
@@ -67,7 +91,7 @@ class ClientCampaigns extends Component {
         this.isLoading(false);
         toast.dismiss();
         toast.success(i18next.t('CLIENT_CAMPAIGNS.campaignRejected'));
-        ClientCampaignsActions.getCampaigns();
+        this.reloadCampaigns(0);
       });
 
     this.campaignStoreError = campaignStore
@@ -77,8 +101,7 @@ class ClientCampaigns extends Component {
         toast.error(err.message || i18next.t('FETCH.error'));
       });
 
-    this.isLoading(true, 'CLIENT_CAMPAIGNS.loadingCampaigns');
-    ClientCampaignsActions.getCampaigns(0);
+    this.reloadCampaigns(0);
     ClientCampaignsActions.getStatistics(this.state.days);
   }
 
@@ -114,7 +137,22 @@ class ClientCampaigns extends Component {
         </Form>
         <LineChart data={this.state.chartData}></LineChart>
 
-        <Table hover className="mt-5">
+        <Form className="mt-5" inline>
+          <FormGroup>
+            <Label className="mr-1">
+              {t(`CLIENT_CAMPAIGNS.adminStatusFilter`)}{': '}
+            </Label>
+            <Input onChange={(evt) => this.onAdminStatusChange(evt.target.value)} value={this.state.adminStatusFilter} type="select" name="adminStatus">
+              {this.state.adminStatuses.map((adminStatus, index) =>
+                <option key={index} value={adminStatus.value}>
+                  {adminStatus.text}
+                </option>
+              )}
+            </Input>
+          </FormGroup>
+        </Form>
+
+        <Table hover className="mt-2">
         <thead>
           <tr>
             <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.campaignName') }</th>
@@ -161,9 +199,14 @@ class ClientCampaigns extends Component {
     </div>)}</I18n>);
   }
 
-  reloadCampaigns = (page) => {
+  onAdminStatusChange = (adminStatus = 'wa') => {
+    this.reloadCampaigns(0, adminStatus);
+  }
+
+  reloadCampaigns = (page, adminStatusFilter = this.state.adminStatusFilter) => {
+    this.setState({ adminStatusFilter });
     this.isLoading(true, 'CLIENT_CAMPAIGNS.loadingCampaigns');
-    ClientCampaignsActions.getCampaigns(page);
+    ClientCampaignsActions.getCampaigns(page, adminStatusFilter);
   }
 
   onDaysChange = (evt) => {

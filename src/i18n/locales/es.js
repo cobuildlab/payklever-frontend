@@ -288,6 +288,7 @@ export default {
     messageTitle: 'Título del mansaje',
     status: 'Estatus',
     adminStatus: 'Estatus del admin',
+    adminStatusFilter: 'Filtrar por estatus del admin',
     loadingCampaigns: 'Cargando campañas',
   },
   CAMPAIGN_DETAILS: {

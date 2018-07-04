@@ -66,7 +66,7 @@ class Invoices extends Component {
          <Table hover>
             <thead>
               <tr>
-                <th>{ t('INVOICES.campaignId') }</th>
+                <th>{ t('CLIENT_CAMPAIGNS.campaignName') }</th>
                 <th>{ t('INVOICES.smsSent') }</th>
                 <th>{ t('INVOICES.smsPrice') }</th>
                 <th>{ t('INVOICES.tax') }</th>
@@ -79,7 +79,11 @@ class Invoices extends Component {
              { (this.state.invoices.rows && this.state.invoices.rows.length) ? this.state.invoices.rows.map((invoice) =>
                <CSSTransition key={invoice.id} timeout={500} classNames="fade-in-change">
                  <tr className="App-cursor-pointer" onClick={() => this.goToInvoiceDetails(invoice.id)}>
-                   <td>{invoice.campaignId}</td>
+                   <td>
+                     {(invoice.Campaign && invoice.Campaign.name) ?
+                       <span>{invoice.Campaign.name}</span>
+                     : null}
+                   </td>
                    <td>{invoice.smsSent}</td>
                    <td>{`$${invoice.smsPrice}`}</td>
                    <td>{`$${invoice.tax}`}</td>
