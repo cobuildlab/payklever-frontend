@@ -12,6 +12,7 @@ export default {
     na: 'Draft',
     re: 'Rejected',
     su: 'Suspended',
+    fi: 'Finished',
   },
   CAMPAIGN_USER_STATUS: {
     ac: 'Active',
@@ -95,6 +96,7 @@ export default {
     photoUploaded: `Profile's photo successfully updated!`,
     invalidPhoto: 'Invalid photo: JPG or PNG only',
     changePhoto: 'Change photo',
+    invoices: 'Invoices',
   },
   ACCOUNTS: {
     cancel: 'Cancel',
@@ -349,5 +351,22 @@ export default {
     clientDetails: 'Client details',
     accounts: 'Accounts',
     loadingClient: 'Loading client',
+  },
+  INVOICES: {
+    invoices: 'Invoices',
+    smsSent: 'Sent sms',
+    smsPrice: 'Sms price',
+    tax: 'Tax',
+    subTotal: 'Sub total',
+    total: 'Total',
+    campaignId: 'Campaign Id',
+    loadingInvoices: 'Loading invoices',
+  },
+  INVOICE_DETAILS: {
+    invoiceDetails: 'Invoice Details',
+    campaignInfo: 'Campaign information',
+    smsInfo: 'Sms information',
+    cardInfo: 'Card info',
+    loadingInvoice: 'Loading Invoice',
   },
 }
