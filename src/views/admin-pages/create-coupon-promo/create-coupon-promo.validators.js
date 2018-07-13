@@ -64,15 +64,15 @@ const createCouponPromoValidator = (createCouponPromoForm: CreateCouponPromoForm
     try {
       userIdAsJson = JSON.parse(createCouponPromoForm.userId);
     } catch (err) {
-      throw new Error(i18next.t('userIdAsJson.invalidUserIds'));
+      throw new Error(i18next.t('CREATE_PROMOTION.invalidUserIds'));
     }
     if (Array.isArray(userIdAsJson) === false) {
-      throw new Error(i18next.t('userIdAsJson.invalidUserIds'));
+      throw new Error(i18next.t('CREATE_PROMOTION.invalidUserIds'));
     } else if (userIdAsJson.length > 0) {
       if (!userIdAsJson.every((element) => {
           return (Number.isInteger(element) && element > 0)
         })) {
-        throw new Error(i18next.t('userIdAsJson.invalidUserIds'));
+        throw new Error(i18next.t('CREATE_PROMOTION.invalidUserIds'));
       }
     }
   } else throw new Error(i18next.t('CREATE_PROMOTION.emptyUserIds'));

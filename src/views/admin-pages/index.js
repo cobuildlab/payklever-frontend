@@ -4,3 +4,4 @@ export { Clients } from './clients';
 export { ClientDetails } from './client-details';
 export { ClientCampaigns } from './client-campaigns';
 export { CampaignDetails } from './campaign-details';
+export { CreateCouponPromo } from './create-coupon-promo';
