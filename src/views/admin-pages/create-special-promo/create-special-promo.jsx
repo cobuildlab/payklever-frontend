@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { SubNav, Loading } from '../../components';
-import { CreateCouponPromoForm } from './create-coupon-promo.classes';
-import * as createCouponPromoActions from './create-coupon-promo.actions';
-import { createCouponPromoAvForm } from './create-coupon-promo.validators';
+import { CreateSpecialPromoForm } from './create-special-promo.classes';
+import * as createSpecialPromoActions from './create-special-promo.actions';
+import { createSpecialPromoAvForm } from './create-special-promo.validators';
 import { promotionStore } from '../../../stores';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
@@ -25,7 +25,7 @@ import {
 import { Link } from "react-router-dom";
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
-class CreateCouponPromo extends Component {
+class CreateSpecialPromo extends Component {
   constructor(props) {
     super(props);
 
@@ -38,16 +38,14 @@ class CreateCouponPromo extends Component {
       startDate: '',
       endDate: '',
       amount: '',
-      type: '',
-      types: ['sc', 'ac'],
       userId: [],
       users: [],
     }
   }
 
   componentDidMount() {
-    this.createCouponPromoSubscription = promotionStore
-      .subscribe('createCouponPromo', (promotion) => {
+    this.createSpecialPromoSubscription = promotionStore
+      .subscribe('createSpecialPromo', (promotion) => {
         this.isLoading(false);
         toast.dismiss();
         toast.success(i18next.t('CREATE_PROMOTION.promotionCreated'));
@@ -68,14 +66,14 @@ class CreateCouponPromo extends Component {
   }
 
   componentWillUnmount() {
-    this.createCouponPromoSubscription.unsubscribe();
+    this.createSpecialPromoSubscription.unsubscribe();
     this.searchUsersSubscription.unsubscribe();
     this.promotionStoreError.unsubscribe();
   }
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <SubNav backRoute="/admin/promotions" subNavTitle={t('CREATE_PROMOTION.createCouponPromotion')}></SubNav>
+      <SubNav backRoute="/admin/promotions" subNavTitle={t('CREATE_PROMOTION.createSpecialPromotion')}></SubNav>
 
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
@@ -90,7 +88,7 @@ class CreateCouponPromo extends Component {
 
             <AvGroup>
               <Label for="name">{ t('CREATE_PROMOTION.promotionName') }</Label>
-              <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_PROMOTION.promotionName') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})} validate={createCouponPromoAvForm.name}/>
+              <AvInput type="text" name="name" id="name" placeholder={ t('CREATE_PROMOTION.promotionName') } value={this.state.name} onChange={(evt) => this.setState({name: evt.target.value})} validate={createSpecialPromoAvForm.name}/>
               <AvFeedback>{ t('CREATE_PROMOTION.invalidName') }</AvFeedback>
             </AvGroup>
 
@@ -98,13 +96,13 @@ class CreateCouponPromo extends Component {
               <Label for="description">
                 { t('CREATE_PROMOTION.description') }
               </Label>
-              <AvInput type="text" name="description" id="description" placeholder={ t('CREATE_PROMOTION.description') } value={this.state.description} onChange={(evt) => this.setState({description: evt.target.value})} validate={createCouponPromoAvForm.description}/>
+              <AvInput type="text" name="description" id="description" placeholder={ t('CREATE_PROMOTION.description') } value={this.state.description} onChange={(evt) => this.setState({description: evt.target.value})} validate={createSpecialPromoAvForm.description}/>
               <AvFeedback>{ t('CREATE_PROMOTION.invalidDescription') }</AvFeedback>
             </AvGroup>
 
             <AvGroup>
               <Label for="startDate">{ t('CREATE_PROMOTION.startDate') }</Label>
-              <AvInput value={this.state.startDate} onChange={(evt) => this.setState({startDate: evt.target.value})} type="date" name="startDate" id="startDate" placeholder={ t('CREATE_PROMOTION.startDate') } validate={createCouponPromoAvForm.startDate}/>
+              <AvInput value={this.state.startDate} onChange={(evt) => this.setState({startDate: evt.target.value})} type="date" name="startDate" id="startDate" placeholder={ t('CREATE_PROMOTION.startDate') } validate={createSpecialPromoAvForm.startDate}/>
               <AvFeedback>
                 { t('CREATE_PROMOTION.invalidStartDate') }
               </AvFeedback>
@@ -112,7 +110,7 @@ class CreateCouponPromo extends Component {
 
             <AvGroup>
               <Label for="endDate">{ t('CREATE_PROMOTION.endDate') }</Label>
-              <AvInput value={this.state.endDate} onChange={(evt) => this.setState({endDate: evt.target.value})} type="date" name="endDate" id="endDate" placeholder={ t('CREATE_PROMOTION.endDate') } validate={createCouponPromoAvForm.endDate}/>
+              <AvInput value={this.state.endDate} onChange={(evt) => this.setState({endDate: evt.target.value})} type="date" name="endDate" id="endDate" placeholder={ t('CREATE_PROMOTION.endDate') } validate={createSpecialPromoAvForm.endDate}/>
               <AvFeedback>
                 { t('CREATE_PROMOTION.invalidEndDate') }
               </AvFeedback>
@@ -120,21 +118,8 @@ class CreateCouponPromo extends Component {
 
             <AvGroup>
               <Label for="amount">{ t('CREATE_PROMOTION.amount') }</Label>
-              <AvInput type="text" name="amount" id="amount" placeholder={ t('CREATE_PROMOTION.amount') } value={this.state.amount} onChange={(evt) => this.setState({amount: evt.target.value})} validate={createCouponPromoAvForm.amount}/>
+              <AvInput type="text" name="amount" id="amount" placeholder={ t('CREATE_PROMOTION.amount') } value={this.state.amount} onChange={(evt) => this.setState({amount: evt.target.value})} validate={createSpecialPromoAvForm.amount}/>
               <AvFeedback>{ t('CREATE_PROMOTION.invalidAmount') }</AvFeedback>
-            </AvGroup>
-
-            <AvGroup>
-              <Label for="type">{ t('CREATE_PROMOTION.type') }</Label>
-              <AvInput onChange={(evt) => this.setState({type: evt.target.value})} value={this.state.type} type="select" name="type" label={ t('CREATE_PROMOTION.type') } validate={createCouponPromoAvForm.type}>
-                {!this.state.type && <option value="" disabled>
-                  { t('CREATE_PROMOTION.selectType') }
-                </option>}
-                {this.state.types.map((type, index) =>
-                  <option key={index} value={type}>{t(`PROMOTION_TYPES.${type}`)}</option>
-                )}
-              </AvInput>
-              <AvFeedback>{ t('CREATE_PROMOTION.invalidType') }</AvFeedback>
             </AvGroup>
 
             <AvGroup>
@@ -182,17 +167,16 @@ class CreateCouponPromo extends Component {
   createPromotion(evt) {
     this.isLoading(true, 'CREATE_PROMOTION.creatingPromotion');
 
-    const createCouponPromoForm = new CreateCouponPromoForm(
+    const createSpecialPromoForm = new CreateSpecialPromoForm(
       this.state.name || undefined,
       this.state.description || undefined,
       this.state.startDate || undefined,
       this.state.endDate || undefined,
       this.state.amount || undefined,
-      this.state.type || undefined,
       JSON.stringify(this.state.userId.map((user) => Number(user.id))),
     );
 
-    createCouponPromoActions.createCouponPromo(createCouponPromoForm);
+    createSpecialPromoActions.createSpecialPromo(createSpecialPromoForm);
   }
 
   isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {
@@ -205,8 +189,8 @@ class CreateCouponPromo extends Component {
   _handleSearch = (query) => {
     this.setState({ isLoadingUsers: true });
 
-    createCouponPromoActions.searchUsers(query);
+    createSpecialPromoActions.searchUsers(query);
   }
 }
 
-export default CreateCouponPromo;
+export default CreateSpecialPromo;

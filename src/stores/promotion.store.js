@@ -23,6 +23,12 @@ class PromotionStore extends Flux.DashStore {
     this.addEvent('createCouponPromo');
 
     /**
+     * Notifies when a promotion was created
+     * @param {object}  promotion the created promotion
+     */
+    this.addEvent('createSpecialPromo');
+
+    /**
      * Error handler
      * @param {Error} err the error from the action
      */

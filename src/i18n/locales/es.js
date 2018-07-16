@@ -376,6 +376,8 @@ export default {
   },
   CREATE_PROMOTION: {
     createPromotion: 'Crear promoción',
+    createCouponPromotion: 'Crear promoción de cupón',
+    createSpecialPromotion: 'Crear promoción especial',
     creatingPromotion: 'Creando promoción',
     promotionCreated: 'Promoción creada satisfactoriamente',
     promotionName: 'Nombre de la promoción',
@@ -388,6 +390,7 @@ export default {
     invalidEndDate: 'Fecha de culminación inválida',
     amount: 'Cantidad',
     invalidAmount: 'Número: (5 digits max)',
+    invalidSpecialAmount: 'Número: (Del 1 a 100)',
     type: 'Tipo de promoción',
     selectType: 'Selecciona el tipo de promoción',
     invalidType: 'Debes seleccionar un tipo de promoción válido',

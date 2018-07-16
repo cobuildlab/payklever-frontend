@@ -5,3 +5,4 @@ export { ClientDetails } from './client-details';
 export { ClientCampaigns } from './client-campaigns';
 export { CampaignDetails } from './campaign-details';
 export { CreateCouponPromo } from './create-coupon-promo';
+export { CreateSpecialPromo } from './create-special-promo';
