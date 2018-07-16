@@ -11,6 +11,12 @@ class PromotionStore extends Flux.DashStore {
     this.addEvent('getPromotions');
 
     /**
+     * Notifies when a promotion was loaded
+     * @param {object}  promotion the promotion
+     */
+    this.addEvent('getPromotion');
+
+    /**
      * Notifies when the user list was loaded
      * @param {Array}  users the users list
      */

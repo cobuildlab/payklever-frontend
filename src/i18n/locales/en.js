@@ -22,6 +22,11 @@ export default {
   PROMOTION_TYPES: {
     sc: 'Sms',
     ac: 'Money',
+    sp: 'Special',
+  },
+  PROMOTION_STATUS: {
+    ac: 'Active',
+    ia: 'Paused',
   },
   LOGIN: {
     login: 'Log In',
@@ -279,6 +284,7 @@ export default {
   CAMPAIGN_MANAGER: {
     client: 'Clients',
     campaign: 'Campaigns',
+    promotions: 'Promotions',
     message: 'Messages',
   },
   CLIENTS: {
@@ -374,6 +380,15 @@ export default {
     cardInfo: 'Card info',
     loadingInvoice: 'Loading Invoice',
   },
+  PROMOTIONS: {
+    name: 'Name',
+    type: 'Type',
+    amount: 'Amount',
+    status: 'Status',
+    loadingPromotions: 'Loading promotions',
+    createCouponPromotion: 'Create coupon promotion',
+    createSpecialPromotion: 'Create special promotion',
+  },
   CREATE_PROMOTION: {
     createPromotion: 'Create promotion',
     createCouponPromotion: 'Create coupon promotion',
@@ -407,5 +422,20 @@ export default {
     emptyAmount: 'Empty amount',
     emptyType: 'Empty promotion type',
     cancel: 'Cancel',
+  },
+  PROMOTION_DETAILS: {
+    promotionDetails: 'Promotion details',
+    loadingPromotion: 'Loading Promotion',
+    userInfo: 'User information',
+    nameAndSurname: 'Name and surname',
+    email: 'Email',
+    promotionInfo: 'Promotion information',
+    name: 'Name',
+    description: 'Description',
+    type: 'Type',
+    amount: 'Amount',
+    status: 'Status',
+    startDate: 'Start date',
+    endDate: 'End date',
   },
 }

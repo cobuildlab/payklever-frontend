@@ -22,6 +22,11 @@ export default {
   PROMOTION_TYPES: {
     sc: 'Mensajes',
     ac: 'Dinero',
+    sp: 'Especial',
+  },
+  PROMOTION_STATUS: {
+    ac: 'Activa',
+    ia: 'Pausada',
   },
   LOGIN: {
     login: 'Iniciar sesión',
@@ -279,6 +284,7 @@ export default {
   CAMPAIGN_MANAGER: {
     client: 'Clientes',
     campaign: 'Campañas',
+    promotions: 'Promociones',
     message: 'Mensajes',
   },
   CLIENTS: {
@@ -374,6 +380,15 @@ export default {
     cardInfo: 'Información de la tarjeta',
     loadingInvoice: 'Cargando Factura',
   },
+  PROMOTIONS: {
+    name: 'Nombre',
+    type: 'Tipo',
+    amount: 'Cantidad',
+    status: 'Estatus',
+    loadingPromotions: 'Cargando Promociones',
+    createCouponPromotion: 'Crear promoción de cupón',
+    createSpecialPromotion: 'Crear promoción especial',
+  },
   CREATE_PROMOTION: {
     createPromotion: 'Crear promoción',
     createCouponPromotion: 'Crear promoción de cupón',
@@ -407,5 +422,20 @@ export default {
     emptyAmount: 'Cantidad requerida',
     emptyType: 'Debes seleccionar un tipo de promoción',
     cancel: 'Cancelar',
+  },
+  PROMOTION_DETAILS: {
+    promotionDetails: 'Detalles de la promoción',
+    loadingPromotion: 'Cargando promoción',
+    userInfo: 'Información del usuario',
+    nameAndSurname: 'Niombres y apellidos',
+    email: 'Correo',
+    promotionInfo: 'Información de la promoción',
+    name: 'Nombre',
+    description: 'Descripción',
+    type: 'Tipo',
+    amount: 'Cantidad',
+    status: 'Estatus',
+    startDate: 'Fecha de inicio',
+    endDate: 'Fecha de culminación',
   },
 }

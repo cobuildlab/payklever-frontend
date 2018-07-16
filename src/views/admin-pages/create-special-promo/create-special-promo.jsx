@@ -49,7 +49,7 @@ class CreateSpecialPromo extends Component {
         this.isLoading(false);
         toast.dismiss();
         toast.success(i18next.t('CREATE_PROMOTION.promotionCreated'));
-        this.props.history.push('/admin/promotions');
+        this.props.history.push('/admin/campaign-manager/promotions');
       });
 
     this.searchUsersSubscription = promotionStore
@@ -73,7 +73,7 @@ class CreateSpecialPromo extends Component {
 
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
-      <SubNav backRoute="/admin/promotions" subNavTitle={t('CREATE_PROMOTION.createSpecialPromotion')}></SubNav>
+      <SubNav backRoute="/admin/campaign-manager/promotions" subNavTitle={t('CREATE_PROMOTION.createSpecialPromotion')}></SubNav>
 
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
@@ -147,7 +147,7 @@ class CreateSpecialPromo extends Component {
             </AvGroup>
 
           <div className="text-center mb-4">
-            <Link to="/admin/promotions">
+            <Link to="/admin/campaign-manager/promotions">
               <Button className="mr-3 mt-4" color="danger" type="button">
               { t('CREATE_PROMOTION.cancel') }
               </Button>
@@ -169,7 +169,7 @@ class CreateSpecialPromo extends Component {
 
     const createSpecialPromoForm = new CreateSpecialPromoForm(
       this.state.name || undefined,
-      this.state.description || undefined,
+      this.state.description || null,
       this.state.startDate || undefined,
       this.state.endDate || undefined,
       this.state.amount || undefined,
