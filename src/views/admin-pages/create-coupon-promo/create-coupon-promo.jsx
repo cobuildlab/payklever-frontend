@@ -23,6 +23,7 @@ import {
   AvFeedback,
 } from 'availity-reactstrap-validation';
 import { Link } from "react-router-dom";
+import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 
 class CreateCouponPromo extends Component {
   constructor(props) {
@@ -31,22 +32,16 @@ class CreateCouponPromo extends Component {
     this.state = {
       loading: false,
       loadingI18n: '',
+      isLoadingUsers: false,
       name: '',
       description: '',
       startDate: '',
       endDate: '',
       amount: '',
       type: '',
-      types: [{
-          name: 'Sms',
-          value: 'sc',
-        },
-        {
-          name: 'Money',
-          value: 'ac',
-        },
-      ],
+      types: ['sc', 'ac'],
       userId: [],
+      users: [],
     }
   }
 
@@ -59,6 +54,11 @@ class CreateCouponPromo extends Component {
         this.props.history.push('/admin/promotions');
       });
 
+    this.searchUsersSubscription = promotionStore
+      .subscribe('searchUsers', (users) => {
+        this.setState({ users, isLoadingUsers: false });
+      });
+
     this.promotionStoreError = promotionStore
       .subscribe('PromotionStoreError', (err) => {
         this.isLoading(false);
@@ -69,6 +69,7 @@ class CreateCouponPromo extends Component {
 
   componentWillUnmount() {
     this.createCouponPromoSubscription.unsubscribe();
+    this.searchUsersSubscription.unsubscribe();
     this.promotionStoreError.unsubscribe();
   }
 
@@ -125,14 +126,39 @@ class CreateCouponPromo extends Component {
 
             <AvGroup>
               <Label for="type">{ t('CREATE_PROMOTION.type') }</Label>
-              <AvInput onChange={(evt) => this.setState({type: evt.target.value})} value={this.state.type} type="select" name="type" label={ t('CREATE_ACCOUNT.paymentMethod') } validate={createCouponPromoAvForm.type}>
+              <AvInput onChange={(evt) => this.setState({type: evt.target.value})} value={this.state.type} type="select" name="type" label={ t('CREATE_PROMOTION.type') } validate={createCouponPromoAvForm.type}>
                 {!this.state.type && <option value="" disabled>
                   { t('CREATE_PROMOTION.selectType') }
                 </option>}
                 {this.state.types.map((type, index) =>
-                  <option key={index} value={type.value}>{type.name}</option>
+                  <option key={index} value={type}>{t(`PROMOTION_TYPES.${type}`)}</option>
                 )}
               </AvInput>
+              <AvFeedback>{ t('CREATE_PROMOTION.invalidType') }</AvFeedback>
+            </AvGroup>
+
+            <AvGroup>
+              <Label for="users">{ t('CREATE_PROMOTION.users') }</Label>
+              <AsyncTypeahead
+                isLoading={this.state.isLoadingUsers}
+                multiple={true}
+                flip={true}
+                minLength={2}
+                options={this.state.users}
+                onChange={(items) => this.setState({userId: items})}
+                onSearch={this._handleSearch}
+                labelKey="email"
+                filterBy={['firstName', 'lastName', 'email']}
+                searchText={t('CREATE_PROMOTION.searchingUsers')}
+                promptText={t('CREATE_PROMOTION.searchForUsers')}
+                emptyLabel={t('CREATE_PROMOTION.emptyLabel')}
+                placeholder={t('CREATE_PROMOTION.searchForUsers')}
+                renderMenuItemChildren={(option, props) => (
+                  <span key={option.id}>
+                    {`${option.firstName} ${option.lastName} (${option.email})`}
+                  </span>
+                )}
+              />
             </AvGroup>
 
           <div className="text-center mb-4">
@@ -157,13 +183,13 @@ class CreateCouponPromo extends Component {
     this.isLoading(true, 'CREATE_PROMOTION.creatingPromotion');
 
     const createCouponPromoForm = new CreateCouponPromoForm(
-      this.state.name,
-      this.state.description,
-      this.state.startDate,
-      this.state.endDate,
-      this.state.amount,
-      this.state.type,
-      this.state.userId,
+      this.state.name || undefined,
+      this.state.description || undefined,
+      this.state.startDate || undefined,
+      this.state.endDate || undefined,
+      this.state.amount || undefined,
+      this.state.type || undefined,
+      JSON.stringify(this.state.userId.map((user) => Number(user.id))),
     );
 
     createCouponPromoActions.createCouponPromo(createCouponPromoForm);
@@ -174,6 +200,12 @@ class CreateCouponPromo extends Component {
       loadingI18n,
       loading: isLoading
     });
+  }
+
+  _handleSearch = (query) => {
+    this.setState({ isLoadingUsers: true });
+
+    createCouponPromoActions.searchUsers(query);
   }
 }
 

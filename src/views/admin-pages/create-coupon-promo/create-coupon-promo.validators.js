@@ -36,7 +36,7 @@ const createCouponPromoValidator = (createCouponPromoForm: CreateCouponPromoForm
    validate regExp (strings)
    */
   if (!createCouponPromoRegExp.validName.test(createCouponPromoForm.name)) {
-    throw new Error(`${i18next.t('CREATE_PROMOTION.name')}: ${i18next.t('CREATE_PROMOTION.invalidName')}`);
+    throw new Error(`${i18next.t('CREATE_PROMOTION.promotionName')}: ${i18next.t('CREATE_PROMOTION.invalidName')}`);
   }
 
   if (createCouponPromoForm.description !== null &&

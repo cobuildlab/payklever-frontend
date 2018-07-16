@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './i18n/i18n';
 import './assets/css/animations.css';
+import 'react-bootstrap-typeahead/css/Typeahead.min.css';
+import 'react-bootstrap-typeahead/css/Typeahead-bs4.min.css';
 import './index.css';
 import {
   BrowserRouter as Router,
