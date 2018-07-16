@@ -338,3 +338,24 @@ react-toastify overrides
 /*
 react-toastify overrides
  */
+
+
+/*
+react bootstrap typeahead overrides
+ */
+
+.rbt-token {
+  background-color:#6c757d;
+  color: #fff;
+}
+
+.rbt-input-multi.focus {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-color: #787979;
+}
+
+ /*
+ react bootstrap typeahead overrides
+  */
