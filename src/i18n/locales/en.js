@@ -381,7 +381,7 @@ export default {
     loadingInvoice: 'Loading Invoice',
   },
   PROMOTIONS: {
-    name: 'Name',
+    name: 'Promotion Name',
     type: 'Type',
     amount: 'Amount',
     status: 'Status',

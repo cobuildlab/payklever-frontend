@@ -381,7 +381,7 @@ export default {
     loadingInvoice: 'Cargando Factura',
   },
   PROMOTIONS: {
-    name: 'Nombre',
+    name: 'Nombre de La promoción',
     type: 'Tipo',
     amount: 'Cantidad',
     status: 'Estatus',
