@@ -384,6 +384,7 @@ export default {
     name: 'Nombre de La promoción',
     type: 'Tipo',
     amount: 'Cantidad',
+    userEmail: 'Correo del Usuario',
     status: 'Estatus',
     loadingPromotions: 'Cargando Promociones',
     createCouponPromotion: 'Crear promoción de cupón',
