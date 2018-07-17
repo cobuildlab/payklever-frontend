@@ -35,6 +35,16 @@ class PromotionStore extends Flux.DashStore {
     this.addEvent('createSpecialPromo');
 
     /**
+     * Notifies when a promotion was resumed
+     */
+    this.addEvent('resumePromotion');
+
+    /**
+     * Notifies when a promotion was paused
+     */
+    this.addEvent('pausePromotion');
+
+    /**
      * Error handler
      * @param {Error} err the error from the action
      */
