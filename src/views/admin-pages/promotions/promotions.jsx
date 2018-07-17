@@ -58,20 +58,21 @@ class Promotions extends Component {
 
         <div className="text-center">
           <Link to="/admin/create-coupon-promo">
-            <Button className="mr-3 mt-4" color="secondary">
+            <Button className="mr-3 mt-5" color="primary">
             { t('PROMOTIONS.createCouponPromotion') }
             </Button>
           </Link>
           <Link to="/admin/create-special-promo">
-            <Button className="mt-4" color="primary">
+            <Button className="mt-5" color="primary">
             { t('PROMOTIONS.createSpecialPromotion') }
             </Button>
           </Link>
         </div>
 
-        <Table hover className="mt-4">
+        <Table hover className="mt-5">
         <thead>
           <tr>
+            <th className="App-header-table-admin">{ t('PROMOTIONS.userEmail') }</th>
             <th className="App-header-table-admin">{ t('PROMOTIONS.name') }</th>
             <th className="App-header-table-admin">{ t('PROMOTIONS.type') }</th>
             <th className="App-header-table-admin">{ t('PROMOTIONS.amount') }</th>
@@ -83,6 +84,11 @@ class Promotions extends Component {
            { (this.state.promotions.rows && this.state.promotions.rows.length) ? this.state.promotions.rows.map((promotion) =>
              <CSSTransition key={promotion.id} timeout={500} classNames="fade-in-change">
                <tr className="App-cursor-pointer" onClick={() => this.goToPromotionDetails(promotion.id)}>
+                 <td>
+                   {(promotion.User && promotion.User.email) ?
+                    <span>{promotion.User.email}</span>
+                    : null }
+                 </td>
                  <td>{promotion.name}</td>
                  <td>{t(`PROMOTION_TYPES.${promotion.type}`)}</td>
                  <td>{promotion.amount}</td>

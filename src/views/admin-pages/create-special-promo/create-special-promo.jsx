@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SubNav, Loading } from '../../components';
+import { SubNav, Loading, UserItem } from '../../components';
 import { CreateSpecialPromoForm } from './create-special-promo.classes';
 import * as createSpecialPromoActions from './create-special-promo.actions';
 import { createSpecialPromoAvForm } from './create-special-promo.validators';
@@ -15,6 +15,7 @@ import {
   Row,
   Label,
   Button,
+  FormGroup,
 } from 'reactstrap';
 import {
   AvForm,
@@ -96,25 +97,31 @@ class CreateSpecialPromo extends Component {
               <Label for="description">
                 { t('CREATE_PROMOTION.description') }
               </Label>
-              <AvInput type="text" name="description" id="description" placeholder={ t('CREATE_PROMOTION.description') } value={this.state.description} onChange={(evt) => this.setState({description: evt.target.value})} validate={createSpecialPromoAvForm.description}/>
+              <AvInput style={{height: 'auto'}} type="textarea" name="description" id="description" placeholder={ t('CREATE_PROMOTION.description') } value={this.state.description} onChange={(evt) => this.setState({description: evt.target.value})} validate={createSpecialPromoAvForm.description}/>
               <AvFeedback>{ t('CREATE_PROMOTION.invalidDescription') }</AvFeedback>
             </AvGroup>
 
-            <AvGroup>
-              <Label for="startDate">{ t('CREATE_PROMOTION.startDate') }</Label>
-              <AvInput value={this.state.startDate} onChange={(evt) => this.setState({startDate: evt.target.value})} type="date" name="startDate" id="startDate" placeholder={ t('CREATE_PROMOTION.startDate') } validate={createSpecialPromoAvForm.startDate}/>
-              <AvFeedback>
-                { t('CREATE_PROMOTION.invalidStartDate') }
-              </AvFeedback>
-            </AvGroup>
+            <Row>
+              <Col md={{size: 6}}>
+                <AvGroup>
+                  <Label for="startDate">{ t('CREATE_PROMOTION.startDate') }</Label>
+                  <AvInput value={this.state.startDate} onChange={(evt) => this.setState({startDate: evt.target.value})} type="date" name="startDate" id="startDate" placeholder={ t('CREATE_PROMOTION.startDate') } validate={createSpecialPromoAvForm.startDate}/>
+                  <AvFeedback>
+                    { t('CREATE_PROMOTION.invalidStartDate') }
+                  </AvFeedback>
+                </AvGroup>
+              </Col>
 
-            <AvGroup>
-              <Label for="endDate">{ t('CREATE_PROMOTION.endDate') }</Label>
-              <AvInput value={this.state.endDate} onChange={(evt) => this.setState({endDate: evt.target.value})} type="date" name="endDate" id="endDate" placeholder={ t('CREATE_PROMOTION.endDate') } validate={createSpecialPromoAvForm.endDate}/>
-              <AvFeedback>
-                { t('CREATE_PROMOTION.invalidEndDate') }
-              </AvFeedback>
-            </AvGroup>
+              <Col md={{size: 6}}>
+                <AvGroup>
+                  <Label for="endDate">{ t('CREATE_PROMOTION.endDate') }</Label>
+                  <AvInput value={this.state.endDate} onChange={(evt) => this.setState({endDate: evt.target.value})} type="date" name="endDate" id="endDate" placeholder={ t('CREATE_PROMOTION.endDate') } validate={createSpecialPromoAvForm.endDate}/>
+                  <AvFeedback>
+                    { t('CREATE_PROMOTION.invalidEndDate') }
+                  </AvFeedback>
+                </AvGroup>
+              </Col>
+            </Row>
 
             <AvGroup>
               <Label for="amount">{ t('CREATE_PROMOTION.amount') }</Label>
@@ -122,7 +129,7 @@ class CreateSpecialPromo extends Component {
               <AvFeedback>{ t('CREATE_PROMOTION.invalidAmount') }</AvFeedback>
             </AvGroup>
 
-            <AvGroup>
+            <FormGroup>
               <Label for="users">{ t('CREATE_PROMOTION.users') }</Label>
               <AsyncTypeahead
                 isLoading={this.state.isLoadingUsers}
@@ -139,12 +146,10 @@ class CreateSpecialPromo extends Component {
                 emptyLabel={t('CREATE_PROMOTION.emptyLabel')}
                 placeholder={t('CREATE_PROMOTION.searchForUsers')}
                 renderMenuItemChildren={(option, props) => (
-                  <span key={option.id}>
-                    {`${option.firstName} ${option.lastName} (${option.email})`}
-                  </span>
+                  <UserItem user={option}></UserItem>
                 )}
               />
-            </AvGroup>
+            </FormGroup>
 
           <div className="text-center mb-4">
             <Link to="/admin/campaign-manager/promotions">
