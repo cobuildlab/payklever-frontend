@@ -102,7 +102,7 @@ class Promotions extends Component {
           </FormGroup>
         </Form>
 
-        <Table hover>
+        <Table hover className="mt-2">
         <thead>
           <tr>
             <th className="App-header-table-admin">{ t('PROMOTIONS.userEmail') }</th>
