@@ -13,6 +13,10 @@ import {
   Container,
   Table,
   Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Loading, PaginationComponent } from '../../components';
@@ -24,6 +28,20 @@ class Promotions extends Component {
     this.state = {
       loading: false,
       promotions: {},
+      statusList: [{
+        value: '',
+        text: i18next.t(`PROMOTIONS.all`),
+      }, {
+        value: 'ac',
+        text: i18next.t(`PROMOTION_STATUS.ac`),
+      }, {
+        value: 'ia',
+        text: i18next.t(`PROMOTION_STATUS.ia`),
+      }, {
+        value: 'fi',
+        text: i18next.t(`PROMOTION_STATUS.fi`),
+      }],
+      statusFilter: '',
     };
   }
 
@@ -69,7 +87,22 @@ class Promotions extends Component {
           </Link>
         </div>
 
-        <Table hover className="mt-5">
+        <Form className="mt-5" inline>
+          <FormGroup>
+            <Label className="mr-1">
+              {t(`PROMOTIONS.statusFilter`)}{': '}
+            </Label>
+            <Input onChange={(evt) => this.onStatusChange(evt.target.value)} value={this.state.statusFilter} type="select" name="status">
+              {this.state.statusList.map((status, index) =>
+                <option key={index} value={status.value}>
+                  {status.text}
+                </option>
+              )}
+            </Input>
+          </FormGroup>
+        </Form>
+
+        <Table hover>
         <thead>
           <tr>
             <th className="App-header-table-admin">{ t('PROMOTIONS.userEmail') }</th>
@@ -106,9 +139,14 @@ class Promotions extends Component {
     </div>)}</I18n>);
   }
 
-  reloadPromotions = (page) => {
+  onStatusChange = (status = '') => {
+    this.reloadPromotions(0, status);
+  }
+
+  reloadPromotions = (page, statusFilter = this.state.statusFilter) => {
+    this.setState({ statusFilter });
     this.isLoading(true);
-    promotionsActions.getPromotions(page);
+    promotionsActions.getPromotions(page, statusFilter);
   }
 
   goToPromotionDetails = (promotionId) => {
