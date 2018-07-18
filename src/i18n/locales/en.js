@@ -27,6 +27,7 @@ export default {
   PROMOTION_STATUS: {
     ac: 'Active',
     ia: 'Paused',
+    fi: 'Finished',
   },
   LOGIN: {
     login: 'Log In',
@@ -389,6 +390,8 @@ export default {
     loadingPromotions: 'Loading promotions',
     createCouponPromotion: 'Create coupon promotion',
     createSpecialPromotion: 'Create special promotion',
+    statusFilter: 'Filter by status',
+    all: 'All',
   },
   CREATE_PROMOTION: {
     createPromotion: 'Create promotion',
