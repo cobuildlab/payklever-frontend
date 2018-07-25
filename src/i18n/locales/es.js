@@ -27,6 +27,7 @@ export default {
   PROMOTION_STATUS: {
     ac: 'Activa',
     ia: 'Pausada',
+    fi: 'Finalizada',
   },
   LOGIN: {
     login: 'Iniciar sesión',
@@ -381,13 +382,16 @@ export default {
     loadingInvoice: 'Cargando Factura',
   },
   PROMOTIONS: {
-    name: 'Nombre',
+    name: 'Nombre de La promoción',
     type: 'Tipo',
     amount: 'Cantidad',
+    userEmail: 'Correo del Usuario',
     status: 'Estatus',
     loadingPromotions: 'Cargando Promociones',
     createCouponPromotion: 'Crear promoción de cupón',
     createSpecialPromotion: 'Crear promoción especial',
+    statusFilter: 'Filtrar por estatus',
+    all: 'Todos',
   },
   CREATE_PROMOTION: {
     createPromotion: 'Crear promoción',
@@ -437,5 +441,15 @@ export default {
     status: 'Estatus',
     startDate: 'Fecha de inicio',
     endDate: 'Fecha de culminación',
+    resumePromotion: 'Reanudar promoción',
+    pausePromotion: 'Pausar promoción',
+    resumingPromotion: 'Reanudando promoción',
+    pausingPromotion: 'Pausando promoción',
+    resumeHeader: 'Reanudar promoción?',
+    resumeBody: 'Estas seguro que deseas reanudar la promoción: {{promotionName}}?',
+    pauseHeader: 'Pausar promoción?',
+    pauseBody: 'Estas seguro que deseas pausar la promoción: {{promotionName}}?',
+    promotionPaused: 'La promoción fue pausada satisfactoriamente',
+    promotionResumed: 'La promoción fue reanudada satisfactoriamente',
   },
 }

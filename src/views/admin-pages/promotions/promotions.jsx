@@ -13,6 +13,10 @@ import {
   Container,
   Table,
   Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
 } from 'reactstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Loading, PaginationComponent } from '../../components';
@@ -24,6 +28,20 @@ class Promotions extends Component {
     this.state = {
       loading: false,
       promotions: {},
+      statusList: [{
+        value: '',
+        text: i18next.t(`PROMOTIONS.all`),
+      }, {
+        value: 'ac',
+        text: i18next.t(`PROMOTION_STATUS.ac`),
+      }, {
+        value: 'ia',
+        text: i18next.t(`PROMOTION_STATUS.ia`),
+      }, {
+        value: 'fi',
+        text: i18next.t(`PROMOTION_STATUS.fi`),
+      }],
+      statusFilter: '',
     };
   }
 
@@ -58,20 +76,36 @@ class Promotions extends Component {
 
         <div className="text-center">
           <Link to="/admin/create-coupon-promo">
-            <Button className="mr-3 mt-4" color="secondary">
+            <Button className="mr-3 mt-5" color="primary">
             { t('PROMOTIONS.createCouponPromotion') }
             </Button>
           </Link>
           <Link to="/admin/create-special-promo">
-            <Button className="mt-4" color="primary">
+            <Button className="mt-5" color="primary">
             { t('PROMOTIONS.createSpecialPromotion') }
             </Button>
           </Link>
         </div>
 
-        <Table hover className="mt-4">
+        <Form className="mt-5" inline>
+          <FormGroup>
+            <Label className="mr-1">
+              {t(`PROMOTIONS.statusFilter`)}{': '}
+            </Label>
+            <Input onChange={(evt) => this.onStatusChange(evt.target.value)} value={this.state.statusFilter} type="select" name="status">
+              {this.state.statusList.map((status, index) =>
+                <option key={index} value={status.value}>
+                  {status.text}
+                </option>
+              )}
+            </Input>
+          </FormGroup>
+        </Form>
+
+        <Table hover className="mt-2">
         <thead>
           <tr>
+            <th className="App-header-table-admin">{ t('PROMOTIONS.userEmail') }</th>
             <th className="App-header-table-admin">{ t('PROMOTIONS.name') }</th>
             <th className="App-header-table-admin">{ t('PROMOTIONS.type') }</th>
             <th className="App-header-table-admin">{ t('PROMOTIONS.amount') }</th>
@@ -83,6 +117,11 @@ class Promotions extends Component {
            { (this.state.promotions.rows && this.state.promotions.rows.length) ? this.state.promotions.rows.map((promotion) =>
              <CSSTransition key={promotion.id} timeout={500} classNames="fade-in-change">
                <tr className="App-cursor-pointer" onClick={() => this.goToPromotionDetails(promotion.id)}>
+                 <td>
+                   {(promotion.User && promotion.User.email) ?
+                    <span>{promotion.User.email}</span>
+                    : null }
+                 </td>
                  <td>{promotion.name}</td>
                  <td>{t(`PROMOTION_TYPES.${promotion.type}`)}</td>
                  <td>{promotion.amount}</td>
@@ -100,9 +139,14 @@ class Promotions extends Component {
     </div>)}</I18n>);
   }
 
-  reloadPromotions = (page) => {
+  onStatusChange = (status = '') => {
+    this.reloadPromotions(0, status);
+  }
+
+  reloadPromotions = (page, statusFilter = this.state.statusFilter) => {
+    this.setState({ statusFilter });
     this.isLoading(true);
-    promotionsActions.getPromotions(page);
+    promotionsActions.getPromotions(page, statusFilter);
   }
 
   goToPromotionDetails = (promotionId) => {

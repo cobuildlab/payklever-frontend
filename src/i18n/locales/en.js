@@ -27,6 +27,7 @@ export default {
   PROMOTION_STATUS: {
     ac: 'Active',
     ia: 'Paused',
+    fi: 'Finished',
   },
   LOGIN: {
     login: 'Log In',
@@ -381,13 +382,16 @@ export default {
     loadingInvoice: 'Loading Invoice',
   },
   PROMOTIONS: {
-    name: 'Name',
+    name: 'Promotion Name',
     type: 'Type',
     amount: 'Amount',
+    userEmail: 'User email',
     status: 'Status',
     loadingPromotions: 'Loading promotions',
     createCouponPromotion: 'Create coupon promotion',
     createSpecialPromotion: 'Create special promotion',
+    statusFilter: 'Filter by status',
+    all: 'All',
   },
   CREATE_PROMOTION: {
     createPromotion: 'Create promotion',
@@ -437,5 +441,15 @@ export default {
     status: 'Status',
     startDate: 'Start date',
     endDate: 'End date',
+    resumePromotion: 'Resume promotion',
+    pausePromotion: 'Pause promotion',
+    resumingPromotion: 'Resuming promotion',
+    pausingPromotion: 'Pausing promotion',
+    resumeHeader: 'Resume promotion?',
+    resumeBody: 'Are you sure you want to resume the promotion: {{promotionName}}?',
+    pauseHeader: 'Pause promotion?',
+    pauseBody: 'Are you sure you want to pause the promotion: {{promotionName}}?',
+    promotionPaused: 'The promotion was successfully paused',
+    promotionResumed: 'The promotion was successfully resumed',
   },
 }
