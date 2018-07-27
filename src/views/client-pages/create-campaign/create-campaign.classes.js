@@ -1,7 +1,7 @@
 export class CreateCampaignForm {
-  constructor(name, messageTitle, messageDescription, genreId, ages, budget, startDate, endDate, timeFrames, accountId) {
+  constructor(name, link, messageDescription, genreId, ages, budget, startDate, endDate, timeFrames, accountId) {
     this.name = name;
-    this.messageTitle = messageTitle;
+    this.link = link;
     this.messageDescription = messageDescription;
     this.genreId = genreId;
     this.ages = ages;

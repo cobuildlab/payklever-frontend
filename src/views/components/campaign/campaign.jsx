@@ -71,7 +71,7 @@ class Campaign extends Component {
   render() {
     return (<I18n>{(t, { i18n }) => (<div>
 
-      <h4>{this.props.campaign.messageTitle}</h4>
+      <h4>{this.props.campaign.link}</h4>
       <p >
         {this.props.campaign.messageDescription}
       </p>
