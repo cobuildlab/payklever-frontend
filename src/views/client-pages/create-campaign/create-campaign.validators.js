@@ -33,13 +33,13 @@ const draftCampaignValidator = (createCampaignForm: CreateCampaignForm,
     throw new Error(`${i18next.t('CREATE_CAMPAIGN.name')}: ${i18next.t('CREATE_CAMPAIGN.invalidName')}`);
   }
 
-  if (createCampaignForm.messageTitle !== null &&
-    createCampaignForm.messageTitle !== undefined) {
-    if (!createCampaignRegExp.validMessageTitle
-      .test(createCampaignForm.messageTitle)) {
-      throw new Error(`${i18next.t('CREATE_CAMPAIGN.messageTitle')}: ${i18next.t('CREATE_CAMPAIGN.invalidMessageTitle')}`);
-    }
-  }
+  // if (createCampaignForm.link !== null &&
+  //   createCampaignForm.link !== undefined) {
+  //   if (!createCampaignRegExp.validLink
+  //     .test(createCampaignForm.link)) {
+  //     throw new Error(`${i18next.t('CREATE_CAMPAIGN.link')}: ${i18next.t('CREATE_CAMPAIGN.invalidLink')}`);
+  //   }
+  // }
 
   if (createCampaignForm.validMessageDescription !== null &&
     createCampaignForm.validMessageDescription !== undefined) {
@@ -172,10 +172,6 @@ const activateCampaignValidator = (createCampaignForm: CreateCampaignForm, payme
     throw new Error(i18next.t('CREATE_CAMPAIGN.emptyName'));
   }
 
-  if (!utils.isValidString(createCampaignForm.messageTitle)) {
-    throw new Error(i18next.t('CREATE_CAMPAIGN.emptyMessageTitle'));
-  }
-
   if (!utils.isValidString(createCampaignForm.messageDescription)) {
     throw new Error(i18next.t('CREATE_CAMPAIGN.emptyMessageDescription'));
   }
@@ -218,10 +214,13 @@ const activateCampaignValidator = (createCampaignForm: CreateCampaignForm, payme
     throw new Error(`${i18next.t('CREATE_CAMPAIGN.name')}: ${i18next.t('CREATE_CAMPAIGN.invalidName')}`);
   }
 
-  if (!createCampaignRegExp.validMessageTitle
-    .test(createCampaignForm.messageTitle)) {
-    throw new Error(`${i18next.t('CREATE_CAMPAIGN.messageTitle')}: ${i18next.t('CREATE_CAMPAIGN.invalidMessageTitle')}`);
-  }
+  // if (createCampaignForm.link !== null &&
+  //   createCampaignForm.link !== undefined) {
+  //   if (!createCampaignRegExp.validLink
+  //     .test(createCampaignForm.link)) {
+  //     throw new Error(`${i18next.t('CREATE_CAMPAIGN.link')}: ${i18next.t('CREATE_CAMPAIGN.invalidLink')}`);
+  //   }
+  // }
 
   if (!createCampaignRegExp.validMessageDescription
     .test(createCampaignForm.messageDescription)) {
@@ -332,11 +331,8 @@ const createCampaignAvForm = {
     maxLength: { value: 40 },
     pattern: { value: createCampaignRegExp.validCampaignName }
   },
-  messageTitle: {
+  link: {
     // required: true,
-    minLength: { value: 6 },
-    maxLength: { value: 40 },
-    pattern: { value: createCampaignRegExp.validMessageTitle }
   },
   messageDescription: {
     // required: true,
