@@ -207,7 +207,7 @@ class Campaigns extends Component {
             <thead>
               <tr>
                 <th>{ t('CAMPAIGNS.name') }</th>
-                <th>{ t('CAMPAIGNS.title') }</th>
+                <th>{ t('CAMPAIGNS.link') }</th>
                 <th>{ t('CAMPAIGNS.status') }</th>
                 <th>{ t('CAMPAIGNS.adminStatus') }</th>
                 <th></th>

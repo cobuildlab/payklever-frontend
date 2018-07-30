@@ -201,7 +201,7 @@ export default {
     loadingCampaigns: 'Loading campaigns',
     editCampaign: 'Edit campaign',
     name: 'Name',
-    title: 'Title',
+    link: 'Advertiser URL',
     status: 'Status',
     adminStatus: 'Admin status',
   },
