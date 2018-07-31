@@ -359,6 +359,13 @@ export default {
     smsErrorsCount: 'Failed messages ({{count}})',
     loadingStatistics: 'Loading statistics',
   },
+  CAMPAIGN_METRICS: {
+    metrics: 'Metrics',
+    ctr: 'Click trough rate',
+    ppc: 'Pay per click',
+    smsCount: 'Sent Messages',
+    viewsCount: 'Viewed',
+  },
   CLIENT_DETAILS: {
     clientDetails: 'Client details',
     accounts: 'Accounts',
