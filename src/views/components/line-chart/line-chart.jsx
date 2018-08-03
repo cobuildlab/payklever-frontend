@@ -9,7 +9,9 @@ class LineChart extends Component {
     return (
       <I18n>{(t, { i18n }) => (<div>
       <CSSTransition in={Array.isArray(this.props.data.datasets)} timeout={500} classNames="fade-in" unmountOnExit>
-        <Line data={this.props.data} />
+        <div>
+          <Line data={this.props.data} />
+        </div>
       </CSSTransition>
       </div>)}</I18n>);
   }

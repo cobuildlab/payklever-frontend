@@ -21,6 +21,16 @@ const getCampaignStatistics = (campaignId, days) => {
     });
 }
 
+const getCampaignMetrics = (campaignId) => {
+  getData(`/statistics/campaign-metrics/${campaignId}`)
+    .then((campaign) => {
+      Flux.dispatchEvent('getCampaignMetrics', campaign);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
 const approveCampaign = (campaignId) => {
   putData(`/campaign/${campaignId}/approve/`)
     .then((data) => {
@@ -51,4 +61,4 @@ const suspendCampaign = (campaignId, msg) => {
     });
 }
 
-export { getCampaign, getCampaignStatistics, approveCampaign, rejectCampaign, suspendCampaign };
+export { getCampaign, getCampaignStatistics, getCampaignMetrics, approveCampaign, rejectCampaign, suspendCampaign };

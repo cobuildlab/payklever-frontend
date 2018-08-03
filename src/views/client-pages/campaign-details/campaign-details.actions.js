@@ -21,6 +21,16 @@ const getCampaignStatistics = (campaignId, days) => {
     });
 }
 
+const getCampaignMetrics = (campaignId) => {
+  getData(`/statistics/campaign-metrics/${campaignId}`)
+    .then((campaign) => {
+      Flux.dispatchEvent('getCampaignMetrics', campaign);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
 const resumeCampaign = (campaignId) => {
   putData(`/campaign/${campaignId}/resume/`)
     .then((campaign) => {
@@ -51,4 +61,4 @@ const duplicateCampaign = (campaignId) => {
     });
 }
 
-export { getCampaign, getCampaignStatistics, resumeCampaign, pauseCampaign, duplicateCampaign };
+export { getCampaign, getCampaignStatistics, getCampaignMetrics, resumeCampaign, pauseCampaign, duplicateCampaign };
