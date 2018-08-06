@@ -12,6 +12,10 @@ import {
   Input,
   Form,
   FormGroup,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from 'reactstrap';
 import { campaignStore } from '../../../stores';
 import * as CampaignDetailsActions from './campaign-details.actions';
@@ -32,6 +36,7 @@ class CampaignDetails extends Component {
       smsSent: 0,
       smsToBeSent: 0,
       smsErrors: 0,
+      downloadDropdownOpen: false,
       suspendCampaignIsOpen: false,
       approveCampaignIsOpen: false,
       rejectCampaignIsOpen: false,
@@ -127,6 +132,31 @@ class CampaignDetails extends Component {
 
       <CampaignMetrics metrics={this.state.metrics}></CampaignMetrics>
 
+      <Dropdown  isOpen={this.state.downloadDropdownOpen} toggle={() => this.setState({
+        downloadDropdownOpen: !this.state.downloadDropdownOpen,
+      })}>
+        <DropdownToggle className="mx-auto d-block mt-5 mb-5" color="success" caret>
+          { t('CAMPAIGN_DETAILS.downloadCampaignData') }
+        </DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem className="App-cursor-pointer" onClick={this.downloadSms}>
+            { t('CAMPAIGN_DETAILS.downloadSms') }
+          </DropdownItem>
+          <DropdownItem divider></DropdownItem>
+          <DropdownItem className="App-cursor-pointer" onClick={this.downloadViews}>
+            { t('CAMPAIGN_DETAILS.downloadViews') }
+          </DropdownItem>
+          <DropdownItem divider></DropdownItem>
+          <DropdownItem className="App-cursor-pointer" onClick={this.downloadInvoices}>
+            { t('CAMPAIGN_DETAILS.downloadInvoices') }
+          </DropdownItem>
+          <DropdownItem divider></DropdownItem>
+          <DropdownItem className="App-cursor-pointer" onClick={this.downloadPayments}>
+            { t('CAMPAIGN_DETAILS.downloadPayments') }
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+
       <Form className="mt-3" inline hidden={!Array.isArray(this.state.chartData.datasets)}>
         <FormGroup>
           <Input onChange={(evt) => this.onDaysChange(evt)} value={this.state.days} type="select" name="days">
@@ -138,6 +168,7 @@ class CampaignDetails extends Component {
           </Input>
         </FormGroup>
       </Form>
+
       <LineChart data={this.state.chartData}></LineChart>
 
       {(this.state.campaign.adminStatus === 'wa' || this.state.campaign.adminStatus === 'su') ?
@@ -213,6 +244,22 @@ class CampaignDetails extends Component {
       this.isLoading(true, 'CAMPAIGN_DETAILS.suspendingCampaign');
       CampaignDetailsActions.suspendCampaign(this.state.campaign.id, msg);
     }
+  }
+
+  downloadSms = () => {
+    CampaignDetailsActions.downloadSms(this.state.campaign.id, this.state.campaign.name);
+  }
+
+  downloadViews = () => {
+    CampaignDetailsActions.downloadViews(this.state.campaign.id, this.state.campaign.name);
+  }
+
+  downloadInvoices = () => {
+    CampaignDetailsActions.downloadInvoices(this.state.campaign.id, this.state.campaign.name);
+  }
+
+  downloadPayments = () => {
+    CampaignDetailsActions.downloadPayments(this.state.campaign.id, this.state.campaign.name);
   }
 
   isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {

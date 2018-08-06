@@ -1,5 +1,6 @@
 import Flux from '@4geeksacademy/react-flux-dash';
-import { getData, putData } from '../../../fetch';
+import { getData, putData, downloadData } from '../../../fetch';
+import FileSaver from 'file-saver';
 
 const getCampaign = (campaignId) => {
   getData(`/campaign/${campaignId}/`)
@@ -61,4 +62,55 @@ const suspendCampaign = (campaignId, msg) => {
     });
 }
 
-export { getCampaign, getCampaignStatistics, getCampaignMetrics, approveCampaign, rejectCampaign, suspendCampaign };
+const downloadSms = (campaignId, campaignName) => {
+  downloadData(`/statistics/campaign/${campaignId}/sms/download`)
+    .then((blob) => {
+      FileSaver.saveAs(blob, `${campaignName}-sms.csv`);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+const downloadViews = (campaignId, campaignName) => {
+  downloadData(`/statistics/campaign/${campaignId}/views/download`)
+    .then((blob) => {
+      FileSaver.saveAs(blob, `${campaignName}-views.csv`);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+const downloadInvoices = (campaignId, campaignName) => {
+  downloadData(`/statistics/campaign/${campaignId}/invoices/download`)
+    .then((blob) => {
+      FileSaver.saveAs(blob, `${campaignName}-invoices.csv`);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+const downloadPayments = (campaignId, campaignName) => {
+  downloadData(`/statistics/campaign/${campaignId}/payments/download`)
+    .then((blob) => {
+      FileSaver.saveAs(blob, `${campaignName}-payments.csv`);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+export {
+  getCampaign,
+  getCampaignStatistics,
+  getCampaignMetrics,
+  approveCampaign,
+  rejectCampaign,
+  suspendCampaign,
+  downloadSms,
+  downloadViews,
+  downloadInvoices,
+  downloadPayments,
+};

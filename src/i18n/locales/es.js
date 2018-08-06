@@ -350,6 +350,11 @@ export default {
     campaignApproved: 'La campaña fue aprobada satisfactoriamente',
     campaignRejected: 'La campaña fue rechazada satisfactoriamente',
     campaignResumed: 'La campaña fue reanudada satisfactoriamente',
+    downloadCampaignData: 'Descargar datos de la campaña',
+    downloadSms: 'Descargar datos de los mensajes',
+    downloadViews: 'Descargar datos de las visitas',
+    downloadInvoices: 'Descargar datos de las facturas',
+    downloadPayments: 'Descargar datos de los pagos',
   },
   STATISTICS: {
     lastCountDays: 'Últimos {{days}} días',
