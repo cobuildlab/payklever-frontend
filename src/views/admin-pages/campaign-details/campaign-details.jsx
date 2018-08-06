@@ -53,13 +53,14 @@ class CampaignDetails extends Component {
     this.getCampaignStatisticsSubscription = campaignStore
       .subscribe('getCampaignStatistics', (chartData) => {
         this.setState({ chartData });
-        this.isLoading(false);
+        if (this.state.loadingI18n === 'STATISTICS.loadingStatistics') {
+          this.isLoading(false);
+        }
       });
 
     this.getCampaignMetricsSubscription = campaignStore
       .subscribe('getCampaignMetrics', (metrics) => {
         this.setState({ metrics });
-        this.isLoading(false);
       });
 
     this.approveCampaignSubscription = campaignStore
