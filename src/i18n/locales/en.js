@@ -350,6 +350,11 @@ export default {
     campaignApproved: 'The campaign was successfully approved',
     campaignRejected: 'The campaign was successfully rejected',
     campaignResumed: 'The campaign was successfully resumed',
+    downloadCampaignData: 'Download campaign data',
+    downloadSms: 'Download sms data',
+    downloadViews: 'Download views data',
+    downloadInvoices: 'Download invoices data',
+    downloadPayments: 'Download payments data',
   },
   STATISTICS: {
     lastCountDays: 'Last {{days}} days',

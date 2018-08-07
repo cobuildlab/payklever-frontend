@@ -107,6 +107,38 @@ export function deleteData(url, isAuth = true) {
 }
 
 /**
+ * GET method fetch
+ * @param  {string}  url    Endpoint URL
+ * @param  {Boolean} isAuth true if api requires token, true by default
+ * @return {Promise}         the data parsed to blob from the endpoint
+ */
+export function downloadData(url, isAuth = true) {
+  return new Promise((resolve, reject) => {
+    checkConnection();
+
+    return fetch(`${API_URL}${url}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': (isAuth) ? `Token ${authStore.getToken()}` : '',
+        }
+      })
+      .then((response) => {
+        if (response.status === 401 || response.status === 403) {
+          Flux.dispatchEvent('setUser', undefined);
+        }
+
+        if (response.ok) return response.blob();
+
+        return response.json().then((err) => {
+          return Promise.reject(err);
+        })
+      })
+      .then((res) => resolve(res))
+      .catch((err) => reject(err));
+  });
+}
+
+/**
  * POST method fetch (multipart/form-data)
  * @param  {string}  url    Endpoint URL
  * @param  {Boolean} isAuth true if api requires token, true by default
