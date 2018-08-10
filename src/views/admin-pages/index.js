@@ -8,3 +8,4 @@ export { Promotions } from './promotions';
 export { PromotionDetails } from './promotion-details';
 export { CreateCouponPromo } from './create-coupon-promo';
 export { CreateSpecialPromo } from './create-special-promo';
+export { Parameters } from './parameters';

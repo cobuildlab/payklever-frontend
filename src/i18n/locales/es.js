@@ -463,4 +463,18 @@ export default {
     promotionPaused: 'La promoción fue pausada satisfactoriamente',
     promotionResumed: 'La promoción fue reanudada satisfactoriamente',
   },
+  PARAMETERS: {
+    resetHeader: 'Resetear parámetro?',
+    resetBody: 'Estas seguro que deseas resetear el parámetro: {{parameterName}}?',
+    resetParameter: 'Resetear parámetro',
+    name: 'Nombre del parámetro',
+    value: 'Valor del parámetro',
+    required: 'Requerido',
+    cancel: 'Cancelar',
+    update: 'Editar',
+    reset: 'Resetear',
+    updatingParameter: 'Editando parámetro',
+    resetingParameters: 'Reseteando parámetro',
+    loadingParameters: 'Cargando parámetros',
+  },
 }

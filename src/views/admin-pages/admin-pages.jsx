@@ -8,6 +8,7 @@ import {
   PromotionDetails,
   CreateCouponPromo,
   CreateSpecialPromo,
+  Parameters,
 } from './';
 
 
@@ -27,6 +28,7 @@ class AdminPages extends Component {
         <Route exact path="/admin/promotion-details/:promotionId" component={PromotionDetails}/>
         <Route exact path="/admin/create-coupon-promo" component={CreateCouponPromo}/>
         <Route exact path="/admin/create-special-promo" component={CreateSpecialPromo}/>
+        <Route exact path="/admin/parameters" component={Parameters}/>
         <Redirect to='/admin/campaign-manager'/>
       </Switch>
 
