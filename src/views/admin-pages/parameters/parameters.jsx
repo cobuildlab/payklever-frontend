@@ -186,7 +186,7 @@ class Parameters extends Component {
                    {(this.state.updateParameterName === parameter.name) ?
                      <AvForm noValidate>
                      <AvGroup>
-                       <AvInput autoFocus type={parameter.type} name={parameter.name} placeholder={ t(`${parameter.name}`) } value={this.state.link} onChange={(evt) => this.setState({[parameter.name]: evt.target.value})} validate={parametersAvForm[parameter.name]}/>
+                       <AvInput autoFocus type={parameter.type} name={parameter.name} placeholder={ t(`${parameter.name}`) } onChange={(evt) => this.setState({[parameter.name]: evt.target.value})} validate={parametersAvForm[parameter.name]}/>
                        <AvFeedback>
                          { t(`PARAMETERS.required`) }
                        </AvFeedback>
