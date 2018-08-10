@@ -60,11 +60,13 @@ class Parameters extends Component {
 
     this.updateParameterSubscription = parametersStore
       .subscribe('updateParameter', (parameters) => {
+        this.resetParametersState();
         this.getParametersDetails();
       });
 
     this.resetParameterSubscription = parametersStore
       .subscribe('resetParameter', (parameters) => {
+        this.resetParametersState();
         this.getParametersDetails();
       });
 
@@ -224,6 +226,8 @@ class Parameters extends Component {
   }
 
   setUpdateName = (parameterName) => {
+    this.resetParametersState();
+
     this.setState({ updateParameterName: parameterName });
   }
 
@@ -259,6 +263,27 @@ class Parameters extends Component {
   getParametersDetails = () => {
     this.isLoading(true, 'PARAMETERS.loadingParameters');
     parametersActions.getParametersDetails();
+  }
+
+  resetParametersState = () => {
+    this.setState({
+      FRONT_URL: '',
+      BACK_URL: '',
+      SHORTENER_URL: '',
+      TZ: '',
+      TWILIO_NUMBER: '',
+      TWILIO_ACCOUNT_SID: '',
+      TWILIO_AUTH_TOKEN: '',
+      STRIPE_PUBLIC_KEY: '',
+      STRIPE_SECRET_KEY: '',
+      FIXED_VALUE_PER_MSG: null,
+      TAX: null,
+      CONFIRMATION_SUCCESS_URL: '',
+      CONFIRMATION_ERROR_URL: '',
+      FIXED_GEOPOSITION_RADIUS_IN_MILES: null,
+      PAGINATION_LIMIT: null,
+      SEARCH_LIMIT: null,
+    });
   }
 
   isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {
