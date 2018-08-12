@@ -275,6 +275,7 @@ export default {
   MAIN_NAV: {
     logout: 'Log Out',
     profile: 'Profile',
+    editParameters: 'Edit parameters',
     rules: 'Publication rules',
   },
   FETCH: {
@@ -464,6 +465,7 @@ export default {
     promotionResumed: 'The promotion was successfully resumed',
   },
   PARAMETERS: {
+    editParameters: 'Edit parameters',
     resetHeader: 'Reset parameter?',
     resetBody: 'Are you sure you want to reset the parameter: {{parameterName}}?',
     resetParameter: 'Reset parameter',

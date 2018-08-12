@@ -19,7 +19,7 @@ import {
 } from 'availity-reactstrap-validation';
 import { parametersAvForm } from './parameters.validators';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Loading, ModalConfirm } from '../../components';
+import { Loading, ModalConfirm, SubNav } from '../../components';
 
 class Parameters extends Component {
   constructor(props) {
@@ -158,6 +158,7 @@ class Parameters extends Component {
     ];
 
     return (<I18n>{(t, { i18n }) => (<div>
+      <SubNav backRoute="/admin/campaign-manager/client-campaigns" subNavTitle={t('PARAMETERS.editParameters')}></SubNav>
 
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
