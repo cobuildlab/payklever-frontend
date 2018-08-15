@@ -5,8 +5,8 @@ class ParametersStore extends Flux.DashStore {
     super();
 
     /**
-     * Notifies when the parameters list was
-     * @param {Array}  parameters the parameters details
+     * Notifies when the parameters list was loaded
+     * @param {Array}  parameters the parameters list
      */
     this.addEvent('getParameters');
 

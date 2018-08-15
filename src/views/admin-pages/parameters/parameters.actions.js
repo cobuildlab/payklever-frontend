@@ -11,8 +11,8 @@ const getParameters = () => {
     });
 }
 
-const updateParameter = (parameterId, parameter) => {
-  putData(`/parameters/update/${parameterId}`, parameter)
+const updateParameter = (parameterId, parameterValue) => {
+  putData(`/parameters/update/${parameterId}`, { value: parameterValue })
     .then((parameters) => {
       Flux.dispatchEvent('updateParameter', parameters);
     })
@@ -21,8 +21,8 @@ const updateParameter = (parameterId, parameter) => {
     });
 }
 
-const resetParameter = (parameterId, parameterName) => {
-  putData(`/parameters/reset/${parameterId}`, { parameterName: parameterName })
+const resetParameter = (parameterId) => {
+  putData(`/parameters/reset/${parameterId}`)
     .then((parameters) => {
       Flux.dispatchEvent('resetParameter', parameters);
     })

@@ -27,8 +27,9 @@ class Parameters extends Component {
     this.state = {
       loading: false,
       loadingI18n: '',
+      selectedParameter: {},
+      selectedParameterToReset: {},
       parameters: [],
-      resetParameterName: '',
       updateParameterIsOpen: false,
       resetParameterIsOpen: false,
     }
@@ -74,47 +75,60 @@ class Parameters extends Component {
 
       <Loading isLoading={this.state.loading} loadingMessage={ t(this.state.loadingI18n) }></Loading>
 
-      <ModalConfirm isOpen={this.state.updateParameterIsOpen} modalHeader={t('PARAMETERS.updateHeader')} modalBody={t('PARAMETERS.updateBody', { parameterName: this.state.updateParameterName || ' ' } )}
+      <ModalConfirm isOpen={this.state.updateParameterIsOpen} modalHeader={t('PARAMETERS.updateHeader')} modalBody={t('PARAMETERS.updateBody', { parameterName: this.state.selectedParameter.name || ' ' } )}
       acceptI18n="PARAMETERS.updateParameter" confirm={this.updateParameter} />
 
-      <ModalConfirm isOpen={this.state.resetParameterIsOpen} modalHeader={t('PARAMETERS.resetHeader')} modalBody={t('PARAMETERS.resetBody', { parameterName: this.state.resetParameterName || ' ' } )}
+      <ModalConfirm isOpen={this.state.resetParameterIsOpen} modalHeader={t('PARAMETERS.resetHeader')} modalBody={t('PARAMETERS.resetBody', { parameterName: this.state.selectedParameterToReset.name || ' ' } )}
       acceptI18n="PARAMETERS.resetParameter" confirm={this.resetParameter} />
 
       <Container className="p-0">
         <Table hover className="mt-5">
+        <thead>
+          <tr>
+            <th className="App-header-table-admin">
+              { t('PARAMETERS.name') }
+            </th>
+            <th className="App-header-table-admin">
+              { t('PARAMETERS.value') }
+            </th>
+            <th className="App-header-table-admin"></th>
+            <th className="App-header-table-admin"></th>
+          </tr>
+        </thead>
         <tbody>
           <TransitionGroup component={null}>
            { (Array.isArray(this.state.parameters)) ?
              this.state.parameters.map((parameter, index) =>
              <CSSTransition key={index} timeout={500} classNames="fade-in-change">
                <tr>
+                 <td>{parameter.name}</td>
                  <td>
-                    {(this.state.updateParameterName === parameter.name) ?
+                    {(this.state.selectedParameter.name === parameter.name) ?
                     <AvForm autoComplete="off" noValidate>
                      <AvGroup>
-                       <AvInput autoComplete="off" disabled={this.state.updateParameterName !== parameter.name} autoFocus type="text" name={parameter.name} placeholder={ t(`${parameter.name}`) } onChange={(evt) => this.setState({[parameter.name]: evt.target.value})} required/>
+                       <AvInput autoComplete="off" disabled={this.state.selectedParameter.name !== parameter.name} autoFocus type="text" name={parameter.name} placeholder={ t(`${parameter.name}`) } onChange={(evt) => this.setState({[parameter.name]: evt.target.value})} required/>
                        <AvFeedback>
                          { t(`PARAMETERS.required`) }
                        </AvFeedback>
                      </AvGroup>
                    </AvForm>
-                   : parameter.name}
+                   : parameter.value}
                  </td>
                  <td>
-                   {(this.state.updateParameterName === parameter.name) ?
-                   <Button onClick={() => this.setUpdateName('')} color="danger" size="sm" type="button">
+                   {(this.state.selectedParameter.name === parameter.name) ?
+                   <Button onClick={() => this.cancelUpdate(parameter)} color="danger" size="sm" type="button">
                      { t('PARAMETERS.cancel') }
                    </Button>
-                   : <Button onClick={() => this.resetParameter(false, parameter.name)} color="success" size="sm" type="button">
+                   : <Button onClick={() => this.resetParameter(false, parameter)} color="success" size="sm" type="button">
                      { t('PARAMETERS.reset') }
                    </Button>}
                  </td>
                  <td>
-                   {(this.state.updateParameterName === parameter.name) ?
+                   {(this.state.selectedParameter.name === parameter.name) ?
                     <Button onClick={() => this.updateParameter(false, parameter)} color="success" size="sm" type="submit">
                       { t('PARAMETERS.update') }
                     </Button>
-                   : <Button onClick={() => this.setUpdateName(parameter.name)} color="secondary" size="sm" type="button">
+                   : <Button onClick={() => this.selectUpdateParameter(parameter)} color="secondary" size="sm" type="button">
                        { t('PARAMETERS.update') }
                     </Button> }
                  </td>
@@ -129,36 +143,39 @@ class Parameters extends Component {
     </div>)}</I18n>);
   }
 
-  setUpdateName = (parameterName) => {
+  selectUpdateParameter = (selectedParameter) => {
     this.setState({
-      [parameterName]: '',
-      updateParameterName: parameterName,
+      selectedParameter,
+      [selectedParameter.name]: '',
     });
+  }
+
+  cancelUpdate = (selectedParameter) => {
+    this.setState({
+      selectedParameter: {},
+      [selectedParameter.name]: '',
+     });
   }
 
   /**
    * toggles the updateParameter modal and update the selected parameter if you pass confirm = true
    * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
    * component only to approve the campaign
-   * @param  {String}  [updateParameterName] to set the last selected parameter's name,
+   * @param  {String}  [selectedParameter] to set the last selected parameter's name,
    * pass the parameter name from the parameters list
    */
-  updateParameter = (confirm = false, parameter) => {
-    if (parameter) {
-      if (!this.state[parameter.name]) return;
+  updateParameter = (confirm = false, selectedParameter) => {
+    if (selectedParameter) {
+      if (!this.state[selectedParameter.name]) return;
 
-      this.setState({
-        formatedParameter: {
-          [parameter.name]: this.state[parameter.name],
-        },
-      });
+      this.setState({ selectedParameter });
     }
 
     this.setState({ updateParameterIsOpen: !this.state.updateParameterIsOpen });
 
     if (confirm === true) {
       this.isLoading(true, 'PARAMETERS.updatingParameter');
-      parametersActions.updateParameter(this.state.parameters._id, this.state.formatedParameter);
+      parametersActions.updateParameter(this.state.selectedParameter._id, this.state[this.state.selectedParameter.name]);
     }
   }
 
@@ -166,17 +183,17 @@ class Parameters extends Component {
    * toggles the resetParameter modal and reset the selected parameter if you pass confirm = true
    * @param  {Boolean} [confirm=false] pass true from the ModalConfirm
    * component only to approve the campaign
-   * @param  {String}  [resetParameterName] to set the last selected parameter's name,
+   * @param  {String}  [selectedParameterToReset] to set the last selected parameter's name,
    * pass the parameter name from the parameters list
    */
-  resetParameter = (confirm = false, resetParameterName) => {
-    if (resetParameterName) this.setState({ resetParameterName });
+  resetParameter = (confirm = false, selectedParameterToReset) => {
+    if (selectedParameterToReset) this.setState({ selectedParameterToReset });
 
     this.setState({ resetParameterIsOpen: !this.state.resetParameterIsOpen });
 
     if (confirm === true) {
       this.isLoading(true, 'PARAMETERS.resetingParameter');
-      parametersActions.resetParameter(this.state.parameters._id, this.state.resetParameterName);
+      parametersActions.resetParameter(this.state.selectedParameterToReset._id);
     }
   }
 
