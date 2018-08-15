@@ -1,10 +1,10 @@
 import Flux from '@4geeksacademy/react-flux-dash';
 import { getData, putData } from '../../../fetch';
 
-const getParametersDetails = () => {
-  getData(`/parameters/detail`)
+const getParameters = () => {
+  getData(`/parameters/`)
     .then((parameters) => {
-      Flux.dispatchEvent('getParametersDetails', parameters);
+      Flux.dispatchEvent('getParameters', parameters);
     })
     .catch((err) => {
       Flux.dispatchEvent('ParametersStoreError', err);
@@ -32,7 +32,7 @@ const resetParameter = (parameterId, parameterName) => {
 }
 
 export {
-  getParametersDetails,
+  getParameters,
   updateParameter,
   resetParameter,
 };
