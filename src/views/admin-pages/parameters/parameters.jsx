@@ -44,12 +44,18 @@ class Parameters extends Component {
 
     this.updateParameterSubscription = parametersStore
       .subscribe('updateParameter', (parameters) => {
-        this.isLoading(false);
+        this.setState({ selectedParameter: {} });
+        this.getParameters();
+        toast.dismiss();
+        toast.success(i18next.t('PARAMETERS.parameterUpdated'));
       });
 
     this.resetParameterSubscription = parametersStore
       .subscribe('resetParameter', (parameters) => {
-        this.isLoading(false);
+        this.setState({ selectedParameterToReset: {} });
+        this.getParameters();
+        toast.dismiss();
+        toast.success(i18next.t('PARAMETERS.parameterResetted'));
       });
 
     this.parametersStoreError = parametersStore
@@ -193,7 +199,7 @@ class Parameters extends Component {
 
     if (confirm === true) {
       this.isLoading(true, 'PARAMETERS.resetingParameter');
-      parametersActions.resetParameter(this.state.selectedParameterToReset._id);
+      parametersActions.resetParameter(this.state.selectedParameterToReset._id, this.state.selectedParameterToReset.name);
     }
   }
 

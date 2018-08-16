@@ -481,5 +481,7 @@ export default {
     updatingParameter: 'Updating parameter',
     resetingParameters: 'Reseting parameter',
     loadingParameters: 'Loading parameters',
+    parameterResetted: 'Parameter succesfully resetted',
+    parameterUpdated: 'Parameter succesfully updated',
   },
 }
