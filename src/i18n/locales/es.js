@@ -470,7 +470,7 @@ export default {
     resetBody: 'Estas seguro que deseas reiniciar el parámetro: {{parameterName}}?',
     resetParameter: 'Reiniciar parámetro',
     updateHeader: 'Editar parámetro?',
-    updateBody: 'Estas seguro que deseas editar el parámetro:: {{parameterName}}?',
+    updateBody: 'Estas seguro que deseas editar el parámetro: {{parameterName}}?',
     updateParameter: 'Editar parámetro',
     name: 'Nombre del parámetro',
     value: 'Valor del parámetro',
