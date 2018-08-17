@@ -56,7 +56,7 @@ class App extends Component {
         this.setTidioUser(this.state.user);
       });
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
 
     document.tidioChatLang = i18next.language.split('-')[0];
@@ -123,7 +123,7 @@ class App extends Component {
         name: `${user.firstName} ${user.lastName}`,
       });
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   }
 
@@ -135,7 +135,7 @@ class App extends Component {
         tags: tags,
       });
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   }
 }
