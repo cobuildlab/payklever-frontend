@@ -46,7 +46,7 @@ class CreateCampaign extends Component {
       canRequestApproval: false,
       campaignId: props.match.params.campaignId || '',
       name: '',
-      messageTitle: '',
+      link: '',
       messageDescription: '',
       genreId: '',
       genresList: campaignStore.getGenres(),
@@ -71,7 +71,7 @@ class CreateCampaign extends Component {
       .subscribe('getCampaign', (campaign) => {
         this.setState({
           name: campaign.name || '',
-          messageTitle: campaign.messageTitle || '',
+          link: campaign.link || '',
           messageDescription: campaign.messageDescription || '',
           genreId: campaign.genreId || '',
           ages: campaign.ages || [],
@@ -249,8 +249,8 @@ class CreateCampaign extends Component {
               <AvFeedback>{ t('CREATE_CAMPAIGN.invalidName') }</AvFeedback>
             </AvGroup>
             <AvGroup>
-              <AvInput type="text" name="messageTitle" id="messageTitle" placeholder={ t('CREATE_CAMPAIGN.messageTitle') } value={this.state.messageTitle} onChange={(evt) => this.setState({messageTitle: evt.target.value})} validate={createCampaignAvForm.messageTitle}/>
-              <AvFeedback>{ t('CREATE_CAMPAIGN.invalidMessageTitle') }</AvFeedback>
+              <AvInput type="text" name="link" id="link" placeholder={ t('CREATE_CAMPAIGN.link') } value={this.state.link} onChange={(evt) => this.setState({link: evt.target.value})} validate={createCampaignAvForm.link}/>
+              <AvFeedback>{ t('CREATE_CAMPAIGN.invalidLink') }</AvFeedback>
             </AvGroup>
             <AvGroup>
               <AvInput style={{height: 'auto'}} type="textarea" name="messageDescription" id="messageDescription" placeholder={ t('CREATE_CAMPAIGN.messageDescription') } value={this.state.messageDescription} onChange={(evt) => this.setState({messageDescription: evt.target.value})} validate={createCampaignAvForm.messageDescription}/>
@@ -387,7 +387,7 @@ class CreateCampaign extends Component {
             { t('CREATE_CAMPAIGN.name') } {': '} <span className="subtitle-create-show">{this.state.name}</span>
         </p>
           <p className="title-create-show">
-            { t('CREATE_CAMPAIGN.messageTitle') } {': '} <span className="subtitle-create-show">{this.state.messageTitle}</span>
+            { t('CREATE_CAMPAIGN.link') } {': '} <span className="subtitle-create-show">{this.state.link}</span>
           </p>
           <p className="title-create-show">
             { t('CREATE_CAMPAIGN.messageDescription') } {': '} <span className="subtitle-create-show">{this.state.messageDescription}</span>
@@ -581,7 +581,7 @@ class CreateCampaign extends Component {
 
     const createCampaignForm = new CreateCampaignForm(
       this.state.name,
-      this.state.messageTitle || null,
+      this.state.link || null,
       this.state.messageDescription || null,
       parseInt(this.state.genreId, 10) || null,
       JSON.stringify(this.state.ages.map(Number)),
@@ -603,7 +603,7 @@ class CreateCampaign extends Component {
 
     const createCampaignForm = new CreateCampaignForm(
       this.state.name,
-      this.state.messageTitle || null,
+      this.state.link || null,
       this.state.messageDescription || null,
       parseInt(this.state.genreId, 10) || null,
       JSON.stringify(this.state.ages.map(Number)),
@@ -640,7 +640,7 @@ class CreateCampaign extends Component {
 
     const createCampaignForm = new CreateCampaignForm(
       campaign.name,
-      campaign.messageTitle || null,
+      campaign.link || null,
       campaign.messageDescription || null,
       parseInt(campaign.genreId, 10) || null,
       JSON.stringify((campaign.ages || []).map(Number)),

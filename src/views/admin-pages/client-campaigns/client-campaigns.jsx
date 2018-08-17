@@ -156,7 +156,7 @@ class ClientCampaigns extends Component {
         <thead>
           <tr>
             <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.campaignName') }</th>
-            <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.messageTitle') }</th>
+            <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.link') }</th>
             <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.status') }</th>
             <th className="App-header-table-admin">{ t('CLIENT_CAMPAIGNS.adminStatus') }</th>
             {/* <th className="App-header-table-admin"></th> */}
@@ -172,7 +172,7 @@ class ClientCampaigns extends Component {
                       {campaign.name}
                    </Link>
                  </td>
-                 <td>{campaign.messageTitle}</td>
+                 <td>{campaign.link}</td>
                  <td>{t(`CAMPAIGN_USER_STATUS.${campaign.status}`)}</td>
                  <td>{t(`CAMPAIGN_ADMIN_STATUS.${campaign.adminStatus}`)}</td>
                  {/* <td className="text-right">

@@ -154,9 +154,12 @@ class MainNav extends Component {
                      { t('MAIN_NAV.profile') }
                    </DropdownItem>)
                    : null}
-                   {(this.state.user.isAdmin === false) ?
-                   <DropdownItem divider />
+                   {(this.state.user.isAdmin === true) ?
+                     (<DropdownItem tag={Link} to="/admin/parameters">
+                       { t('MAIN_NAV.editParameters') }
+                     </DropdownItem>)
                    : null}
+                   <DropdownItem divider />
                    <DropdownItem className="App-cursor-pointer" onClick={this.logout}>
                      { t('MAIN_NAV.logout') }
                    </DropdownItem>

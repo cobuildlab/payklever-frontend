@@ -234,8 +234,8 @@ class EditAccount extends Component {
       this.state.country,
       this.state.level2,
       this.state.zipCode,
-      this.state.latitude,
-      this.state.longitude,
+      Number(this.state.latitude),
+      Number(this.state.longitude),
     );
 
     editAccountActions.editAccount(createAccountForm, accountId);
