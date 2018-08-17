@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { SubNav, Campaign, Loading, ModalConfirm, LineChart } from '../../components';
+import { SubNav, Campaign, Loading, ModalConfirm, LineChart, CampaignMetrics } from '../../components';
 import {
   I18n
 } from 'react-i18next';
 import {
   Container,
-  Col,
   Button,
   Input,
   Form,
@@ -26,6 +25,7 @@ class CampaignDetails extends Component {
       campaignId: props.match.params.campaignId || '',
       campaign: {},
       chartData: {},
+      metrics: {},
       days: 7,
       daysList: [7, 30, 90],
       duplicateCampaignIsOpen: false,
@@ -44,7 +44,14 @@ class CampaignDetails extends Component {
     this.getCampaignStatisticsSubscription = campaignStore
       .subscribe('getCampaignStatistics', (chartData) => {
         this.setState({ chartData });
-        this.isLoading(false);
+        if (this.state.loadingI18n === 'STATISTICS.loadingStatistics') {
+          this.isLoading(false);
+        }
+      });
+
+    this.getCampaignMetricsSubscription = campaignStore
+      .subscribe('getCampaignMetrics', (metrics) => {
+        this.setState({ metrics });
       });
 
     this.resumeCampaignSubscription = campaignStore
@@ -81,6 +88,7 @@ class CampaignDetails extends Component {
     setTimeout(() => {
       this.isLoading(true, 'CAMPAIGN_DETAILS.loadingCampaign');
       CampaignDetailsActions.getCampaign(this.state.campaignId);
+      CampaignDetailsActions.getCampaignMetrics(this.state.campaignId);
       CampaignDetailsActions.getCampaignStatistics(this.state.campaignId, this.state.days);
     });
   }
@@ -88,6 +96,7 @@ class CampaignDetails extends Component {
   componentWillUnmount() {
     this.getCampaignSubscription.unsubscribe();
     this.getCampaignStatisticsSubscription.unsubscribe();
+    this.getCampaignMetricsSubscription.unsubscribe();
     this.resumeCampaignSubscription.unsubscribe();
     this.pauseCampaignSubscription.unsubscribe();
     this.duplicateCampaignSubscription.unsubscribe();
@@ -115,6 +124,8 @@ class CampaignDetails extends Component {
       <Container className="mt-5">
 
       <Campaign campaign={this.state.campaign}></Campaign>
+
+      <CampaignMetrics metrics={this.state.metrics}></CampaignMetrics>
 
       <Form className="mt-3" inline hidden={!Array.isArray(this.state.chartData.datasets)}>
         <FormGroup>

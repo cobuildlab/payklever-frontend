@@ -207,7 +207,7 @@ class Campaigns extends Component {
             <thead>
               <tr>
                 <th>{ t('CAMPAIGNS.name') }</th>
-                <th>{ t('CAMPAIGNS.title') }</th>
+                <th>{ t('CAMPAIGNS.link') }</th>
                 <th>{ t('CAMPAIGNS.status') }</th>
                 <th>{ t('CAMPAIGNS.adminStatus') }</th>
                 <th></th>
@@ -223,7 +223,7 @@ class Campaigns extends Component {
                         {campaign.name}
                      </Link>
                    </td>
-                   <td>{campaign.messageTitle}</td>
+                   <td>{campaign.link}</td>
                    <td>{t(`CAMPAIGN_USER_STATUS.${campaign.status}`)}</td>
                    <td>{t(`CAMPAIGN_ADMIN_STATUS.${campaign.adminStatus}`)}</td>
                    <td className="text-right">

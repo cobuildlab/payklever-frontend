@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { i18next } from '../../../i18n';
 import { toast } from 'react-toastify';
-import { SubNav, Campaign, Loading, ModalConfirm, LineChart } from '../../components';
+import { SubNav, Campaign, Loading, ModalConfirm, LineChart, CampaignMetrics } from '../../components';
 import {
   I18n
 } from 'react-i18next';
@@ -12,6 +12,10 @@ import {
   Input,
   Form,
   FormGroup,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
 } from 'reactstrap';
 import { campaignStore } from '../../../stores';
 import * as CampaignDetailsActions from './campaign-details.actions';
@@ -26,11 +30,13 @@ class CampaignDetails extends Component {
       campaignId: props.match.params.campaignId || '',
       campaign: {},
       chartData: {},
+      metrics: {},
       days: 7,
       daysList: [7, 30, 90],
       smsSent: 0,
       smsToBeSent: 0,
       smsErrors: 0,
+      downloadDropdownOpen: false,
       suspendCampaignIsOpen: false,
       approveCampaignIsOpen: false,
       rejectCampaignIsOpen: false,
@@ -47,7 +53,14 @@ class CampaignDetails extends Component {
     this.getCampaignStatisticsSubscription = campaignStore
       .subscribe('getCampaignStatistics', (chartData) => {
         this.setState({ chartData });
-        this.isLoading(false);
+        if (this.state.loadingI18n === 'STATISTICS.loadingStatistics') {
+          this.isLoading(false);
+        }
+      });
+
+    this.getCampaignMetricsSubscription = campaignStore
+      .subscribe('getCampaignMetrics', (metrics) => {
+        this.setState({ metrics });
       });
 
     this.approveCampaignSubscription = campaignStore
@@ -84,6 +97,7 @@ class CampaignDetails extends Component {
     setTimeout(() => {
       this.isLoading(true, 'CAMPAIGN_DETAILS.loadingCampaign');
       CampaignDetailsActions.getCampaign(this.state.campaignId);
+      CampaignDetailsActions.getCampaignMetrics(this.state.campaignId);
       CampaignDetailsActions.getCampaignStatistics(this.state.campaignId, this.state.days);
     });
   }
@@ -91,6 +105,7 @@ class CampaignDetails extends Component {
   componentWillUnmount() {
     this.getCampaignSubscription.unsubscribe();
     this.getCampaignStatisticsSubscription.unsubscribe();
+    this.getCampaignMetricsSubscription.unsubscribe();
     this.approveCampaignSubscription.unsubscribe();
     this.rejectCampaignSubscription.unsubscribe();
     this.suspendCampaignSubscription.unsubscribe();
@@ -116,6 +131,33 @@ class CampaignDetails extends Component {
 
       <Campaign campaign={this.state.campaign}></Campaign>
 
+      <CampaignMetrics metrics={this.state.metrics}></CampaignMetrics>
+
+      <Dropdown  isOpen={this.state.downloadDropdownOpen} toggle={() => this.setState({
+        downloadDropdownOpen: !this.state.downloadDropdownOpen,
+      })}>
+        <DropdownToggle className="mx-auto d-block mt-5 mb-5" color="success" caret>
+          { t('CAMPAIGN_DETAILS.downloadCampaignData') }
+        </DropdownToggle>
+        <DropdownMenu>
+          <DropdownItem className="App-cursor-pointer" onClick={this.downloadSms}>
+            { t('CAMPAIGN_DETAILS.downloadSms') }
+          </DropdownItem>
+          <DropdownItem divider></DropdownItem>
+          <DropdownItem className="App-cursor-pointer" onClick={this.downloadViews}>
+            { t('CAMPAIGN_DETAILS.downloadViews') }
+          </DropdownItem>
+          <DropdownItem divider></DropdownItem>
+          <DropdownItem className="App-cursor-pointer" onClick={this.downloadInvoices}>
+            { t('CAMPAIGN_DETAILS.downloadInvoices') }
+          </DropdownItem>
+          <DropdownItem divider></DropdownItem>
+          <DropdownItem className="App-cursor-pointer" onClick={this.downloadPayments}>
+            { t('CAMPAIGN_DETAILS.downloadPayments') }
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
+
       <Form className="mt-3" inline hidden={!Array.isArray(this.state.chartData.datasets)}>
         <FormGroup>
           <Input onChange={(evt) => this.onDaysChange(evt)} value={this.state.days} type="select" name="days">
@@ -127,6 +169,7 @@ class CampaignDetails extends Component {
           </Input>
         </FormGroup>
       </Form>
+
       <LineChart data={this.state.chartData}></LineChart>
 
       {(this.state.campaign.adminStatus === 'wa' || this.state.campaign.adminStatus === 'su') ?
@@ -202,6 +245,22 @@ class CampaignDetails extends Component {
       this.isLoading(true, 'CAMPAIGN_DETAILS.suspendingCampaign');
       CampaignDetailsActions.suspendCampaign(this.state.campaign.id, msg);
     }
+  }
+
+  downloadSms = () => {
+    CampaignDetailsActions.downloadSms(this.state.campaign.id, this.state.campaign.name);
+  }
+
+  downloadViews = () => {
+    CampaignDetailsActions.downloadViews(this.state.campaign.id, this.state.campaign.name);
+  }
+
+  downloadInvoices = () => {
+    CampaignDetailsActions.downloadInvoices(this.state.campaign.id, this.state.campaign.name);
+  }
+
+  downloadPayments = () => {
+    CampaignDetailsActions.downloadPayments(this.state.campaign.id, this.state.campaign.name);
   }
 
   isLoading = (isLoading, loadingI18n = this.state.loadingI18n) => {

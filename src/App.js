@@ -51,9 +51,13 @@ class App extends Component {
       }
     });
 
-    tidioChatApi.on('ready', () => {
-      this.setTidioUser(this.state.user);
-    });
+    try {
+      tidioChatApi.on('ready', () => {
+        this.setTidioUser(this.state.user);
+      });
+    } catch (e) {
+      console.log(e);
+    }
 
     document.tidioChatLang = i18next.language.split('-')[0];
   }
@@ -112,19 +116,27 @@ class App extends Component {
   setTidioUser = (user) => {
     if (!user.id) return;
 
-    tidioChatApi.setVisitorData({
-      distinct_id: user.id,
-      email: user.email,
-      name: `${user.firstName} ${user.lastName}`,
-    });
+    try {
+      tidioChatApi.setVisitorData({
+        distinct_id: user.id,
+        email: user.email,
+        name: `${user.firstName} ${user.lastName}`,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   setTidiotags = (tags, user) => {
     if (!user.id) return;
 
-    tidioChatApi.setVisitorData({
-      tags: tags,
-    });
+    try {
+      tidioChatApi.setVisitorData({
+        tags: tags,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
 

@@ -8,6 +8,8 @@ export { Loading } from './loading';
 export { Campaign } from './campaign';
 export { Footer } from './footer';
 export { LineChart } from './line-chart';
+export { CampaignMetrics } from './campaign-metrics';
 export { PaginationComponent } from './pagination';
 export { Invoice } from './invoice';
 export { Promotion } from './promotion';
+export { UserItem } from './user-item';

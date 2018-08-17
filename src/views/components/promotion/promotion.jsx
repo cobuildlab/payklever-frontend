@@ -19,7 +19,7 @@ class Promotion extends Component {
           { t('PROMOTION_DETAILS.nameAndSurname') }{': '}
           {(this.props.promotion.User) ?
               <span className="sub-details">
-                {`${this.props.promotion.User.firstName} ${this.props.promotion.User.laststName}`}
+                {`${this.props.promotion.User.firstName} ${this.props.promotion.User.lastName}`}
               </span>
           : null}
         </p>
