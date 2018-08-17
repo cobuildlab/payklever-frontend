@@ -5,26 +5,10 @@ class ParametersStore extends Flux.DashStore {
     super();
 
     /**
-     * Notifies when the parameters details was loaded
-     * @param {Array}  parameters the parameters details
+     * Notifies when the parameters list was loaded
+     * @param {Array}  parameters the parameters list
      */
-    this.addEvent('getParametersDetails', (parameters) => {
-      const formatedParameters = parameters;
-
-      if (parameters.FIXED_GEOPOSITION_RADIUS_IN_MILES) {
-        formatedParameters.FIXED_GEOPOSITION_RADIUS_IN_MILES = formatedParameters.FIXED_GEOPOSITION_RADIUS_IN_MILES.$numberDecimal;
-      }
-
-      if (parameters.FIXED_VALUE_PER_MSG) {
-        formatedParameters.FIXED_VALUE_PER_MSG = formatedParameters.FIXED_VALUE_PER_MSG.$numberDecimal;
-      }
-
-      if (parameters.TAX) {
-        formatedParameters.TAX = formatedParameters.TAX.$numberDecimal;
-      }
-
-      return formatedParameters;
-    });
+    this.addEvent('getParameters');
 
 
     /**

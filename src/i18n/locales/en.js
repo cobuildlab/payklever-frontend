@@ -469,6 +469,9 @@ export default {
     resetHeader: 'Reset parameter?',
     resetBody: 'Are you sure you want to reset the parameter: {{parameterName}}?',
     resetParameter: 'Reset parameter',
+    updateHeader: 'Update parameter?',
+    updateBody: 'Are you sure you want to update the parameter: {{parameterName}}?',
+    updateParameter: 'Update parameter',
     name: 'Parameter name',
     value: 'Parameter value',
     required: 'Required',
@@ -478,5 +481,7 @@ export default {
     updatingParameter: 'Updating parameter',
     resetingParameters: 'Reseting parameter',
     loadingParameters: 'Loading parameters',
+    parameterResetted: 'Parameter succesfully resetted',
+    parameterUpdated: 'Parameter succesfully updated',
   },
 }
