@@ -349,6 +349,10 @@ const createCampaignAvForm = {
   budget: {
     min: { value: 1 },
     // required: true,
+  },
+  smsQuantity: {
+    min: { value: 1 },
+    // required: true,
   }
 }
 
