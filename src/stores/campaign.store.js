@@ -148,6 +148,16 @@ class CampaignStore extends Flux.DashStore {
      */
     this.addEvent('getTimeFrames');
 
+    /*
+    calculate smsQuantity
+     */
+    this.addEvent('calculateSms');
+
+    /*
+    calculate total budget
+     */
+    this.addEvent('calculateBudget');
+
     /**
      * Error handler
      * @param {Error} err the error from the action

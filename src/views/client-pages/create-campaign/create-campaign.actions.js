@@ -95,6 +95,26 @@ const getTimeFrames = () => {
     });
 }
 
+const calculateSms = (totalBudget) => {
+  getData(`/campaign/calculate-sms/?budget=${totalBudget}`)
+    .then((smsQuantity) => {
+      Flux.dispatchEvent('calculateSms', smsQuantity);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
+const calculateBudget = (smsQuantity) => {
+  getData(`/campaign/calculate-budget/?smsQuantity=${smsQuantity}`)
+    .then((totalBudget) => {
+      Flux.dispatchEvent('calculateBudget', totalBudget);
+    })
+    .catch((err) => {
+      Flux.dispatchEvent('CampaignStoreError', err);
+    });
+}
+
 export {
   createCampaign,
   getCampaign,
@@ -104,4 +124,6 @@ export {
   getTimeFrames,
   updateCampaign,
   requestApproval,
+  calculateSms,
+  calculateBudget,
 };
