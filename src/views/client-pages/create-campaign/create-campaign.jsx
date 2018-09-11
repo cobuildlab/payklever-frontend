@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
-  SubNav, Loading,
+  SubNav,
+  Loading,
 } from '../../components';
 import { CreateCampaignForm } from './create-campaign.classes';
 import * as CreateCampaignActions from './create-campaign.actions';
@@ -35,6 +36,7 @@ import {
   AvRadio,
 } from 'availity-reactstrap-validation';
 import { Link } from "react-router-dom";
+import moment from 'moment';
 
 class CreateCampaign extends Component {
   constructor(props) {
@@ -58,6 +60,8 @@ class CreateCampaign extends Component {
       // estimatedIncomesList: campaignStore.getEstimatedIncomes(),
       account: accountStore.getAccount(),
       budget: '',
+      totalBudget: '',
+      smsQuantity: '',
       startDate: '',
       endDate: '',
     };
@@ -144,6 +148,17 @@ class CreateCampaign extends Component {
         this.setState({ account });
       });
 
+    this.calculateSmsSubscription = campaignStore
+      .subscribe('calculateSms', (smsQuantity) => {
+        this.setState({ smsQuantity });
+      });
+
+    this.calculateBudgetSubscription = campaignStore
+      .subscribe('calculateBudget', (totalBudget) => {
+        this.setState({ totalBudget });
+        this.dailyBudget();
+      });
+
     // if there is a campaignId param get the campaign data from server
     setTimeout(() => {
       if (this.state.campaignId) {
@@ -184,6 +199,8 @@ class CreateCampaign extends Component {
     this.getTimeframesSubscription.unsubscribe();
     this.campaignStoreError.unsubscribe();
     this.changeAccountSubscription.unsubscribe();
+    this.calculateSmsSubscription.unsubscribe();
+    this.calculateBudgetSubscription.unsubscribe();
   }
 
   render() {
@@ -330,15 +347,33 @@ class CreateCampaign extends Component {
             <Col className="p-0 mt-3 mb-3 bg-dark" md={{size: 12}}>
               <p className="title-create">{ t('CREATE_CAMPAIGN.budgetAndProgramming') }</p>
             </Col>
-            <AvGroup>
-              <AvInput type="number" step=".01" name="budget" id="budget" placeholder={ t('CREATE_CAMPAIGN.budget') } value={this.state.budget} onChange={(evt) => this.setState({budget: evt.target.value})} validate={createCampaignAvForm.budget}/>
-              <AvFeedback>{ t('CREATE_CAMPAIGN.invalidName') }</AvFeedback>
-            </AvGroup>
+            <Row>
+              <Col md={{size: 6}}>
+                <AvGroup>
+                  <Label for="budget">
+                    { t('CREATE_CAMPAIGN.budget') }
+                  </Label>
+                  <AvInput type="number" name="budget" id="budget" placeholder={ t('CREATE_CAMPAIGN.budget') } value={this.state.budget} onChange={(evt) => this.onBudgetChange(evt.target.value)} validate={createCampaignAvForm.budget}/>
+                  <AvFeedback>
+                    { t('CREATE_CAMPAIGN.invalidBudget') }
+                  </AvFeedback>
+                </AvGroup>
+              </Col>
+              <Col md={{size: 6}}>
+                <AvGroup>
+                  <Label for="smsQuantity">
+                    { t('CREATE_CAMPAIGN.smsQuantity') }
+                  </Label>
+                  <AvInput type="number" name="smsQuantity" id="smsQuantity" placeholder={ t('CREATE_CAMPAIGN.smsQuantity') } value={this.state.smsQuantity} onChange={(evt) => this.onSmsQuantityChange(evt.target.value)} validate={createCampaignAvForm.smsQuantity}/>
+                  <AvFeedback>{ t('CREATE_CAMPAIGN.invalidSmsQuantity') }</AvFeedback>
+                </AvGroup>
+              </Col>
+            </Row>
             <Row>
               <Col md={{size: 6}}>
                 <AvGroup className="mr-sm-3 mb-sm-0" inline>
                   <Label for="startDate">{ t('CREATE_CAMPAIGN.startDate') }</Label>
-                  <AvInput value={this.state.startDate} onChange={(evt) => this.setState({startDate: evt.target.value})} type="date" name="startDate" id="startDate" placeholder={ t('CREATE_CAMPAIGN.startDate') } validate={createCampaignAvForm.startDate}/>
+                  <AvInput value={this.state.startDate} onChange={(evt) => this.onStartDateChange(evt.target.value)} type="date" name="startDate" id="startDate" placeholder={ t('CREATE_CAMPAIGN.startDate') } validate={createCampaignAvForm.startDate}/>
                   <AvFeedback>
                     { t('CREATE_CAMPAIGN.invalidStartDate') }
                   </AvFeedback>
@@ -347,7 +382,7 @@ class CreateCampaign extends Component {
               <Col md={{size: 6}}>
                 <AvGroup className="mr-sm-3 mb-sm-0" inline>
                   <Label for="endDate">{ t('CREATE_CAMPAIGN.endDate') }</Label>
-                  <AvInput value={this.state.endDate} onChange={(evt) => this.setState({endDate: evt.target.value})} type="date" name="endDate" id="endDate" placeholder={ t('CREATE_CAMPAIGN.endDate') } validate={createCampaignAvForm.endDate}/>
+                  <AvInput value={this.state.endDate} onChange={(evt) => this.onEndDateChange(evt.target.value)} type="date" name="endDate" id="endDate" placeholder={ t('CREATE_CAMPAIGN.endDate') } validate={createCampaignAvForm.endDate}/>
                   <AvFeedback>
                     { t('CREATE_CAMPAIGN.invalidEndDate') }
                   </AvFeedback>
@@ -420,6 +455,12 @@ class CreateCampaign extends Component {
               { t('CREATE_CAMPAIGN.budget') } {': '} <span className="subtitle-create-show">{this.state.budget}</span>
             </p>
             <p className="title-create-show">
+              { t('CREATE_CAMPAIGN.totalBudget') } {': '} <span className="subtitle-create-show">{this.state.totalBudget}</span>
+            </p>
+            <p className="title-create-show">
+              { t('CREATE_CAMPAIGN.smsQuantity') } {': '} <span className="subtitle-create-show">{this.state.smsQuantity}</span>
+            </p>
+            <p className="title-create-show">
               { t('CREATE_CAMPAIGN.startDate') } {': '} <span className="subtitle-create-show">{this.state.startDate}</span>
             </p>
             <p className="title-create-show">
@@ -472,6 +513,94 @@ class CreateCampaign extends Component {
     </AvForm>
   </Container>
 </div>)}</I18n>);
+  }
+
+  onBudgetChange = debounce(budget => {
+    this.setState({ budget });
+    this.totalBudget();
+  }, 400);
+
+  onStartDateChange = debounce(startDate => {
+    this.setState({ startDate });
+    if (this.state.budget) {
+      return this.totalBudget();
+    }
+
+    this.calculateBudget();
+  }, 400);
+
+  onEndDateChange = debounce(endDate => {
+    this.setState({ endDate });
+    if (this.state.budget) {
+      return this.totalBudget();
+    }
+
+    this.calculateBudget();
+  }, 400);
+
+  onSmsQuantityChange = debounce(smsQuantity => {
+    this.setState({ smsQuantity });
+    this.calculateBudget();
+  }, 400);
+
+  /**
+   * Sets the totalBudget to the state (budget * campaignDays)
+   * then it calls the calculateSms method
+   */
+  totalBudget = () => {
+    if (!moment(this.state.startDate).isValid() || !moment(this.state.endDate).isValid() ||
+      !this.state.budget) {
+      return this.setState({ totalBudget: '' });
+    }
+
+    const date1 = moment(this.state.startDate);
+    const date2 = moment(this.state.endDate);
+    const campaignDays = date2.diff(date1, 'days') + 1;
+
+    if (campaignDays <= 0) {
+      return this.setState({ totalBudget: '' });
+    }
+
+    const totalBudget = campaignDays * this.state.budget;
+
+    this.setState({ totalBudget });
+
+    this.calculateSms();
+  }
+
+  /**
+   * Sets the dailyBudget to the state (totalBudget / campaignDays)
+   *
+   */
+  dailyBudget = () => {
+    if (!moment(this.state.startDate).isValid() || !moment(this.state.endDate).isValid() ||
+      !this.state.totalBudget) {
+      return this.setState({ budget: '' });
+    }
+
+    const date1 = moment(this.state.startDate);
+    const date2 = moment(this.state.endDate);
+    const campaignDays = date2.diff(date1, 'days') + 1;
+
+    if (campaignDays <= 0) {
+      return this.setState({ budget: '' });
+    }
+
+    const budget = this.state.totalBudget / campaignDays;
+
+    this.setState({ budget });
+  }
+
+  calculateSms = () => {
+    if (!this.state.totalBudget) return;
+
+    CreateCampaignActions.calculateSms(this.state.totalBudget);
+  }
+
+  calculateBudget = () => {
+    if (!this.state.smsQuantity) return;
+
+    CreateCampaignActions.calculateBudget(this.state.smsQuantity);
   }
 
   /**
@@ -674,6 +803,20 @@ class CreateCampaign extends Component {
       loadingI18n,
       loading: isLoading
     });
+  }
+}
+
+
+/*
+to set input onChange delay
+ */
+function debounce(a, b, c) {
+  var d, e;
+  return function() {
+    function h() { d = null, c || (e = a.apply(f, g)) }
+    var f = this,
+      g = arguments;
+    return clearTimeout(d), d = setTimeout(h, b), c && !d && (e = a.apply(f, g)), e
   }
 }
 
