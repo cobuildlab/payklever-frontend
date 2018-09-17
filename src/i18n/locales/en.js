@@ -1,10 +1,11 @@
 export default {
   APP: {
     youHaveLoggedOut: 'You have logged out',
-    invalidForm: 'Formulario inválido',
+    invalidForm: 'Invalid form',
     optionalMsg: 'Optional message',
     accept: 'Accept',
     cancel: 'Cancel',
+    cardMask: '************{{cardNumber}}',
   },
   CAMPAIGN_ADMIN_STATUS: {
     ap: 'Approved',

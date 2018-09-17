@@ -171,7 +171,7 @@ class EditAccount extends Component {
                   { t('CREATE_ACCOUNT.selectPaymentMethod') }
                 </option>}
                 {this.state.paymentMethods.map((paymentMethod) =>
-                  <option key={paymentMethod.id} value={paymentMethod.id}>{paymentMethod.cardNumber}</option>
+                  <option key={paymentMethod.id} value={paymentMethod.id}>{t('APP.cardMask', { cardNumber: paymentMethod.cardNumber })}</option>
                 )}
               </AvInput>
               <AvFeedback>

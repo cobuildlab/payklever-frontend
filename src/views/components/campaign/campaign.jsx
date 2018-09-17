@@ -177,7 +177,7 @@ class Campaign extends Component {
       <Col className=" mt-3 mb-3" md={{size: 6}}>
         <p className="mb-0 title-detail">{ t('CAMPAIGN_DETAILS.accountPayment')}{': '}
           {(this.props.campaign.Account && this.props.campaign.Account.Pay_medium) ? <span className="sub-details">
-              {this.props.campaign.Account.Pay_medium.cardNumber}
+            {t('APP.cardMask', { cardNumber: this.props.campaign.Account.Pay_medium.cardNumber })}
             </span>
           : null}
         </p>
