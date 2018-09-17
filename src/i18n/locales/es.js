@@ -5,6 +5,7 @@ export default {
     optionalMsg: 'Mensaje opcional',
     accept: 'Aceptar',
     cancel: 'Cancelar',
+    cardMask: '************{{cardNumber}}',
   },
   CAMPAIGN_ADMIN_STATUS: {
     ap: 'Aprobada',

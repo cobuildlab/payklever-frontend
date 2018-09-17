@@ -87,6 +87,7 @@ class CreateCampaign extends Component {
         });
 
         this.isLoading(false);
+        this.totalBudget();
         this.canRequestApproval(campaign);
       });
 
@@ -246,7 +247,7 @@ class CreateCampaign extends Component {
               <Input disabled type="text" name="accountName" placeholder={t('CREATE_CAMPAIGN.accountName')} value={this.state.account.name || '' }/>
             </FormGroup>
             <FormGroup>
-              <Input invalid={!this.state.account.Pay_medium} disabled type="text" name="accountPayment" placeholder={t('CREATE_CAMPAIGN.paymentRequired')} value={(this.state.account.Pay_medium || {}).cardNumber || '' }/>
+              <Input invalid={!this.state.account.Pay_medium} disabled type="text" name="accountPayment" placeholder={t('CREATE_CAMPAIGN.paymentRequired')} value={(this.state.account.Pay_medium) ? t('APP.cardMask', { cardNumber: this.state.account.Pay_medium.cardNumber }) : '' }/>
               {(!this.state.account.Pay_medium) ?
                <FormText color="danger">
                   {t('CREATE_CAMPAIGN.mustHavePayment')}
