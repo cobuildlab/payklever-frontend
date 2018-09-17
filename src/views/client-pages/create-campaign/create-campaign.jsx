@@ -87,6 +87,7 @@ class CreateCampaign extends Component {
         });
 
         this.isLoading(false);
+        this.totalBudget();
         this.canRequestApproval(campaign);
       });
 
