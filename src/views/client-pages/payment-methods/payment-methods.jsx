@@ -85,7 +85,9 @@ class PaymentMethods extends Component {
                   </p>
                 </td>
                 <td>
-                  <p>{paymentMethod.cardNumber}</p>
+                  <p>
+                    {t('APP.cardMask', { cardNumber: paymentMethod.cardNumber })}
+                  </p>
                 </td>
                 <td className="text-right">
                   <Button onClick={() => this.deletePayment(false, paymentMethod)} color="danger" size="sm">
